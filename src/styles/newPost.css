@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e4e4e4;
+}
+
+#header {
+    font-size: large;
+    padding: 10px;
+    margin: 0em;
+    background-color: rgb(219, 219, 219);
+}
+
+.header img {
+    float: top;
+}
