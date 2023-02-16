@@ -30,7 +30,7 @@ export default function addNewPost() {
                             </div>
                             <div className="addNewPostFormDescription">
                                 <label htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={4} cols={50} />
+                                <textarea id="description" name="description" rows={20} cols={100} />
                             </div>
                             <div className="addNewPostFormImage">
                                 <label htmlFor="image">Bild</label>

@@ -4,9 +4,9 @@ import L from 'leaflet'
 
 const Map = () => {
     const pins = [ // This is an array of objects with the coordinates of the pins
-    { lat: 51.505, lng: -0.09 },
-    { lat: 51.51, lng: -0.1 },
-    { lat: 51.51, lng: -0.12 },
+        { lat: 51.505, lng: -0.09 },
+        { lat: 51.51, lng: -0.1 },
+        { lat: 51.51, lng: -0.12 },
     ]
 
     const icon = new L.Icon({
