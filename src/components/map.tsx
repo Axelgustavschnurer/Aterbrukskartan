@@ -1,13 +1,12 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 
 const Map = () => {
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 51.505, lng: -0.09, type: "riv" },
         { lat: 51.51, lng: -0.1, type: "bygg" },
-        { lat: 51.51, lng: -0.12, type: "bygg" },
+        { lat: 51.51, lng: -0.12, type: "annat" },
     ]
 
     // const handleIcons = () => {
@@ -32,7 +31,7 @@ const Map = () => {
                             iconPinGreen
                 }>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        A pretty CSS3 popup. <br /> Easily customizable. Type: {pin.type}.
                     </Popup>
                 </Marker>
             )
