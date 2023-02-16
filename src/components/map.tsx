@@ -1,5 +1,6 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 
 const Map = () => {
@@ -38,10 +39,14 @@ const Map = () => {
         }
         )
     }
-    console.log(getAllPins())
+
+    var southWest = L.latLng(50, -20),
+        northEast = L.latLng(72, 60),
+        bounds = L.latLngBounds(southWest, northEast);
+
     return (
         <>
-            <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
+            <MapContainer center={[51.505, -0.09]} zoom={13} maxZoom={13} minZoom={3} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
                 <ZoomControl position="bottomright" />
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
