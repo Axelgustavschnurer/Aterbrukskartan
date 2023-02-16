@@ -1,15 +1,9 @@
 import L from 'leaflet';
 
 const iconPin = new L.Icon({
-    iconUrl: ('public/images/redicon.png'),
-    iconRetinaUrl: ('public/images/redicon.png'),
-    // iconAnchor: null,
-    // popupAnchor: null,
-    // shadowUrl: null,
-    // shadowSize: null,
-    // shadowAnchor: null,
+    iconUrl: ('/images/redicon.png'),
+    iconRetinaUrl: ('/images/redicon.png'),
     iconSize: new L.Point(25, 25),
-    className: 'leaflet-div-icon'
 });
 
 export { iconPin };
