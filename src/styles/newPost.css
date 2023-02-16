@@ -18,3 +18,14 @@ body {
 .header img {
     float: top;
 }
+
+.addNewPost {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    width: auto;
+    margin: 30px;
+    padding-right: 30px;
+    z-index: 2;
+}

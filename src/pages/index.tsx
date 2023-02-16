@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 export default function HomePage() {
   const router = useRouter()
+
   const Map = React.useMemo(() => dynamic(
     () => import('../components/map'),
     {
@@ -28,7 +29,7 @@ export default function HomePage() {
       <Sidebar />
       <div className="addNewPost">
         <button className="addNewPostButton" onClick={goToNewPost}>
-          <img src="https://img.icons8.com/ios/50/000000/plus.png" />
+          <img src="./add.svg" />
         </button>
       </div>
 
