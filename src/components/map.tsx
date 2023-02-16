@@ -1,25 +1,32 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import { iconPin } from './icons'
 
 const Map = () => {
     const pins = [ // This is an array of objects with the coordinates of the pins
-        { lat: 51.505, lng: -0.09 },
-        { lat: 51.51, lng: -0.1 },
-        { lat: 51.51, lng: -0.12 },
+        { lat: 51.505, lng: -0.09, type: "riv" },
+        { lat: 51.51, lng: -0.1, type: "bygg" },
+        { lat: 51.51, lng: -0.12, type: "bygg" },
     ]
 
-    const icon = new L.Icon({
-        iconUrl: 'https://www.galeo.com.mx/wp-content/uploads/2016/06/map-marker-icon.png',
-        iconRetinaUrl: '/marker-icon-2x.png',
-        shadowUrl: '/marker-shadow.png',
-        iconSize: [25, 25],
-    });
+    // const handleIcons = () => {
+    //     return pins.map((pin, i) => {
+    //         switch (pin.type) {
+    //             case "riv":
+    //                 return iconPin
+    //             case "bygg":
+    //                 return iconPin
+    //             default:
+    //                 return iconPin
+    //         }
+    // })}
+
 
     const getAllPins = () => {
         return pins.map((pin, i) => {
             return (
-                <Marker key={i} position={[pin.lat, pin.lng]} icon={icon}>
+                <Marker key={i} position={[pin.lat, pin.lng]} icon={iconPin}>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
