@@ -33,12 +33,16 @@ export default function addNewPost() {
                                 <textarea id="description" name="description" rows={20} cols={100} />
                             </div>
                             <div className="addNewPostFormImage">
-                                <label htmlFor="image">Bild</label>
+                                <label htmlFor="image">Bild (Valfri)</label>
                                 <input type="file" id="image" name="image" />
                             </div>
                             <div className="addNewPostFormLocation">
                                 <label htmlFor="location">* Plats</label>
                                 <input type="text" id="location" name="location" placeholder="Skriv dina koordinater" />
+                            </div>
+                            <div className="addNewPostFormContact">
+                                <label htmlFor="description">* Kontakt</label>
+                                <textarea id="description" name="description" rows={3} cols={100} />
                             </div>
                             <div className="addNewPostFormSubmit">
                                 <button type="submit" onClick={goToMap}>Spara</button>
@@ -47,6 +51,28 @@ export default function addNewPost() {
                     </div>
                 </div>
             </div>
+            <div className="footer" id="footer">
+                <div className="footerContainer">
+                    <div className="footerRow">
+                        <div className="footerHeader">STUNS</div>
+                        <div className="footerLink">
+                            <a href="https://stuns.se/" target="_blank" rel="noreferrer">
+                                STUNS
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* <div className="footerRow">
+                        <div className="footerHeader">Övrigt</div>
+                        <div className="footerLink">
+                            <a href="https://energiportalregionuppsala.se/" target="_blank" rel="noreferrer">
+                                Energiportalen
+                            </a>
+                        </div>
+                    </div> */}
+                </div>
+            </div>
+
         </>
     );
 }
