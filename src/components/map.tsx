@@ -46,7 +46,7 @@ const Map = () => {
 
     return (
         <>
-            <MapContainer center={[51.505, -0.09]} zoom={13} maxZoom={13} minZoom={3} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
+            <MapContainer center={[51.505, -0.09]} zoom={13} maxZoom={13} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
                 <ZoomControl position="bottomright" />
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
