@@ -1,7 +1,7 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { iconPin } from './icons'
+import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 
 const Map = () => {
     const pins = [ // This is an array of objects with the coordinates of the pins
@@ -14,19 +14,23 @@ const Map = () => {
     //     return pins.map((pin, i) => {
     //         switch (pin.type) {
     //             case "riv":
-    //                 return iconPin
+    //                 return iconPinRed
     //             case "bygg":
-    //                 return iconPin
+    //                 return iconPinBlue
     //             default:
-    //                 return iconPin
+    //                 return iconPinGreen
     //         }
-    // })}
-
+    //     })
+    // }
 
     const getAllPins = () => {
         return pins.map((pin, i) => {
             return (
-                <Marker key={i} position={[pin.lat, pin.lng]} icon={iconPin}>
+                <Marker key={i} position={[pin.lat, pin.lng]} icon={
+                    pin.type === "riv" ? iconPinRed :
+                        pin.type === "bygg" ? iconPinBlue :
+                            iconPinGreen
+                }>
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
