@@ -1,6 +1,7 @@
 .sidebar {
+    --height: 60vh;
     width: 20%;
-    height: 50%;
+    height: var(--height);
     background-color: #f1f1f1;
     position: fixed;
     z-index: 2;
@@ -79,4 +80,20 @@
 #rebuildBtn img {
     width: 40px;
     height: 40px;
+}
+
+
+.clearFilter {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#clearBtn {
+    background-color: #fd9800;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
 }

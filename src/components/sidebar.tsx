@@ -25,6 +25,9 @@ export default function sidebar({ setFilter }: any) {
                         <p>Återbygg</p>
                     </div>
                 </div>
+                <div className="clearFilter">
+                    <button id="clearBtn" onClick={() => onButtonClick("none")}>Rensa filter</button>
+                </div>
             </div>
         </>
     );
