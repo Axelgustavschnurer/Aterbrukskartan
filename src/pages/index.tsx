@@ -23,7 +23,7 @@ export default function HomePage() {
       <Map />
       <div className="wrap">
         <div className="search">
-          <input type="text" className="searchTerm" placeholder="What are you looking for?"></input>
+          <input type="text" className="searchTerm" placeholder="Sök efter projekt..."></input>
         </div>
       </div>
       <Sidebar />

@@ -10,3 +10,39 @@
     border-radius: 10px;
     opacity: 90%;
 }
+
+/* Filter buttons */
+.filterBtn {
+    padding: 10px;
+    margin-top: 20%;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#demoBtn {
+    background-color: rgba(255, 0, 0, 0.749);
+    border: black;
+    border-radius: 100%;
+    padding: 10px;
+}
+
+#buildBtn {
+    background-color: rgba(0, 0, 255, 0.666);
+    border: black;
+    border-radius: 100%;
+    padding: 10px;
+}
+
+#rebuildBtn {
+    background-color: green;
+    border: black;
+    border-radius: 100%;
+    padding: 10px;
+}
