@@ -13,7 +13,7 @@ export default function addNewPost() {
             <div className="header" id="header">
                 <img src="/images/stuns_logo.png" alt="logo" />
             </div>
-            <div className="addPostContainer">
+            <form className="addPostContainer" method="post" >
                 <div className="addNewPostContainer">
                     <div className="addNewPostTitle">
                         <h1>Lägg till ett inlägg</h1>
@@ -50,7 +50,7 @@ export default function addNewPost() {
                         </form>
                     </div>
                 </div>
-            </div>
+            </form>
             <div className="footer" id="footer">
                 <div className="footerContainer">
                     <div className="footerRow">
