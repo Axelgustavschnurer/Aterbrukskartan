@@ -4,9 +4,15 @@ import { useRouter } from "next/router";
 export default function addNewPost() {
     const router = useRouter();
 
-    const goToMap = () => {
+    // const goToMap = () => {
+    //     router.push("/");
+    // };
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
         router.push("/");
-    };
+    }
+
 
     return (
         <>
@@ -19,18 +25,18 @@ export default function addNewPost() {
                         <h1>Lägg till ett inlägg</h1>
                     </div>
                     <div className="addNewPostForm">
-                        <form method="post">
+                        <form method="post" onSubmit={handleSubmit}>
                             <div className="addNewPostFormName">
-                                <label htmlFor="title">* Namn</label>
-                                <input type="text" id="title" name="title" />
+                                <label htmlFor="name">* Namn</label>
+                                <input type="text" id="name" name="name" required />
                             </div>
                             <div className="addNewPostFormOrganization">
-                                <label htmlFor="title">* Organisation</label>
-                                <input type="text" id="title" name="title" />
+                                <label htmlFor="organization">* Organisation</label>
+                                <input type="text" id="organization" name="organization" required />
                             </div>
                             <div className="addNewPostFormDescription">
                                 <label htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={20} cols={100} />
+                                <textarea id="description" name="description" rows={20} cols={100} required />
                             </div>
                             <div className="addNewPostFormImage">
                                 <label htmlFor="image">Bild (Valfri)</label>
@@ -38,14 +44,14 @@ export default function addNewPost() {
                             </div>
                             <div className="addNewPostFormLocation">
                                 <label htmlFor="location">* Plats</label>
-                                <input type="text" id="location" name="location" placeholder="Skriv dina koordinater" />
+                                <input type="text" id="location" name="location" placeholder="Skriv dina koordinater" required />
                             </div>
                             <div className="addNewPostFormContact">
-                                <label htmlFor="description">* Kontakt</label>
-                                <textarea id="description" name="description" rows={3} cols={100} />
+                                <label htmlFor="contact">* Kontakt</label>
+                                <textarea id="contact" name="contact" rows={3} cols={100} required />
                             </div>
                             <div className="addNewPostFormSubmit">
-                                <button type="submit" onClick={goToMap}>Spara</button>
+                                <button type="submit">Spara</button>
                             </div>
                         </form>
                     </div>
