@@ -2,13 +2,24 @@ import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leafl
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
+import React, { useState } from 'react'
 
-export default function Map({currentFilter}) {
+export default function Map() {
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 59.858227, lng: 17.632252, type: "rivning" },
         { lat: 59.857227, lng: 17.622252, type: "byggnad" },
         { lat: 59.858227, lng: 17.602252, type: "ombyggnad" },
     ]
+
+    const handlePinFilter = ({ currentFilter }) => {
+        return pins.filter((pin) => {
+            console.log("current Filter", currentFilter)
+            return pin.type !== currentFilter
+
+        })
+    }
+
+    console.log("bla bla bla", handlePinFilter({ currentFilter: "rivning" }))
 
     const getAllPins = () => {
         return pins.map((pin, i) => {
@@ -19,7 +30,7 @@ export default function Map({currentFilter}) {
                             iconPinGreen
                 }>
                     <Popup>
-                        Det här är ett {pin.type}s projekt. <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at faucibus erat. Maecenas vel blandit tellus, sit amet ullamcorper neque. Vestibulum consectetur, enim quis cursus ultricies, neque purus aliquam massa, at vestibulum leo eros fringilla leo. Suspendisse potenti. Duis semper accumsan molestie. Cras pharetra enim sed eros mattis semper. Proin laoreet quam tellus, sed accumsan elit aliquet vitae. Maecenas ante massa, varius mollis ipsum sit amet, vulputate ultricies mauris. Nulla sit amet arcu non tortor ultrices posuere. Duis aliquam, justo ut imperdiet lobortis, odio tellus egestas dui, at fermentum libero leo ut lacus.
+                        Det här är ett {pin.type}s projekt. <br /> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at faucibus erat. Maecenas vel blandit tellus, sit amet ullamcorper neque. Vestibulum consectetur, enim quis cursus ultricies, neque purus aliquam massa, at vestibulum leo eros fringilla leo. Suspendisse potenti. Duis semper accumsan molestie. Cras pharetra enim sed eros mattis semper. Proin laoreet quam tellus, sed accumsan elit aliquet vitae. Maecenas ante massa, varius mollis ipsum sit amet, vulputate ultricies mauris. Nulla sit amet arcu non tortor ultrices posuere. Duis aliquam, justo ut imperdiet lobortis, odio tellus egestas dui, at fermentum libero leo ut lacus.
                     </Popup>
                 </Marker>
             )
@@ -27,9 +38,6 @@ export default function Map({currentFilter}) {
         )
     }
 
-    const handlePinFilter = ({currentFilter}) => {
-        console.log(currentFilter)
-    }
 
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),

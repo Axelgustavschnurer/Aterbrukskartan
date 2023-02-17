@@ -13,15 +13,15 @@ export default function sidebar({ setFilter }) {
             <div className="sidebar">
                 <div className="filterBtn">
                     <div className="alignBtn">
-                        <button id="demoBtn" onClick={() => onButtonClick("red")}><img src="/images/riv.svg"></img></button>
+                        <button id="demoBtn" onClick={() => onButtonClick("rivning")}><img src="/images/riv.svg"></img></button>
                         <p>Riv</p>
                     </div>
                     <div className="alignBtn">
-                        <button id="buildBtn" onClick={() => onButtonClick("blue")}><img src="/images/bygg.svg" ></img></button>
+                        <button id="buildBtn" onClick={() => onButtonClick("byggnad")}><img src="/images/bygg.svg" ></img></button>
                         <p>Bygg</p>
                     </div>
                     <div className="alignBtn">
-                        <button id="rebuildBtn" onClick={() => onButtonClick("green")}><img src="/images/ater.svg"></img></button>
+                        <button id="rebuildBtn" onClick={() => onButtonClick("ombyggnad")}><img src="/images/ater.svg"></img></button>
                         <p>Återbygg</p>
                     </div>
                 </div>
