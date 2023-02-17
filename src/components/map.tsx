@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 
-const Map = () => {
+export default function Map({currentFilter}) {
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 59.858227, lng: 17.632252, type: "rivning" },
         { lat: 59.857227, lng: 17.622252, type: "byggnad" },
@@ -27,6 +27,10 @@ const Map = () => {
         )
     }
 
+    const handlePinFilter = ({currentFilter}) => {
+        console.log(currentFilter)
+    }
+
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),
         bounds = L.latLngBounds(southWest, northEast);
@@ -44,5 +48,3 @@ const Map = () => {
         </>
     )
 }
-
-export default Map
