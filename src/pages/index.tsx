@@ -29,6 +29,9 @@ export default function HomePage() {
       <div className="wrap">
         <div className="search">
           <input type="text" className="searchTerm" placeholder="Sök efter projekt..."></input>
+          <div className='searchIcon'>
+            <img src="/search.svg" alt="searchicon" style={{ width: "30px", height: "30px" }} />
+          </div>
         </div>
       </div>
       

@@ -10,7 +10,6 @@
 body {
   background: #f2f2f2;
   font-family: 'Open Sans', sans-serif;
-  overflow: auto;
 }
 
 
@@ -20,6 +19,13 @@ body {
   position: relative;
   display: flex;
   z-index: 2;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 0;
+  transform: translate(-10%, 15%);
+  opacity: 0.8;
 }
 
 .searchTerm {

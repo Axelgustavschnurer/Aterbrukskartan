@@ -47,7 +47,6 @@ body {
     border-radius: 20px;
     border: 1px solid black;
     box-shadow: 5px 10px 10px 5px #00000015;
-
 }
 
 .addNewPostFormImage {
@@ -133,7 +132,6 @@ textarea {
     align-items: center;
     width: 20%;
     max-height: 180px;
-
 }
 
 .footerHeader {
@@ -145,8 +143,6 @@ textarea {
     font-size: 16px;
     font-weight: 4000;
 }
-
-
 
 .footerLink a {
     color: #e47b1e;
