@@ -5,21 +5,21 @@ import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 
 const Map = () => {
     const pins = [ // This is an array of objects with the coordinates of the pins
-        { lat: 51.505, lng: -0.09, type: "riv" },
-        { lat: 51.51, lng: -0.1, type: "bygg" },
-        { lat: 51.51, lng: -0.12, type: "annat" },
+        { lat: 59.858227, lng: 17.632252, type: "rivning" },
+        { lat: 59.857227, lng: 17.622252, type: "byggnad" },
+        { lat: 59.858227, lng: 17.602252, type: "ombyggnad" },
     ]
 
     const getAllPins = () => {
         return pins.map((pin, i) => {
             return (
                 <Marker key={i} position={[pin.lat, pin.lng]} icon={
-                    pin.type === "riv" ? iconPinRed :
-                        pin.type === "bygg" ? iconPinBlue :
+                    pin.type === "rivning" ? iconPinRed :
+                        pin.type === "byggnad" ? iconPinBlue :
                             iconPinGreen
                 }>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable. Type: {pin.type}.
+                        Det här är ett {pin.type}s projekt. <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at faucibus erat. Maecenas vel blandit tellus, sit amet ullamcorper neque. Vestibulum consectetur, enim quis cursus ultricies, neque purus aliquam massa, at vestibulum leo eros fringilla leo. Suspendisse potenti. Duis semper accumsan molestie. Cras pharetra enim sed eros mattis semper. Proin laoreet quam tellus, sed accumsan elit aliquet vitae. Maecenas ante massa, varius mollis ipsum sit amet, vulputate ultricies mauris. Nulla sit amet arcu non tortor ultrices posuere. Duis aliquam, justo ut imperdiet lobortis, odio tellus egestas dui, at fermentum libero leo ut lacus.
                     </Popup>
                 </Marker>
             )
@@ -33,7 +33,7 @@ const Map = () => {
 
     return (
         <>
-            <MapContainer center={[51.505, -0.09]} zoom={13} maxZoom={13} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
+            <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={13} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
                 <ZoomControl position="bottomright" />
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
