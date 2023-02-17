@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-export default function sidebar({ setFilter }) {
+export default function sidebar({ setFilter }: any) {
 
-    const onButtonClick = (filter) => {
+    const onButtonClick = (filter: any) => {
         setFilter(filter);
         console.log(filter);
     };

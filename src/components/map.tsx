@@ -4,11 +4,12 @@ import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 import React, { useState } from 'react'
 
-export default function Map(currentFilter) {
+export default function Map(currentFilter: any) {
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 59.858227, lng: 17.632252, type: "rivning" },
         { lat: 59.857227, lng: 17.622252, type: "byggnad" },
         { lat: 59.858227, lng: 17.602252, type: "ombyggnad" },
+
     ]
 
     // const handlePinFilter = ({ currentFilter }) => {
@@ -18,13 +19,6 @@ export default function Map(currentFilter) {
 
     //     })
     // }
-    const filterPins = () => {
-        return pins.filter((pin) => {
-            return (
-                pin.type !== currentFilter.currentFilter ? pin.type : null
-            )
-        })
-    }
 
     const getAllPins = () => {
         return pins.map((pin, i) => {
