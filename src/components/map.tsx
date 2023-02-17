@@ -10,19 +10,6 @@ const Map = () => {
         { lat: 51.51, lng: -0.12, type: "annat" },
     ]
 
-    // const handleIcons = () => {
-    //     return pins.map((pin, i) => {
-    //         switch (pin.type) {
-    //             case "riv":
-    //                 return iconPinRed
-    //             case "bygg":
-    //                 return iconPinBlue
-    //             default:
-    //                 return iconPinGreen
-    //         }
-    //     })
-    // }
-
     const getAllPins = () => {
         return pins.map((pin, i) => {
             return (
