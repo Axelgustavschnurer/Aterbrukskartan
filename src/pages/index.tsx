@@ -24,8 +24,8 @@ export default function HomePage() {
 
   return (
     <>
-      <Sidebar setFilter={setFilter}/>
-      <Map currentFilter={currentFilter}/>
+      <Sidebar setFilter={setFilter} />
+      <Map currentFilter={currentFilter} />
       <div className="wrap">
         <div className="search">
           <input type="text" className="searchTerm" placeholder="Sök efter projekt..."></input>
@@ -33,8 +33,9 @@ export default function HomePage() {
             <img src="/search.svg" alt="searchicon" style={{ width: "30px", height: "30px" }} />
           </div>
         </div>
+        {currentFilter === "none" ? null : <p className="filterText">{currentFilter} </p>}
       </div>
-      
+
       <div className="addNewPost">
         <button className="addNewPostButton" onClick={goToNewPost}>
           <img src="./add.svg" />
