@@ -146,6 +146,7 @@
     justify-content: center;
     position: fixed;
     min-height: 60%;
+    left: 0;
     animation: moveHideButton 0.2s;
 
 }
