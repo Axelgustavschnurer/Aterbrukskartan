@@ -11,6 +11,15 @@
     opacity: 90%;
 }
 
+.hiddenSidebar {
+    width: 20%;
+    min-height: 60%;
+    position: fixed;
+    z-index: 2;
+    top: 100px;
+    left: 10px;
+}
+
 .filterBtn {
     margin-top: 10%;
     width: 100%;
@@ -97,4 +106,87 @@
     cursor: pointer;
     font-size: 15px;
 
+}
+
+.sidebarClose {
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 100px;
+    left: 20%;
+    min-height: 60%;
+    animation: moveOpenButton 0.2s;
+}
+
+#hideBtn {
+    background-color: #f1f1f1;
+    opacity: 90%;
+    border: 2px solid #8a8a8a;
+    border-radius: 10px;
+    height: 40px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    z-index: 4;
+}
+
+#hideBtn img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+.sidebarOpen {
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    min-height: 60%;
+    animation: moveHideButton 0.2s;
+
+}
+
+#openBtn {
+    background-color: #f1f1f1;
+    border: 2px solid #8a8a8a;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    z-index: 4;
+}
+
+#openBtn img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+@keyframes moveHideButton {
+    0% {
+        left: 20%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes moveOpenButton {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: 20%;
+    }
 }
