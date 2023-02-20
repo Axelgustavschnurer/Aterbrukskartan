@@ -31,6 +31,7 @@ model Story {
   mapId                   Int     @unique @map("map_id")
   categorySwedish         String? @map("category_swedish")
   categoryEnglish         String? @map("category_english")
+  educationalProgram      String? @map("educational_program")
   descriptionSwedish      String? @map("description_swedish")
   descriptionEnglish      String? @map("description_english")
   descriptionSwedishShort String? @map("description_swedish_short")
