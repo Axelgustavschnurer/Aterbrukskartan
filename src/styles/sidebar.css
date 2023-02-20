@@ -111,9 +111,8 @@
 .sidebarClose {
     z-index: 4;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     position: fixed;
     top: 100px;
     left: 20%;
@@ -129,7 +128,6 @@
     height: 40px;
     padding: 5px;
     cursor: pointer;
-    font-size: 15px;
     z-index: 4;
 }
 
@@ -144,9 +142,8 @@
 .sidebarOpen {
     z-index: 4;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     position: fixed;
     min-height: 60%;
     animation: moveHideButton 0.2s;
@@ -157,9 +154,9 @@
     background-color: #f1f1f1;
     border: 2px solid #8a8a8a;
     border-radius: 10px;
+    height: 40px;
     padding: 5px;
     cursor: pointer;
-    font-size: 15px;
     z-index: 4;
 }
 
