@@ -85,6 +85,13 @@ body {
   background-color: #cccccc;
 }
 
+.filterTextContent {
+  position: fixed;
+  z-index: 2;
+  top: 65px;
+  left: 10px;
+}
+
 .filterTextContainer {
   width: fit-content;
 }
