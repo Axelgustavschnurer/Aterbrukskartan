@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 export default function HomePage() {
   const router = useRouter()
+  const [currentFilter, setFilter] = useState("none")
 
   const Map = React.useMemo(() => dynamic(
     () => import('../components/map'),
@@ -20,7 +21,9 @@ export default function HomePage() {
     router.push('/newPost')
   }
 
-  const [currentFilter, setFilter] = useState("none")
+  const removeCurrentFilter = () => {
+    setFilter("none")
+  }
 
   return (
     <>
@@ -33,7 +36,15 @@ export default function HomePage() {
             <img src="/search.svg" alt="searchicon" style={{ width: "30px", height: "30px" }} />
           </div>
         </div>
-        {currentFilter === "none" ? null : <p className="filterText">{currentFilter} </p>}
+        <div className="filterTextContainer">
+          {
+            currentFilter === "rivning" ? <p className="filterText" style={{ backgroundColor: "#ff0000ee" }} onClick={removeCurrentFilter}>Riv</p> :
+              currentFilter === "byggnad" ? <p className="filterText" style={{ backgroundColor: "#00a2ff" }} onClick={removeCurrentFilter}>Bygg</p> :
+                currentFilter === "ombyggnad" ? <p className="filterText" style={{ backgroundColor: "green" }} onClick={removeCurrentFilter}>Återbygg</p> :
+                  null
+          }
+          {/* {currentFilter === "none" ? null : <p className="filterText" onClick={removeCurrentFilter}>{currentFilter}</p>} */}
+        </div>
       </div>
 
       <div className="addNewPost">

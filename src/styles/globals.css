@@ -84,3 +84,19 @@ body {
 .addNewPostButton:hover {
   background-color: #cccccc;
 }
+
+.filterTextContainer {
+  width: fit-content;
+}
+
+.filterText {
+  font-size: 15px;
+  z-index: 4;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000000;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
