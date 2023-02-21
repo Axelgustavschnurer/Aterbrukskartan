@@ -18,14 +18,6 @@ export default function Map(currentFilter: any) {
 
     ]
 
-    // const handlePinFilter = ({ currentFilter }) => {
-    //     return pins.filter((pin) => {
-    //         console.log("current Filter", currentFilter)
-    //         return pin.type !== currentFilter
-
-    //     })
-    // }
-
     const getAllPins = () => {
         return pins.map((pin, i) => {
             if (currentFilter.currentFilter === "none") {
