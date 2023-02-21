@@ -2,9 +2,15 @@ import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leafl
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function Map(currentFilter: any) {
+    useEffect(() => {
+        fetch('http://localhost:3000/api/getData')
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }, [])
+
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 59.858227, lng: 17.632252, type: "rivning" },
         { lat: 59.857227, lng: 17.622252, type: "byggnad" },
