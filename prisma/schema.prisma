@@ -26,7 +26,7 @@ model MapItem {
   @@map("map_item")
 }
 
-// Allow longer strings for descriptions
+// `@db.NVarChar(4000)` allow longer strings (up to 4000 "standard" unicode characters) than the default 1000 max length
 model Story {
   id                      Int     @id @default(autoincrement())
   mapId                   Int     @unique @map("map_id")
