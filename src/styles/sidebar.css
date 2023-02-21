@@ -114,10 +114,11 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: 100px;
+    top: 39%;
     left: 20%;
-    min-height: 60%;
+    /* min-height: 60%; */
     animation: moveOpenButton 0.2s;
+    background-color: cornsilk;
 }
 
 #hideBtn {
