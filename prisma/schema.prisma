@@ -26,20 +26,21 @@ model MapItem {
   @@map("map_item")
 }
 
+// Allow longer strings for descriptions
 model Story {
   id                      Int     @id @default(autoincrement())
   mapId                   Int     @unique @map("map_id")
   categorySwedish         String? @map("category_swedish")
   categoryEnglish         String? @map("category_english")
   educationalProgram      String? @map("educational_program")
-  descriptionSwedish      String? @map("description_swedish")
-  descriptionEnglish      String? @map("description_english")
+  descriptionSwedish      String? @db.NVarChar(4000) @map("description_swedish")
+  descriptionEnglish      String? @db.NVarChar(4000) @map("description_english")
   descriptionSwedishShort String? @map("description_swedish_short")
   descriptionEnglishShort String? @map("description_english_short")
-  openData                String? @map("open_data")
-  reports                 String?
-  videos                  String?
-  pdfCase                 String? @map("pdf_case")
+  openData                String? @db.NVarChar(4000) @map("open_data")
+  reports                 String? @db.NVarChar(4000)
+  videos                  String? @db.NVarChar(4000)
+  pdfCase                 String? @db.NVarChar(4000) @map("pdf_case")
 
   mapItem MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
