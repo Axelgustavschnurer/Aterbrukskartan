@@ -135,7 +135,7 @@
     cursor: pointer;
 }
 
-.range-slider input[type="range"]::-webkit-range-thumb {
+.range-slider input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
     background-color: #fd9800;
@@ -143,7 +143,6 @@
     width: 1rem;
     border-radius: 50%;
     border: 2px solid #686868;
-    margin-top: -0.5rem;
     cursor: pointer;
 }
 
@@ -155,7 +154,6 @@
     width: 1rem;
     border-radius: 50%;
     border: 2px solid #686868;
-    margin-top: -0.5rem;
     cursor: pointer;
 }
 
