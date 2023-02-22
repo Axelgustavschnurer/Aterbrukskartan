@@ -33,8 +33,8 @@ export default function sidebar({ setFilter }: any) {
             {isOpen && (
                 <div className="sidebar">
                     <div>
-                        <RangeSlider min={0} max={100} value={value} onChange={handleChange} />
-                        <p>Value: {value}</p>
+                        <RangeSlider min={2023} max={{2033}} value={value} onChange={handleChange} />
+                        <p>År: {value}</p>
                 </div>
                     <div className="filterBtn">
                         <div className="alignBtn">
