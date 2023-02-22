@@ -167,7 +167,6 @@
     left: 20%;
     /* min-height: 60%; */
     animation: moveOpenButton 0.2s;
-    background-color: cornsilk;
 }
 
 #hideBtn {
