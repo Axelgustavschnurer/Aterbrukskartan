@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import RangeSlider from './rangeSlider';
 
 export default function sidebar({ setFilter }: any) {
 
@@ -33,8 +32,11 @@ export default function sidebar({ setFilter }: any) {
             {isOpen && (
                 <div className="sidebar">
                     <div className="rSliderContainer">
-                        <p><RangeSlider min={2023} max={2033} value={value} onChange={handleChange} /></p>
-                        <p>År: {value}</p>
+                        <div className="range-slider">
+                            <input type="range" min={2023} max={2033} value={value} onChange={handleChange}
+                            />
+                            <p style={{ margin: "10px" }}>År: {value}</p>
+                        </div>
                     </div>
                     <div className="filterBtn">
                         <div className="alignBtn">
