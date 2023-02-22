@@ -13,15 +13,15 @@ export default function Map(currentFilter: any) {
     }, [])
 
     const pins = [ // This is an array of objects with the coordinates of the pins
-        { lat: 59.858227, lng: 17.632252, type: "rivning", year: 2021, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.857227, lng: 17.622252, type: "byggnad", year: 2022, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.858227, lng: 17.602252, type: "ombyggnad", year: 2022, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.884227, lng: 17.624252, type: "rivning", year: 2021, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.898227, lng: 17.608252, type: "byggnad", year: 2018, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.869999, lng: 17.609952, type: "ombyggnad", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.828227, lng: 17.62252, type: "rivning", year: "ongoing", description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.858227, lng: 17.612252, type: "byggnad", year: 2021, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.866227, lng: 17.673252, type: "ombyggnad", year: 2022, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.858227, lng: 17.632252, type: "rivning", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.857227, lng: 17.622252, type: "byggnad", year: 2024, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.858227, lng: 17.602252, type: "ombyggnad", year: 2024, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.884227, lng: 17.624252, type: "rivning", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.898227, lng: 17.608252, type: "byggnad", year: 2028, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.869999, lng: 17.609952, type: "ombyggnad", year: 2025, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.828227, lng: 17.62252, type: "rivning", year: 2033, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.858227, lng: 17.612252, type: "byggnad", year: 2029, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+        { lat: 59.866227, lng: 17.673252, type: "ombyggnad", year: 2026, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
 
     ]
 
