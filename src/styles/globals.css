@@ -16,7 +16,7 @@ body {
 /* searchbar */
 .search {
   width: 100%;
-  position: relative;
+  top: 10px;
   display: flex;
   z-index: 2;
 }
