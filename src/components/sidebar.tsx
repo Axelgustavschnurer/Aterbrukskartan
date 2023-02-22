@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import RangeSlider from './rangeSlider';
 
 export default function sidebar({ setFilter }: any) {
 
@@ -22,10 +23,19 @@ export default function sidebar({ setFilter }: any) {
         console.log(filter);
     };
 
+    const [value, setValue] = useState(50);
+
+    function handleChange(event: any) {
+        setValue(event.target.value);
+    }
     return (
         <>
             {isOpen && (
                 <div className="sidebar">
+                    <div>
+                        <RangeSlider min={0} max={100} value={value} onChange={handleChange} />
+                        <p>Value: {value}</p>
+                </div>
                     <div className="filterBtn">
                         <div className="alignBtn">
                             <button id="demoBtn" onClick={() => onButtonClick("rivning")}><img src="/images/riv.svg"></img></button>
