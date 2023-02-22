@@ -27,13 +27,16 @@ export default function sidebar({ setFilter }: any) {
     function handleChange(event: any) {
         setValue(event.target.value);
     }
+
+    const currentDate = new Date().getFullYear()  // returns the current year
+
     return (
         <>
             {isOpen && (
                 <div className="sidebar">
                     <div className="rSliderContainer">
                         <div className="range-slider">
-                            <input type="range" min={2023} max={2033} value={value} onChange={handleChange}
+                            <input type="range" min={currentDate} max={currentDate + 10} value={value} onChange={handleChange}
                             />
                             <p style={{ margin: "10px" }}>År: {value}</p>
                         </div>
