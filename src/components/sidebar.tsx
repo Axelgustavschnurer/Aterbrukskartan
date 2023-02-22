@@ -23,7 +23,7 @@ export default function sidebar({ setFilter }: any) {
         console.log(filter);
     };
 
-    const [value, setValue] = useState(50);
+    const [value, setValue] = useState(2028);
 
     function handleChange(event: any) {
         setValue(event.target.value);
