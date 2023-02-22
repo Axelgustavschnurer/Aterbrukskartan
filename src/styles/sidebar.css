@@ -134,6 +134,17 @@
     cursor: pointer;
 }
 
+.range-slider input[type="range"]::-webkit-range-thumb {
+    -webkit-appearance: none;
+    background-color: #fd9800;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    border: 2px solid #686868;
+    margin-top: -0.5rem;
+    cursor: pointer;
+}
+
 .range-slider input[type="range"]::-moz-range-thumb {
     -webkit-appearance: none;
     background-color: #fd9800;
