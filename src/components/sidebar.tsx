@@ -32,10 +32,10 @@ export default function sidebar({ setFilter }: any) {
         <>
             {isOpen && (
                 <div className="sidebar">
-                    <div>
-                        <RangeSlider min={2023} max={2033} value={value} onChange={handleChange} />
+                    <div className="rSliderContainer">
+                        <p><RangeSlider min={2023} max={2033} value={value} onChange={handleChange} /></p>
                         <p>År: {value}</p>
-                </div>
+                    </div>
                     <div className="filterBtn">
                         <div className="alignBtn">
                             <button id="demoBtn" onClick={() => onButtonClick("rivning")}><img src="/images/riv.svg"></img></button>
