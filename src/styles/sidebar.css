@@ -123,6 +123,7 @@
 }
 
 .range-slider input[type="range"] {
+    appearance: none;
     -webkit-appearance: none;
     background-color: #fd9800;
     height: 0.5rem;
@@ -135,6 +136,7 @@
 }
 
 .range-slider input[type="range"]::-webkit-range-thumb {
+    appearance: none;
     -webkit-appearance: none;
     background-color: #fd9800;
     height: 1rem;
@@ -146,6 +148,7 @@
 }
 
 .range-slider input[type="range"]::-moz-range-thumb {
+    appearance: none;
     -webkit-appearance: none;
     background-color: #fd9800;
     height: 1rem;
