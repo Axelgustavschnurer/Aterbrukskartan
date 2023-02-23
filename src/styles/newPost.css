@@ -104,20 +104,13 @@ textarea {
     resize: none;
 }
 
-.typeOfProject>.test {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
-
-.lists {
+.addNewPostFormLists {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     padding: 5px;
+    margin-top: 10px;
 }
 
 .optionList {
@@ -128,7 +121,17 @@ textarea {
     padding: 5px;
 }
 
+.test {
+    padding: 5px;
+}
 
+.inputField {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #8a8a8a;
+    background-color: #ebebeb;
+}
 
 .footer {
     left: 0;

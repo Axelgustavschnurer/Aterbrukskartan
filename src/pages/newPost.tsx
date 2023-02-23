@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 export default function addNewPost() {
     const router = useRouter();
@@ -49,15 +50,11 @@ export default function addNewPost() {
                                     <label htmlFor="riv">Ombyggnation</label>
                                 </div>
                             </div>
-                            <div className="addNewPostFormDescription">
-                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
-                            </div>
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">* Plats</label>
                                 <Map />
                             </div>
-                            <div className="lists">
+                            <div className="addNewPostFormLists">
                                 <div>
                                     <label className="newPostTitle" htmlFor="lists">Sökes</label>
                                     <div className="optionList">
@@ -74,8 +71,9 @@ export default function addNewPost() {
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="ovrigt" name="ovrigt" value="ovrigt" />
+                                            <input type="checkbox" id="ovrigtSokes" name="ovrigtSokes" value="ovrigtSokes" />
                                             <label htmlFor="material">Övrigt</label>
+
                                         </div>
                                     </div>
                                 </div>
@@ -95,11 +93,15 @@ export default function addNewPost() {
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="ovrigt" name="ovrigt" value="ovrigt" />
+                                            <input type="checkbox" id="ovrigtSankes" name="ovrigtSankes" value="ovrigtSankes" />
                                             <label htmlFor="material">Övrigt</label>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="addNewPostFormDescription">
+                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
+                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
                             </div>
                             <div className="addNewPostFormContact">
                                 <label className="newPostTitle" htmlFor="contact">* Kontakt</label>
