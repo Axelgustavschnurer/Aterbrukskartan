@@ -55,8 +55,8 @@ export default function sidebar({ setFilter }: any) {
                             <p>Återbygg</p>
                         </div>
                     </div>
-                    <div className="checkbox">
-                        <div>   
+                    {/* <div className="checkbox">
+                        <div>
                             <h2>Titel</h2>
                             <div className="checkboxContainer">
                                 <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
@@ -70,8 +70,43 @@ export default function sidebar({ setFilter }: any) {
                                 <input type="checkbox" id="partCategory3" name="smaSaker" value="smaSaker"></input>
                                 <label htmlFor="smaSaker"> Småsaker</label>
                             </div>
-                        </div>                     
-                    </div>
+
+                        </div>
+                    </div> */}
+
+                    <form className="form">
+                        <h3>Sökes</h3>
+                        <div className="inputGroup">
+                            <input id="stomme" name="stomme" type="checkbox" />
+                            <label htmlFor="stomme">Stomme</label>
+                        </div>
+
+                        <div className="inputGroup">
+                            <input id="inredning" name="inredning" type="checkbox" />
+                            <label htmlFor="inredning">Inredning</label>
+                        </div>
+
+                        <div className="inputGroup">
+                            <input id="smaSaker" name="smaSaker" type="checkbox" />
+                            <label htmlFor="smaSaker">Småsaker</label>
+                        </div>
+
+                        <h3>Skänkes</h3>
+                        <div className="inputGroup">
+                            <input id="stomme" name="stomme" type="checkbox" />
+                            <label htmlFor="stomme">Stomme</label>
+                        </div>
+
+                        <div className="inputGroup">
+                            <input id="inredning" name="inredning" type="checkbox" />
+                            <label htmlFor="inredning">Inredning</label>
+                        </div>
+
+                        <div className="inputGroup">
+                            <input id="smaSaker" name="smaSaker" type="checkbox" />
+                            <label htmlFor="smaSaker">Småsaker</label>
+                        </div>
+                    </form>
                     <div className="clearFilter">
                         <button id="clearBtn" onClick={() => onButtonClick("none")}>Rensa filter</button>
                     </div>

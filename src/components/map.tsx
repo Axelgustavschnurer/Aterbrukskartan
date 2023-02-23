@@ -6,11 +6,11 @@ import React, { useState, useEffect } from 'react'
 import { popupContent, popupHead, popupText, okText } from "./popupStyles";
 
 export default function Map(currentFilter: any) {
-    useEffect(() => {
-        fetch('http://localhost:3000/api/getData')
-            .then(res => res.json())
-            .then(data => console.log(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('http://localhost:3000/api/getData')
+    //         .then(res => res.json())
+    //         .then(data => console.log(data))
+    // }, [])
 
 
     const pins = [ // This is an array of objects with the coordinates of the pins
