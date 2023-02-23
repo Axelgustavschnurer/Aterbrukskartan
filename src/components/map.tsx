@@ -12,6 +12,7 @@ export default function Map(currentFilter: any) {
             .then(data => console.log(data))
     }, [])
 
+
     const pins = [ // This is an array of objects with the coordinates of the pins
         { lat: 59.858227, lng: 17.632252, type: "rivning", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
         { lat: 59.857227, lng: 17.622252, type: "byggnad", year: 2024, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
@@ -24,6 +25,7 @@ export default function Map(currentFilter: any) {
         { lat: 59.866227, lng: 17.673252, type: "ombyggnad", year: 2026, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
 
     ]
+
 
     const popup = (pin: any) => {
         return (

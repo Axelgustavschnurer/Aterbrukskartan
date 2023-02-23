@@ -1,18 +1,22 @@
 import React from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 export default function addNewPost() {
     const router = useRouter();
-
-    // const goToMap = () => {
-    //     router.push("/");
-    // };
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
         router.push("/");
     }
 
+    const Map = React.useMemo(() => dynamic(
+        () => import('../components/newPostMap'),
+        {
+            loading: () => <p>A map is loading</p>,
+            ssr: false
+        }
+    ), [/* list variables which should trigger a re-render here */])
 
     return (
         <>
@@ -26,28 +30,35 @@ export default function addNewPost() {
                     </div>
                     <div className="addNewPostForm">
                         <form method="post" onSubmit={handleSubmit}>
-                            <div className="addNewPostFormName">
-                                <label htmlFor="name">* Namn</label>
-                                <input type="text" id="name" name="name" required />
-                            </div>
                             <div className="addNewPostFormOrganization">
-                                <label htmlFor="organization">* Organisation</label>
+                                <label className="newPostTitle" htmlFor="organization">* Organisation</label>
                                 <input type="text" id="organization" name="organization" required />
                             </div>
-                            <div className="addNewPostFormDescription">
-                                <label htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
-                            </div>
-                            <div className="addNewPostFormImage">
-                                <label htmlFor="image">Bild (Valfri)</label>
-                                <input type="file" id="image" name="image" />
+                            <div className="typeOfProject">
+                                <label className="newPostTitle" htmlFor="type">Typ av projekt</label>
+                                <div className="test">
+                                    <input type="checkbox" id="riv" name="riv" value="riv" />
+                                    <label htmlFor="riv">Rivning </label>
+                                </div>
+                                <div className="test">
+                                    <input type="checkbox" id="bygg" name="bygg" value="bygg" />
+                                    <label htmlFor="riv">Byggnation </label>
+                                </div>
+                                <div className="test">
+                                    <input type="checkbox" id="ombygge" name="ombygge" value="ombygge" />
+                                    <label htmlFor="riv">Ombyggnation</label>
+                                </div>
                             </div>
                             <div className="addNewPostFormLocation">
-                                <label htmlFor="location">* Plats</label>
-                                <input type="text" id="location" name="location" placeholder="Skriv dina koordinater" required />
+                                <label className="newPostTitle" htmlFor="location">* Plats</label>
+                                <Map />
+                            </div>
+                            <div className="addNewPostFormDescription">
+                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
+                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
                             </div>
                             <div className="addNewPostFormContact">
-                                <label htmlFor="contact">* Kontakt</label>
+                                <label className="newPostTitle" htmlFor="contact">* Kontakt</label>
                                 <textarea id="contact" name="contact" rows={3} cols={100} required />
                             </div>
                             <div className="addNewPostFormSubmit">
