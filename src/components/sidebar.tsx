@@ -58,15 +58,15 @@ export default function sidebar({ setFilter }: any) {
                     <div className="checkbox">
                         <div className="checkboxContainer">
                             <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
-                            <label for="stomme"> Stomme</label>
+                            <label htmlFor="stomme"> Stomme</label>
                         </div>
                         <div className="checkboxContainer">
                             <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
-                            <label for="inredning"> Inredning</label>
+                            <label htmlFor="inredning"> Inredning</label>
                         </div>
                         <div className="checkboxContainer">
                             <input type="checkbox" id="partCategory3" name="Losgrejer" value="Losgrejer"></input>
-                            <label for="Losgrejer"> Tredje punkten</label>
+                            <label htmlFor="Losgrejer"> Tredje punkten</label>
                         </div>            
                     </div>
                     <div className="clearFilter">
