@@ -77,34 +77,34 @@ export default function sidebar({ setFilter }: any) {
                     <form className="form">
                         <h3>Sökes</h3>
                         <div className="inputGroup">
-                            <input id="stomme" name="stomme" type="checkbox" />
-                            <label htmlFor="stomme">Stomme</label>
+                            <input id="stommeSokes" name="stommeSokes" type="checkbox" />
+                            <label htmlFor="stommeSokes">Stomme</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="inredning" name="inredning" type="checkbox" />
-                            <label htmlFor="inredning">Inredning</label>
+                            <input id="inredningSokes" name="inredningSokes" type="checkbox" />
+                            <label htmlFor="inredningSokes">Inredning</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="smaSaker" name="smaSaker" type="checkbox" />
-                            <label htmlFor="smaSaker">Småsaker</label>
+                            <input id="smasakerSokes" name="smasakerSokes" type="checkbox" />
+                            <label htmlFor="smasakerSokes">Småsaker</label>
                         </div>
 
                         <h3>Skänkes</h3>
                         <div className="inputGroup">
-                            <input id="stomme" name="stomme" type="checkbox" />
-                            <label htmlFor="stomme">Stomme</label>
+                            <input id="stommeSankes" name="stommeSankes" type="checkbox" />
+                            <label htmlFor="stommeSankes">Stomme</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="inredning" name="inredning" type="checkbox" />
-                            <label htmlFor="inredning">Inredning</label>
+                            <input id="inredningSankes" name="inredningSankes" type="checkbox" />
+                            <label htmlFor="inredningSankes">Inredning</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="smaSaker" name="smaSaker" type="checkbox" />
-                            <label htmlFor="smaSaker">Småsaker</label>
+                            <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
+                            <label htmlFor="smasakerSankes">Småsaker</label>
                         </div>
                     </form>
                     <div className="clearFilter">
