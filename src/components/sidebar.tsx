@@ -56,18 +56,21 @@ export default function sidebar({ setFilter }: any) {
                         </div>
                     </div>
                     <div className="checkbox">
-                        <div className="checkboxContainer">
-                            <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
-                            <label htmlFor="stomme"> Stomme</label>
-                        </div>
-                        <div className="checkboxContainer">
-                            <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
-                            <label htmlFor="inredning"> Inredning</label>
-                        </div>
-                        <div className="checkboxContainer">
-                            <input type="checkbox" id="partCategory3" name="Losgrejer" value="Losgrejer"></input>
-                            <label htmlFor="Losgrejer"> Tredje punkten</label>
-                        </div>            
+                        <div>   
+                            <h2>Titel</h2>
+                            <div className="checkboxContainer">
+                                <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
+                                <label htmlFor="stomme"> Stomme</label>
+                            </div>
+                            <div className="checkboxContainer">
+                                <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
+                                <label htmlFor="inredning"> Inredning</label>
+                            </div>
+                            <div className="checkboxContainer">
+                                <input type="checkbox" id="partCategory3" name="smaSaker" value="smaSaker"></input>
+                                <label htmlFor="smaSaker"> Småsaker</label>
+                            </div>
+                        </div>                     
                     </div>
                     <div className="clearFilter">
                         <button id="clearBtn" onClick={() => onButtonClick("none")}>Rensa filter</button>

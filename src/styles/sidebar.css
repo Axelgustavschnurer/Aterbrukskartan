@@ -93,17 +93,17 @@
 .checkbox {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
     margin-top: 10%;
 }
 
 .checboxContainer {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-top: 10%;
 }
 
