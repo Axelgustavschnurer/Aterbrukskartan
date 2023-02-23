@@ -49,13 +49,57 @@ export default function addNewPost() {
                                     <label htmlFor="riv">Ombyggnation</label>
                                 </div>
                             </div>
+                            <div className="addNewPostFormDescription">
+                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
+                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
+                            </div>
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">* Plats</label>
                                 <Map />
                             </div>
-                            <div className="addNewPostFormDescription">
-                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
+                            <div className="lists">
+                                <div>
+                                    <label className="newPostTitle" htmlFor="lists">Sökes</label>
+                                    <div className="optionList">
+                                        <div className="test">
+                                            <input type="checkbox" id="stomme" name="stomme" value="stomme" />
+                                            <label htmlFor="material">Stomme</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="inredning" name="inredning" value="inredning" />
+                                            <label htmlFor="material">Inredning</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="smasaker" name="smasaker" value="smasaker" />
+                                            <label htmlFor="material">Småsaker</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="ovrigt" name="ovrigt" value="ovrigt" />
+                                            <label htmlFor="material">Övrigt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="newPostTitle" htmlFor="lists">Skänkes</label>
+                                    <div className="optionList">
+                                        <div className="test">
+                                            <input type="checkbox" id="stomme" name="stomme" value="stomme" />
+                                            <label htmlFor="material">Stomme</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="inredning" name="inredning" value="inredning" />
+                                            <label htmlFor="material">Inredning</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="smasaker" name="smasaker" value="smasaker" />
+                                            <label htmlFor="material">Småsaker</label>
+                                        </div>
+                                        <div className="test">
+                                            <input type="checkbox" id="ovrigt" name="ovrigt" value="ovrigt" />
+                                            <label htmlFor="material">Övrigt</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className="addNewPostFormContact">
                                 <label className="newPostTitle" htmlFor="contact">* Kontakt</label>
