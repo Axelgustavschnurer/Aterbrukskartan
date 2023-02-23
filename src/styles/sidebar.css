@@ -134,7 +134,7 @@
     height: 10px;
     border-radius: 50%;
     content: '';
-    background-color: #fd9800;
+    /* background-color: #fd9800; */
     position: absolute;
     left: 50%;
     top: 50%;
