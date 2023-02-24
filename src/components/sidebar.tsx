@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function sidebar({ setFilter }: any) {
+export default function Sidebar({ setFilter }: any) {
 
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {

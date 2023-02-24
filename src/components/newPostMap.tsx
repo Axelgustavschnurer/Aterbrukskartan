@@ -5,7 +5,7 @@ import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { popupContent, popupHead, popupText, okText } from "./popupStyles";
 
-export default function Map(currentFilter: any) {
+export default function NewPostMap(currentFilter: any) {
     // default position of the marker
     const defaultPos = { lat: 59.85599174491208, lng: 17.640352062197294 }
 

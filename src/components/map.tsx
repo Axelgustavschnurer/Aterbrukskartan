@@ -1,9 +1,9 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
+import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect } from 'react'
-import { popupContent, popupHead, popupText, okText } from "./popupStyles";
+import { PopupContent, PopupHead, PopupText, OkText } from "./popupStyles";
 
 export default function Map(currentFilter: any) {
     // useEffect(() => {
@@ -30,20 +30,20 @@ export default function Map(currentFilter: any) {
     const popup = (pin: any) => {
         return (
             <Popup className='request-popup'>
-                <div style={popupContent}>
-                    <div style={popupHead}>
+                <div style={PopupContent}>
+                    <div style={PopupHead}>
                         Det här är ett {pin.type}s projekt. <br />
                     </div>
-                    <span style={popupText}>
+                    <span style={PopupText}>
                         {pin.year === "ongoing" ? "Projektet pågår fortfarande." : pin.year} <br />
                     </span>
-                    <span style={popupText}>
+                    <span style={PopupText}>
                         {pin.description} <br />
                     </span>
-                    <span style={popupText}>
+                    <span style={PopupText}>
                         {pin.contact}
                     </span>
-                    <div style={popupText}>
+                    <div style={PopupText}>
                         <a href={pin.link}>{pin.link}</a>
                     </div>
                 </div>
@@ -56,9 +56,9 @@ export default function Map(currentFilter: any) {
             if (currentFilter.currentFilter === "none") {
                 return (
                     <Marker key={i} position={[pin.lat, pin.lng]} icon={
-                        pin.type === "rivning" ? iconPinRed :
-                            pin.type === "byggnad" ? iconPinBlue :
-                                iconPinGreen
+                        pin.type === "rivning" ? IconPinRed :
+                            pin.type === "byggnad" ? IconPinBlue :
+                                IconPinGreen
                     }>
 
                         {popup(pin)}
@@ -67,9 +67,9 @@ export default function Map(currentFilter: any) {
             } else if (pin.type === currentFilter.currentFilter) {
                 return (
                     <Marker key={i} position={[pin.lat, pin.lng]} icon={
-                        pin.type === "rivning" ? iconPinRed :
-                            pin.type === "byggnad" ? iconPinBlue :
-                                iconPinGreen
+                        pin.type === "rivning" ? IconPinRed :
+                            pin.type === "byggnad" ? IconPinBlue :
+                                IconPinGreen
                     }>
 
                         {popup(pin)}

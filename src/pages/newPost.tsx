@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-export default function addNewPost() {
+export default function AddNewPost() {
     const router = useRouter();
 
     const handleSubmit = (e: any) => {
@@ -11,7 +11,7 @@ export default function addNewPost() {
         router.push("/");
     }
 
-    const Map = React.useMemo(() => dynamic(
+    const NewPostMap = React.useMemo(() => dynamic(
         () => import('../components/newPostMap'),
         {
             loading: () => <p>A map is loading</p>,
@@ -52,7 +52,7 @@ export default function addNewPost() {
                             </div>
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">* Plats</label>
-                                <Map />
+                                <NewPostMap />
                             </div>
                             <div className="addNewPostFormLists">
                                 <div>
