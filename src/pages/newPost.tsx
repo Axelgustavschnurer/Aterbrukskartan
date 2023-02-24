@@ -38,16 +38,16 @@ export default function addNewPost() {
                             <div className="typeOfProject">
                                 <label className="newPostTitle" htmlFor="type">Typ av projekt</label>
                                 <div className="test">
-                                    <input type="checkbox" id="riv" name="riv" value="riv" />
+                                    <input type="radio" id="riv" name="category" value="riv" />
                                     <label htmlFor="riv">Rivning </label>
                                 </div>
                                 <div className="test">
-                                    <input type="checkbox" id="bygg" name="bygg" value="bygg" />
-                                    <label htmlFor="riv">Byggnation </label>
+                                    <input type="radio" id="bygg" name="category" value="bygg" />
+                                    <label htmlFor="bygg">Byggnation </label>
                                 </div>
                                 <div className="test">
-                                    <input type="checkbox" id="ombygge" name="ombygge" value="ombygge" />
-                                    <label htmlFor="riv">Ombyggnation</label>
+                                    <input type="radio" id="ombygge" name="category" value="ombygge" />
+                                    <label htmlFor="ombygge">Ombyggnation</label>
                                 </div>
                             </div>
                             <div className="addNewPostFormLocation">
