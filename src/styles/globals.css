@@ -12,18 +12,18 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  width: 20.5vw;
+  position: absolute;
+  top: 5%;
+  transform: translate(5px, -50%);
+}
 
 /* searchbar */
 .search {
   width: 100%;
   z-index: 2;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 0;
-  transform: translate(-10%, -100%);
-  opacity: 0.8;
 }
 
 .searchTerm {
@@ -36,16 +36,39 @@ body {
   color: #949494;
 }
 
+.searchIcon {
+  position: absolute;
+  right: 0;
+  transform: translate(-10%, -100%);
+  opacity: 0.8;
+}
+
+
 .searchTerm:focus {
   color: black;
 }
 
-/*Resize the wrap to see the search bar change!*/
-.wrap {
-  width: 20.5vw;
-  position: absolute;
-  top: 5%;
-  transform: translate(5px, -50%);
+.filterTextContent {
+  position: fixed;
+  z-index: 2;
+  top: calc(20px + 5%);
+  left: 10px;
+}
+
+.filterTextContainer {
+  width: fit-content;
+}
+
+.filterText {
+  font-size: 15px;
+  z-index: 4;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000000;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  transition: all 0.3s ease;
 }
 
 /*Add new post*/
@@ -81,27 +104,4 @@ body {
 
 .addNewPostButton:hover {
   background-color: #cccccc;
-}
-
-.filterTextContent {
-  position: fixed;
-  z-index: 2;
-  top: calc(20px + 5%);
-  left: 10px;
-}
-
-.filterTextContainer {
-  width: fit-content;
-}
-
-.filterText {
-  font-size: 15px;
-  z-index: 4;
-  font-weight: bold;
-  cursor: pointer;
-  color: #000000;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 5px;
-  transition: all 0.3s ease;
 }

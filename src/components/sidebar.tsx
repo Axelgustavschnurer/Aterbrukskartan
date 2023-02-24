@@ -5,7 +5,11 @@ import { useRouter } from "next/router";
 export default function sidebar({ setFilter }: any) {
 
     const [isOpen, setOpen] = useState(true);
-    const toggleMenu = () => setOpen(!isOpen);
+    const toggleMenu = () => {
+        setOpen(!isOpen);
+        // TODO change z-index of sidebar 
+    };
+
 
     const router = useRouter();
 
