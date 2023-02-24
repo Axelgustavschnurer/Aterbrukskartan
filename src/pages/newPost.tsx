@@ -101,7 +101,7 @@ export default function addNewPost() {
                             </div>
                             <div className="addNewPostFormDescription">
                                 <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
-                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Vad finns/sökes, hur mycket (Ex. mått och vikt). " />
+                                <textarea id="description" name="description" rows={10} maxLength={3000} required placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten. " />
                             </div>
                             <div className="addNewPostFormContact">
                                 <label className="newPostTitle" htmlFor="contact">* Kontakt</label>

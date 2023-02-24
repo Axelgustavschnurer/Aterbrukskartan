@@ -17,18 +17,31 @@ export default function sidebar({ setFilter }: any) {
         };
     }, [isOpen, router]);
 
+    const currentDate = new Date().getFullYear()  // returns the current year
+
     const onButtonClick = (filter: any) => {
         setFilter(filter);
         console.log(filter);
     };
 
-    const [value, setValue] = useState(2028);
+    const [value, setValue] = useState(currentDate + 5);
 
     function handleChange(event: any) {
         setValue(event.target.value);
     }
 
-    const currentDate = new Date().getFullYear()  // returns the current year
+    const getOrganization = () => {
+        // TODO get organization from database
+        return (
+            <>
+                <div className="inputGroup">
+                    <input id="Placeholder" name="Placeholder" type="checkbox" />
+                    <label htmlFor="Placeholder">Placeholder</label>
+                </div>
+            </>
+        )
+    }
+
 
     return (
         <>
@@ -56,23 +69,23 @@ export default function sidebar({ setFilter }: any) {
                         </div>
                     </div>
                     {/* <div className="checkbox">
-                        <div>
-                            <h2>Titel</h2>
-                            <div className="checkboxContainer">
-                                <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
-                                <label htmlFor="stomme"> Stomme</label>
+                            <div>
+                                <h2>Titel</h2>
+                                <div className="checkboxContainer">
+                                    <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
+                                    <label htmlFor="stomme"> Stomme</label>
+                                </div>
+                                <div className="checkboxContainer">
+                                    <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
+                                    <label htmlFor="inredning"> Inredning</label>
+                                </div>
+                                <div className="checkboxContainer">
+                                    <input type="checkbox" id="partCategory3" name="smaSaker" value="smaSaker"></input>
+                                    <label htmlFor="smaSaker"> Småsaker</label>
+                                </div>
+    
                             </div>
-                            <div className="checkboxContainer">
-                                <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
-                                <label htmlFor="inredning"> Inredning</label>
-                            </div>
-                            <div className="checkboxContainer">
-                                <input type="checkbox" id="partCategory3" name="smaSaker" value="smaSaker"></input>
-                                <label htmlFor="smaSaker"> Småsaker</label>
-                            </div>
-
-                        </div>
-                    </div> */}
+                        </div> */}
 
                     <form className="form">
                         <h3>Sökes</h3>
@@ -106,6 +119,24 @@ export default function sidebar({ setFilter }: any) {
                             <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
                             <label htmlFor="smasakerSankes">Småsaker</label>
                         </div>
+
+                        <h3>Organisation</h3>
+                        {/* <div className="inputGroup">
+                                    <input id="stommeSankes" name="stommeSankes" type="checkbox" />
+                                    <label htmlFor="stommeSankes">Stomme</label>
+                                </div>
+    
+                                <div className="inputGroup">
+                                    <input id="inredningSankes" name="inredningSankes" type="checkbox" />
+                                    <label htmlFor="inredningSankes">Inredning</label>
+                                </div>
+    
+                                <div className="inputGroup">
+                                    <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
+                                    <label htmlFor="smasakerSankes">Småsaker</label>
+                                </div> */}
+                        {getOrganization()}
+
                     </form>
                     <div className="clearFilter">
                         <button id="clearBtn" onClick={() => onButtonClick("none")}>Rensa filter</button>
@@ -114,14 +145,17 @@ export default function sidebar({ setFilter }: any) {
                         <button id="hideBtn" onClick={toggleMenu}><img src="/closeArrow.svg" alt="Closing arrow" /></button>
                     </div>
                 </div>
-            )}
-            {!isOpen && (
-                <div className="hiddenSidebar">
-                    <div className="sidebarOpen">
-                        <button id="openBtn" onClick={toggleMenu}><img src="/openArrow.svg" alt="Open arrow" /></button>
+            )
+            }
+            {
+                !isOpen && (
+                    <div className="hiddenSidebar">
+                        <div className="sidebarOpen">
+                            <button id="openBtn" onClick={toggleMenu}><img src="/openArrow.svg" alt="Open arrow" /></button>
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </>
     );
 }

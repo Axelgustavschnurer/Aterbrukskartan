@@ -16,15 +16,13 @@ body {
 /* searchbar */
 .search {
   width: 100%;
-  top: 10px;
-  display: flex;
   z-index: 2;
 }
 
 .searchIcon {
   position: absolute;
   right: 0;
-  transform: translate(-10%, 15%);
+  transform: translate(-10%, -100%);
   opacity: 0.8;
 }
 
@@ -88,7 +86,7 @@ body {
 .filterTextContent {
   position: fixed;
   z-index: 2;
-  top: 65px;
+  top: calc(20px + 5%);
   left: 10px;
 }
 
