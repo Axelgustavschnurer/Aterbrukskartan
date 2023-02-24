@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Head from 'next/head'
 
 
 export default function HomePage() {
@@ -27,6 +28,10 @@ export default function HomePage() {
 
   return (
     <>
+      <Head>
+        <title>Återbrukskartan</title>
+        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+      </Head>
       <Map currentFilter={currentFilter} />
       <Sidebar setFilter={setFilter} />
       <div className="wrap">

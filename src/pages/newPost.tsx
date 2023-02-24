@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import Head from "next/head";
 
 export default function AddNewPost() {
     const router = useRouter();
@@ -21,6 +22,10 @@ export default function AddNewPost() {
 
     return (
         <>
+            <Head>
+                <title>Återbrukskartan</title>
+                <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+            </Head>
             <div className="header" id="header">
                 <img src="/images/stuns_logo.png" alt="logo" />
             </div>

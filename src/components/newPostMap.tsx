@@ -1,9 +1,8 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { iconPinRed, iconPinGreen, iconPinBlue } from './icons'
+import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
-import { popupContent, popupHead, popupText, okText } from "./popupStyles";
 
 export default function NewPostMap(currentFilter: any) {
     // default position of the marker
@@ -51,7 +50,7 @@ export default function NewPostMap(currentFilter: any) {
                 <Marker
                     eventHandlers={eventHandlers}
                     position={position}
-                    icon={iconPinRed}
+                    icon={IconPinRed}
                     draggable={true}
                     animate={true}
                     ref={markerRef}
