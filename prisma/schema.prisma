@@ -12,7 +12,7 @@ datasource db {
 }
 
 model MapItem {
-  id           Int     @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String?
   organisation String?
   year         Int?
@@ -22,6 +22,7 @@ model MapItem {
   postcode     Int?
   city         String?
   story        Story?
+  recycle      Recycle?
 
   @@map("map_item")
 }
@@ -33,16 +34,29 @@ model Story {
   categorySwedish         String? @map("category_swedish")
   categoryEnglish         String? @map("category_english")
   educationalProgram      String? @map("educational_program")
-  descriptionSwedish      String? @db.NVarChar(4000) @map("description_swedish")
-  descriptionEnglish      String? @db.NVarChar(4000) @map("description_english")
+  descriptionSwedish      String? @map("description_swedish") @db.NVarChar(4000)
+  descriptionEnglish      String? @map("description_english") @db.NVarChar(4000)
   descriptionSwedishShort String? @map("description_swedish_short")
   descriptionEnglishShort String? @map("description_english_short")
-  openData                String? @db.NVarChar(4000) @map("open_data")
+  openData                String? @map("open_data") @db.NVarChar(4000)
   reports                 String? @db.NVarChar(4000)
   videos                  String? @db.NVarChar(4000)
-  pdfCase                 String? @db.NVarChar(4000) @map("pdf_case")
-
-  mapItem MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pdfCase                 String? @map("pdf_case") @db.NVarChar(4000)
+  mapItem                 MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("story")
+}
+
+model Recycle {
+  id                  Int     @id @default(autoincrement())
+  mapId               Int     @unique @map("map_id")
+  projectType         String  @map("project_type")
+  description         String? @db.NVarChar(4000)
+  contact             String? @db.NVarChar(4000)
+  externalLinks       String? @map("external_links") @db.NVarChar(4000)
+  availableMaterials  String? @map("available_materials")
+  lookingForMaterials String? @map("looking_for_materials")
+  mapItem             MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("recycle")
 }
