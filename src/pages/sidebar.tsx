@@ -1,8 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import DualRangeSlider from "../components/dualSlider";
+
 
 export default function Sidebar({ setFilter }: any) {
+    const currentDate = new Date().getFullYear()  // returns the current year
+
+    const [sliderValue, setSliderValue] = useState<Range>({
+        min: currentDate,
+        max: currentDate + 10,
+    });
 
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {
@@ -21,7 +29,6 @@ export default function Sidebar({ setFilter }: any) {
         };
     }, [isOpen, router]);
 
-    const currentDate = new Date().getFullYear()  // returns the current year
 
     const onButtonClick = (filter: any) => {
         setFilter(filter);
@@ -46,6 +53,9 @@ export default function Sidebar({ setFilter }: any) {
         )
     }
 
+    const handleSliderChange = (value: Range) => {
+        setSliderValue(value);
+    };
 
     return (
         <>
@@ -53,9 +63,16 @@ export default function Sidebar({ setFilter }: any) {
                 <div className="sidebar">
                     <div className="rSliderContainer">
                         <div className="range-slider">
-                            <input type="range" min={currentDate} max={currentDate + 10} value={value} onChange={handleChange}
+                            {/* <input type="range" min={currentDate} max={currentDate + 10} value={value} onChange={handleChange}
                             />
-                            <p style={{ margin: "10px" }}>År: {value}</p>
+                            <p style={{ margin: "10px" }}>År: {value}</p> */}
+                            <DualRangeSlider
+                                minValue={currentDate}
+                                maxValue={currentDate + 10}
+                                step={1}
+                                value={sliderValue}
+                                onChange={handleSliderChange}
+                            />
                         </div>
                     </div>
                     <div className="filterBtn">
