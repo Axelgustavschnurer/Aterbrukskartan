@@ -93,7 +93,7 @@
 }
 
 #demoBtn {
-    background-color: #ff0000ee;
+    background-color: rgb(255, 0, 0);
     border: black;
     border-radius: 100%;
     padding: 5px;
@@ -111,7 +111,7 @@
 }
 
 #buildBtn {
-    background-color: #00a2ff;
+    background-color: rgb(0, 128, 255);
     border: black;
     border-radius: 100%;
     padding: 5px;
@@ -128,7 +128,7 @@
 }
 
 #rebuildBtn {
-    background-color: green;
+    background-color: rgb(0, 128, 0);
     border: black;
     border-radius: 100%;
     padding: 5px;
