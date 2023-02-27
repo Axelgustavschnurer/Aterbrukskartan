@@ -69,7 +69,7 @@ export default function Sidebar({ setFilter }: any) {
                         </div>
                         <div className="alignBtn">
                             <button id="rebuildBtn" onClick={() => onButtonClick("ombyggnad")}><img src="/images/ater.svg"></img></button>
-                            <p>Återbygg</p>
+                            <p>Ombygg</p>
                         </div>
                     </div>
                     {/* <div className="checkbox">
