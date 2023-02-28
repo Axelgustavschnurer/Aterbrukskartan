@@ -1,3 +1,5 @@
+// This file contains the styles for the popup component used by the map component
+
 const PopupContent = {
     // textAlign: "center",
     // height: "350px",

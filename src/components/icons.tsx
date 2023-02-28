@@ -1,5 +1,7 @@
 import L from 'leaflet';
 
+// Map pin icons
+
 const IconPinRed = new L.Icon({
     iconUrl: ('/images/redicon.svg'),
     iconRetinaUrl: ('/images/redicon.svg'),

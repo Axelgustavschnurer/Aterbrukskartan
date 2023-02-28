@@ -5,11 +5,14 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Head from 'next/head'
 
+// This is the main page of the application
 
 export default function HomePage() {
   const router = useRouter()
+  // Declares the filter variable and its setter function 
   const [currentFilter, setFilter] = useState("none")
 
+  // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
     () => import('../components/map'),
     {
@@ -18,14 +21,17 @@ export default function HomePage() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
+  // Declares function for navigating to the new post page
   const goToNewPost = () => {
     router.push('/newPost')
   }
 
+  // Declares function for removing the current filter
   const removeCurrentFilter = () => {
     setFilter("none")
   }
 
+  // Returns all content of the main page.
   return (
     <>
       <Head>

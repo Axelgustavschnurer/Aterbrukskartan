@@ -3,24 +3,26 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
 
+// Sidebar component for filtering the map
 
 export default function Sidebar({ setFilter }: any) {
-    const currentDate = new Date().getFullYear()  // returns the current year
+    // Gets current year to set as default value for slider
+    const currentDate = new Date().getFullYear()
 
     // const [sliderValue, setSliderValue] = useState<Range>({
     //     min: currentDate,
     //     max: currentDate + 10,
     // });
 
+    // Handles the state of the sidebar's visibility
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {
         setOpen(!isOpen);
         // TODO change z-index of sidebar 
     };
 
-
+    // Closes the sidebar when the user navigates to a new page
     const router = useRouter();
-
     useEffect(() => {
         const closeMenu = () => isOpen && setOpen(false);
         router.events.on("routeChangeStart", closeMenu);
@@ -29,18 +31,19 @@ export default function Sidebar({ setFilter }: any) {
         };
     }, [isOpen, router]);
 
-
+    // Declares the filter functionality of the project buttons
     const onButtonClick = (filter: any) => {
         setFilter(filter);
         console.log(filter);
     };
 
+    // Oudated :(
     const [value, setValue] = useState(currentDate + 5);
-
     function handleChange(event: any) {
         setValue(event.target.value);
     }
 
+    // Will be used to get and display the organizations from the database
     const getOrganization = () => {
         // TODO get organization from database
         return (
@@ -57,6 +60,9 @@ export default function Sidebar({ setFilter }: any) {
     //     setSliderValue(value);
     // };
 
+    // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it. 
+    // It contains the type project buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter. 
+    // Lastly, it contains a button for closing the sidebar. 
     return (
         <>
             {isOpen && (

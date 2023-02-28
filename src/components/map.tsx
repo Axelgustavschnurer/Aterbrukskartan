@@ -6,9 +6,13 @@ import React, { useState, useEffect } from 'react'
 import { PopupContent, PopupHead, PopupText, OkText } from "./popupStyles";
 import { Recycle } from '@prisma/client'
 
+// Map component for main page
+
 export default function Map(currentFilter: any) {
+    // Declares array for map items and function to set the array
     const [mapData, setMapData] = useState([])
 
+    // Fetches all "recycle" data from API
     const fetchData = async () => {
         const response = await fetch('http://localhost:3000/api/getData')
         const data = await response.json()
@@ -16,10 +20,12 @@ export default function Map(currentFilter: any) {
 
     }
 
+    // Runs fetchData function on component mount
     useEffect(() => {
         fetchData()
     }, [])
 
+    // Declrares content of popups that will be displayed when clicking on a pin
     const popup = (pin: any) => {
         return (
             <Popup className='request-popup'>
@@ -44,6 +50,7 @@ export default function Map(currentFilter: any) {
         )
     }
 
+    // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
     const getAllPins = () => {
         return mapData.map((pin: Recycle, i) => {
             console.log("pin", pin)
@@ -76,10 +83,12 @@ export default function Map(currentFilter: any) {
         )
     }
 
+    // Declares map bounds
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),
         bounds = L.latLngBounds(southWest, northEast);
 
+    // Returns map with all relevant pins
     return (
         <>
             <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={13} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>

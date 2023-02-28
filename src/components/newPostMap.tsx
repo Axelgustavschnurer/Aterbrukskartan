@@ -4,19 +4,21 @@ import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
+// Map component for "New Post" page
+
 export default function NewPostMap(currentFilter: any) {
-    // default position of the marker
+    // Declares default position of the marker
     const defaultPos = { lat: 59.85599174491208, lng: 17.640352062197294 }
 
-    // bounds of the map
+    // Declares bounds of the map
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),
         bounds = L.latLngBounds(southWest, northEast);
 
-    // state of the marker position
+    // Declares state of the marker position
     const [position, setPosition] = useState(defaultPos)
 
-    // funtion to get coordinates of the marker
+    // Declares funtion to get coordinates of the marker
     const markerRef = useRef(null)
     const eventHandlers = useMemo(
         () => ({
@@ -39,6 +41,7 @@ export default function NewPostMap(currentFilter: any) {
     //     console.log("add marker")
     // }
 
+    // Returns map with red marker pin
     return (
         <>
             <MapContainer center={defaultPos} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "90vh", width: "100%" }} zoomControl={false} >

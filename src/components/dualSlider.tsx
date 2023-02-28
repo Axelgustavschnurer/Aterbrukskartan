@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 
+// Range slider component for filtering by years
+
 const MultiRangeSlider = ({ min, max, onChange }: any) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -7,17 +9,18 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
     const maxValRef = useRef(max);
     const range = useRef(null);
 
-    // Convert to percentage
+    // Convert to percentage  --I don't think this is used
     const getPercent = useCallback(
         (value: any) => Math.round(((value - min) / (max - min)) * 100),
         [min, max]
     );
 
-    // Get min and max values when their state changes
+    // Gets min and max values when their state changes.
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, onChange]);
 
+    // Declares the styling classes and functionality of the range slider. Needs to be given min and max values, as well as onChange function to work.
     return (
         <div className="rangeSliderContainer">
             <input
