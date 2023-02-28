@@ -7,10 +7,10 @@ import DualRangeSlider from "../components/dualSlider";
 export default function Sidebar({ setFilter }: any) {
     const currentDate = new Date().getFullYear()  // returns the current year
 
-    const [sliderValue, setSliderValue] = useState<Range>({
-        min: currentDate,
-        max: currentDate + 10,
-    });
+    // const [sliderValue, setSliderValue] = useState<Range>({
+    //     min: currentDate,
+    //     max: currentDate + 10,
+    // });
 
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {
@@ -53,28 +53,14 @@ export default function Sidebar({ setFilter }: any) {
         )
     }
 
-    const handleSliderChange = (value: Range) => {
-        setSliderValue(value);
-    };
+    // const handleSliderChange = (value: Range) => {
+    //     setSliderValue(value);
+    // };
 
     return (
         <>
             {isOpen && (
                 <div className="sidebar">
-                    <div className="rSliderContainer">
-                        <div className="range-slider">
-                            {/* <input type="range" min={currentDate} max={currentDate + 10} value={value} onChange={handleChange}
-                            />
-                            <p style={{ margin: "10px" }}>År: {value}</p> */}
-                            <DualRangeSlider
-                                minValue={currentDate}
-                                maxValue={currentDate + 10}
-                                step={1}
-                                value={sliderValue}
-                                onChange={handleSliderChange}
-                            />
-                        </div>
-                    </div>
                     <div className="filterBtn">
                         <div className="alignBtn">
                             <button id="demoBtn" onClick={() => onButtonClick("rivning")}><img src="/images/riv.svg"></img></button>
@@ -87,6 +73,15 @@ export default function Sidebar({ setFilter }: any) {
                         <div className="alignBtn">
                             <button id="rebuildBtn" onClick={() => onButtonClick("ombyggnad")}><img src="/images/ater.svg"></img></button>
                             <p>Ombygg</p>
+                        </div>
+                    </div>
+                    <div className="rSliderContainer">
+                        <div className="range-slider">
+                            <DualRangeSlider
+                                min={currentDate}
+                                max={currentDate + 10}
+                                onChange={({ min, max }: any) => console.log(`min = ${min}, max = ${max}`)}
+                            />
                         </div>
                     </div>
                     {/* <div className="checkbox">
