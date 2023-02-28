@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
-import type { MapItem } from '@prisma/client'
+import { PrismaClient, Recycle, MapItem } from '@prisma/client'
 const prisma = new PrismaClient()
 
 type Data = {
@@ -10,11 +9,11 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<MapItem[]>
+  res: NextApiResponse<Recycle[]>
 ) {
-  const getData = await prisma.mapItem.findMany({
+  const getData = await prisma.recycle.findMany({
     include: {
-      story: true
+      mapItem: true
     }
   }
   )
