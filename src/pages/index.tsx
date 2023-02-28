@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Sidebar from './sidebar'
+import Sidebar from '../components/sidebar'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Head from 'next/head'
