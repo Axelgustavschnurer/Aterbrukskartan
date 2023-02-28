@@ -4,38 +4,31 @@ import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect } from 'react'
 import { PopupContent, PopupHead, PopupText, OkText } from "./popupStyles";
+import { Recycle } from '@prisma/client'
 
 export default function Map(currentFilter: any) {
-    // useEffect(() => {
-    //     fetch('http://localhost:3000/api/getData')
-    //         .then(res => res.json())
-    //         .then(data => console.log(data))
-    // }, [])
+    const [mapData, setMapData] = useState([])
 
+    const fetchData = async () => {
+        const response = await fetch('http://localhost:3000/api/getData')
+        const data = await response.json()
+        setMapData(data)
 
-    const pins = [ // This is an array of objects with the coordinates of the pins
-        { lat: 59.858227, lng: 17.632252, type: "rivning", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.857227, lng: 17.622252, type: "byggnad", year: 2024, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.858227, lng: 17.602252, type: "ombyggnad", year: 2024, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.884227, lng: 17.624252, type: "rivning", year: 2023, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.898227, lng: 17.608252, type: "byggnad", year: 2028, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.869999, lng: 17.609952, type: "ombyggnad", year: 2025, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.828227, lng: 17.62252, type: "rivning", year: 2033, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.858227, lng: 17.612252, type: "byggnad", year: 2029, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
-        { lat: 59.866227, lng: 17.673252, type: "ombyggnad", year: 2026, description: "Detta är en beskrivning", contact: "Namn, telefonnummer", link: "https://ccbuild.se/" },
+    }
 
-    ]
-
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     const popup = (pin: any) => {
         return (
             <Popup className='request-popup'>
                 <div style={PopupContent}>
                     <div style={PopupHead}>
-                        Det här är ett {pin.type}s projekt. <br />
+                        Det här är ett {pin.projectType}s projekt. <br />
                     </div>
                     <span style={PopupText}>
-                        {pin.year === "ongoing" ? "Projektet pågår fortfarande." : pin.year} <br />
+                        {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year} <br />
                     </span>
                     <span style={PopupText}>
                         {pin.description} <br />
@@ -44,7 +37,7 @@ export default function Map(currentFilter: any) {
                         {pin.contact}
                     </span>
                     <div style={PopupText}>
-                        <a href={pin.link}>{pin.link}</a>
+                        <a href={pin.externalLink}>{pin.externalLink}</a>
                     </div>
                 </div>
             </Popup>
@@ -52,23 +45,24 @@ export default function Map(currentFilter: any) {
     }
 
     const getAllPins = () => {
-        return pins.map((pin, i) => {
+        return mapData.map((pin: Recycle, i) => {
+            console.log("pin", pin)
             if (currentFilter.currentFilter === "none") {
                 return (
-                    <Marker key={i} position={[pin.lat, pin.lng]} icon={
-                        pin.type === "rivning" ? IconPinRed :
-                            pin.type === "byggnad" ? IconPinBlue :
+                    <Marker key={i} position={[pin.mapItem.latitude, pin.mapItem.longitude]} icon={
+                        pin.projectType === "Rivning" ? IconPinRed :
+                            pin.projectType === "Nybyggnation" ? IconPinBlue :
                                 IconPinGreen
                     }>
 
                         {popup(pin)}
                     </Marker>
                 )
-            } else if (pin.type === currentFilter.currentFilter) {
+            } else if (pin.projectType === currentFilter.currentFilter) {
                 return (
-                    <Marker key={i} position={[pin.lat, pin.lng]} icon={
-                        pin.type === "rivning" ? IconPinRed :
-                            pin.type === "byggnad" ? IconPinBlue :
+                    <Marker key={i} position={[pin.mapItem.latitude, pin.mapItem.longitude]} icon={
+                        pin.projectType === "Rivning" ? IconPinRed :
+                            pin.projectType === "Nybyggnation" ? IconPinBlue :
                                 IconPinGreen
                     }>
 

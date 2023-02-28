@@ -45,9 +45,9 @@ export default function HomePage() {
       <div className='filterTextContent'>
         <div className="filterTextContainer">
           {
-            currentFilter === "rivning" ? <p className="filterText" style={{ backgroundColor: "#ff0000ee" }} onClick={removeCurrentFilter}>Riv</p> :
-              currentFilter === "byggnad" ? <p className="filterText" style={{ backgroundColor: "#00a2ff" }} onClick={removeCurrentFilter}>Bygg</p> :
-                currentFilter === "ombyggnad" ? <p className="filterText" style={{ backgroundColor: "green" }} onClick={removeCurrentFilter}>Återbygg</p> :
+            currentFilter === "Rivning" ? <p className="filterText" style={{ backgroundColor: "#ff0000ee" }} onClick={removeCurrentFilter}>Rivning</p> :
+              currentFilter === "Nybyggnation" ? <p className="filterText" style={{ backgroundColor: "#00a2ff" }} onClick={removeCurrentFilter}>Nybyggnation</p> :
+                currentFilter === "Ombyggnation" ? <p className="filterText" style={{ backgroundColor: "green" }} onClick={removeCurrentFilter}>Ombyggnation</p> :
                   null
           }
           {/* {currentFilter === "none" ? null : <p className="filterText" onClick={removeCurrentFilter}>{currentFilter}</p>} */}

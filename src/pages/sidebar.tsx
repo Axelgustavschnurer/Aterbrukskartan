@@ -63,16 +63,16 @@ export default function Sidebar({ setFilter }: any) {
                 <div className="sidebar">
                     <div className="filterBtn">
                         <div className="alignBtn">
-                            <button id="demoBtn" onClick={() => onButtonClick("rivning")}><img src="/images/riv.svg"></img></button>
-                            <p>Riv</p>
+                            <button id="demoBtn" onClick={() => onButtonClick("Rivning")}><img src="/images/riv.svg"></img></button>
+                            <p>Rivning</p>
                         </div>
                         <div className="alignBtn">
-                            <button id="buildBtn" onClick={() => onButtonClick("byggnad")}><img src="/images/bygg.svg" ></img></button>
-                            <p>Bygg</p>
+                            <button id="buildBtn" onClick={() => onButtonClick("Nybyggnation")}><img src="/images/bygg.svg" ></img></button>
+                            <p>Nybyggnation</p>
                         </div>
                         <div className="alignBtn">
-                            <button id="rebuildBtn" onClick={() => onButtonClick("ombyggnad")}><img src="/images/ater.svg"></img></button>
-                            <p>Ombygg</p>
+                            <button id="rebuildBtn" onClick={() => onButtonClick("Ombyggnation")}><img src="/images/ater.svg"></img></button>
+                            <p>Ombyggnation</p>
                         </div>
                     </div>
                     <div className="rSliderContainer">
