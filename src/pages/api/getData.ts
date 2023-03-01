@@ -17,7 +17,6 @@ export default async function handler(
     include: {
       mapItem: true
     }
-  }
-  )
+  })
   res.json(getData)
 }
