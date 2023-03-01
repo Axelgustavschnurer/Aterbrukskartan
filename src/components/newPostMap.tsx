@@ -30,6 +30,7 @@ export default function NewPostMap() {
                     console.log("Get LatLng", marker.getLatLng())
                     setPosition(marker.getLatLng())
                     navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
+                    marker.openPopup()
                 }
             },
         }),
@@ -61,7 +62,7 @@ export default function NewPostMap() {
                     ref={markerRef}
                 >
                     <Popup>
-                        {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
+                        <span>Koordinater kopierade</span>
                     </Popup>
                 </Marker>
             </MapContainer>
