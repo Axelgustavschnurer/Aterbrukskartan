@@ -6,17 +6,18 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 // Map component for "New Post" page
 
-export default function NewPostMap(currentFilter: any) {
+
+export default function NewPostMap() {
     // Declares default position of the marker
     const defaultPos = { lat: 59.85599174491208, lng: 17.640352062197294 }
 
+    const [position, setPosition] = useState(defaultPos)
     // Declares bounds of the map
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),
         bounds = L.latLngBounds(southWest, northEast);
 
     // Declares state of the marker position
-    const [position, setPosition] = useState(defaultPos)
 
     // Declares funtion to get coordinates of the marker
     const markerRef = useRef(null)
@@ -28,6 +29,7 @@ export default function NewPostMap(currentFilter: any) {
                     // setPosition(marker.getLatLng())
                     console.log("Get LatLng", marker.getLatLng())
                     setPosition(marker.getLatLng())
+                    navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
                 }
             },
         }),
@@ -40,6 +42,9 @@ export default function NewPostMap(currentFilter: any) {
     // const addMarker = () => {
     //     console.log("add marker")
     // }
+
+
+
 
     // Returns map with red marker pin
     return (

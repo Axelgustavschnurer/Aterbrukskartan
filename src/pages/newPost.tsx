@@ -3,15 +3,25 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import Head from "next/head";
-import { latLng } from "leaflet";
-
 
 export default function AddNewPost() {
+
     const [organization, setOrganization] = useState("");
     const [projectType, setProjectType] = useState("");
     const [location, setLocation] = useState("");
-    const [searchingFor, setSearchingFor] = useState("");
-    const [offering, setOffering] = useState("");
+    const [searchingFor, setSearchingFor] = useState({
+        stomme: false,
+        inredning: false,
+        smasaker: false,
+        ovrigt: false,
+
+    });
+    const [offering, setOffering] = useState({
+        stomme: false,
+        inredning: false,
+        smasaker: false,
+        ovrigt: false,
+    });
     const [description, setDescription] = useState("");
     const [contact, setContact] = useState("");
     const [message, setMessage] = useState("");
@@ -20,7 +30,23 @@ export default function AddNewPost() {
 
     const getProjectType = (e: any) => {
         setProjectType(e.target.value);
-        console.log("value: ", e.target.value);
+        console.log("project type value: ", e.target.value);
+    };
+
+    const getSearchedFor = (e: any) => {
+        setSearchingFor({
+            ...searchingFor,
+            [e.target.name]: e.target.checked,
+        });
+        console.log("searching for value: ", e.target.value);
+    };
+
+    const getOffering = (e: any) => {
+        setOffering({
+            ...offering,
+            [e.target.name]: e.target.checked,
+        });
+        console.log("offering value: ", e.target.value);
     };
 
     const handleSubmit = async (e: any) => {
@@ -55,8 +81,18 @@ export default function AddNewPost() {
                 setOrganization("");
                 setProjectType("");
                 setLocation("");
-                setSearchingFor("");
-                setOffering("");
+                setSearchingFor({
+                    stomme: false,
+                    inredning: false,
+                    smasaker: false,
+                    ovrigt: false,
+                });
+                setOffering({
+                    stomme: false,
+                    inredning: false,
+                    smasaker: false,
+                    ovrigt: false,
+                });
                 setDescription("");
                 setContact("");
                 router.push("/");
@@ -100,7 +136,7 @@ export default function AddNewPost() {
                                     name="organization"
                                     value={organization}
                                     onChange={(e) => setOrganization(e.target.value)}
-                                    required
+                                // required
                                 />
                             </div>
                             <div className="typeOfProject">
@@ -139,25 +175,58 @@ export default function AddNewPost() {
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">* Plats</label>
                                 <NewPostMap />
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    value={location}
+                                    placeholder="Klistra in koordinater här"
+                                    onChange={(e) => setLocation(e.target.value)}
+                                // required
+                                />
                             </div>
                             <div className="addNewPostFormLists">
                                 <div>
                                     <label className="newPostTitle" htmlFor="lists">Sökes</label>
                                     <div className="optionList">
                                         <div className="test">
-                                            <input type="checkbox" id="stomme" name="stomme" value="stomme" />
+                                            <input
+                                                type="checkbox"
+                                                id="stomme"
+                                                name="stomme"
+                                                value="stomme"
+                                                onChange={getSearchedFor}
+                                            />
                                             <label htmlFor="material">Stomme</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="inredning" name="inredning" value="inredning" />
+                                            <input
+                                                type="checkbox"
+                                                id="inredning"
+                                                name="inredning"
+                                                value="inredning"
+                                                onChange={getSearchedFor}
+                                            />
                                             <label htmlFor="material">Inredning</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="smasaker" name="smasaker" value="smasaker" />
+                                            <input
+                                                type="checkbox"
+                                                id="smasaker"
+                                                name="smasaker"
+                                                value="smasaker"
+                                                onChange={getSearchedFor}
+                                            />
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="ovrigtSokes" name="ovrigtSokes" value="ovrigtSokes" />
+                                            <input
+                                                type="checkbox"
+                                                id="ovrigt"
+                                                name="ovrigt"
+                                                value="ovrigt"
+                                                onChange={getSearchedFor}
+                                            />
                                             <label htmlFor="material">Övrigt</label>
 
                                         </div>
@@ -167,19 +236,43 @@ export default function AddNewPost() {
                                     <label className="newPostTitle" htmlFor="lists">Skänkes</label>
                                     <div className="optionList">
                                         <div className="test">
-                                            <input type="checkbox" id="stomme" name="stomme" value="stomme" />
+                                            <input
+                                                type="checkbox"
+                                                id="stomme"
+                                                name="stomme"
+                                                value="stomme"
+                                                onChange={getOffering}
+                                            />
                                             <label htmlFor="material">Stomme</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="inredning" name="inredning" value="inredning" />
+                                            <input
+                                                type="checkbox"
+                                                id="inredning"
+                                                name="inredning"
+                                                value="inredning"
+                                                onChange={getOffering}
+                                            />
                                             <label htmlFor="material">Inredning</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="smasaker" name="smasaker" value="smasaker" />
+                                            <input
+                                                type="checkbox"
+                                                id="smasaker"
+                                                name="smasaker"
+                                                value="smasaker"
+                                                onChange={getOffering}
+                                            />
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
                                         <div className="test">
-                                            <input type="checkbox" id="ovrigtSankes" name="ovrigtSankes" value="ovrigtSankes" />
+                                            <input
+                                                type="checkbox"
+                                                id="ovrigt"
+                                                name="ovrigt"
+                                                value="ovrigt"
+                                                onChange={getOffering}
+                                            />
                                             <label htmlFor="material">Övrigt</label>
                                         </div>
                                     </div>
@@ -195,7 +288,7 @@ export default function AddNewPost() {
                                     placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    required
+                                // required
                                 />
                             </div>
                             <div className="addNewPostFormContact">
@@ -207,7 +300,7 @@ export default function AddNewPost() {
                                     cols={100}
                                     value={contact}
                                     onChange={(e) => setContact(e.target.value)}
-                                    required
+                                // required
                                 />
                             </div>
                             <div className="addNewPostFormSubmit">
