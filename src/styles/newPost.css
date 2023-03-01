@@ -56,9 +56,11 @@ body {
 
 .addNewPostFormName,
 .addNewPostFormOrganization,
+.startYear,
 .addNewPostFormDescription,
 .addNewPostFormLocation,
 .addNewPostFormContact,
+.addNewPostFormExternalLinks,
 .typeOfProject {
     display: flex;
     flex-direction: column;
@@ -76,8 +78,16 @@ body {
     border: 2px solid #8a8a8a;
 }
 
+.startYear input {
+    height: 30px;
+    width: 20%;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+}
+
 .addNewPostFormDescription textarea,
-.addNewPostFormContact textarea {
+.addNewPostFormContact textarea,
+.addNewPostFormExternalLinks textarea {
     width: 100%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;

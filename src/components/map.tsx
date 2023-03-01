@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect } from 'react'
-import { PopupHead, PopupText} from "./popupStyles";
+import { PopupHead, PopupText } from "./popupStyles";
 import { Recycle } from '@prisma/client'
 import { DeepRecycle } from '@/types'
 
@@ -43,7 +43,7 @@ export default function Map(currentFilter: any) {
                         {pin.contact}
                     </span>
                     <div style={PopupText}>
-                        <a href={pin.externalLink}>{pin.externalLink}</a>
+                        <a href={pin.externalLinks}>{pin.externalLinks}</a>
                     </div>
                 </div>
             </Popup>
