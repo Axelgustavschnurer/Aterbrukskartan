@@ -22,6 +22,7 @@ export default async function handler(
             latitude: newUser.mapItem.latitude,
             longitude: newUser.mapItem.longitude,
             organisation: newUser.mapItem.organisation,
+            year: newUser.mapItem.year,
           }
         },
         projectType: newUser.projectType,
@@ -29,6 +30,7 @@ export default async function handler(
         availableMaterials: newUser.availableMaterials,
         description: newUser.description,
         contact: newUser.contact,
+        externalLinks: newUser.externalLinks,
       }
     });
     res.status(200).json(savedUser);
