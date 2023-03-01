@@ -43,9 +43,6 @@ export default function NewPostMap() {
     //     console.log("add marker")
     // }
 
-
-
-
     // Returns map with red marker pin
     return (
         <>
