@@ -37,10 +37,6 @@ export default function NewPostMap(currentFilter: any) {
         console.log("markerRef.current", markerRef.current)
     }, [markerRef.current])
 
-    // const addMarker = () => {
-    //     console.log("add marker")
-    // }
-
     // Returns map with red marker pin
     return (
         <>

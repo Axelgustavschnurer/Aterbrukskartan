@@ -1,11 +1,5 @@
 // This file contains the styles for the popup component used by the map component
 
-const PopupContent = {
-    // textAlign: "center",
-    // height: "350px",
-    // marginTop: "30px"
-};
-
 const PopupHead = {
     fontWeight: "bold",
     fontSize: "15px",
@@ -17,8 +11,4 @@ const PopupText = {
     marginBottom: "5px"
 };
 
-const OkText = {
-    fontSize: "15px"
-};
-
-export { PopupContent, PopupHead, PopupText, OkText };
+export { PopupHead, PopupText};

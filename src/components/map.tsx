@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect } from 'react'
-import { PopupContent, PopupHead, PopupText, OkText } from "./popupStyles";
+import { PopupHead, PopupText} from "./popupStyles";
 import { Recycle } from '@prisma/client'
 
 // Map component for main page
@@ -17,7 +17,6 @@ export default function Map(currentFilter: any) {
         const response = await fetch('http://localhost:3000/api/getData')
         const data = await response.json()
         setMapData(data)
-
     }
 
     // Runs fetchData function on component mount
@@ -29,7 +28,7 @@ export default function Map(currentFilter: any) {
     const popup = (pin: any) => {
         return (
             <Popup className='request-popup'>
-                <div style={PopupContent}>
+                <div>
                     <div style={PopupHead}>
                         Det här är ett {pin.projectType}s projekt. <br />
                     </div>
@@ -72,15 +71,11 @@ export default function Map(currentFilter: any) {
                             pin.projectType === "Nybyggnation" ? IconPinBlue :
                                 IconPinGreen
                     }>
-
                         {popup(pin)}
-
                     </Marker>
                 )
-
             }
-        }
-        )
+        })
     }
 
     // Declares map bounds
@@ -98,8 +93,6 @@ export default function Map(currentFilter: any) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {getAllPins()}
-
-
             </MapContainer>
         </>
     )

@@ -9,11 +9,6 @@ export default function Sidebar({ setFilter }: any) {
     // Gets current year to set as default value for slider
     const currentDate = new Date().getFullYear()
 
-    // const [sliderValue, setSliderValue] = useState<Range>({
-    //     min: currentDate,
-    //     max: currentDate + 10,
-    // });
-
     // Handles the state of the sidebar's visibility
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {
@@ -37,12 +32,6 @@ export default function Sidebar({ setFilter }: any) {
         console.log(filter);
     };
 
-    // Oudated :(
-    const [value, setValue] = useState(currentDate + 5);
-    function handleChange(event: any) {
-        setValue(event.target.value);
-    }
-
     // Will be used to get and display the organizations from the database
     const getOrganization = () => {
         // TODO get organization from database
@@ -55,10 +44,6 @@ export default function Sidebar({ setFilter }: any) {
             </>
         )
     }
-
-    // const handleSliderChange = (value: Range) => {
-    //     setSliderValue(value);
-    // };
 
     // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it. 
     // It contains the type project buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter. 
@@ -90,24 +75,6 @@ export default function Sidebar({ setFilter }: any) {
                             />
                         </div>
                     </div>
-                    {/* <div className="checkbox">
-                            <div>
-                                <h2>Titel</h2>
-                                <div className="checkboxContainer">
-                                    <input type="checkbox" id="partCategory1" name="stomme" value="stomme"></input>
-                                    <label htmlFor="stomme"> Stomme</label>
-                                </div>
-                                <div className="checkboxContainer">
-                                    <input type="checkbox" id="partCategory2" name="inredning" value="inredning"></input>
-                                    <label htmlFor="inredning"> Inredning</label>
-                                </div>
-                                <div className="checkboxContainer">
-                                    <input type="checkbox" id="partCategory3" name="smaSaker" value="smaSaker"></input>
-                                    <label htmlFor="smaSaker"> Småsaker</label>
-                                </div>
-    
-                            </div>
-                        </div> */}
 
                     <form className="form">
                         <h3>Sökes</h3>
@@ -143,20 +110,6 @@ export default function Sidebar({ setFilter }: any) {
                         </div>
 
                         <h3>Organisation</h3>
-                        {/* <div className="inputGroup">
-                                    <input id="stommeSankes" name="stommeSankes" type="checkbox" />
-                                    <label htmlFor="stommeSankes">Stomme</label>
-                                </div>
-    
-                                <div className="inputGroup">
-                                    <input id="inredningSankes" name="inredningSankes" type="checkbox" />
-                                    <label htmlFor="inredningSankes">Inredning</label>
-                                </div>
-    
-                                <div className="inputGroup">
-                                    <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
-                                    <label htmlFor="smasakerSankes">Småsaker</label>
-                                </div> */}
                         {getOrganization()}
 
                     </form>
