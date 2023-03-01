@@ -250,8 +250,8 @@
 }
 
 .hiddenSidebar {
-    width: 20%;
-    min-height: 60%;
+    width: 0%;
+    height: 0%;
     position: fixed;
     top: 100px;
     left: 10px;

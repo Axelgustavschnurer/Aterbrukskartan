@@ -13,7 +13,6 @@ export default function Sidebar({ setFilter }: any) {
     const [isOpen, setOpen] = useState(true);
     const toggleMenu = () => {
         setOpen(!isOpen);
-        // TODO change z-index of sidebar 
     };
 
     // Closes the sidebar when the user navigates to a new page
