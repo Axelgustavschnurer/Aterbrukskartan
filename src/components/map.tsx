@@ -37,14 +37,14 @@ export default function Map(currentFilter: any) {
                         <h4>{pin.projectType}</h4>
                         {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year}
                         <p>
-                        {pin.projectType === "Rivning" && pin.avalibleMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials}</p>
-                            : pin.projectType === "Rivning" && pin.avalibleMaterials === null ? <p><h4>Skänkes</h4> Material saknas</p>
-                                : pin.projectType === "Nybyggnation" && pin.avalibleMaterials !== null ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
-                                    : pin.projectType === "Nybyggnation" && pin.lookingForMaterials === null ? <p><h4>Sökes</h4> Material saknas</p>
-                                        : pin.projectType === "Ombyggnation" && pin.avalibleMaterials !== null && pin.lookingForMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials} <p><h4>Sökes</h4> {pin.lookingForMaterials}</p></p>
-                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials === null && pin.lookingForMaterials === null ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> Material saknas</p>
-                                                : null
-                        }
+                            {pin.projectType === "Rivning" && pin.avalibleMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials}</p>
+                                : pin.projectType === "Rivning" && pin.avalibleMaterials === null ? <p><h4>Skänkes</h4> Material saknas</p>
+                                    : pin.projectType === "Nybyggnation" && pin.avalibleMaterials !== null ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
+                                        : pin.projectType === "Nybyggnation" && pin.lookingForMaterials === null ? <p><h4>Sökes</h4> Material saknas</p>
+                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials !== null && pin.lookingForMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials} <p><h4>Sökes</h4> {pin.lookingForMaterials}</p></p>
+                                                : pin.projectType === "Ombyggnation" && pin.avalibleMaterials === null && pin.lookingForMaterials === null ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> Material saknas</p>
+                                                    : null
+                            }
                         </p>
                         {!pin.description ? null : <p><h4>Beskrvining</h4> {pin.description}</p>}
                         {!pin.contact ? <p><h4>Kontakt</h4>Ingen kontaktinformation tillgänglig</p> : <p><h4>Kontakt</h4> {pin.contact}</p>}
@@ -58,7 +58,6 @@ export default function Map(currentFilter: any) {
     // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
     const getAllPins = () => {
         return mapData.map((pin: DeepRecycle, i) => {
-            console.log("pin", pin)
             if (pin.mapItem.latitude === null || pin.mapItem.longitude === null) {
                 return null
             } else {

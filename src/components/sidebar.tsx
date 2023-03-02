@@ -12,6 +12,58 @@ export default function Sidebar({ setFilter }: any) {
     // Handles the state of the sidebar's visibility
     const [isOpen, setOpen] = useState(true);
     const [newData, setNewData] = useState([])
+    const [projectType, setProjectType] = useState([])
+    const [lookingForMaterials, setLookingForMaterials] = useState([])
+    const [availableMaterials, setAvailableMaterials] = useState([])
+    const [organisation, setOrganisation] = useState([])
+
+    let projectTypes: string[] = (() => {
+        let types: string[] = [];
+        // TODO: Fix error
+        for (let key in projectType) {
+            if (projectType[key]) {
+                types.push(key);
+            }
+        }
+        return types;
+    })();
+    console.log("projectTypes", projectTypes);
+
+    let lookingFor: string[] = (() => {
+        let materials: string[] = [];
+        // TODO: Fix error
+        for (let key in lookingForMaterials) {
+            if (lookingForMaterials[key]) {
+                materials.push(key);
+            }
+        }
+        return materials;
+    })();
+    console.log("lookingFor", lookingFor);
+
+    let available: string[] = (() => {
+        let materials: string[] = [];
+        for (let key in availableMaterials) {
+            if (availableMaterials[key]) {
+                materials.push(key);
+            }
+        }
+        return materials;
+    })();
+    console.log("available", available);
+
+    let organisations: string[] = (() => {
+        let orgs: string[] = [];
+        for (let key in organisation) {
+            if (organisation[key]) {
+                orgs.push(key);
+            }
+        }
+        return orgs;
+    })();
+    console.log("organisations", organisations);
+
+
     const toggleMenu = () => {
         setOpen(!isOpen);
     };
@@ -53,7 +105,17 @@ export default function Sidebar({ setFilter }: any) {
                 {filteredData.map((pin: any) => {
                     return (
                         <div className="inputGroup" key={pin}>
-                            <input id={pin} name={pin} type="checkbox" />
+                            <input
+                                id={pin}
+                                name={pin}
+                                type="checkbox"
+                                onChange={(e) => {
+                                    setOrganisation({
+                                        ...organisation,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
+                            />
                             <label htmlFor={pin}>{pin}</label>
                         </div>
                     )
@@ -112,6 +174,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="stommeSokes"
                                 name="stommeSokes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setLookingForMaterials({
+                                        ...lookingForMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="stommeSokes">Stomme</label>
                         </div>
@@ -121,6 +189,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="inredningSokes"
                                 name="inredningSokes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setLookingForMaterials({
+                                        ...lookingForMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="inredningSokes">Inredning</label>
                         </div>
@@ -130,6 +204,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="smasakerSokes"
                                 name="smasakerSokes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setLookingForMaterials({
+                                        ...lookingForMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="smasakerSokes">Småsaker</label>
                         </div>
@@ -139,6 +219,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="ovrigtSokes"
                                 name="ovrigtSokes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setLookingForMaterials({
+                                        ...lookingForMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="ovrigtSokes">Övrigt</label>
                         </div>
@@ -149,6 +235,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="stommeSankes"
                                 name="stommeSankes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setAvailableMaterials({
+                                        ...availableMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="stommeSankes">Stomme</label>
                         </div>
@@ -158,6 +250,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="inredningSankes"
                                 name="inredningSankes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setAvailableMaterials({
+                                        ...availableMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="inredningSankes">Inredning</label>
                         </div>
@@ -167,6 +265,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="smasakerSankes"
                                 name="smasakerSankes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setAvailableMaterials({
+                                        ...availableMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="smasakerSankes">Småsaker</label>
                         </div>
@@ -176,6 +280,12 @@ export default function Sidebar({ setFilter }: any) {
                                 id="ovrigtSankes"
                                 name="ovrigtSankes"
                                 type="checkbox"
+                                onChange={(e) => {
+                                    setAvailableMaterials({
+                                        ...availableMaterials,
+                                        [e.target.name]: e.target.checked
+                                    })
+                                }}
                             />
                             <label htmlFor="ovrigtSankes">Övrigt</label>
                         </div>
