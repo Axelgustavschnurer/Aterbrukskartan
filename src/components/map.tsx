@@ -31,32 +31,24 @@ export default function Map(currentFilter: any) {
             <Popup className='request-popup'>
                 <div>
                     <div style={PopupHead}>
-                        {pin.mapItem.organisation}<br />
+                        {pin.mapItem.organisation}
                     </div>
                     <div style={PopupText}>
-                        <span>{pin.projectType}</span>
-                    </div>
-                    <span style={PopupText}>
-                        {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year} <br />
-                    </span>
-                    <span style={PopupText}>
-                        {pin.projectType === "Rivning" && pin.avalibleMaterials !== null ? <p>Skänkes <br /> {pin.availableMaterials}</p>
-                            : pin.projectType === "Rivning" && pin.avalibleMaterials === null ? <p>Skänkes <br /> Material saknas</p>
-                                : pin.projectType === "Nybyggnation" && pin.avalibleMaterials !== null ? <p>Sökes <br /> {pin.lookingForMaterials}</p>
-                                    : pin.projectType === "Nybyggnation" && pin.lookingForMaterials === null ? <p>Sökes <br /> Material saknas</p>
-                                        : pin.projectType === "Ombyggnation" && pin.avalibleMaterials !== null && pin.lookingForMaterials !== null ? <p>Skänkes <br /> {pin.availableMaterials} <p>Sökes <br /> {pin.lookingForMaterials}</p></p>
-                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials === null && pin.lookingForMaterials === null ? <p>Skänkes <br /> Material saknas <br /> Sökes <br /> Material saknas</p>
+                        <h4>{pin.projectType}</h4>
+                        {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year}
+                        <p>
+                        {pin.projectType === "Rivning" && pin.avalibleMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials}</p>
+                            : pin.projectType === "Rivning" && pin.avalibleMaterials === null ? <p><h4>Skänkes</h4> Material saknas</p>
+                                : pin.projectType === "Nybyggnation" && pin.avalibleMaterials !== null ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
+                                    : pin.projectType === "Nybyggnation" && pin.lookingForMaterials === null ? <p><h4>Sökes</h4> Material saknas</p>
+                                        : pin.projectType === "Ombyggnation" && pin.avalibleMaterials !== null && pin.lookingForMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials} <p><h4>Sökes</h4> {pin.lookingForMaterials}</p></p>
+                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials === null && pin.lookingForMaterials === null ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> Material saknas</p>
                                                 : null
                         }
-                    </span>
-                    <span style={PopupText}>
-                        {pin.description} <br />
-                    </span>
-                    <span style={PopupText}>
-                        {pin.contact}
-                    </span>
-                    <div style={PopupText}>
-                        <a href={pin.externalLinks}>{pin.externalLinks}</a>
+                        </p>
+                        {!pin.description ? null : <p><h4>Beskrvining</h4> {pin.description}</p>}
+                        {!pin.contact ? <p><h4>Kontakt</h4>Ingen kontaktinformation tillgänglig</p> : <p><h4>Kontakt</h4> {pin.contact}</p>}
+                        {!pin.externalLinks ? null : <div><h4>Länkar</h4><a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
                     </div>
                 </div>
             </Popup>
