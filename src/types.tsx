@@ -9,9 +9,8 @@ export type DeepRecycle = Prisma.RecycleGetPayload<{
 
 export type Filter = {
   projectType?: string[],
-  minYear?: number,
-  maxYear?: number,
+  years?: number[],
   availableCategories?: string[],
   lookingForCategories?: string[],
-  organization?: string[],
+  organisation?: string[],
 }
