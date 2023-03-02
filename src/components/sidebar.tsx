@@ -92,6 +92,11 @@ export default function Sidebar({ setFilter }: any) {
                             <label htmlFor="smasakerSokes">Småsaker</label>
                         </div>
 
+                        <div className="inputGroup">
+                            <input id="ovrigtSokes" name="ovrigtSokes" type="checkbox" />
+                            <label htmlFor="ovrigtSokes">Övrigt</label>
+                        </div>
+
                         <h3>Skänkes</h3>
                         <div className="inputGroup">
                             <input id="stommeSankes" name="stommeSankes" type="checkbox" />
@@ -106,6 +111,11 @@ export default function Sidebar({ setFilter }: any) {
                         <div className="inputGroup">
                             <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
                             <label htmlFor="smasakerSankes">Småsaker</label>
+                        </div>
+
+                        <div className="inputGroup">
+                            <input id="ovrigtSankes" name="ovrigtSankes" type="checkbox" />
+                            <label htmlFor="ovrigtSankes">Övrigt</label>
                         </div>
 
                         <h3>Organisation</h3>
