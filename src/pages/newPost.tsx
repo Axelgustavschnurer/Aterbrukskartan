@@ -183,7 +183,7 @@ export default function AddNewPost() {
                             </div>
                             <div className="typeOfProject">
                                 <label className="newPostTitle" htmlFor="type">Typ av projekt</label>
-                                <div className="test">
+                                <div className="padding">
                                     <input
                                         type="radio"
                                         id="riv"
@@ -193,7 +193,7 @@ export default function AddNewPost() {
                                     />
                                     <label htmlFor="Rivning">Rivning </label>
                                 </div>
-                                <div className="test">
+                                <div className="padding">
                                     <input
                                         type="radio"
                                         id="bygg"
@@ -203,7 +203,7 @@ export default function AddNewPost() {
                                     />
                                     <label htmlFor="Nybyggnation">Nybyggnation </label>
                                 </div>
-                                <div className="test">
+                                <div className="padding">
                                     <input
                                         type="radio"
                                         id="ombygge"
@@ -231,7 +231,7 @@ export default function AddNewPost() {
                                 <div>
                                     <label className="newPostTitle" htmlFor="lists">Sökes</label>
                                     <div className="optionList">
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="stomme"
@@ -241,7 +241,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Stomme</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="inredning"
@@ -251,7 +251,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Inredning</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="smasaker"
@@ -261,7 +261,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="ovrigt"
@@ -277,7 +277,7 @@ export default function AddNewPost() {
                                 <div>
                                     <label className="newPostTitle" htmlFor="lists">Skänkes</label>
                                     <div className="optionList">
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="stomme"
@@ -287,7 +287,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Stomme</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="inredning"
@@ -297,7 +297,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Inredning</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="smasaker"
@@ -307,7 +307,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="material">Småsaker</label>
                                         </div>
-                                        <div className="test">
+                                        <div className="padding">
                                             <input
                                                 type="checkbox"
                                                 id="ovrigt"
