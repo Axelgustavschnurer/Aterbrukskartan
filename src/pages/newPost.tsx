@@ -173,12 +173,11 @@ export default function AddNewPost() {
                             <div className="startYear">
                                 <label className="newPostTitle" htmlFor="startYear">Startår</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     id="startYear"
                                     name="startYear"
                                     value={startYear}
                                     onChange={(e) => setStartYear(e.target.value)}
-                                    required
                                 />
                             </div>
                             <div className="typeOfProject">
@@ -354,7 +353,6 @@ export default function AddNewPost() {
                                     cols={100}
                                     value={externalLinks}
                                     onChange={(e) => setExternalLinks(e.target.value)}
-                                    required
                                 />
                             </div>
                             <div className="addNewPostFormSubmit">
