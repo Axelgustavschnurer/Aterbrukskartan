@@ -67,27 +67,31 @@ export default function Map(currentFilter: any) {
     const getAllPins = () => {
         return mapData.map((pin: DeepRecycle, i) => {
             console.log("pin", pin)
-            if (currentFilter.currentFilter === "none") {
-                return (
-                    <Marker key={i} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
-                        pin.projectType === "Rivning" ? IconPinRed :
-                            pin.projectType === "Nybyggnation" ? IconPinBlue :
-                                IconPinGreen
-                    }>
+            if (pin.mapItem.latitude === null || pin.mapItem.longitude === null) {
+                return null
+            } else {
+                if (currentFilter.currentFilter === "none") {
+                    return (
+                        <Marker key={i} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
+                            pin.projectType === "Rivning" ? IconPinRed :
+                                pin.projectType === "Nybyggnation" ? IconPinBlue :
+                                    IconPinGreen
+                        }>
 
-                        {popup(pin)}
-                    </Marker>
-                )
-            } else if (pin.projectType === currentFilter.currentFilter) {
-                return (
-                    <Marker key={i} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
-                        pin.projectType === "Rivning" ? IconPinRed :
-                            pin.projectType === "Nybyggnation" ? IconPinBlue :
-                                IconPinGreen
-                    }>
-                        {popup(pin)}
-                    </Marker>
-                )
+                            {popup(pin)}
+                        </Marker>
+                    )
+                } else if (pin.projectType === currentFilter.currentFilter) {
+                    return (
+                        <Marker key={i} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
+                            pin.projectType === "Rivning" ? IconPinRed :
+                                pin.projectType === "Nybyggnation" ? IconPinBlue :
+                                    IconPinGreen
+                        }>
+                            {popup(pin)}
+                        </Marker>
+                    )
+                }
             }
         })
     }

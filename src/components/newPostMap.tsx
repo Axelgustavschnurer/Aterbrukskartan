@@ -23,13 +23,13 @@ export default function NewPostMap() {
     const markerRef = useRef(null)
     const eventHandlers = useMemo(
         () => ({
-            dragend() {
+            async dragend() {
                 const marker = markerRef.current
                 if (marker != null) {
                     // setPosition(marker.getLatLng())
                     console.log("Get LatLng", marker.getLatLng())
                     setPosition(marker.getLatLng())
-                    navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
+                    await navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
                     marker.openPopup()
                 }
             },
