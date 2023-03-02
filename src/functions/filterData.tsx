@@ -12,15 +12,11 @@ export { filterByProjectType, filterByYear, filterByLookingFor, filterByAvailabl
 function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
-    switch (data[i].projectType) {
-      case projectType[0]:
-      case projectType[1]:
-      case projectType[2]:
+    for (let j in data[i].projectType?.split(", ")) {
+      if (projectType.includes(j.trim())) {
         returnData.push(data[i]);
         break;
-
-      default:
-        break;
+      }
     }
   }
   return returnData;
@@ -50,23 +46,11 @@ function filterByYear(data: DeepRecycle[], year: number[]): DeepRecycle[] {
  */
 function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
-  // This function is a bit complicated, because it needs to split the lookingForMaterials string and compare each material within to the materials in the filter.
-  // The idea is that if *ANY* material in the string matches *ANY* material in the filter, the map tack is added to the returnData array and thus not filtered away.
   for (let i in data) {
-    // The leaveInnerLoop label and ´break leaveInnerLoop;´ are used to break out of the for loop from within a switch statement
-    leaveInnerLoop: {
-      for (let j in data[i].lookingForMaterials?.split(", ")) {
-        switch (j) {
-          case lookingFor[0]:
-          case lookingFor[1]:
-          case lookingFor[2]:
-          case lookingFor[3]:
-            returnData.push(data[i]);
-            break leaveInnerLoop;
-
-          default:
-            break;
-        }
+    for (let j in data[i].lookingForMaterials?.split(", ")) {
+      if (lookingFor.includes(j.trim())) {
+        returnData.push(data[i]);
+        break;
       }
     }
   }
@@ -83,20 +67,10 @@ function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycl
   let returnData: DeepRecycle[] = [];
   // Just like the filterByLookingFor function, this function is a bit hard to understand. See the comments there for more info.
   for (let i in data) {
-    // The leaveInnerLoop label and ´break leaveInnerLoop;´ are used to break out of the for loop from within a switch statement
-    leaveInnerLoop: {
-      for (let j in data[i].availableMaterials?.split(", ")) {
-        switch (j) {
-          case available[0]:
-          case available[1]:
-          case available[2]:
-          case available[3]:
-            returnData.push(data[i]);
-            break leaveInnerLoop;
-            
-          default:
-            break;
-        }
+    for (let j in data[i].availableMaterials?.split(", ")) {
+      if (available.includes(j.trim())) {
+        returnData.push(data[i]);
+        break;
       }
     }
   }
