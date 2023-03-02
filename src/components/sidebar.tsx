@@ -52,7 +52,7 @@ export default function Sidebar({ setFilter }: any) {
             <>
                 {filteredData.map((pin: any) => {
                     return (
-                        <div className="inputGroup">
+                        <div className="inputGroup" key={pin}>
                             <input id={pin} name={pin} type="checkbox" />
                             <label htmlFor={pin}>{pin}</label>
                         </div>

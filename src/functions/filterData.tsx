@@ -1,6 +1,6 @@
 import { DeepRecycle, Filter } from "@/types";
 
-// export default runActiveFilters;
+export default runActiveFilters;
 export { filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
 
 /**
@@ -93,4 +93,28 @@ function filterByOrganisation(data: DeepRecycle[], organisation: string[]): Deep
   return returnData;
 }
 
-// function runActiveFilters(data: DeepRecycle[], filters: Filter[]): DeepRecycle[];
+/**
+ * Filters through the data parameter using the filters parameter
+ * @param data Array of DeepRecycle objects to run through filters
+ * @param filters Which filters to apply
+ * @returns Filtered list of DeepRecycle objects
+ */
+function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
+  let returnData: DeepRecycle[] = data;
+  if (filters.projectType) {
+    returnData = filterByProjectType(returnData, filters.projectType);
+  }
+  if (filters.years) {
+    returnData = filterByYear(returnData, filters.years);
+  }
+  if (filters.availableCategories) {
+    returnData = filterByAvailable(returnData, filters.availableCategories);
+  }
+  if (filters.lookingForCategories) {
+    returnData = filterByLookingFor(returnData, filters.lookingForCategories);
+  }
+  if (filters.organisation) {
+    returnData = filterByOrganisation(returnData, filters.organisation);
+  }
+  return returnData;
+}
