@@ -11,6 +11,7 @@ export default function Sidebar({ setFilter }: any) {
 
     // Handles the state of the sidebar's visibility
     const [isOpen, setOpen] = useState(true);
+    const [newData, setNewData] = useState([])
     const toggleMenu = () => {
         setOpen(!isOpen);
     };
@@ -25,6 +26,18 @@ export default function Sidebar({ setFilter }: any) {
         };
     }, [isOpen, router]);
 
+    const fetchData = async () => {
+        const response = await fetch('http://localhost:3000/api/getData')
+        const data = await response.json()
+        setNewData(data)
+    }
+
+    // Runs fetchData function on component mount
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+
     // Declares the filter functionality of the project buttons
     const onButtonClick = (filter: any) => {
         setFilter(filter);
@@ -33,13 +46,17 @@ export default function Sidebar({ setFilter }: any) {
 
     // Will be used to get and display the organizations from the database
     const getOrganization = () => {
-        // TODO get organization from database
+        // TODO Filter out duplicates
         return (
             <>
-                <div className="inputGroup">
-                    <input id="Placeholder" name="Placeholder" type="checkbox" />
-                    <label htmlFor="Placeholder">Placeholder</label>
-                </div>
+                {newData.map((pin: any, i) => {
+                    return (
+                        <div className="inputGroup">
+                            <input id={pin.mapItem.organisation} name={pin.mapItem.organisation} type="checkbox" />
+                            <label htmlFor={pin.mapItem.organisation}>{pin.mapItem.organisation}</label>
+                        </div>
+                    )
+                })}
             </>
         )
     }
@@ -53,15 +70,27 @@ export default function Sidebar({ setFilter }: any) {
                 <div className="sidebar">
                     <div className="filterBtn">
                         <div className="alignBtn">
-                            <button id="demoBtn" onClick={() => onButtonClick("Rivning")}><img src="/images/riv.svg"></img></button>
+                            <button
+                                id="demoBtn"
+                                onClick={() => onButtonClick("Rivning")}>
+                                <img src="/images/riv.svg"></img>
+                            </button>
                             <p>Rivning</p>
                         </div>
                         <div className="alignBtn">
-                            <button id="buildBtn" onClick={() => onButtonClick("Nybyggnation")}><img src="/images/bygg.svg" ></img></button>
+                            <button
+                                id="buildBtn"
+                                onClick={() => onButtonClick("Nybyggnation")}>
+                                <img src="/images/bygg.svg" ></img>
+                            </button>
                             <p>Nybyggnation</p>
                         </div>
                         <div className="alignBtn">
-                            <button id="rebuildBtn" onClick={() => onButtonClick("Ombyggnation")}><img src="/images/ater.svg"></img></button>
+                            <button
+                                id="rebuildBtn"
+                                onClick={() => onButtonClick("Ombyggnation")}>
+                                <img src="/images/ater.svg"></img>
+                            </button>
                             <p>Ombyggnation</p>
                         </div>
                     </div>
@@ -78,43 +107,75 @@ export default function Sidebar({ setFilter }: any) {
                     <form className="form">
                         <h3>Sökes</h3>
                         <div className="inputGroup">
-                            <input id="stommeSokes" name="stommeSokes" type="checkbox" />
+                            <input
+                                id="stommeSokes"
+                                name="stommeSokes"
+                                type="checkbox"
+                            />
                             <label htmlFor="stommeSokes">Stomme</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="inredningSokes" name="inredningSokes" type="checkbox" />
+                            <input
+                                id="inredningSokes"
+                                name="inredningSokes"
+                                type="checkbox"
+                            />
                             <label htmlFor="inredningSokes">Inredning</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="smasakerSokes" name="smasakerSokes" type="checkbox" />
+                            <input
+                                id="smasakerSokes"
+                                name="smasakerSokes"
+                                type="checkbox"
+                            />
                             <label htmlFor="smasakerSokes">Småsaker</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="ovrigtSokes" name="ovrigtSokes" type="checkbox" />
+                            <input
+                                id="ovrigtSokes"
+                                name="ovrigtSokes"
+                                type="checkbox"
+                            />
                             <label htmlFor="ovrigtSokes">Övrigt</label>
                         </div>
 
                         <h3>Skänkes</h3>
                         <div className="inputGroup">
-                            <input id="stommeSankes" name="stommeSankes" type="checkbox" />
+                            <input
+                                id="stommeSankes"
+                                name="stommeSankes"
+                                type="checkbox"
+                            />
                             <label htmlFor="stommeSankes">Stomme</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="inredningSankes" name="inredningSankes" type="checkbox" />
+                            <input
+                                id="inredningSankes"
+                                name="inredningSankes"
+                                type="checkbox"
+                            />
                             <label htmlFor="inredningSankes">Inredning</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="smasakerSankes" name="smasakerSankes" type="checkbox" />
+                            <input
+                                id="smasakerSankes"
+                                name="smasakerSankes"
+                                type="checkbox"
+                            />
                             <label htmlFor="smasakerSankes">Småsaker</label>
                         </div>
 
                         <div className="inputGroup">
-                            <input id="ovrigtSankes" name="ovrigtSankes" type="checkbox" />
+                            <input
+                                id="ovrigtSankes"
+                                name="ovrigtSankes"
+                                type="checkbox"
+                            />
                             <label htmlFor="ovrigtSankes">Övrigt</label>
                         </div>
 
@@ -123,10 +184,18 @@ export default function Sidebar({ setFilter }: any) {
 
                     </form>
                     <div className="clearFilter">
-                        <button id="clearBtn" onClick={() => onButtonClick("none")}>Rensa filter</button>
+                        <button
+                            id="clearBtn"
+                            onClick={() => onButtonClick("none")}>
+                            Rensa filter
+                        </button>
                     </div>
                     <div className="sidebarClose">
-                        <button id="hideBtn" onClick={toggleMenu}><img src="/closeArrow.svg" alt="Closing arrow" /></button>
+                        <button
+                            id="hideBtn"
+                            onClick={toggleMenu}>
+                            <img src="/closeArrow.svg" alt="Closing arrow" />
+                        </button>
                     </div>
                 </div>
             )
@@ -135,7 +204,11 @@ export default function Sidebar({ setFilter }: any) {
                 !isOpen && (
                     <div className="hiddenSidebar">
                         <div className="sidebarOpen">
-                            <button id="openBtn" onClick={toggleMenu}><img src="/openArrow.svg" alt="Open arrow" /></button>
+                            <button
+                                id="openBtn"
+                                onClick={toggleMenu}>
+                                <img src="/openArrow.svg" alt="Open arrow" />
+                            </button>
                         </div>
                     </div>
                 )
