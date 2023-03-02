@@ -37,13 +37,15 @@ export default function Map(currentFilter: any) {
                         <h4>{pin.projectType}</h4>
                         {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year}
                         <p>
-                            {pin.projectType === "Rivning" && pin.avalibleMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials}</p>
-                                : pin.projectType === "Rivning" && pin.avalibleMaterials === null ? <p><h4>Skänkes</h4> Material saknas</p>
-                                    : pin.projectType === "Nybyggnation" && pin.avalibleMaterials !== null ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
-                                        : pin.projectType === "Nybyggnation" && pin.lookingForMaterials === null ? <p><h4>Sökes</h4> Material saknas</p>
-                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials !== null && pin.lookingForMaterials !== null ? <p><h4>Skänkes</h4> {pin.availableMaterials} <p><h4>Sökes</h4> {pin.lookingForMaterials}</p></p>
-                                                : pin.projectType === "Ombyggnation" && pin.avalibleMaterials === null && pin.lookingForMaterials === null ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> Material saknas</p>
-                                                    : null
+                            {pin.projectType === "Rivning" && pin.avalibleMaterials ? <p><h4>Skänkes</h4> {pin.availableMaterials}</p>
+                                : pin.projectType === "Rivning" && !pin.avalibleMaterials ? <p><h4>Skänkes</h4> Material saknas</p>
+                                    : pin.projectType === "Nybyggnation" && pin.avalibleMaterials ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
+                                        : pin.projectType === "Nybyggnation" && !pin.lookingForMaterials ? <p><h4>Sökes</h4> Material saknas</p>
+                                            : pin.projectType === "Ombyggnation" && pin.avalibleMaterials && pin.lookingForMaterials ? <p><h4>Skänkes</h4> {pin.availableMaterials} <p><h4>Sökes</h4> {pin.lookingForMaterials}</p></p>
+                                                : pin.projectType === "Ombyggnation" && !pin.avalibleMaterials && !pin.lookingForMaterials ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> Material saknas</p>
+                                                    : pin.projectType === "Ombyggnation" && pin.avalibleMaterials && !pin.lookingForMaterials ? <p><h4>Skänkes</h4> {pin.availableMaterials} <br /><h4>Sökes</h4> Material saknas</p>
+                                                        : pin.projectType === "Ombyggnation" && !pin.avalibleMaterials && pin.lookingForMaterials ? <p><h4>Skänkes</h4> Material saknas <br /><h4>Sökes</h4> {pin.lookingForMaterials}</p>
+                                                            : null
                             }
                         </p>
                         {!pin.description ? null : <p><h4>Beskrvining</h4> {pin.description}</p>}
