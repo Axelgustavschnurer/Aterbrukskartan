@@ -1,6 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient, Recycle, Prisma } from '@prisma/client'
-import { DeepRecycle } from '@/types';
+
+/**
+ * This is the data format used when creating a new `Recycle` object in the database.
+ */
+type DeepRecycleInput = Prisma.RecycleCreateWithoutMapItemInput & {
+  mapItem: Prisma.MapItemCreateWithoutRecycleInput
+}
 
 const prisma = new PrismaClient()
 
@@ -9,16 +15,19 @@ export default async function handler(
   res: NextApiResponse
 ) {
   res.setHeader('Allow', ['POST']);
+  // Only allow POST requests, as this is an API route for creating new data.
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const newUser: Prisma.RecycleCreateInput = req.body;
+    const newUser: DeepRecycleInput = req.body;
     const savedUser = await prisma.recycle.create({
       data: {
         mapItem: {
           create: {
+            // TODO: Possibly add a check to see if all the data matches with an existing mapItem, and if so, use that instead of creating a new one.
+            // TODO: Possibly add an option to include data for the name, address, postcode and city fields. They are currently not included in the form.
             latitude: newUser.mapItem.latitude,
             longitude: newUser.mapItem.longitude,
             organisation: newUser.mapItem.organisation,
