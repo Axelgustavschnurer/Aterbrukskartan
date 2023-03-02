@@ -23,7 +23,7 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
                 max={max}
                 value={minVal}
                 onChange={(event) => {
-                    const value = Math.min(Number(event.target.value), maxVal - 1);
+                    const value = (Number(event.target.value));
                     setMinVal(value);
                     minValRef.current = value;
                 }}
@@ -35,7 +35,7 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
                 max={max}
                 value={maxVal}
                 onChange={(event) => {
-                    const value = Math.max(Number(event.target.value), minVal + 1);
+                    const value = (Number(event.target.value));
                     setMaxVal(value);
                     maxValRef.current = value;
                 }}
@@ -45,8 +45,8 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
             <div className="slider">
                 <div className="slider__track" />
                 <div ref={range} className="slider__range" />
-                <div className="slider__left-value">{minVal}</div>
-                <div className="slider__right-value">{maxVal}</div>
+                <div className="slider__left-value">{minVal < maxVal ? minVal : maxVal}</div>
+                <div className="slider__right-value">{maxVal > minVal ? maxVal : minVal}</div>
             </div>
         </div>
     );
