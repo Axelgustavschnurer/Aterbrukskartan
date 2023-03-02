@@ -185,32 +185,32 @@ export default function AddNewPost() {
                                 <div className="padding">
                                     <input
                                         type="radio"
-                                        id="riv"
+                                        id="rivning"
                                         name="category"
                                         value="Rivning"
                                         onChange={getProjectType}
                                     />
-                                    <label htmlFor="Rivning">Rivning </label>
+                                    <label htmlFor="rivning">Rivning </label>
                                 </div>
                                 <div className="padding">
                                     <input
                                         type="radio"
-                                        id="bygg"
+                                        id="nybyggnation"
                                         name="category"
                                         value="Nybyggnation"
                                         onChange={getProjectType}
                                     />
-                                    <label htmlFor="Nybyggnation">Nybyggnation </label>
+                                    <label htmlFor="nybyggnation">Nybyggnation </label>
                                 </div>
                                 <div className="padding">
                                     <input
                                         type="radio"
-                                        id="ombygge"
+                                        id="ombyggnation"
                                         name="category"
                                         value="Ombyggnation"
                                         onChange={getProjectType}
                                     />
-                                    <label htmlFor="Ombyggnation">Ombyggnation</label>
+                                    <label htmlFor="ombyggnation">Ombyggnation</label>
                                 </div>
                             </div>
                             <div className="addNewPostFormLocation">
@@ -238,7 +238,7 @@ export default function AddNewPost() {
                                                 value="Stomme"
                                                 onChange={getSearchedFor}
                                             />
-                                            <label htmlFor="material">Stomme</label>
+                                            <label htmlFor="stomme">Stomme</label>
                                         </div>
                                         <div className="padding">
                                             <input
@@ -248,7 +248,7 @@ export default function AddNewPost() {
                                                 value="Inredning"
                                                 onChange={getSearchedFor}
                                             />
-                                            <label htmlFor="material">Inredning</label>
+                                            <label htmlFor="inredning">Inredning</label>
                                         </div>
                                         <div className="padding">
                                             <input
@@ -258,7 +258,7 @@ export default function AddNewPost() {
                                                 value="Småsaker"
                                                 onChange={getSearchedFor}
                                             />
-                                            <label htmlFor="material">Småsaker</label>
+                                            <label htmlFor="smasaker">Småsaker</label>
                                         </div>
                                         <div className="padding">
                                             <input
@@ -268,7 +268,7 @@ export default function AddNewPost() {
                                                 value="Övrigt"
                                                 onChange={getSearchedFor}
                                             />
-                                            <label htmlFor="material">Övrigt</label>
+                                            <label htmlFor="ovrigt">Övrigt</label>
 
                                         </div>
                                     </div>
@@ -279,42 +279,42 @@ export default function AddNewPost() {
                                         <div className="padding">
                                             <input
                                                 type="checkbox"
-                                                id="stomme"
+                                                id="_stomme"
                                                 name="Stomme"
                                                 value="Stomme"
                                                 onChange={getOffering}
                                             />
-                                            <label htmlFor="material">Stomme</label>
+                                            <label htmlFor="_stomme">Stomme</label>
                                         </div>
                                         <div className="padding">
                                             <input
                                                 type="checkbox"
-                                                id="inredning"
+                                                id="_inredning"
                                                 name="Inredning"
                                                 value="Inredning"
                                                 onChange={getOffering}
                                             />
-                                            <label htmlFor="material">Inredning</label>
+                                            <label htmlFor="_inredning">Inredning</label>
                                         </div>
                                         <div className="padding">
                                             <input
                                                 type="checkbox"
-                                                id="smasaker"
+                                                id="_smasaker"
                                                 name="Småsaker"
                                                 value="Småsaker"
                                                 onChange={getOffering}
                                             />
-                                            <label htmlFor="material">Småsaker</label>
+                                            <label htmlFor="_smasaker">Småsaker</label>
                                         </div>
                                         <div className="padding">
                                             <input
                                                 type="checkbox"
-                                                id="ovrigt"
+                                                id="_ovrigt"
                                                 name="Övrigt"
                                                 value="Övrigt"
                                                 onChange={getOffering}
                                             />
-                                            <label htmlFor="material">Övrigt</label>
+                                            <label htmlFor="_ovrigt">Övrigt</label>
                                         </div>
                                     </div>
                                 </div>
