@@ -127,6 +127,7 @@ export default function Sidebar({ setFilter }: any) {
     // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it. 
     // It contains the type project buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter. 
     // Lastly, it contains a button for closing the sidebar. 
+
     return (
         <>
             {isOpen && (
@@ -135,7 +136,8 @@ export default function Sidebar({ setFilter }: any) {
                         <div className="alignBtn">
                             <button
                                 id="demoBtn"
-                                onClick={() => onButtonClick("Rivning")}>
+                                onClick={() => onButtonClick("Rivning")}
+                            >
                                 <img src="/images/riv.svg"></img>
                             </button>
                             <p>Rivning</p>
@@ -143,7 +145,8 @@ export default function Sidebar({ setFilter }: any) {
                         <div className="alignBtn">
                             <button
                                 id="buildBtn"
-                                onClick={() => onButtonClick("Nybyggnation")}>
+                                onClick={() => onButtonClick("Nybyggnation")}
+                            >
                                 <img src="/images/bygg.svg" ></img>
                             </button>
                             <p>Nybyggnation</p>
@@ -151,7 +154,8 @@ export default function Sidebar({ setFilter }: any) {
                         <div className="alignBtn">
                             <button
                                 id="rebuildBtn"
-                                onClick={() => onButtonClick("Ombyggnation")}>
+                                onClick={() => onButtonClick("Ombyggnation")}
+                            >
                                 <img src="/images/ater.svg"></img>
                             </button>
                             <p>Ombyggnation</p>
