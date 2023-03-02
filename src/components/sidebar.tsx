@@ -46,14 +46,15 @@ export default function Sidebar({ setFilter }: any) {
 
     // Will be used to get and display the organizations from the database
     const getOrganization = () => {
-        // TODO Filter out duplicates
+        let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
+        let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index)
         return (
             <>
-                {newData.map((pin: any, i) => {
+                {filteredData.map((pin: any) => {
                     return (
                         <div className="inputGroup">
-                            <input id={pin.mapItem.organisation} name={pin.mapItem.organisation} type="checkbox" />
-                            <label htmlFor={pin.mapItem.organisation}>{pin.mapItem.organisation}</label>
+                            <input id={pin} name={pin} type="checkbox" />
+                            <label htmlFor={pin}>{pin}</label>
                         </div>
                     )
                 })}
