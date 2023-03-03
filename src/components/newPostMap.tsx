@@ -1,7 +1,7 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
+import { IconPinRed } from './icons'
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 // Map component for "New Post" page
@@ -39,10 +39,6 @@ export default function NewPostMap() {
     useEffect(() => {
         console.log("markerRef.current", markerRef.current)
     }, [markerRef.current])
-
-    // const addMarker = () => {
-    //     console.log("add marker")
-    // }
 
     // Returns map with red marker pin
     return (

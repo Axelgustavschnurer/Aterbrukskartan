@@ -8,7 +8,9 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
 export default function AddNewPost() {
+    const router = useRouter();
 
+    // Declares the filter variable and its setter function
     const [organization, setOrganization] = useState("");
     const [startYear, setStartYear] = useState("");
     const [projectType, setProjectType] = useState("");
@@ -31,13 +33,14 @@ export default function AddNewPost() {
     const [externalLinks, setExternalLinks] = useState("");
     const [message, setMessage] = useState("");
 
-    const router = useRouter();
 
+    // Gets the value of the project type
     const getProjectType = (e: any) => {
         setProjectType(e.target.value);
         console.log("project type value: ", e.target.value);
     };
 
+    // Gets the value of the searched for
     const getSearchedFor = (e: any) => {
         setSearchingFor({
             ...searchingFor,
@@ -46,6 +49,7 @@ export default function AddNewPost() {
         console.log("searching for value: ", e.target.value);
     };
 
+    // Gets the value of the offering
     const getOffering = (e: any) => {
         setOffering({
             ...offering,
@@ -108,6 +112,7 @@ export default function AddNewPost() {
             });
             let resJson = await res.json();
             if (res.status === 200) {
+                // If the post was successful, reset the form and redirect to the home page
                 setOrganization("");
                 setProjectType("");
                 setLocation("");
@@ -160,7 +165,7 @@ export default function AddNewPost() {
                     <div className="addNewPostForm">
                         <form method="post" onSubmit={handleSubmit}>
                             <div className="addNewPostFormOrganization">
-                                <label className="newPostTitle" htmlFor="organization">* Organisation</label>
+                                <label className="newPostTitle" htmlFor="organization">Organisation *</label>
                                 <input
                                     type="text"
                                     id="organization"
@@ -171,13 +176,14 @@ export default function AddNewPost() {
                                 />
                             </div>
                             <div className="startYear">
-                                <label className="newPostTitle" htmlFor="startYear">Startår</label>
+                                <label className="newPostTitle" htmlFor="startYear">Startår *</label>
                                 <input
                                     type="number"
                                     id="startYear"
                                     name="startYear"
                                     value={startYear}
                                     onChange={(e) => setStartYear(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="typeOfProject">
@@ -214,7 +220,7 @@ export default function AddNewPost() {
                                 </div>
                             </div>
                             <div className="addNewPostFormLocation">
-                                <label className="newPostTitle" htmlFor="location">* Plats</label>
+                                <label className="newPostTitle" htmlFor="location">Plats *</label>
                                 <NewPostMap />
                                 <input
                                     type="text"
@@ -320,7 +326,7 @@ export default function AddNewPost() {
                                 </div>
                             </div>
                             <div className="addNewPostFormDescription">
-                                <label className="newPostTitle" htmlFor="description">* Beskrivning</label>
+                                <label className="newPostTitle" htmlFor="description">Beskrivning *</label>
                                 <textarea
                                     id="description"
                                     name="description"
@@ -333,7 +339,7 @@ export default function AddNewPost() {
                                 />
                             </div>
                             <div className="addNewPostFormContact">
-                                <label className="newPostTitle" htmlFor="contact">* Kontakt</label>
+                                <label className="newPostTitle" htmlFor="contact">Kontakt *</label>
                                 <textarea
                                     id="contact"
                                     name="contact"
@@ -345,7 +351,7 @@ export default function AddNewPost() {
                                 />
                             </div>
                             <div className="addNewPostFormExternalLinks">
-                                <label className="newPostTitle" htmlFor="externalLinks">* Länkar</label>
+                                <label className="newPostTitle" htmlFor="externalLinks">Länkar</label>
                                 <textarea
                                     id="externalLinks"
                                     name="externalLinks"
@@ -373,15 +379,6 @@ export default function AddNewPost() {
                             </a>
                         </div>
                     </div>
-
-                    {/* <div className="footerRow">
-                        <div className="footerHeader">Övrigt</div>
-                        <div className="footerLink">
-                            <a href="https://energiportalregionuppsala.se/" target="_blank" rel="noreferrer">
-                                Energiportalen
-                            </a>
-                        </div>
-                    </div> */}
                 </div>
             </div>
 
