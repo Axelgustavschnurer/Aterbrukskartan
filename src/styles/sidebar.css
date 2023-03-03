@@ -275,6 +275,11 @@
     border-radius: 100%;
     padding: 5px;
     cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #demoBtn:hover {
@@ -292,6 +297,11 @@
     border-radius: 100%;
     padding: 5px;
     cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #buildBtn:hover {
@@ -309,6 +319,11 @@
     border-radius: 100%;
     padding: 5px;
     cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #rebuildBtn:hover {
@@ -316,8 +331,8 @@
 }
 
 #rebuildBtn img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 #clearBtn {
