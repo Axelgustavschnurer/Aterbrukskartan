@@ -42,7 +42,7 @@ export default function Sidebar({ setFilter }: any) {
       organisation: organisationStrings,
     } as Filter)
     console.log("Filter", projectType, years, lookingForStrings, availableStrings, organisationStrings)
-  }, [projectType, years, lookingForStrings, availableStrings, organisationStrings])
+  }, [projectType, years, lookingForStrings, availableStrings, organisationStrings, setFilter])
 
   // Updates list of looking for materials when the user interacts with the lookingFor filter
   useEffect(() => {
