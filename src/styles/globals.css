@@ -147,3 +147,10 @@ body {
 .addNewPostButton:hover {
   background-color: #cccccc;
 }
+
+/* Media queries */
+@media screen and (min-width: 2000px) {
+  .wrap {
+    width: 15.5vw;
+  }
+}
