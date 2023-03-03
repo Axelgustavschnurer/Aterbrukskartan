@@ -60,7 +60,8 @@ export default function HomePage() {
           {/* {currentFilter === "none" ? null : <p className="filterText" onClick={removeCurrentFilter}>{currentFilter}</p>} */}
         </div>
       </div>
-      <div className="addNewPost">
+      <div className="addNewPost tooltip">
+      <span className="tooltipText">Lägg till nytt projekt</span>
         <button className="addNewPostButton" onClick={goToNewPost}>
           <img src="./add.svg" />
         </button>
