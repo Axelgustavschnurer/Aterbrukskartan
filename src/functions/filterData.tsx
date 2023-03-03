@@ -50,7 +50,7 @@ function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecy
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     for (let j in data[i].lookingForMaterials?.split(", ")) {
-      if (lookingFor.includes(data[i].lookingForMaterials!.split(", ")[j])) {
+      if (lookingFor.includes(data[i].lookingForMaterials!.split(", ")[j as any])) {
         returnData.push(data[i]);
         break;
       }
@@ -70,7 +70,7 @@ function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycl
   // Just like the filterByLookingFor function, this function is a bit hard to understand. See the comments there for more info.
   for (let i in data) {
     for (let j in data[i].availableMaterials?.split(", ")) {
-      if (available.includes(data[i].availableMaterials!.split(", ")[j])) {
+      if (available.includes(data[i].availableMaterials!.split(", ")[j as any])) {
         returnData.push(data[i]);
         break;
       }
@@ -103,12 +103,14 @@ function filterByOrganisation(data: DeepRecycle[], organisation: string[]): Deep
  */
 function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
+  // If the year slider in ../components/sidebar.tsx is changed, this value might need to be updated
   const currentDate = new Date().getFullYear()
   console.log("Active filters: ", filters);
   if (filters.projectType?.length) {
     returnData = filterByProjectType(returnData, filters.projectType);
     console.log("Project type filter applied: ", filters.projectType);
   }
+  // If the year slider in ../components/sidebar.tsx is changed, this comparison might need to be updated to reflect the new input range
   if (filters.years && (Math.max(...filters.years) != (currentDate + 10) || Math.min(...filters.years) != currentDate)) {
     returnData = filterByYear(returnData, filters.years);
     console.log("Year filter applied: ", filters.years);

@@ -186,6 +186,8 @@ export default function Sidebar({ setFilter }: any) {
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
+                // If the default values for min and max are changed in the future, they must be changed at ../functions/filterData.tsx as well.
+                // They can be found in the function `runActiveFilters`
                 min={currentDate}
                 max={currentDate + 10}
                 onChange={({ min, max }: any) => {
