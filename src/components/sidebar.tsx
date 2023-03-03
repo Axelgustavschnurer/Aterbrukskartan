@@ -12,22 +12,21 @@ export default function Sidebar({ setFilter }: any) {
     // Handles the state of the sidebar's visibility
     const [isOpen, setOpen] = useState(true);
     const [newData, setNewData] = useState([])
-    const [projectType, setProjectType] = useState([])
     const [lookingForMaterials, setLookingForMaterials] = useState([])
     const [availableMaterials, setAvailableMaterials] = useState([])
     const [organisation, setOrganisation] = useState([])
 
-    let projectTypes: string[] = (() => {
-        let types: string[] = [];
-        // TODO: Fix error
-        for (let key in projectType) {
-            if (projectType[key]) {
-                types.push(key);
-            }
-        }
-        return types;
-    })();
-    console.log("projectTypes", projectTypes);
+    // let projectTypes: string[] = (() => {
+    //     let types: string[] = [];
+    //     // TODO: Fix error
+    //     for (let key in projectType) {
+    //         if (projectType[key]) {
+    //             types.push(key);
+    //         }
+    //     }
+    //     return types;
+    // })();
+    // console.log("projectTypes", projectTypes);
 
     let lookingFor: string[] = (() => {
         let materials: string[] = [];
@@ -89,11 +88,16 @@ export default function Sidebar({ setFilter }: any) {
         fetchData()
     }, [])
 
+    let projectType: string[] = []
 
     // Declares the filter functionality of the project buttons
     const onButtonClick = (filter: any) => {
-        setFilter(filter);
-        console.log(filter);
+        if(projectType.includes(filter)) {
+            projectType = projectType.filter((item: any) => item !== filter)
+        } else {
+            projectType.push(filter)
+        }
+        console.log("Filter clicked", projectType)
     };
 
     // Will be used to get and display the organizations from the database
