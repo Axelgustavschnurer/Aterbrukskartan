@@ -37,8 +37,8 @@ export default function Sidebar({ setFilter }: any) {
     setFilter({
       projectType: projectType,
       years: years,
-      lookingFor: lookingForStrings,
-      available: availableStrings,
+      lookingForCategories: lookingForStrings,
+      availableCategories: availableStrings,
       organisation: organisationStrings,
     } as Filter)
     console.log("Filter", projectType, years, lookingForStrings, availableStrings, organisationStrings)
@@ -189,7 +189,7 @@ export default function Sidebar({ setFilter }: any) {
                 min={currentDate}
                 max={currentDate + 10}
                 onChange={({ min, max }: any) => {
-                  if(!(years.includes(min) && years.includes(max))){
+                  if (!(years.includes(min) && years.includes(max))) {
                     setYears([min, max])
                   }
                   console.log(`min = ${min}, max = ${max}`)

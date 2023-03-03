@@ -1,7 +1,8 @@
 import { DeepRecycle, Filter } from "@/types";
+import { Recycle } from "@prisma/client";
 
 export default runActiveFilters;
-export { filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
+export { runActiveFilters, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
 
 /**
  * Filters out recycle objects that do not have a project type that matches with at least one of the project types in the projectType parameter.
@@ -13,7 +14,7 @@ function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRe
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     for (let j in data[i].projectType?.split(", ")) {
-      if (projectType.includes(j.trim())) {
+      if (projectType.includes(data[i].projectType?.split(", ")[j])) {
         returnData.push(data[i]);
         break;
       }
@@ -30,6 +31,7 @@ function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRe
  */
 function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
+  console.log(Math.max(...years), Math.min(...years))
   for (let i in data) {
     if (data[i].mapItem.year! <= Math.max(...years) && data[i].mapItem.year! >= Math.min(...years)) {
       returnData.push(data[i]);
@@ -48,7 +50,7 @@ function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecy
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     for (let j in data[i].lookingForMaterials?.split(", ")) {
-      if (lookingFor.includes(j.trim())) {
+      if (lookingFor.includes(data[i].lookingForMaterials!.split(", ")[j])) {
         returnData.push(data[i]);
         break;
       }
@@ -68,7 +70,7 @@ function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycl
   // Just like the filterByLookingFor function, this function is a bit hard to understand. See the comments there for more info.
   for (let i in data) {
     for (let j in data[i].availableMaterials?.split(", ")) {
-      if (available.includes(j.trim())) {
+      if (available.includes(data[i].availableMaterials!.split(", ")[j])) {
         returnData.push(data[i]);
         break;
       }
@@ -101,20 +103,28 @@ function filterByOrganisation(data: DeepRecycle[], organisation: string[]): Deep
  */
 function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
-  if (filters.projectType) {
+  const currentDate = new Date().getFullYear()
+  console.log("Active filters: ", filters);
+  if (filters.projectType?.length) {
     returnData = filterByProjectType(returnData, filters.projectType);
+    console.log("Project type filter applied: ", filters.projectType);
   }
-  if (filters.years) {
+  if (filters.years && (Math.max(...filters.years) != (currentDate + 10) || Math.min(...filters.years) != currentDate)) {
     returnData = filterByYear(returnData, filters.years);
+    console.log("Year filter applied: ", filters.years);
   }
-  if (filters.availableCategories) {
+  if (filters.availableCategories?.length) {
     returnData = filterByAvailable(returnData, filters.availableCategories);
+    console.log("Available filter applied: ", filters.availableCategories);
   }
-  if (filters.lookingForCategories) {
+  if (filters.lookingForCategories?.length) {
     returnData = filterByLookingFor(returnData, filters.lookingForCategories);
+    console.log("Looking for filter applied: ", filters.lookingForCategories);
   }
-  if (filters.organisation) {
+  if (filters.organisation?.length) {
     returnData = filterByOrganisation(returnData, filters.organisation);
+    console.log("Organisation filter applied: ", filters.organisation);
   }
+  console.log("Tried to apply filters");
   return returnData;
 }

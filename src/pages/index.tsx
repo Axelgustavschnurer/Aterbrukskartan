@@ -2,7 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '../components/sidebar'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Filter } from '../types'
 
@@ -31,6 +31,10 @@ export default function HomePage() {
   const removeCurrentFilter = () => {
     setFilter({} as Filter)
   }
+
+  useEffect(() => {
+    console.log(currentFilter)
+  }, [currentFilter])
 
   // Returns all content of the main page.
   return (

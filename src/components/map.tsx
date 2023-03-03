@@ -4,12 +4,12 @@ import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect } from 'react'
 import { PopupHead, PopupText } from "./popupStyles";
-import { Recycle } from '@prisma/client'
-import { DeepRecycle } from '@/types'
+import { DeepRecycle, Filter } from '@/types'
+import { runActiveFilters } from '@/functions/filterData'
 
 // Map component for main page
 
-export default function Map(currentFilter: any) {
+export default function Map({currentFilter}: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
 
@@ -59,7 +59,9 @@ export default function Map(currentFilter: any) {
 
   // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
   const getAllPins = () => {
-    return mapData.map((pin: DeepRecycle, i) => {
+    let filteredData = runActiveFilters(mapData, currentFilter)
+    console.log(filteredData)
+    return filteredData.map((pin: DeepRecycle, i) => {
       if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
         return null
       } else {
