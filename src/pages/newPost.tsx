@@ -71,7 +71,7 @@ export default function AddNewPost() {
                 let materials: string[] = [];
                 // TODO: Fix error
                 for (let key in searchingFor) {
-                    if (searchingFor[key]) {
+                    if (searchingFor[key as keyof (typeof searchingFor)]) {
                         materials.push(key);
                     }
                 }
@@ -80,7 +80,7 @@ export default function AddNewPost() {
             let availableMaterials: string = (() => {
                 let materials: string[] = [];
                 for (let key in offering) {
-                    if (offering[key]) {
+                    if (offering[key as keyof (typeof offering)]) {
                         materials.push(key);
                     }
                 }
