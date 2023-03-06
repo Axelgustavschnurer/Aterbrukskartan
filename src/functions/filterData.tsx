@@ -2,7 +2,20 @@ import { DeepRecycle, Filter } from "@/types";
 import { Recycle } from "@prisma/client";
 
 export default runActiveFilters;
-export { runActiveFilters, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
+export { runActiveFilters, searchForProjects, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
+
+/**
+ * 
+ */
+function searchForProjects(data: DeepRecycle[], search: string): DeepRecycle[] {
+  let returnData: DeepRecycle[] = [];
+  for (let i in data) {
+    if (data[i].mapItem.organisation?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+    }
+  }
+  return returnData;
+}
 
 /**
  * Filters out recycle objects that do not have a project type that matches with at least one of the project types in the projectType parameter.

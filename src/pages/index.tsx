@@ -13,6 +13,9 @@ export default function HomePage() {
   const router = useRouter()
   // Declares the filter variable and its setter function 
   const [currentFilter, setFilter] = useState({} as Filter)
+  const [searchInput, setSearchInput] = useState("")
+
+  console.log("search Input", searchInput)
 
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
@@ -44,11 +47,17 @@ export default function HomePage() {
         <title>Återbrukskartan</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-      <Map currentFilter={currentFilter} />
+      <Map currentFilter={currentFilter} searchInput={searchInput} />
       <Sidebar setFilter={setFilter} />
       <div className="wrap">
         <div className="search">
-          <input type="text" className="searchTerm" placeholder="Sök efter projekt..."></input>
+          <input
+            type="search"
+            className="searchTerm"
+            placeholder="Sök efter projekt..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
           <div className='searchIcon'>
             <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
           </div>
@@ -66,7 +75,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="addNewPost tooltip">
-      <span className="tooltipText">Lägg till nytt projekt</span>
+        <span className="tooltipText">Lägg till nytt projekt</span>
         <button className="addNewPostButton" onClick={goToNewPost}>
           <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
         </button>
