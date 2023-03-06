@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
 import { Filter } from "@/types";
+import Image from "next/image";
 
 // Sidebar component for filtering the map
 
@@ -167,7 +168,7 @@ export default function Sidebar({ setFilter }: any) {
                   }
                 }}
               >
-                <img src="/images/riv.svg"></img>
+                <Image src="/images/riv.svg" alt="Rivning" width={40} height={40} />
               </button>
               <p>Rivning</p>
             </div>
@@ -182,7 +183,7 @@ export default function Sidebar({ setFilter }: any) {
                   }
                 }}
               >
-                <img src="/images/bygg.svg" ></img>
+                <Image src="/images/bygg.svg" alt="Nybyggnation" width={40} height={40} />
               </button>
               <p>Nybyggnation</p>
             </div>
@@ -197,7 +198,7 @@ export default function Sidebar({ setFilter }: any) {
                   }
                 }}
               >
-                <img src="/images/ater.svg"></img>
+                <Image src="/images/ater.svg" alt="Ombyggnation" width={40} height={40} />
               </button>
               <p>Ombyggnation</p>
             </div>
@@ -395,7 +396,7 @@ export default function Sidebar({ setFilter }: any) {
             <button
               id="hideBtn"
               onClick={toggleMenu}>
-              <img src="/closeArrow.svg" alt="Closing arrow" />
+              <Image src="/closeArrow.svg" alt="Closing arrow" width={20} height={20} />
             </button>
           </div>
         </div>
@@ -408,7 +409,7 @@ export default function Sidebar({ setFilter }: any) {
               <button
                 id="openBtn"
                 onClick={toggleMenu}>
-                <img src="/openArrow.svg" alt="Open arrow" />
+                <Image src="/openArrow.svg" alt="Open arrow" width={20} height={20} />
               </button>
             </div>
           </div>

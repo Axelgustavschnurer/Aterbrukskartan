@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Filter } from '../types'
+import Image from 'next/image'
 
 // This is the main page of the application
 
@@ -49,7 +50,7 @@ export default function HomePage() {
         <div className="search">
           <input type="text" className="searchTerm" placeholder="Sök efter projekt..."></input>
           <div className='searchIcon'>
-            <img src="/search.svg" alt="searchicon" style={{ width: "30px", height: "30px" }} />
+            <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
           </div>
         </div>
       </div>
@@ -67,7 +68,7 @@ export default function HomePage() {
       <div className="addNewPost tooltip">
       <span className="tooltipText">Lägg till nytt projekt</span>
         <button className="addNewPostButton" onClick={goToNewPost}>
-          <img src="./add.svg" />
+          <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
         </button>
       </div>
 
