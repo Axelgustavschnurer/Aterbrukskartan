@@ -8,6 +8,7 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
     const minValRef = useRef(min);
     const maxValRef = useRef(max);
     const range = useRef(null);
+    const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
     // Gets min and max values when their state changes.
     useEffect(() => {
@@ -45,8 +46,8 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
             <div className="slider">
                 <div className="slider__track" />
                 <div ref={range} className="slider__range" />
-                <div className="slider__left-value">{minVal < maxVal ? minVal : maxVal}</div>
-                <div className="slider__right-value">{maxVal > minVal ? maxVal : minVal}</div>
+                <div className="slider__left-value">{minVal <= 12 && minVal <= maxVal ? monthArray[minVal - 1] :minVal <= 12 && minVal >= maxVal ? monthArray[maxVal - 1] :  minVal < maxVal ? minVal : maxVal}</div>
+                <div className="slider__right-value">{maxVal <= 12 && maxVal >= minVal ? monthArray[maxVal - 1] :maxVal <= 12 && maxVal <= minVal ? monthArray[minVal - 1] : maxVal > minVal ? maxVal : minVal}</div>
             </div>
         </div>
     );

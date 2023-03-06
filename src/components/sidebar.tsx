@@ -40,6 +40,7 @@ export default function Sidebar({ setFilter }: any) {
   const [organisationStrings, setOrganisationStrings] = useState([] as string[])
 
   const [years, setYears] = useState([] as number[])
+  const [months, setMonths] = useState([] as number[])
   const [projectType, setProjectType] = useState([] as string[])
 
   // Updates filter state when the user interacts with any of the filter components
@@ -217,6 +218,23 @@ export default function Sidebar({ setFilter }: any) {
               />
             </div>
           </div>
+          {/*This is a range slider for months. It is currently not in use, but can be used in the future. 
+          <div className="rSliderContainer">
+            <div className="range-slider">
+              <DualRangeSlider
+                // If the default values for min and max are changed in the future, they must be changed at ../functions/filterData.tsx as well.
+                // They can be found in the function `runActiveFilters`
+                min={1}
+                max={12}
+                onChange={({ min, max }: any) => {
+                  if (!(months.includes(min) && months.includes(max))) {
+                    setMonths([min, max])
+                  }
+                  console.log(`min month = ${min}, max = ${max}`)
+                }}
+              />
+            </div>
+          </div> */}
 
           <form className="form">
             <h3>Sökes</h3>
