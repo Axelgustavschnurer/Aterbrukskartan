@@ -36,6 +36,23 @@ export default function HomePage() {
     setFilter({} as Filter)
   }
 
+  // Declares function for displaying the current filter
+  const filterLabels = () => {
+    let filterLabel: string[] | undefined = []
+    for (let i = 0; i < 3; i++){
+      if (currentFilter.projectType && currentFilter.projectType[i] === "Rivning"){
+        filterLabel?.push("Rivning")
+      }
+      if (currentFilter.projectType && currentFilter.projectType[i] === "Nybyggnation"){
+        filterLabel?.push("Nybyggnation")
+      }
+      if (currentFilter.projectType && currentFilter.projectType[i] === "Ombyggnation"){
+        filterLabel?.push("Ombyggnation")
+      }
+    }
+    return filterLabel
+  }
+
   useEffect(() => {
     console.log(currentFilter)
   }, [currentFilter])
@@ -65,12 +82,10 @@ export default function HomePage() {
       </div>
       <div className='filterTextContent'>
         <div className="filterTextContainer">
-          {/*
-            currentFilter.projectType[0] === "Rivning" && currentFilter.projectType?.length === 1 ? <p className="filterText" style={{ backgroundColor: "#ff0000ee" }} onClick={removeCurrentFilter}>Rivning</p> :
-              currentFilter.projectType[0] === "Nybyggnation" && currentFilter.projectType?.length === 1 ? <p className="filterText" style={{ backgroundColor: "#00a2ff" }} onClick={removeCurrentFilter}>Nybyggnation</p> :
-                currentFilter.projectType[0] === "Ombyggnation" && currentFilter.projectType?.length === 1 ? <p className="filterText" style={{ backgroundColor: "green" }} onClick={removeCurrentFilter}>Ombyggnation</p> :
+          {
+            filterLabels().length && filterLabels()!.length <= 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }} onClick={removeCurrentFilter}>{filterLabels().join(", ")}</p> :
                   null
-          */}
+          }
           {/* {currentFilter === "none" ? null : <p className="filterText" onClick={removeCurrentFilter}>{currentFilter}</p>} */}
         </div>
       </div>
