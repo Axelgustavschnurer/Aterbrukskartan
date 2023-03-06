@@ -94,6 +94,9 @@ export default function Sidebar({ setFilter }: any) {
     };
   }, [isOpen, router]);
 
+  /**
+   * Fetches data from the database
+   */
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/getData')
     const data = await response.json()
@@ -104,19 +107,6 @@ export default function Sidebar({ setFilter }: any) {
   useEffect(() => {
     fetchData()
   }, [])
-
-  // Declares the filter functionality of the project buttons
-  const onButtonClick = (filter: any) => {
-    let projects: string[] = projectType
-    // If the filter is already in the array, remove it. Otherwise, add it.
-    if (projects.includes(filter)) {
-      projects = projects.filter((item: any) => item !== filter)
-    } else {
-      projects.push(filter)
-    }
-    setProjectType(projects)
-    console.log("Filter clicked", projectType)
-  };
 
   // Will be used to get and display the organizations from the database
   const getOrganization = () => {
@@ -158,7 +148,13 @@ export default function Sidebar({ setFilter }: any) {
             <div className="alignBtn">
               <button
                 id="demoBtn"
-                onClick={() => onButtonClick("Rivning")}
+                onClick={() => {
+                  if (projectType.includes("Rivning")) {
+                    setProjectType(projectType.filter((item: any) => item !== "Rivning"))
+                  } else {
+                    setProjectType([...projectType, "Rivning"])
+                  }
+                }}
               >
                 <img src="/images/riv.svg"></img>
               </button>
@@ -167,7 +163,13 @@ export default function Sidebar({ setFilter }: any) {
             <div className="alignBtn">
               <button
                 id="buildBtn"
-                onClick={() => onButtonClick("Nybyggnation")}
+                onClick={() => {
+                  if (projectType.includes("Nybyggnation")) {
+                    setProjectType(projectType.filter((item: any) => item !== "Nybyggnation"))
+                  } else {
+                    setProjectType([...projectType, "Nybyggnation"])
+                  }
+                }}
               >
                 <img src="/images/bygg.svg" ></img>
               </button>
@@ -176,7 +178,13 @@ export default function Sidebar({ setFilter }: any) {
             <div className="alignBtn">
               <button
                 id="rebuildBtn"
-                onClick={() => onButtonClick("Ombyggnation")}
+                onClick={() => {
+                  if (projectType.includes("Ombyggnation")) {
+                    setProjectType(projectType.filter((item: any) => item !== "Ombyggnation"))
+                  } else {
+                    setProjectType([...projectType, "Ombyggnation"])
+                  }
+                }}
               >
                 <img src="/images/ater.svg"></img>
               </button>
