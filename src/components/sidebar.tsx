@@ -15,12 +15,22 @@ export default function Sidebar({ setFilter }: any) {
   const [newData, setNewData] = useState([])
 
   // This will become a json object
-  const [lookingForMaterials, setLookingForMaterials] = useState([])
+  const [lookingForMaterials, setLookingForMaterials] = useState({
+    StommeSokes: false,
+    InredningSokes: false,
+    SmåsakerSokes: false,
+    ÖvrigtSokes: false
+  })
   // Contains the strings of the materials the map item is looking for
   const [lookingForStrings, setLookingForStrings] = useState([] as string[])
 
   // This will become a json object
-  const [availableMaterials, setAvailableMaterials] = useState([])
+  const [availableMaterials, setAvailableMaterials] = useState({
+    StommeSankes: false,
+    InredningSankes: false,
+    SmåsakerSankes: false,
+    ÖvrigtSankes: false
+  })
   // Contains the strings of the materials the map item has available
   const [availableStrings, setAvailableStrings] = useState([] as string[])
 
@@ -48,7 +58,7 @@ export default function Sidebar({ setFilter }: any) {
   useEffect(() => {
     let lookingForStuff: string[] = [];
     for (let key in lookingForMaterials) {
-      if (lookingForMaterials[key]) {
+      if (lookingForMaterials[key as keyof (typeof lookingForMaterials)]) {
         lookingForStuff.push(key.replace('Sokes', ''));
       }
     }
@@ -60,7 +70,7 @@ export default function Sidebar({ setFilter }: any) {
   useEffect(() => {
     let availableStuff: string[] = [];
     for (let key in availableMaterials) {
-      if (availableMaterials[key]) {
+      if (availableMaterials[key as keyof (typeof availableMaterials)]) {
         availableStuff.push(key.replace('Sankes', ''));
       }
     }
@@ -338,7 +348,28 @@ export default function Sidebar({ setFilter }: any) {
           <div className="clearFilter">
             <button
               id="clearBtn"
-              onClick={() => onButtonClick("none")}>
+              onClick={() => {
+                setProjectType([])
+                setYears([currentDate, currentDate + 10])
+                setLookingForMaterials({
+                  StommeSokes: false,
+                  InredningSokes: false,
+                  SmåsakerSokes: false,
+                  ÖvrigtSokes: false
+                })
+                setAvailableMaterials({
+                  StommeSankes: false,
+                  InredningSankes: false,
+                  SmåsakerSankes: false,
+                  ÖvrigtSankes: false
+                })
+                setOrganisation([])
+
+                let checkboxes = document.querySelectorAll("input[type=checkbox]")
+                checkboxes.forEach((checkbox: any) => {
+                  checkbox.checked = false
+                })
+              }}>
               Rensa filter
             </button>
           </div>
