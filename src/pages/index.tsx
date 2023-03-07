@@ -65,12 +65,12 @@ export default function HomePage() {
     if (getYears){
       if(getYears[0] === getYears[1] && getYears[0] !== undefined){
         filterLabel!.push(getYears[0].toString(), getYears[1].toString())
-      }
-      else {
+      } else if (Math.min(...getYears) === minYear && Math.max(...getYears) === maxYear){
+        null;
+      } else {
         filterLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
       }
-    } 
-    console.log("index year log", filterLabel, getYears)
+    }
     return filterLabel
   }
 
