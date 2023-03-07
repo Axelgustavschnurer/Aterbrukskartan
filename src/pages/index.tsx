@@ -36,6 +36,9 @@ export default function HomePage() {
     setFilter({} as Filter)
   }
 
+  const [minYear, setMinYear] = useState(new Date().getFullYear())
+  const [maxYear, setMaxYear] = useState(new Date().getFullYear() + 10)
+
   // Declares function for displaying the current filter
   const filterLabels = () => {
     let filterLabel: string[] | undefined = []
@@ -62,7 +65,8 @@ export default function HomePage() {
     if (getYears){
       if(getYears[0] === getYears[1] && getYears[0] !== undefined){
         filterLabel!.push(getYears[0].toString(), getYears[1].toString())
-      } else {
+      }
+      else {
         filterLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
       }
     } 
@@ -78,7 +82,7 @@ export default function HomePage() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <Map currentFilter={currentFilter} searchInput={searchInput} />
-      <Sidebar setFilter={setFilter} />
+      <Sidebar setFilter={setFilter} minYear={minYear} maxYear={maxYear} />
       <div className="wrap">
         <div className="search">
           <input
