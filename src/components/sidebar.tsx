@@ -120,6 +120,14 @@ export default function Sidebar({ setFilter }: any) {
     fetchData()
   }, [])
 
+  const updateProjectType = (e: any) => {
+    if (projectType.includes(e.currentTarget.id)) {
+      setProjectType(projectType.filter((item: any) => item !== e.currentTarget.id))
+    } else {
+      setProjectType([...projectType, e.currentTarget.id])
+    }
+  }
+
   // Will be used to get and display the organizations from the database
   const getOrganization = () => {
     let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
@@ -159,14 +167,8 @@ export default function Sidebar({ setFilter }: any) {
           <div className="filterBtn">
             <div className="alignBtn">
               <button
-                id="demoBtn"
-                onClick={() => {
-                  if (projectType.includes("Rivning")) {
-                    setProjectType(projectType.filter((item: any) => item !== "Rivning"))
-                  } else {
-                    setProjectType([...projectType, "Rivning"])
-                  }
-                }}
+                id="Rivning"
+                onClick={updateProjectType}
               >
                 <Image src="/images/riv.svg" alt="Rivning" width={40} height={40} />
               </button>
@@ -174,14 +176,8 @@ export default function Sidebar({ setFilter }: any) {
             </div>
             <div className="alignBtn">
               <button
-                id="buildBtn"
-                onClick={() => {
-                  if (projectType.includes("Nybyggnation")) {
-                    setProjectType(projectType.filter((item: any) => item !== "Nybyggnation"))
-                  } else {
-                    setProjectType([...projectType, "Nybyggnation"])
-                  }
-                }}
+                id="Nybyggnation"
+                onClick={updateProjectType}
               >
                 <Image src="/images/bygg.svg" alt="Nybyggnation" width={40} height={40} />
               </button>
@@ -189,14 +185,8 @@ export default function Sidebar({ setFilter }: any) {
             </div>
             <div className="alignBtn">
               <button
-                id="rebuildBtn"
-                onClick={() => {
-                  if (projectType.includes("Ombyggnation")) {
-                    setProjectType(projectType.filter((item: any) => item !== "Ombyggnation"))
-                  } else {
-                    setProjectType([...projectType, "Ombyggnation"])
-                  }
-                }}
+                id="Ombyggnation"
+                onClick={updateProjectType}
               >
                 <Image src="/images/ater.svg" alt="Ombyggnation" width={40} height={40} />
               </button>
@@ -206,7 +196,7 @@ export default function Sidebar({ setFilter }: any) {
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
-                // If the default values for min and max are changed in the future, they must be changed at ../functions/filterData.tsx as well.
+                // If the default values for min and max are changed in the future, for example changing max to {currentDate + 25}, they must be changed at ../functions/filterData.tsx as well.
                 // They can be found in the function `runActiveFilters`
                 min={currentDate}
                 max={currentDate + 10}

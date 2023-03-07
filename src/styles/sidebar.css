@@ -286,7 +286,7 @@
 /* IDs */
 
 /* Filter buttons */
-#demoBtn {
+#Rivning {
     background-color: rgb(255, 0, 0);
     border: black;
     border-radius: 100%;
@@ -299,16 +299,16 @@
     justify-content: center;
 }
 
-#demoBtn:hover {
+#Rivning:hover {
     background-color: #ff0000ab;
 }
 
-#demoBtn img {
+#Rivning img {
     width: 40px;
     height: 40px;
 }
 
-#buildBtn {
+#Nybyggnation {
     background-color: rgb(0, 128, 255);
     border: black;
     border-radius: 100%;
@@ -321,16 +321,16 @@
     justify-content: center;
 }
 
-#buildBtn:hover {
+#Nybyggnation:hover {
     background-color: #00a2ffab;
 }
 
-#buildBtn img {
+#Nybyggnation img {
     width: 40px;
     height: 40px;
 }
 
-#rebuildBtn {
+#Ombyggnation {
     background-color: rgb(0, 128, 0);
     border: black;
     border-radius: 100%;
@@ -343,11 +343,11 @@
     justify-content: center;
 }
 
-#rebuildBtn:hover {
+#Ombyggnation:hover {
     background-color: rgba(0, 165, 0, 0.904);
 }
 
-#rebuildBtn img {
+#Ombyggnation img {
     width: 30px;
     height: 30px;
 }
