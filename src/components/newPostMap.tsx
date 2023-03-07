@@ -27,7 +27,6 @@ export default function NewPostMap() {
                 const marker = markerRef.current
                 if (marker != null) {
                     // setPosition(marker.getLatLng())
-                    console.log("Get LatLng", marker.getLatLng())
                     setPosition(marker.getLatLng())
                     await navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
                     marker.openPopup()
