@@ -12,10 +12,10 @@ import Image from 'next/image'
 export default function HomePage() {
   const router = useRouter()
   // Declares the filter variable and its setter function 
-  const [currentFilter, setFilter] = useState({} as Filter)
+  const [currentFilter, setFilter] = useState({
+    years: [new Date().getFullYear(), new Date().getFullYear() + 10],
+  } as Filter)
   const [searchInput, setSearchInput] = useState("")
-
-  console.log("search Input", searchInput)
 
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
@@ -39,23 +39,36 @@ export default function HomePage() {
   // Declares function for displaying the current filter
   const filterLabels = () => {
     let filterLabel: string[] | undefined = []
+    const getYears = currentFilter.years!.map((year: number) => {
+      return year;
+    })
     for (let i = 0; i < 3; i++){
-      if (currentFilter.projectType && currentFilter.projectType[i] === "Rivning"){
-        filterLabel?.push("Rivning")
+      if (currentFilter.projectType){
+        if(currentFilter.projectType[i] === "Rivning" || currentFilter.projectType[i] === "Nybyggnation" || currentFilter.projectType[i] === "Ombyggnation"){
+          filterLabel?.push(currentFilter.projectType[i] + "sprojekt")
+        }
       }
-      if (currentFilter.projectType && currentFilter.projectType[i] === "Nybyggnation"){
-        filterLabel?.push("Nybyggnation")
+      if (currentFilter.availableCategories){
+        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt"){
+          filterLabel?.push(currentFilter.availableCategories[i] + " sökes")
+        }
       }
-      if (currentFilter.projectType && currentFilter.projectType[i] === "Ombyggnation"){
-        filterLabel?.push("Ombyggnation")
+      if (currentFilter.lookingForCategories){
+        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt"){
+          filterLabel?.push(currentFilter.lookingForCategories[i] + " erbjuds")
+        }
       }
     }
+    if (getYears){
+      if(getYears[0] === getYears[1] && getYears[0] !== undefined){
+        filterLabel!.push(getYears[0].toString(), getYears[1].toString())
+      } else {
+        filterLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
+      }
+    } 
+    console.log("index year log", filterLabel, getYears)
     return filterLabel
   }
-
-  useEffect(() => {
-    console.log(currentFilter)
-  }, [currentFilter])
 
   // Returns all content of the main page.
   return (
