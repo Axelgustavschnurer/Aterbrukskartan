@@ -57,6 +57,7 @@ body {
 .addNewPostFormName,
 .addNewPostFormOrganization,
 .startYear,
+.startMonth,
 .addNewPostFormDescription,
 .addNewPostFormLocation,
 .addNewPostFormContact,
@@ -70,7 +71,6 @@ body {
 }
 
 .addNewPostFormName input,
-.addNewPostFormOrganization input,
 .addNewPostFormLocation input {
     height: 30px;
     width: 100%;
@@ -78,11 +78,41 @@ body {
     border: 2px solid #8a8a8a;
 }
 
+.addNewPostFormOrganization select {
+    height: 30px;
+    width: 40%;
+    border: 2px solid #8a8a8a;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+}
+
+.addNewPostFormOrganization option {
+    width: 100%;
+    line-height: 45px;
+    padding-left: 20px;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+}
+
 .startYear input {
     height: 30px;
     width: 20%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
+}
+
+.startMonth select {
+    height: 30px;
+    width: 20%;
+    border: 2px solid #8a8a8a;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .addNewPostFormDescription textarea,
@@ -132,6 +162,10 @@ textarea {
 }
 
 .padding {
+    padding: 5px;
+}
+
+.padding label {
     padding: 5px;
 }
 
