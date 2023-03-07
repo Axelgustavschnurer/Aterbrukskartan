@@ -258,7 +258,7 @@ export default function Sidebar({ setFilter }: any) {
               />
             </div>
           </div>
-          {/*This is a range slider for months. It is currently not in use, but can be used in the future. 
+          {/*This is a range slider for months. It is currently not in use, but can be used in the future. */
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
@@ -274,7 +274,7 @@ export default function Sidebar({ setFilter }: any) {
                 }}
               />
             </div>
-          </div> */}
+          </div> }
 
           <form className="form">
             <h3>Sökes</h3>
