@@ -24,7 +24,7 @@ export default function NewPostMap() {
     const eventHandlers = useMemo(
         () => ({
             async dragend() {
-                const marker = markerRef.current
+                const marker: any = markerRef.current
                 if (marker != null) {
                     // setPosition(marker.getLatLng())
                     setPosition(marker.getLatLng())
@@ -53,7 +53,6 @@ export default function NewPostMap() {
                     position={position}
                     icon={IconPinRed}
                     draggable={true}
-                    animate={true}
                     ref={markerRef}
                 >
                     <Popup>
