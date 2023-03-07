@@ -65,7 +65,6 @@ export default function Map({ currentFilter, searchInput }: any) {
         return pin.mapItem.organisation?.toLowerCase().includes(searchInput.toLowerCase())
       })
     }
-    console.log(filteredData)
     return filteredData.map((pin: DeepRecycle, i) => {
       if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
         return null
