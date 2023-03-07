@@ -37,7 +37,6 @@ export default function Sidebar({ setFilter }: any) {
       availableCategories: availableMaterials,
       organisation: organisation,
     } as Filter)
-    console.log("Filter", projectType, years, lookingForMaterials, availableMaterials, organisation)
   }, [projectType, years, lookingForMaterials, availableMaterials, organisation, setFilter])
 
   const toggleMenu = () => {
@@ -253,8 +252,6 @@ export default function Sidebar({ setFilter }: any) {
                   if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
                     setYears([min, max])
                   }
-                  console.log(`min = ${min}, max = ${max}`)
-                  console.log(years)
                 }}
               />
             </div>
@@ -271,7 +268,6 @@ export default function Sidebar({ setFilter }: any) {
                   if (!(months.includes(min) && months.includes(max))) {
                     setMonths([min, max])
                   }
-                  console.log(`min month = ${min}, max = ${max}`)
                 }}
               />
             </div>
