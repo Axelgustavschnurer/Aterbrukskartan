@@ -2,16 +2,60 @@ import { DeepRecycle, Filter } from "@/types";
 import { Recycle } from "@prisma/client";
 
 export default runActiveFilters;
-export { runActiveFilters, searchForProjects, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
+export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
 
 /**
- * 
+ * Looks through most of the fields of the Recycle objects and returns an array of the objects that match the search string.
+ * @param data Array of DeepRecycle objects to search through.
+ * @param search String to search for.
+ * @returns Recycle objects where a field matches the search string.
  */
-function searchForProjects(data: DeepRecycle[], search: string): DeepRecycle[] {
+function filterBySearchInput(data: DeepRecycle[], search: string): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     if (data[i].mapItem.organisation?.toLowerCase().includes(search.toLowerCase())) {
       returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].projectType?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].description?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].contact?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].externalLinks?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].availableMaterials?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].lookingForMaterials?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].mapItem.name?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].mapItem.year?.toString().toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].mapItem.city?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
+    }
+    if (data[i].mapItem.address?.toLowerCase().includes(search.toLowerCase())) {
+      returnData.push(data[i]);
+      continue;
     }
   }
   return returnData;
@@ -132,6 +176,9 @@ function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   }
   if (filters.organisation?.length) {
     returnData = filterByOrganisation(returnData, filters.organisation);
+  }
+  if (filters.searchInput) {
+    returnData = filterBySearchInput(returnData, filters.searchInput);
   }
   return returnData;
 }

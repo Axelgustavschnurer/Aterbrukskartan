@@ -35,4 +35,8 @@ export type Filter = {
    * Array of strings containing the organisations to filter by
    */
   organisation?: string[],
+  /**
+   * String containing the search input
+   */
+  searchInput?: string,
 }
