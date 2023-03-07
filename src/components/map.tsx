@@ -36,21 +36,21 @@ export default function Map({ currentFilter, searchInput }: any) {
           <div style={PopupText}>
             <h4>{pin.projectType}</h4>
             {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year}
-            <p>
-              {pin.projectType === "Rivning" && pin.availableMaterials ? <p><h4>Erbjuds</h4> {pin.availableMaterials}</p>
-                : pin.projectType === "Rivning" && !pin.availableMaterials ? <p><h4>Erbjuds</h4> Material saknas</p>
-                  : pin.projectType === "Nybyggnation" && pin.lookingForMaterials ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
-                    : pin.projectType === "Nybyggnation" && !pin.lookingForMaterials ? <p><h4>Sökes</h4> Material saknas</p>
-                      : pin.projectType === "Ombyggnation" && pin.availableMaterials && pin.lookingForMaterials ? <p><h4>Sökes</h4> {pin.lookingForMaterials}<p><h4>Erbjuds</h4> {pin.availableMaterials}</p></p>
-                        : pin.projectType === "Ombyggnation" && !pin.availableMaterials && !pin.lookingForMaterials ? <p><h4>Sökes</h4> Material saknas <br /><h4>Erbjuds</h4> Material saknas</p>
-                          : pin.projectType === "Ombyggnation" && pin.availableMaterials && !pin.lookingForMaterials ? <p><h4>Erbjuds</h4> {pin.availableMaterials}</p>
-                            : pin.projectType === "Ombyggnation" && !pin.availableMaterials && pin.lookingForMaterials ? <p><h4>Sökes</h4> {pin.lookingForMaterials}</p>
+            <>
+              {pin.projectType === "Rivning" && pin.availableMaterials ? <><h4>Erbjuds</h4> <p>{pin.availableMaterials}</p></>
+                : pin.projectType === "Rivning" && !pin.availableMaterials ? <><h4>Erbjuds</h4> <p>Material saknas</p></>
+                  : pin.projectType === "Nybyggnation" && pin.lookingForMaterials ? <><h4>Sökes</h4> <p>{pin.lookingForMaterials}</p></>
+                    : pin.projectType === "Nybyggnation" && !pin.lookingForMaterials ? <><h4>Sökes</h4> <p>Material saknas</p></>
+                      : pin.projectType === "Ombyggnation" && pin.availableMaterials && pin.lookingForMaterials ? <><h4>Sökes</h4> <p>{pin.lookingForMaterials}</p> <h4>Erbjuds</h4> <p>{pin.availableMaterials}</p></>
+                        : pin.projectType === "Ombyggnation" && !pin.availableMaterials && !pin.lookingForMaterials ? <><h4>Sökes</h4> <p>Material saknas <br /></p> <h4>Erbjuds</h4> <p>Material saknas</p></>
+                          : pin.projectType === "Ombyggnation" && pin.availableMaterials && !pin.lookingForMaterials ? <><h4>Erbjuds</h4> <p>{pin.availableMaterials}</p></>
+                            : pin.projectType === "Ombyggnation" && !pin.availableMaterials && pin.lookingForMaterials ? <><h4>Sökes</h4> <p>{pin.lookingForMaterials}</p></>
                               : null
               }
-            </p>
-            {!pin.description ? null : <p><h4>Beskrvining</h4> {pin.description}</p>}
-            {!pin.contact ? <p><h4>Kontakt</h4>Ingen kontaktinformation tillgänglig</p> : <p><h4>Kontakt</h4> {pin.contact}</p>}
-            {!pin.externalLinks ? null : <div><h4>Länkar</h4><a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
+            </>
+            {!pin.description ? null : <><h4>Beskrvining</h4> <p>{pin.description}</p></>}
+            {!pin.contact ? <><h4>Kontakt</h4> <p>Ingen kontaktinformation tillgänglig</p></> : <><h4>Kontakt</h4> <p>{pin.contact}</p></>}
+            {!pin.externalLinks ? null : <div><h4>Länkar</h4> <a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
           </div>
         </div>
       </Popup>
