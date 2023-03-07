@@ -44,7 +44,6 @@ function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRe
  */
 function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
-  console.log(Math.max(...years), Math.min(...years))
   for (let i in data) {
     if (data[i].mapItem.year! <= Math.max(...years) && data[i].mapItem.year! >= Math.min(...years)) {
       returnData.push(data[i]);
@@ -118,28 +117,21 @@ function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
   // If the year slider in ../components/sidebar.tsx is changed, this value might need to be updated
   const currentDate = new Date().getFullYear()
-  console.log("Active filters: ", filters);
   if (filters.projectType?.length) {
     returnData = filterByProjectType(returnData, filters.projectType);
-    console.log("Project type filter applied: ", filters.projectType);
   }
   // If the year slider in ../components/sidebar.tsx is changed, this comparison might need to be updated to reflect the new input range
   if (filters.years && (Math.max(...filters.years) != (currentDate + 10) || Math.min(...filters.years) != currentDate)) {
     returnData = filterByYear(returnData, filters.years);
-    console.log("Year filter applied: ", filters.years);
   }
   if (filters.availableCategories?.length) {
     returnData = filterByAvailable(returnData, filters.availableCategories);
-    console.log("Available filter applied: ", filters.availableCategories);
   }
   if (filters.lookingForCategories?.length) {
     returnData = filterByLookingFor(returnData, filters.lookingForCategories);
-    console.log("Looking for filter applied: ", filters.lookingForCategories);
   }
   if (filters.organisation?.length) {
     returnData = filterByOrganisation(returnData, filters.organisation);
-    console.log("Organisation filter applied: ", filters.organisation);
   }
-  console.log("Tried to apply filters");
   return returnData;
 }
