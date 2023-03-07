@@ -59,12 +59,10 @@ export default function Map({ currentFilter, searchInput }: any) {
 
   // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
   const getAllPins = () => {
-    let filteredData = runActiveFilters(mapData, currentFilter)
     if (searchInput) {
-      filteredData = filteredData.filter((pin: DeepRecycle) => {
-        return pin.mapItem.organisation?.toLowerCase().includes(searchInput.toLowerCase())
-      })
+      currentFilter = { ...currentFilter, searchInput: searchInput}
     }
+    let filteredData = runActiveFilters(mapData, currentFilter)
     return filteredData.map((pin: DeepRecycle, i) => {
       if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
         return null
