@@ -9,6 +9,8 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 
 export default function AddNewPost() {
     const router = useRouter();
+    const currentDate = new Date().getFullYear();
+
 
     // Declares the filter variable and its setter function
     const [organization, setOrganization] = useState("");
@@ -33,31 +35,6 @@ export default function AddNewPost() {
     const [externalLinks, setExternalLinks] = useState("");
     const [message, setMessage] = useState("");
 
-
-    // Gets the value of the project type
-    const getProjectType = (e: any) => {
-        setProjectType(e.target.value);
-        console.log("project type value: ", e.target.value);
-    };
-
-    // Gets the value of the searched for
-    const getSearchedFor = (e: any) => {
-        setSearchingFor({
-            ...searchingFor,
-            [e.target.name]: e.target.checked,
-        });
-        console.log("searching for value: ", e.target.value);
-    };
-
-    // Gets the value of the offering
-    const getOffering = (e: any) => {
-        setOffering({
-            ...offering,
-            [e.target.name]: e.target.checked,
-        });
-        console.log("offering value: ", e.target.value);
-    };
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
@@ -67,9 +44,9 @@ export default function AddNewPost() {
                 organisation: organization,
                 year: parseInt(startYear),
             }
+            // Gets the keys of the searchingFor object and returns them as a string
             let lookingForMaterials: string = (() => {
                 let materials: string[] = [];
-                // TODO: Fix error
                 for (let key in searchingFor) {
                     if (searchingFor[key as keyof (typeof searchingFor)]) {
                         materials.push(key);
@@ -77,6 +54,7 @@ export default function AddNewPost() {
                 }
                 return materials.join(", ");
             })();
+            // Gets the keys of the offering object and returns them as a string
             let availableMaterials: string = (() => {
                 let materials: string[] = [];
                 for (let key in offering) {
@@ -86,15 +64,8 @@ export default function AddNewPost() {
                 }
                 return materials.join(", ");
             })();
-            console.log(JSON.stringify({
-                projectType,
-                mapItem,
-                lookingForMaterials,
-                availableMaterials,
-                description,
-                contact,
-                externalLinks
-            }))
+
+            // Sends a post request to the api with the data from the form
             let res = await fetch("http://localhost:3000/api/postData", {
                 method: "POST",
                 headers: {
@@ -182,8 +153,8 @@ export default function AddNewPost() {
                                     id="startYear"
                                     name="startYear"
                                     value={startYear}
+                                    min={currentDate}
                                     onChange={(e) => setStartYear(e.target.value)}
-                                    required
                                 />
                             </div>
                             <div className="typeOfProject">
@@ -194,7 +165,7 @@ export default function AddNewPost() {
                                         id="rivning"
                                         name="category"
                                         value="Rivning"
-                                        onChange={getProjectType}
+                                        onChange={(e) => setProjectType(e.target.value)}
                                     />
                                     <label htmlFor="rivning">Rivning </label>
                                 </div>
@@ -204,7 +175,7 @@ export default function AddNewPost() {
                                         id="nybyggnation"
                                         name="category"
                                         value="Nybyggnation"
-                                        onChange={getProjectType}
+                                        onChange={(e) => setProjectType(e.target.value)}
                                     />
                                     <label htmlFor="nybyggnation">Nybyggnation </label>
                                 </div>
@@ -214,7 +185,7 @@ export default function AddNewPost() {
                                         id="ombyggnation"
                                         name="category"
                                         value="Ombyggnation"
-                                        onChange={getProjectType}
+                                        onChange={(e) => setProjectType(e.target.value)}
                                     />
                                     <label htmlFor="ombyggnation">Ombyggnation</label>
                                 </div>
@@ -242,7 +213,12 @@ export default function AddNewPost() {
                                                 id="stomme"
                                                 name="Stomme"
                                                 value="Stomme"
-                                                onChange={getSearchedFor}
+                                                onChange={(e) =>
+                                                    setSearchingFor({
+                                                        ...searchingFor,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="stomme">Stomme</label>
                                         </div>
@@ -252,7 +228,12 @@ export default function AddNewPost() {
                                                 id="inredning"
                                                 name="Inredning"
                                                 value="Inredning"
-                                                onChange={getSearchedFor}
+                                                onChange={(e) =>
+                                                    setSearchingFor({
+                                                        ...searchingFor,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="inredning">Inredning</label>
                                         </div>
@@ -262,8 +243,12 @@ export default function AddNewPost() {
                                                 id="smasaker"
                                                 name="Småsaker"
                                                 value="Småsaker"
-                                                onChange={getSearchedFor}
-                                            />
+                                                onChange={(e) =>
+                                                    setSearchingFor({
+                                                        ...searchingFor,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                } />
                                             <label htmlFor="smasaker">Småsaker</label>
                                         </div>
                                         <div className="padding">
@@ -272,8 +257,12 @@ export default function AddNewPost() {
                                                 id="ovrigt"
                                                 name="Övrigt"
                                                 value="Övrigt"
-                                                onChange={getSearchedFor}
-                                            />
+                                                onChange={(e) =>
+                                                    setSearchingFor({
+                                                        ...searchingFor,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                } />
                                             <label htmlFor="ovrigt">Övrigt</label>
 
                                         </div>
@@ -288,7 +277,12 @@ export default function AddNewPost() {
                                                 id="_stomme"
                                                 name="Stomme"
                                                 value="Stomme"
-                                                onChange={getOffering}
+                                                onChange={(e) =>
+                                                    setOffering({
+                                                        ...offering,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="_stomme">Stomme</label>
                                         </div>
@@ -298,7 +292,12 @@ export default function AddNewPost() {
                                                 id="_inredning"
                                                 name="Inredning"
                                                 value="Inredning"
-                                                onChange={getOffering}
+                                                onChange={(e) =>
+                                                    setOffering({
+                                                        ...offering,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="_inredning">Inredning</label>
                                         </div>
@@ -308,7 +307,12 @@ export default function AddNewPost() {
                                                 id="_smasaker"
                                                 name="Småsaker"
                                                 value="Småsaker"
-                                                onChange={getOffering}
+                                                onChange={(e) =>
+                                                    setOffering({
+                                                        ...offering,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="_smasaker">Småsaker</label>
                                         </div>
@@ -318,7 +322,12 @@ export default function AddNewPost() {
                                                 id="_ovrigt"
                                                 name="Övrigt"
                                                 value="Övrigt"
-                                                onChange={getOffering}
+                                                onChange={(e) =>
+                                                    setOffering({
+                                                        ...offering,
+                                                        [e.target.name]: e.target.checked,
+                                                    })
+                                                }
                                             />
                                             <label htmlFor="_ovrigt">Övrigt</label>
                                         </div>
