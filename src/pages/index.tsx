@@ -14,6 +14,7 @@ export default function HomePage() {
   // Declares the filter variable and its setter function 
   const [currentFilter, setFilter] = useState({
     years: [new Date().getFullYear(), new Date().getFullYear() + 10],
+    organisation: [""],
   } as Filter)
   const [searchInput, setSearchInput] = useState("")
 
@@ -31,48 +32,75 @@ export default function HomePage() {
     router.push('/newPost')
   }
 
-  // Declares function for removing the current filter
-  const removeCurrentFilter = () => {
-    setFilter({} as Filter)
-  }
-
   const [minYear, setMinYear] = useState(new Date().getFullYear())
   const [maxYear, setMaxYear] = useState(new Date().getFullYear() + 10)
+  const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
 
   // Declares function for displaying the current filter
-  const filterLabels = () => {
-    let filterLabel: string[] | undefined = []
-    const getYears = currentFilter.years!.map((year: number) => {
-      return year;
-    })
+  const projectTypeLabels = () => {
+    let projectTypeLabel: string[] | undefined = []
     for (let i = 0; i < 3; i++){
       if (currentFilter.projectType){
         if(currentFilter.projectType[i] === "Rivning" || currentFilter.projectType[i] === "Nybyggnation" || currentFilter.projectType[i] === "Ombyggnation"){
-          filterLabel?.push(currentFilter.projectType[i] + "sprojekt")
-        }
-      }
-      if (currentFilter.availableCategories){
-        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt"){
-          filterLabel?.push(currentFilter.availableCategories[i] + " sökes")
-        }
-      }
-      if (currentFilter.lookingForCategories){
-        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt"){
-          filterLabel?.push(currentFilter.lookingForCategories[i] + " erbjuds")
+          projectTypeLabel?.push(currentFilter.projectType[i] + "sprojekt")
         }
       }
     }
+    return projectTypeLabel
+  }
+
+  const yearLabels = () => {
+    let yearLabel: string[] = []
+    const getYears = currentFilter.years!.map((year: number) => {
+      return year;
+    })
     if (getYears){
       if(getYears[0] === getYears[1] && getYears[0] !== undefined){
-        filterLabel!.push(getYears[0].toString(), getYears[1].toString())
+        yearLabel!.push(getYears[0].toString())
       } else if (Math.min(...getYears) === minYear && Math.max(...getYears) === maxYear){
         null;
       } else {
-        filterLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
+        yearLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
       }
     }
-    return filterLabel
+    return yearLabel
   }
+
+  const availableMaterialsLabels = () => {
+    let availableMaterialsLabel: string[] | undefined = []
+    for (let i = 0; i < 4; i++){
+      if (currentFilter.availableCategories){
+        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt"){
+          availableMaterialsLabel?.push(currentFilter.availableCategories[i])
+      }}
+    }
+    return availableMaterialsLabel
+  }
+
+  const searchingMaterialsLabels = () => {
+    let searchingMaterialsLabel: string[] | undefined = []
+    for (let i = 0; i < 4; i++){
+      if (currentFilter.lookingForCategories){
+        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt"){
+          searchingMaterialsLabel?.push(currentFilter.lookingForCategories[i])
+      }}
+    }
+    return searchingMaterialsLabel
+  }
+
+  const organisationLabels = () => {
+    let organisationLabel: string[] | undefined = []
+    const getOrganisations = currentFilter.organisation!.map((organisation: string) => {
+      return organisation;
+    })
+    for (let i = 0; i < getOrganisations.length; i++){
+      if (currentFilter.organisation){
+        organisationLabel?.push(currentFilter.organisation[i])
+      }
+    }
+    return organisationLabel
+  }
+
 
   // Returns all content of the main page.
   return (
@@ -99,11 +127,25 @@ export default function HomePage() {
       </div>
       <div className='filterTextContent'>
         <div className="filterTextContainer">
-          {
-            filterLabels().length && filterLabels()!.length <= 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }} onClick={removeCurrentFilter}>{filterLabels().join(", ")}</p> :
-                  null
+          {projectTypeLabels().length && projectTypeLabels()!.length < 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{projectTypeLabels().join(", ")}</p>
+            :projectTypeLabels().length && projectTypeLabels().length === 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Alla projektstyper</p>
+              :null
           }
-          {/* {currentFilter === "none" ? null : <p className="filterText" onClick={removeCurrentFilter}>{currentFilter}</p>} */}
+          {yearLabels().length ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {yearLabels()}</p>
+            :null
+          }
+          {searchingMaterialsLabels().length && searchingMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().join(", ")}</p>
+            :searchingMaterialsLabels().length && searchingMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().length} kategorier</p>
+              :null
+          }
+          {availableMaterialsLabels().length && availableMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().join(", ")}</p>
+            :availableMaterialsLabels().length && availableMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().length} kategorier</p>
+              :null
+          }
+          {organisationLabels().length && organisationLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Organisationer: {organisationLabels().join(", ")}</p>
+            :organisationLabels().length && organisationLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{organisationLabels().length} Organisationer</p>
+              :null
+          }
         </div>
       </div>
       <div className="addNewPost tooltip">
