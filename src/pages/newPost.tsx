@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
+import { LeafletAddressLookup } from "../components/findAddress";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -165,6 +166,7 @@ export default function AddNewPost(position: any) {
                     <div className="addNewPostForm">
                         <form method="post" onSubmit={handleSubmit}>
                             <div className="addNewPostFormOrganization">
+
                                 <label className="newPostTitle" htmlFor="organization">Organisation *</label>
                                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
@@ -269,6 +271,7 @@ export default function AddNewPost(position: any) {
                                     onChange={(e) => setLocation(e.target.value)}
                                     required
                                 />
+                                {/* <LeafletAddressLookup /> */}
                             </div>
                             <div className="addNewPostFormLists">
                                 <div>
@@ -445,6 +448,7 @@ export default function AddNewPost(position: any) {
                     </div>
                 </div>
             </div>
+
             <div className="footer" id="footer">
                 <div className="footerContainer">
                     <div className="footerRow">
