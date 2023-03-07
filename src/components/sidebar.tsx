@@ -250,10 +250,11 @@ export default function Sidebar({ setFilter }: any) {
                 min={currentDate}
                 max={currentDate + 10}
                 onChange={({ min, max }: any) => {
-                  if (!(years.includes(min) && years.includes(max))) {
+                  if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
                     setYears([min, max])
                   }
                   console.log(`min = ${min}, max = ${max}`)
+                  console.log(years)
                 }}
               />
             </div>
