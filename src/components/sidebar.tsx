@@ -15,30 +15,14 @@ export default function Sidebar({ setFilter }: any) {
   const [isOpen, setOpen] = useState(true);
   const [newData, setNewData] = useState([])
 
-  // This will become a json object
-  const [lookingForMaterials, setLookingForMaterials] = useState({
-    StommeSokes: false,
-    InredningSokes: false,
-    SmåsakerSokes: false,
-    ÖvrigtSokes: false
-  })
-  // Contains the strings of the materials the map item is looking for
-  const [lookingForStrings, setLookingForStrings] = useState([] as string[])
+  // List of all active filters for the field `lookingForMaterials`
+  const [lookingForMaterials, setLookingForMaterials] = useState([] as string[])
 
-  // This will become a json object
-  const [availableMaterials, setAvailableMaterials] = useState({
-    StommeSankes: false,
-    InredningSankes: false,
-    SmåsakerSankes: false,
-    ÖvrigtSankes: false
-  })
-  // Contains the strings of the materials the map item has available
-  const [availableStrings, setAvailableStrings] = useState([] as string[])
+  // List of all active filters for the field `availableMaterials`
+  const [availableMaterials, setAvailableMaterials] = useState([] as string[])
 
-  // This will become a json object
-  const [organisation, setOrganisation] = useState([])
-  // Contains the strings of the organisations the user is searching for
-  const [organisationStrings, setOrganisationStrings] = useState([] as string[])
+  // List of all active filters for the field `organisation`
+  const [organisation, setOrganisation] = useState([] as string[])
 
   const [years, setYears] = useState([] as number[])
   const [months, setMonths] = useState([] as number[])
@@ -49,48 +33,12 @@ export default function Sidebar({ setFilter }: any) {
     setFilter({
       projectType: projectType,
       years: years,
-      lookingForCategories: lookingForStrings,
-      availableCategories: availableStrings,
-      organisation: organisationStrings,
+      lookingForCategories: lookingForMaterials,
+      availableCategories: availableMaterials,
+      organisation: organisation,
     } as Filter)
-    console.log("Filter", projectType, years, lookingForStrings, availableStrings, organisationStrings)
-  }, [projectType, years, lookingForStrings, availableStrings, organisationStrings, setFilter])
-
-  // Updates list of looking for materials when the user interacts with the lookingFor filter
-  useEffect(() => {
-    let lookingForStuff: string[] = [];
-    for (let key in lookingForMaterials) {
-      if (lookingForMaterials[key as keyof (typeof lookingForMaterials)]) {
-        lookingForStuff.push(key.replace('Sokes', ''));
-      }
-    }
-    setLookingForStrings(lookingForStuff);
-    console.log("Looking For Strings", lookingForStuff);
-  }, [lookingForMaterials])
-
-  // Updates list of available materials when the user interacts with the available filter
-  useEffect(() => {
-    let availableStuff: string[] = [];
-    for (let key in availableMaterials) {
-      if (availableMaterials[key as keyof (typeof availableMaterials)]) {
-        availableStuff.push(key.replace('Sankes', ''));
-      }
-    }
-    setAvailableStrings(availableStuff);
-    console.log("Available Strings", availableStuff);
-  }, [availableMaterials])
-
-  // Updates list of organisations when the user interacts with the organisation filter
-  useEffect(() => {
-    let orgs: string[] = [];
-    for (let key in organisation) {
-      if (organisation[key]) {
-        orgs.push(key);
-      }
-    }
-    setOrganisationStrings(orgs);
-    console.log("Organisation Strings", orgs);
-  }, [organisation])
+    console.log("Filter", projectType, years, lookingForMaterials, availableMaterials, organisation)
+  }, [projectType, years, lookingForMaterials, availableMaterials, organisation, setFilter])
 
   const toggleMenu = () => {
     setOpen(!isOpen);
@@ -120,6 +68,10 @@ export default function Sidebar({ setFilter }: any) {
     fetchData()
   }, [])
 
+  /**
+   * Updates the state of the projectType array to include or exclude the id of the button that was clicked, depending on if it was already included or not.
+   * @param e Event object
+   */
   const updateProjectType = (e: any) => {
     if (projectType.includes(e.currentTarget.id)) {
       setProjectType(projectType.filter((item: any) => item !== e.currentTarget.id))
@@ -128,10 +80,105 @@ export default function Sidebar({ setFilter }: any) {
     }
   }
 
-  // Will be used to get and display the organizations from the database
-  const getOrganization = () => {
+  /**
+   * Returns an array of all the different material categories in the database
+   * @returns string[]
+   */
+  const getAllMaterialCategories = () => {
+    // List of all strings in the availableMaterials and lookingForMaterials fields
+    let unsplitMaterials: string[] = []
+    newData.map((pin: any) => {
+      if (pin.availableMaterials) {
+        unsplitMaterials.push(pin.availableMaterials)
+      }
+      if (pin.lookingForMaterials) {
+        unsplitMaterials.push(pin.lookingForMaterials)
+      }
+    })
+
+    // Splits the strings into arrays and flattens them into one array
+    let splitMaterials: string[] = []
+    unsplitMaterials.map((material: any) => {
+      splitMaterials.push(...material.split(',').map((item: any) => item.trim()))
+    })
+
+    // Removes duplicates and sorts the array
+    let filteredMaterials = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
+
+    return filteredMaterials
+  }
+
+  /**
+   * Creates checkboxes for all the different lookingForMaterials categories in the database
+   * @returns JSX.Element
+   */
+  const getLookingFor = () => {
+    let categories = getAllMaterialCategories()
+    return (
+      <>
+        {categories.map((category: any) => {
+          return (
+            <div className="inputGroup" key={category + "Sökes"}>
+              <input
+                id={category + "Sökes"}
+                name={category + "Sökes"}
+                type="checkbox"
+                onChange={(e) => {
+                  if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
+                    setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
+                  }
+                  else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
+                    setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
+                  }
+                }}
+              />
+              <label htmlFor={category + "Sökes"}>{category}</label>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
+  /**
+   * Creates checkboxes for all the different availableMaterials categories in the database
+   * @returns JSX.Element
+   */
+  const getAvailable = () => {
+    let categories = getAllMaterialCategories()
+    return (
+      <>
+        {categories.map((category: any) => {
+          return (
+            <div className="inputGroup" key={category + "Erbjuds"}>
+              <input
+                id={category + "Erbjuds"}
+                name={category + "Erbjuds"}
+                type="checkbox"
+                onChange={(e) => {
+                  if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
+                    setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
+                  }
+                  else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
+                    setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
+                  }
+                }}
+              />
+              <label htmlFor={category + "Erbjuds"}>{category}</label>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
+  /**
+   * Creates checkboxes for all the different organisations in the database
+   * @returns JSX.Element
+   */
+  const getOrganisation = () => {
     let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index)
+    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
     return (
       <>
         {filteredData.map((pin: any) => {
@@ -142,10 +189,12 @@ export default function Sidebar({ setFilter }: any) {
                 name={pin}
                 type="checkbox"
                 onChange={(e) => {
-                  setOrganisation({
-                    ...organisation,
-                    [e.target.name]: e.target.checked
-                  })
+                  if (organisation.includes(e.target.name) && !e.target.checked) {
+                    setOrganisation(organisation.filter((item: any) => item !== e.target.name))
+                  }
+                  else if (!organisation.includes(e.target.name) && e.target.checked) {
+                    setOrganisation([...organisation, e.target.name])
+                  }
                 }}
               />
               <label htmlFor={pin}>{pin}</label>
@@ -229,129 +278,13 @@ export default function Sidebar({ setFilter }: any) {
 
           <form className="form">
             <h3>Sökes</h3>
-            <div className="inputGroup">
-              <input
-                id="StommeSokes"
-                name="StommeSokes"
-                type="checkbox"
-                onChange={(e) => {
-                  setLookingForMaterials({
-                    ...lookingForMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="StommeSokes">Stomme</label>
-            </div>
+            {getLookingFor()}
 
-            <div className="inputGroup">
-              <input
-                id="InredningSokes"
-                name="InredningSokes"
-                type="checkbox"
-                onChange={(e) => {
-                  setLookingForMaterials({
-                    ...lookingForMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="InredningSokes">Inredning</label>
-            </div>
-
-            <div className="inputGroup">
-              <input
-                id="SmåsakerSokes"
-                name="SmåsakerSokes"
-                type="checkbox"
-                onChange={(e) => {
-                  setLookingForMaterials({
-                    ...lookingForMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="SmåsakerSokes">Småsaker</label>
-            </div>
-
-            <div className="inputGroup">
-              <input
-                id="ÖvrigtSokes"
-                name="ÖvrigtSokes"
-                type="checkbox"
-                onChange={(e) => {
-                  setLookingForMaterials({
-                    ...lookingForMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="ÖvrigtSokes">Övrigt</label>
-            </div>
-
-            <h3>Skänkes</h3>
-            <div className="inputGroup">
-              <input
-                id="StommeSankes"
-                name="StommeSankes"
-                type="checkbox"
-                onChange={(e) => {
-                  setAvailableMaterials({
-                    ...availableMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="StommeSankes">Stomme</label>
-            </div>
-
-            <div className="inputGroup">
-              <input
-                id="InredningSankes"
-                name="InredningSankes"
-                type="checkbox"
-                onChange={(e) => {
-                  setAvailableMaterials({
-                    ...availableMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="InredningSankes">Inredning</label>
-            </div>
-
-            <div className="inputGroup">
-              <input
-                id="SmåsakerSankes"
-                name="SmåsakerSankes"
-                type="checkbox"
-                onChange={(e) => {
-                  setAvailableMaterials({
-                    ...availableMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="SmåsakerSankes">Småsaker</label>
-            </div>
-
-            <div className="inputGroup">
-              <input
-                id="ÖvrigtSankes"
-                name="ÖvrigtSankes"
-                type="checkbox"
-                onChange={(e) => {
-                  setAvailableMaterials({
-                    ...availableMaterials,
-                    [e.target.name]: e.target.checked
-                  })
-                }}
-              />
-              <label htmlFor="ÖvrigtSankes">Övrigt</label>
-            </div>
+            <h3>Erbjuds</h3>
+            {getAvailable()}
 
             <h3>Organisation</h3>
-            {getOrganization()}
+            {getOrganisation()}
 
           </form>
           <div className="clearFilter">
@@ -360,18 +293,8 @@ export default function Sidebar({ setFilter }: any) {
               onClick={() => {
                 setProjectType([])
                 setYears([currentDate, currentDate + 10])
-                setLookingForMaterials({
-                  StommeSokes: false,
-                  InredningSokes: false,
-                  SmåsakerSokes: false,
-                  ÖvrigtSokes: false
-                })
-                setAvailableMaterials({
-                  StommeSankes: false,
-                  InredningSankes: false,
-                  SmåsakerSankes: false,
-                  ÖvrigtSankes: false
-                })
+                setLookingForMaterials([])
+                setAvailableMaterials([])
                 setOrganisation([])
 
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
