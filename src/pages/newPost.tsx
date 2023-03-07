@@ -1,20 +1,34 @@
 import React from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
-export default function AddNewPost() {
+export default function AddNewPost(position: any) {
     const router = useRouter();
     const currentDate = new Date().getFullYear();
 
+    const fetchData = async () => {
+        const response = await fetch('http://localhost:3000/api/getData')
+        const data = await response.json()
+        setNewData(data)
+    }
+
+    // Runs fetchData function on component mount
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    console.log(position)
 
     // Declares the filter variable and its setter function
+    const [newData, setNewData] = useState([]);
     const [organization, setOrganization] = useState("");
     const [startYear, setStartYear] = useState("");
+    const [startMonth, setStartMonth] = useState("");
     const [projectType, setProjectType] = useState("");
     const [location, setLocation] = useState("");
     const [searchingFor, setSearchingFor] = useState({
@@ -81,6 +95,7 @@ export default function AddNewPost() {
                     externalLinks
                 }),
             });
+
             let resJson = await res.json();
             if (res.status === 200) {
                 // If the post was successful, reset the form and redirect to the home page
@@ -119,6 +134,20 @@ export default function AddNewPost() {
         }
     ), [/* list variables which should trigger a re-render here */])
 
+    const getOrganisation = () => {
+        let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
+        let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
+        return (
+            <>
+                {filteredData.map((pin: any, index: any) => {
+                    return (
+                        <option key={pin} value={pin}>{pin}</option>
+                    )
+                })}
+            </>
+        )
+    }
+
     return (
         <>
             <Head>
@@ -137,6 +166,8 @@ export default function AddNewPost() {
                         <form method="post" onSubmit={handleSubmit}>
                             <div className="addNewPostFormOrganization">
                                 <label className="newPostTitle" htmlFor="organization">Organisation *</label>
+                                {/*
+                                if you want to use the text input instead of the select, comment out the select and uncomment the text input 
                                 <input
                                     type="text"
                                     id="organization"
@@ -144,10 +175,21 @@ export default function AddNewPost() {
                                     value={organization}
                                     onChange={(e) => setOrganization(e.target.value)}
                                     required
-                                />
+                                /> */}
+                                <select
+                                    id="organization"
+                                    name="organization"
+                                    value={organization}
+                                    onChange={(e) => setOrganization(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Välj organisation</option>
+                                    {getOrganisation()}
+
+                                </select>
                             </div>
                             <div className="startYear">
-                                <label className="newPostTitle" htmlFor="startYear">Startår *</label>
+                                <label className="newPostTitle" htmlFor="startYear">Startår</label>
                                 <input
                                     type="number"
                                     id="startYear"
@@ -157,6 +199,31 @@ export default function AddNewPost() {
                                     onChange={(e) => setStartYear(e.target.value)}
                                 />
                             </div>
+
+                            <div className="startMonth">
+                                <label className="newPostTitle" htmlFor="startMonth">Startmånad</label>
+                                <select
+                                    id="startMonth"
+                                    name="startMonth"
+                                    value={startMonth}
+                                    onChange={(e) => setStartMonth(e.target.value)}
+                                >
+                                    <option value="">Välj startmånad</option>
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Mars">Mars</option>
+                                    <option value="April">April</option>
+                                    <option value="Maj">Maj</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Augusti">Augusti</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+
                             <div className="typeOfProject">
                                 <label className="newPostTitle" htmlFor="type">Typ av projekt</label>
                                 <div className="padding">
