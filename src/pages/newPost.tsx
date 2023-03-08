@@ -262,7 +262,7 @@ export default function AddNewPost(position: any) {
                             </div>
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">Plats *</label>
-                                <div className="switch tooltip">
+                                <div className="switch">
                                     <input
                                         id="switch-1"
                                         type="checkbox"
@@ -270,8 +270,6 @@ export default function AddNewPost(position: any) {
                                         onChange={(e) => setLocationToggle(e.target.checked)}
                                     />
                                     <label htmlFor="switch-1" className="switch-label">Switch</label>
-                                    {!locationToggle === true ? <span className="tooltiptext">Byt till kartvy</span> : <span className="tooltiptext">Byt till adressvy</span>}
-
                                 </div>
                                 {
                                     locationToggle === true ? <>
