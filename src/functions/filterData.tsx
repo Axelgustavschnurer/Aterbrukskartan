@@ -1,5 +1,6 @@
 import { DeepRecycle, Filter } from "@/types";
 import { Recycle } from "@prisma/client";
+import { yearLimits } from "@/pages";
 
 export default runActiveFilters;
 export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
@@ -159,13 +160,11 @@ function filterByOrganisation(data: DeepRecycle[], organisation: string[]): Deep
  */
 function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
-  // If the year slider in ../components/sidebar.tsx is changed, this value might need to be updated
-  const currentDate = new Date().getFullYear()
+
   if (filters.projectType?.length) {
     returnData = filterByProjectType(returnData, filters.projectType);
   }
-  // If the year slider in ../components/sidebar.tsx is changed, this comparison might need to be updated to reflect the new input range
-  if (filters.years && (Math.max(...filters.years) != (currentDate + 10) || Math.min(...filters.years) != currentDate)) {
+  if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
     returnData = filterByYear(returnData, filters.years);
   }
   if (filters.availableCategories?.length) {

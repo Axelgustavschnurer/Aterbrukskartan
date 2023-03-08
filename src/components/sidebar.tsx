@@ -4,16 +4,19 @@ import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
 import { Filter } from "@/types";
 import Image from "next/image";
+import { yearLimits } from "@/pages";
 
 // Sidebar component for filtering the map
 
 export default function Sidebar({ setFilter }: any) {
-  // Gets current year to set as default value for slider
-  const currentDate = new Date().getFullYear()
-
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);
+
+  // List of all pins in the database
   const [newData, setNewData] = useState([])
+  
+  // List of all active filters for the field `projectType`
+  const [projectType, setProjectType] = useState([] as string[])
 
   // List of all active filters for the field `lookingForMaterials`
   const [lookingForMaterials, setLookingForMaterials] = useState([] as string[])
@@ -24,9 +27,11 @@ export default function Sidebar({ setFilter }: any) {
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[])
 
+  // State of the year slider
   const [years, setYears] = useState([] as number[])
+
+  // State of the month slider
   const [months, setMonths] = useState([] as number[])
-  const [projectType, setProjectType] = useState([] as string[])
 
   // Updates filter state when the user interacts with any of the filter components
   useEffect(() => {
@@ -239,10 +244,8 @@ export default function Sidebar({ setFilter }: any) {
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
-                // If the default values for min and max are changed in the future, for example changing max to {currentDate + 25}, they must be changed at ../functions/filterData.tsx as well.
-                // They can be found in the function `runActiveFilters`
-                min={currentDate}
-                max={currentDate + 10}
+                min={yearLimits.min}
+                max={yearLimits.max}
                 onChange={({ min, max }: any) => {
                   if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
                     setYears([min, max])
@@ -284,7 +287,7 @@ export default function Sidebar({ setFilter }: any) {
               id="clearBtn"
               onClick={() => {
                 setProjectType([])
-                setYears([currentDate, currentDate + 10])
+                setYears([yearLimits.min, yearLimits.max])
                 setLookingForMaterials([])
                 setAvailableMaterials([])
                 setOrganisation([])
