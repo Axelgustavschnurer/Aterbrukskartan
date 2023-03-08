@@ -13,7 +13,7 @@ export default function Sidebar({ setFilter }: any) {
   const [isOpen, setOpen] = useState(true);
 
   // List of all pins in the database
-  const [newData, setNewData] = useState([])
+  const [mapData, setMapData] = useState([])
 
   // State of the year slider
   const [years, setYears] = useState([] as number[])
@@ -33,17 +33,21 @@ export default function Sidebar({ setFilter }: any) {
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[])
 
-  // Updates filter state when the user interacts with any of the filter components
-  useEffect(() => {
-    setFilter({
-      projectType: projectType,
-      years: years,
-      lookingForCategories: lookingForMaterials,
-      availableCategories: availableMaterials,
-      organisation: organisation,
-    } as Filter)
-  }, [projectType, years, lookingForMaterials, availableMaterials, organisation, setFilter])
+  /**
+   * Fetches data from the database
+   */
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:3000/api/getData')
+    const data = await response.json()
+    setMapData(data)
+  }
 
+  // Runs fetchData function on component mount
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  // Toggles the sidebar's visibility when called
   const toggleMenu = () => {
     setOpen(!isOpen);
   };
@@ -58,31 +62,16 @@ export default function Sidebar({ setFilter }: any) {
     };
   }, [isOpen, router]);
 
-  /**
-   * Fetches data from the database
-   */
-  const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/getData')
-    const data = await response.json()
-    setNewData(data)
-  }
-
-  // Runs fetchData function on component mount
+  // Updates filter state when the user interacts with any of the filter components
   useEffect(() => {
-    fetchData()
-  }, [])
-
-  /**
-   * Updates the state of the projectType array to include or exclude the id of the button that was clicked, depending on if it was already included or not.
-   * @param e Event object
-   */
-  const updateProjectType = (e: any) => {
-    if (projectType.includes(e.currentTarget.id)) {
-      setProjectType(projectType.filter((item: any) => item !== e.currentTarget.id))
-    } else {
-      setProjectType([...projectType, e.currentTarget.id])
-    }
-  }
+    setFilter({
+      projectType: projectType,
+      years: years,
+      lookingForCategories: lookingForMaterials,
+      availableCategories: availableMaterials,
+      organisation: organisation,
+    } as Filter)
+  }, [projectType, years, lookingForMaterials, availableMaterials, organisation, setFilter])
 
   /**
    * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -100,7 +89,13 @@ export default function Sidebar({ setFilter }: any) {
             <div className="alignBtn" key={category}>
               <button
                 id={category}
-                onClick={updateProjectType}
+                onClick={(e: any) => {
+                  if (projectType.includes(e.currentTarget.id)) {
+                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.id))
+                  } else {
+                    setProjectType([...projectType, e.currentTarget.id])
+                  }
+                }}
               >
                 <Image src={"/images/" + category.toLowerCase() + ".svg"} alt={category} width={40} height={40} />
               </button>
@@ -118,7 +113,7 @@ export default function Sidebar({ setFilter }: any) {
   const getAllMaterialCategories = () => {
     // List of all strings in the availableMaterials and lookingForMaterials fields
     let unsplitMaterials: string[] = []
-    newData.map((pin: any) => {
+    mapData.map((pin: any) => {
       if (pin.availableMaterials) {
         unsplitMaterials.push(pin.availableMaterials)
       }
@@ -154,9 +149,11 @@ export default function Sidebar({ setFilter }: any) {
                 name={category + "Sökes"}
                 type="checkbox"
                 onChange={(e) => {
+                  // If the checkbox is now checked and the category is not in the lookingForMaterials array, add it to the array
                   if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
                     setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
                   }
+                  // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
                   else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
                     setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
                   }
@@ -185,9 +182,11 @@ export default function Sidebar({ setFilter }: any) {
                 name={category + "Erbjuds"}
                 type="checkbox"
                 onChange={(e) => {
+                  // If the checkbox is now checked and the category is not in the availableMaterials array, add it to the array
                   if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
                     setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
                   }
+                  // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
                   else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
                     setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
                   }
@@ -205,7 +204,7 @@ export default function Sidebar({ setFilter }: any) {
    * Creates checkboxes for all the different organisations in the database
    */
   const createOrganisationFilter = () => {
-    let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
+    let mappedData = mapData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
     return (
       <>
@@ -217,9 +216,11 @@ export default function Sidebar({ setFilter }: any) {
                 name={pin}
                 type="checkbox"
                 onChange={(e) => {
+                  // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
                   if (organisation.includes(e.target.name) && !e.target.checked) {
                     setOrganisation(organisation.filter((item: any) => item !== e.target.name))
                   }
+                  // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
                   else if (!organisation.includes(e.target.name) && e.target.checked) {
                     setOrganisation([...organisation, e.target.name])
                   }
@@ -233,18 +234,17 @@ export default function Sidebar({ setFilter }: any) {
     )
   }
 
-  // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it.
-  // It contains the project type buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter.
-  // Lastly, it contains a button for closing the sidebar.
   return (
     <>
       {isOpen && (
         <div className="sidebar">
 
+          {/* Buttons for choosing project types to filter by */}
           <div className="filterBtn">
             {createProjectTypeFilter()}
           </div>
 
+          {/* Range slider for year filter */}
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
@@ -259,21 +259,22 @@ export default function Sidebar({ setFilter }: any) {
             </div>
           </div>
 
-          {/*This is a range slider for months. It is currently not in use, but can be used in the future. */
-            <div className="rSliderContainer">
-              <div className="range-slider">
-                <DualRangeSlider
-                  min={1}
-                  max={12}
-                  onChange={({ min, max }: any) => {
-                    if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
-                      setMonths([min, max])
-                    }
-                  }}
-                />
-              </div>
-            </div>}
+          {/*This is a range slider for months. It is currently not in use, but can be used in the future. */}
+          <div className="rSliderContainer">
+            <div className="range-slider">
+              <DualRangeSlider
+                min={1}
+                max={12}
+                onChange={({ min, max }: any) => {
+                  if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
+                    setMonths([min, max])
+                  }
+                }}
+              />
+            </div>
+          </div>
 
+          {/* Checkboxes for filtering materials and organisations */}
           <form className="form">
             <h3>Sökes</h3>
             {createLookingForFilter()}
@@ -283,9 +284,9 @@ export default function Sidebar({ setFilter }: any) {
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}
-
           </form>
 
+          {/* Button for clearing the current filter */}
           <div className="clearFilter">
             <button
               id="clearBtn"
@@ -305,6 +306,7 @@ export default function Sidebar({ setFilter }: any) {
             </button>
           </div>
 
+          {/* Button for closing the sidebar */}
           <div className="sidebarClose">
             <button
               id="hideBtn"
@@ -314,21 +316,20 @@ export default function Sidebar({ setFilter }: any) {
           </div>
 
         </div>
-      )
-      }
-      {
-        !isOpen && (
-          <div className="hiddenSidebar">
-            <div className="sidebarOpen">
-              <button
-                id="openBtn"
-                onClick={toggleMenu}>
-                <Image src="/openArrow.svg" alt="Open arrow" width={20} height={20} />
-              </button>
-            </div>
+      )}
+
+      {/* Button for opening the sidebar when it's closed */}
+      {!isOpen && (
+        <div className="hiddenSidebar">
+          <div className="sidebarOpen">
+            <button
+              id="openBtn"
+              onClick={toggleMenu}>
+              <Image src="/openArrow.svg" alt="Open arrow" width={20} height={20} />
+            </button>
           </div>
-        )
-      }
+        </div>
+      )}
     </>
   );
 }
