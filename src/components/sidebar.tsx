@@ -33,6 +33,8 @@ export default function Sidebar({ setFilter }: any) {
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[])
 
+  const [sliderReset, setSliderReset] = useState(false)
+
   /**
    * Fetches data from the database
    */
@@ -234,7 +236,7 @@ export default function Sidebar({ setFilter }: any) {
     )
   }
 
-  return (
+return (
     <>
       {isOpen && (
         <div className="sidebar">
@@ -252,9 +254,10 @@ export default function Sidebar({ setFilter }: any) {
                 max={yearLimits.max}
                 onChange={({ min, max }: any) => {
                   if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
-                    setYears([min, max])
+                    setYears([min, max]), setSliderReset(false)
                   }
                 }}
+                reset={sliderReset}
               />
             </div>
           </div>
@@ -292,6 +295,7 @@ export default function Sidebar({ setFilter }: any) {
               id="clearBtn"
               onClick={() => {
                 setProjectType([])
+                setSliderReset(true)
                 setYears([yearLimits.min, yearLimits.max])
                 setLookingForMaterials([])
                 setAvailableMaterials([])

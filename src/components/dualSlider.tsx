@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 
 // Range slider component for filtering by years
 
-const MultiRangeSlider = ({ min, max, onChange }: any) => {
+const MultiRangeSlider = ({ min, max, onChange, reset}: any) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef(min);
@@ -16,6 +16,13 @@ const MultiRangeSlider = ({ min, max, onChange }: any) => {
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, onChange]);
+
+    useEffect(() => {
+        if (reset) {
+            setMinVal(min);
+            setMaxVal(max);
+        }
+    }, [reset, min, max]);
 
     // Declares the styling classes and functionality of the range slider. Needs to be given min and max values, as well as onChange function to work.
     return (
