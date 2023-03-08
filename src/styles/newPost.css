@@ -292,14 +292,18 @@ input[type=number] {
 
 #locationToggle {}
 
-/* css for the findAddress.tsx file */
+/* css for the findAddress.tsx file, change to new css file*/
 
 .findAddressContainer {
     display: flex;
     width: 100%;
     flex-direction: column;
     justify-content: center;
-    padding: 10px 0 10px 0;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #8a8a8a;
+    box-shadow: 5px 10px #00000015;
+
 
 }
 
