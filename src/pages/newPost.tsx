@@ -8,7 +8,7 @@ import LeafletAddressLookup from "../components/findAddress";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
-export default function AddNewPost(position: any) {
+export default function AddNewPost() {
     const router = useRouter();
     const currentDate = new Date().getFullYear();
 
@@ -23,7 +23,6 @@ export default function AddNewPost(position: any) {
         fetchData()
     }, [])
 
-    console.log(position)
 
     // Declares the filter variable and its setter function
     const [newData, setNewData] = useState([]);
@@ -119,6 +118,7 @@ export default function AddNewPost(position: any) {
                 setDescription("");
                 setContact("");
                 setExternalLinks("");
+                setLocationToggle(false);
                 router.push("/");
             } else {
                 setMessage("Something went wrong")
@@ -136,6 +136,7 @@ export default function AddNewPost(position: any) {
         }
     ), [/* list variables which should trigger a re-render here */])
 
+    // gets all the organisations from the database and returns them as options in a select element
     const getOrganisation = () => {
         let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
         let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
@@ -149,6 +150,23 @@ export default function AddNewPost(position: any) {
             </>
         )
     }
+
+    // sets the state of the searchingFor object
+    const setSearching = (e: any) => {
+        setSearchingFor({
+            ...searchingFor,
+            [e.target.name]: e.target.checked,
+        })
+    }
+
+    // sets the state of the offering object
+    const setOfferings = (e: any) => {
+        setOffering({
+            ...offering,
+            [e.target.name]: e.target.checked,
+        })
+    }
+
 
     return (
         <>
@@ -272,41 +290,21 @@ export default function AddNewPost(position: any) {
                                     <label htmlFor="switch-1" className="switch-label">Switch</label>
                                 </div>
                                 {
-                                    locationToggle === true ? <>
-                                        <NewPostMap />
-                                        <input
-                                            type="text"
-                                            id="location"
-                                            name="location"
-                                            value={location}
-                                            placeholder="Klistra in koordinater här"
-                                            onChange={(e) => setLocation(e.target.value)}
-                                            required
-                                        />
-                                    </>
+                                    locationToggle === true ?
+                                        <>
+                                            <NewPostMap />
+                                            <input
+                                                type="text"
+                                                id="location"
+                                                name="location"
+                                                value={location}
+                                                placeholder="Klistra in koordinater här"
+                                                onChange={(e) => setLocation(e.target.value)}
+                                                required
+                                            />
+                                        </>
                                         : <LeafletAddressLookup />
                                 }
-                                {/* <NewPostMap />
-                                <input
-                                    type="text"
-                                    id="location"
-                                    name="location"
-                                    value={location}
-                                    placeholder="Klistra in koordinater här"
-                                    onChange={(e) => setLocation(e.target.value)}
-                                    required
-                                /> */}
-                                {/* <LeafletAddressLookup /> */}
-
-                                {/* <input
-                                    type="checkbox"
-                                    id="locationToggle"
-                                    name="locationToggle"
-                                    value="locationToggle"
-                                    onChange={(e) => setLocationToggle(e.target.checked)}
-                                /> */}
-
-
                             </div>
                             <div className="addNewPostFormLists">
                                 <div>
@@ -318,12 +316,7 @@ export default function AddNewPost(position: any) {
                                                 id="stomme"
                                                 name="Stomme"
                                                 value="Stomme"
-                                                onChange={(e) =>
-                                                    setSearchingFor({
-                                                        ...searchingFor,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setSearching}
                                             />
                                             <label htmlFor="stomme">Stomme</label>
                                         </div>
@@ -333,12 +326,7 @@ export default function AddNewPost(position: any) {
                                                 id="inredning"
                                                 name="Inredning"
                                                 value="Inredning"
-                                                onChange={(e) =>
-                                                    setSearchingFor({
-                                                        ...searchingFor,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setSearching}
                                             />
                                             <label htmlFor="inredning">Inredning</label>
                                         </div>
@@ -348,12 +336,8 @@ export default function AddNewPost(position: any) {
                                                 id="smasaker"
                                                 name="Småsaker"
                                                 value="Småsaker"
-                                                onChange={(e) =>
-                                                    setSearchingFor({
-                                                        ...searchingFor,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                } />
+                                                onChange={setSearching}
+                                            />
                                             <label htmlFor="smasaker">Småsaker</label>
                                         </div>
                                         <div className="padding">
@@ -362,14 +346,9 @@ export default function AddNewPost(position: any) {
                                                 id="ovrigt"
                                                 name="Övrigt"
                                                 value="Övrigt"
-                                                onChange={(e) =>
-                                                    setSearchingFor({
-                                                        ...searchingFor,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                } />
+                                                onChange={setSearching}
+                                            />
                                             <label htmlFor="ovrigt">Övrigt</label>
-
                                         </div>
                                     </div>
                                 </div>
@@ -382,12 +361,7 @@ export default function AddNewPost(position: any) {
                                                 id="_stomme"
                                                 name="Stomme"
                                                 value="Stomme"
-                                                onChange={(e) =>
-                                                    setOffering({
-                                                        ...offering,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setOfferings}
                                             />
                                             <label htmlFor="_stomme">Stomme</label>
                                         </div>
@@ -397,12 +371,7 @@ export default function AddNewPost(position: any) {
                                                 id="_inredning"
                                                 name="Inredning"
                                                 value="Inredning"
-                                                onChange={(e) =>
-                                                    setOffering({
-                                                        ...offering,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setOfferings}
                                             />
                                             <label htmlFor="_inredning">Inredning</label>
                                         </div>
@@ -412,12 +381,7 @@ export default function AddNewPost(position: any) {
                                                 id="_smasaker"
                                                 name="Småsaker"
                                                 value="Småsaker"
-                                                onChange={(e) =>
-                                                    setOffering({
-                                                        ...offering,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setOfferings}
                                             />
                                             <label htmlFor="_smasaker">Småsaker</label>
                                         </div>
@@ -427,12 +391,7 @@ export default function AddNewPost(position: any) {
                                                 id="_ovrigt"
                                                 name="Övrigt"
                                                 value="Övrigt"
-                                                onChange={(e) =>
-                                                    setOffering({
-                                                        ...offering,
-                                                        [e.target.name]: e.target.checked,
-                                                    })
-                                                }
+                                                onChange={setOfferings}
                                             />
                                             <label htmlFor="_ovrigt">Övrigt</label>
                                         </div>
@@ -483,7 +442,6 @@ export default function AddNewPost(position: any) {
                     </div>
                 </div>
             </div >
-
             <div className="footer" id="footer">
                 <div className="footerContainer">
                     <div className="footerRow">
@@ -496,7 +454,6 @@ export default function AddNewPost(position: any) {
                     </div>
                 </div>
             </div>
-
         </>
     );
 }
