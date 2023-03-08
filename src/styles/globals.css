@@ -112,7 +112,7 @@ body {
 }
 
 /* Hover text tooltip */
-.tooltip:hover .tooltipText{
+.tooltip:hover .tooltipText {
   opacity: 1;
   transform: translateY(-10px);
 }

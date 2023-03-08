@@ -47,9 +47,9 @@ export default function HomePage() {
    */
   const projectTypeLabels = () => {
     let projectTypeLabel: string[] | undefined = []
-    for (let i = 0; i < 3; i++){
-      if (currentFilter.projectType){
-        if(currentFilter.projectType[i] === "Rivning" || currentFilter.projectType[i] === "Nybyggnation" || currentFilter.projectType[i] === "Ombyggnation"){
+    for (let i = 0; i < 3; i++) {
+      if (currentFilter.projectType) {
+        if (currentFilter.projectType[i] === "Rivning" || currentFilter.projectType[i] === "Nybyggnation" || currentFilter.projectType[i] === "Ombyggnation") {
           projectTypeLabel?.push(currentFilter.projectType[i] + "sprojekt")
         }
       }
@@ -65,10 +65,10 @@ export default function HomePage() {
     const getYears = currentFilter.years!.map((year: number) => {
       return year;
     })
-    if (getYears){
-      if(getYears[0] === getYears[1] && getYears[0] !== undefined){
+    if (getYears) {
+      if (getYears[0] === getYears[1] && getYears[0] !== undefined) {
         yearLabel!.push(getYears[0].toString())
-      } else if (Math.min(...getYears) === yearLimits.min && Math.max(...getYears) === yearLimits.max){
+      } else if (Math.min(...getYears) === yearLimits.min && Math.max(...getYears) === yearLimits.max) {
         null;
       } else {
         yearLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
@@ -82,11 +82,12 @@ export default function HomePage() {
    */
   const availableMaterialsLabels = () => {
     let availableMaterialsLabel: string[] | undefined = []
-    for (let i = 0; i < 4; i++){
-      if (currentFilter.availableCategories){
-        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt"){
+    for (let i = 0; i < 4; i++) {
+      if (currentFilter.availableCategories) {
+        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt") {
           availableMaterialsLabel?.push(currentFilter.availableCategories[i])
-      }}
+        }
+      }
     }
     return availableMaterialsLabel
   }
@@ -96,11 +97,12 @@ export default function HomePage() {
    */
   const searchingMaterialsLabels = () => {
     let searchingMaterialsLabel: string[] | undefined = []
-    for (let i = 0; i < 4; i++){
-      if (currentFilter.lookingForCategories){
-        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt"){
+    for (let i = 0; i < 4; i++) {
+      if (currentFilter.lookingForCategories) {
+        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt") {
           searchingMaterialsLabel?.push(currentFilter.lookingForCategories[i])
-      }}
+        }
+      }
     }
     return searchingMaterialsLabel
   }
@@ -113,8 +115,8 @@ export default function HomePage() {
     const getOrganisations = currentFilter.organisation!.map((organisation: string) => {
       return organisation;
     })
-    for (let i = 0; i < getOrganisations.length; i++){
-      if (currentFilter.organisation){
+    for (let i = 0; i < getOrganisations.length; i++) {
+      if (currentFilter.organisation) {
         organisationLabel?.push(currentFilter.organisation[i])
       }
     }
@@ -148,23 +150,23 @@ export default function HomePage() {
       <div className='filterTextContent'>
         <div className="filterTextContainer">
           {projectTypeLabels().length && projectTypeLabels()!.length < 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{projectTypeLabels().join(", ")}</p>
-            :projectTypeLabels().length && projectTypeLabels().length === 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Alla projektstyper</p>
-              :null
+            : projectTypeLabels().length && projectTypeLabels().length === 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Alla projektstyper</p>
+              : null
           }
           {yearLabels().length ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {yearLabels()}</p>
-            :null
+            : null
           }
           {searchingMaterialsLabels().length && searchingMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().join(", ")}</p>
-            :searchingMaterialsLabels().length && searchingMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().length} kategorier</p>
-              :null
+            : searchingMaterialsLabels().length && searchingMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().length} kategorier</p>
+              : null
           }
           {availableMaterialsLabels().length && availableMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().join(", ")}</p>
-            :availableMaterialsLabels().length && availableMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().length} kategorier</p>
-              :null
+            : availableMaterialsLabels().length && availableMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().length} kategorier</p>
+              : null
           }
           {organisationLabels().length && organisationLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Organisationer: {organisationLabels().join(", ")}</p>
-            :organisationLabels().length && organisationLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{organisationLabels().length} Organisationer</p>
-              :null
+            : organisationLabels().length && organisationLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{organisationLabels().length} Organisationer</p>
+              : null
           }
         </div>
       </div>
