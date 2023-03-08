@@ -266,7 +266,7 @@ export default function Sidebar({ setFilter }: any) {
                   min={1}
                   max={12}
                   onChange={({ min, max }: any) => {
-                    if (!(months.includes(min) && months.includes(max))) {
+                    if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
                       setMonths([min, max])
                     }
                   }}
