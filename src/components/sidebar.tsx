@@ -14,7 +14,13 @@ export default function Sidebar({ setFilter }: any) {
 
   // List of all pins in the database
   const [newData, setNewData] = useState([])
-  
+
+  // State of the year slider
+  const [years, setYears] = useState([] as number[])
+
+  // State of the month slider
+  const [months, setMonths] = useState([] as number[])
+
   // List of all active filters for the field `projectType`
   const [projectType, setProjectType] = useState([] as string[])
 
@@ -26,12 +32,6 @@ export default function Sidebar({ setFilter }: any) {
 
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[])
-
-  // State of the year slider
-  const [years, setYears] = useState([] as number[])
-
-  // State of the month slider
-  const [months, setMonths] = useState([] as number[])
 
   // Updates filter state when the user interacts with any of the filter components
   useEffect(() => {
@@ -85,6 +85,34 @@ export default function Sidebar({ setFilter }: any) {
   }
 
   /**
+   * Creates buttons for all the project categories defined in the array `categories` in this function
+   */
+  const createProjectTypeFilter = () => {
+    let categories = [
+      "Rivning",
+      "Nybyggnation",
+      "Ombyggnation",
+    ]
+    return (
+      <>
+        {categories.map((category: any) => {
+          return (
+            <div className="alignBtn" key={category}>
+              <button
+                id={category}
+                onClick={updateProjectType}
+              >
+                <Image src={"/images/" + category.toLowerCase() + ".svg"} alt={category} width={40} height={40} />
+              </button>
+              <p>{category}</p>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
+  /**
    * Returns an array of all the different material categories in the database
    */
   const getAllMaterialCategories = () => {
@@ -114,7 +142,7 @@ export default function Sidebar({ setFilter }: any) {
   /**
    * Creates checkboxes for all the different lookingForMaterials categories in the database
    */
-  const getLookingFor = () => {
+  const createLookingForFilter = () => {
     let categories = getAllMaterialCategories()
     return (
       <>
@@ -145,7 +173,7 @@ export default function Sidebar({ setFilter }: any) {
   /**
    * Creates checkboxes for all the different availableMaterials categories in the database
    */
-  const getAvailable = () => {
+  const createAvailableFilter = () => {
     let categories = getAllMaterialCategories()
     return (
       <>
@@ -176,7 +204,7 @@ export default function Sidebar({ setFilter }: any) {
   /**
    * Creates checkboxes for all the different organisations in the database
    */
-  const getOrganisation = () => {
+  const createOrganisationFilter = () => {
     let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
     return (
@@ -212,35 +240,11 @@ export default function Sidebar({ setFilter }: any) {
     <>
       {isOpen && (
         <div className="sidebar">
+
           <div className="filterBtn">
-            <div className="alignBtn">
-              <button
-                id="Rivning"
-                onClick={updateProjectType}
-              >
-                <Image src="/images/riv.svg" alt="Rivning" width={40} height={40} />
-              </button>
-              <p>Rivning</p>
-            </div>
-            <div className="alignBtn">
-              <button
-                id="Nybyggnation"
-                onClick={updateProjectType}
-              >
-                <Image src="/images/bygg.svg" alt="Nybyggnation" width={40} height={40} />
-              </button>
-              <p>Nybyggnation</p>
-            </div>
-            <div className="alignBtn">
-              <button
-                id="Ombyggnation"
-                onClick={updateProjectType}
-              >
-                <Image src="/images/ater.svg" alt="Ombyggnation" width={40} height={40} />
-              </button>
-              <p>Ombyggnation</p>
-            </div>
+            {createProjectTypeFilter()}
           </div>
+
           <div className="rSliderContainer">
             <div className="range-slider">
               <DualRangeSlider
@@ -254,34 +258,34 @@ export default function Sidebar({ setFilter }: any) {
               />
             </div>
           </div>
+
           {/*This is a range slider for months. It is currently not in use, but can be used in the future. */
-          <div className="rSliderContainer">
-            <div className="range-slider">
-              <DualRangeSlider
-                // If the default values for min and max are changed in the future, they must be changed at ../functions/filterData.tsx as well.
-                // They can be found in the function `runActiveFilters`
-                min={1}
-                max={12}
-                onChange={({ min, max }: any) => {
-                  if (!(months.includes(min) && months.includes(max))) {
-                    setMonths([min, max])
-                  }
-                }}
-              />
-            </div>
-          </div> }
+            <div className="rSliderContainer">
+              <div className="range-slider">
+                <DualRangeSlider
+                  min={1}
+                  max={12}
+                  onChange={({ min, max }: any) => {
+                    if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
+                      setMonths([min, max])
+                    }
+                  }}
+                />
+              </div>
+            </div>}
 
           <form className="form">
             <h3>Sökes</h3>
-            {getLookingFor()}
+            {createLookingForFilter()}
 
             <h3>Erbjuds</h3>
-            {getAvailable()}
+            {createAvailableFilter()}
 
             <h3>Organisation</h3>
-            {getOrganisation()}
+            {createOrganisationFilter()}
 
           </form>
+
           <div className="clearFilter">
             <button
               id="clearBtn"
@@ -300,6 +304,7 @@ export default function Sidebar({ setFilter }: any) {
               Rensa filter
             </button>
           </div>
+
           <div className="sidebarClose">
             <button
               id="hideBtn"
@@ -307,6 +312,7 @@ export default function Sidebar({ setFilter }: any) {
               <Image src="/closeArrow.svg" alt="Closing arrow" width={20} height={20} />
             </button>
           </div>
+
         </div>
       )
       }
