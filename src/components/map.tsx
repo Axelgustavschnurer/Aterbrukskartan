@@ -41,8 +41,8 @@ export default function Map({ currentFilter, searchInput }: any) {
                 : pin.projectType === "Rivning" && !pin.availableMaterials ? <p><b>Erbjuds</b> <br /> Material saknas</p>
                   : pin.projectType === "Nybyggnation" && pin.lookingForMaterials ? <p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p>
                     : pin.projectType === "Nybyggnation" && !pin.lookingForMaterials ? <p><b>Sökes</b> <br /> Material saknas</p>
-                      : pin.projectType === "Ombyggnation" && pin.availableMaterials && pin.lookingForMaterials ? <p><b>Sökes</b> <br /> {pin.lookingForMaterials}<p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p></p>
-                        : pin.projectType === "Ombyggnation" && !pin.availableMaterials && !pin.lookingForMaterials ? <p><b>Sökes</b> <br /> Material saknas <br /><b>Erbjuds</b> <br /> Material saknas</p>
+                      : pin.projectType === "Ombyggnation" && pin.availableMaterials && pin.lookingForMaterials ? <><p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p> <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p></>
+                        : pin.projectType === "Ombyggnation" && !pin.availableMaterials && !pin.lookingForMaterials ? <><p><b>Sökes</b> <br /> Material saknas</p> <p><b>Erbjuds</b> <br /> Material saknas</p></>
                           : pin.projectType === "Ombyggnation" && pin.availableMaterials && !pin.lookingForMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
                             : pin.projectType === "Ombyggnation" && !pin.availableMaterials && pin.lookingForMaterials ? <p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p>
                               : null
