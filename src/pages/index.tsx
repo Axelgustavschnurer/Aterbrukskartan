@@ -18,13 +18,15 @@ export const yearLimits = {
 
 export default function HomePage() {
   const router = useRouter()
-  // Declares the filter variable and its setter function
-  // Some defaults are set here in order to avoid unwanted behaviour when the filter is first loaded
-  const [currentFilter, setFilter] = useState({
-    years: [yearLimits.min, yearLimits.max],
-    organisation: [],
-  } as Filter)
+
+  // Contains the currently active filters
+  const [currentFilter, setFilter] = useState({} as Filter)
+
+  // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
+
+  // State for configuring the max amount of items in a category that can be selected before the label is compacted
+  const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
 
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
@@ -40,99 +42,111 @@ export default function HomePage() {
     router.push('/newPost')
   }
 
-  const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
-
   /**
-   * Returns an array of strings with the currently active project type filters
+   * Returns a p element with the currently active project type filters, if any
    */
-  const projectTypeLabels = () => {
-    let projectTypeLabel: string[] | undefined = []
-    for (let i = 0; i < 3; i++) {
-      if (currentFilter.projectType) {
-        if (currentFilter.projectType[i] === "Rivning" || currentFilter.projectType[i] === "Nybyggnation" || currentFilter.projectType[i] === "Ombyggnation") {
-          projectTypeLabel?.push(currentFilter.projectType[i] + "sprojekt")
-        }
+  const projectTypeLabel = () => {
+    if (currentFilter.projectType?.length) {
+      if (currentFilter.projectType.length > maxCategoryAmount) {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.length} projekttyper</p>
+        )
+      }
+      else {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.join(", ")}</p>
+        )
       }
     }
-    return projectTypeLabel
   }
 
   /**
-   * Returns an array of strings with the currently active year filters
+   * Returns a p element with the currently active year filters, if any
    */
-  const yearLabels = () => {
-    let yearLabel: string[] = []
-    const getYears = currentFilter.years!.map((year: number) => {
-      return year;
-    })
-    if (getYears) {
-      if (getYears[0] === getYears[1] && getYears[0] !== undefined) {
-        yearLabel!.push(getYears[0].toString())
-      } else if (Math.min(...getYears) === yearLimits.min && Math.max(...getYears) === yearLimits.max) {
-        null;
-      } else {
-        yearLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
+  const yearLabel = () => {
+    if (currentFilter.years?.length) {
+      if (Math.min(...currentFilter.years) === yearLimits.min && Math.max(...currentFilter.years) === yearLimits.max) {
+        return null;
+      }
+      else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {currentFilter.years[0]}</p>
+        )
+      }
+      else {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
+        )
       }
     }
-    return yearLabel
   }
 
   /**
-   * Returns an array of strings with the currently active filters regarding available materials
+   * Returns a p element with the currently active filters regarding materials that are being searched for by the projects on the map, if any
    */
-  const availableMaterialsLabels = () => {
-    let availableMaterialsLabel: string[] | undefined = []
-    for (let i = 0; i < 4; i++) {
-      if (currentFilter.availableCategories) {
-        if (currentFilter.availableCategories[i] === "Stomme" || currentFilter.availableCategories[i] === "Inredning" || currentFilter.availableCategories[i] === "Småsaker" || currentFilter.availableCategories[i] === "Övrigt") {
-          availableMaterialsLabel?.push(currentFilter.availableCategories[i])
-        }
+  const lookingForMaterialsLabel = () => {
+    if (currentFilter.lookingForCategories?.length) {
+      if (currentFilter.lookingForCategories.length > maxCategoryAmount) {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</p>
+        )
+      }
+      else {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</p>
+        )
       }
     }
-    return availableMaterialsLabel
   }
 
   /**
-   * Returns an array of strings with the currently active filters regarding materials that are being searched for by the projects on the map
+   * Returns a p element with the currently active filters regarding available materials, if any
    */
-  const searchingMaterialsLabels = () => {
-    let searchingMaterialsLabel: string[] | undefined = []
-    for (let i = 0; i < 4; i++) {
-      if (currentFilter.lookingForCategories) {
-        if (currentFilter.lookingForCategories[i] === "Stomme" || currentFilter.lookingForCategories[i] === "Inredning" || currentFilter.lookingForCategories[i] === "Småsaker" || currentFilter.lookingForCategories[i] === "Övrigt") {
-          searchingMaterialsLabel?.push(currentFilter.lookingForCategories[i])
-        }
+  const availableMaterialsLabel = () => {
+    if (currentFilter.availableCategories?.length) {
+      if (currentFilter.availableCategories.length > maxCategoryAmount) {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</p>
+        )
+      }
+      else {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</p>
+        )
       }
     }
-    return searchingMaterialsLabel
   }
 
   /**
-   * Returns an array of strings with the currently active organisation filters
+   * Returns a p element with the currently active filters regarding organisations, if any
    */
-  const organisationLabels = () => {
-    let organisationLabel: string[] | undefined = []
-    const getOrganisations = currentFilter.organisation!.map((organisation: string) => {
-      return organisation;
-    })
-    for (let i = 0; i < getOrganisations.length; i++) {
-      if (currentFilter.organisation) {
-        organisationLabel?.push(currentFilter.organisation[i])
+  const organisationLabel = () => {
+    if (currentFilter.organisation?.length) {
+      if (currentFilter.organisation.length > maxCategoryAmount) {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.organisation.length} Organisationer</p>
+        )
+      }
+      else {
+        return (
+          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Organisationer: {currentFilter.organisation.join(", ")}</p>
+        )
       }
     }
-    return organisationLabel
   }
 
-
-  // Returns all content of the main page.
   return (
     <>
       <Head>
         <title>Återbrukskartan</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+
       <Map currentFilter={currentFilter} searchInput={searchInput} />
+
       <Sidebar setFilter={setFilter} />
+
+      {/* Searchbar */}
       <div className="wrap">
         <div className="search">
           <input
@@ -147,29 +161,19 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Labels showing currently avtive filters, if any */}
       <div className='filterTextContent'>
         <div className="filterTextContainer">
-          {projectTypeLabels().length && projectTypeLabels()!.length < 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{projectTypeLabels().join(", ")}</p>
-            : projectTypeLabels().length && projectTypeLabels().length === 3 ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Alla projektstyper</p>
-              : null
-          }
-          {yearLabels().length ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {yearLabels()}</p>
-            : null
-          }
-          {searchingMaterialsLabels().length && searchingMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().join(", ")}</p>
-            : searchingMaterialsLabels().length && searchingMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {searchingMaterialsLabels().length} kategorier</p>
-              : null
-          }
-          {availableMaterialsLabels().length && availableMaterialsLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().join(", ")}</p>
-            : availableMaterialsLabels().length && availableMaterialsLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {availableMaterialsLabels().length} kategorier</p>
-              : null
-          }
-          {organisationLabels().length && organisationLabels()!.length <= maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Organisationer: {organisationLabels().join(", ")}</p>
-            : organisationLabels().length && organisationLabels().length > maxCategoryAmount ? <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{organisationLabels().length} Organisationer</p>
-              : null
-          }
+          {projectTypeLabel()}
+          {yearLabel()}
+          {lookingForMaterialsLabel()}
+          {availableMaterialsLabel()}
+          {organisationLabel()}
         </div>
       </div>
+
+      {/* Button leading to another page where one can add projects to the database */}
       <div className="addNewPost tooltip">
         <span className="tooltipText">Lägg till nytt projekt</span>
         <button className="addNewPostButton" onClick={goToNewPost}>
