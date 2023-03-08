@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
-import { LeafletAddressLookup } from "../components/findAddress";
+import LeafletAddressLookup from "../components/findAddress";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -49,6 +49,7 @@ export default function AddNewPost(position: any) {
     const [contact, setContact] = useState("");
     const [externalLinks, setExternalLinks] = useState("");
     const [message, setMessage] = useState("");
+    const [locationToggle, setLocationToggle] = useState(false);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -261,7 +262,33 @@ export default function AddNewPost(position: any) {
                             </div>
                             <div className="addNewPostFormLocation">
                                 <label className="newPostTitle" htmlFor="location">Plats *</label>
-                                <NewPostMap />
+                                <div className="switch tooltip">
+                                    <input
+                                        id="switch-1"
+                                        type="checkbox"
+                                        className="switch-input"
+                                        onChange={(e) => setLocationToggle(e.target.checked)}
+                                    />
+                                    <label htmlFor="switch-1" className="switch-label">Switch</label>
+                                    {!locationToggle === true ? <span className="tooltiptext">Byt till kartvy</span> : <span className="tooltiptext">Byt till adressvy</span>}
+
+                                </div>
+                                {
+                                    locationToggle === true ? <>
+                                        <NewPostMap />
+                                        <input
+                                            type="text"
+                                            id="location"
+                                            name="location"
+                                            value={location}
+                                            placeholder="Klistra in koordinater här"
+                                            onChange={(e) => setLocation(e.target.value)}
+                                            required
+                                        />
+                                    </>
+                                        : <LeafletAddressLookup />
+                                }
+                                {/* <NewPostMap />
                                 <input
                                     type="text"
                                     id="location"
@@ -270,8 +297,18 @@ export default function AddNewPost(position: any) {
                                     placeholder="Klistra in koordinater här"
                                     onChange={(e) => setLocation(e.target.value)}
                                     required
-                                />
+                                /> */}
                                 {/* <LeafletAddressLookup /> */}
+
+                                {/* <input
+                                    type="checkbox"
+                                    id="locationToggle"
+                                    name="locationToggle"
+                                    value="locationToggle"
+                                    onChange={(e) => setLocationToggle(e.target.checked)}
+                                /> */}
+
+
                             </div>
                             <div className="addNewPostFormLists">
                                 <div>
@@ -447,7 +484,7 @@ export default function AddNewPost(position: any) {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div >
 
             <div className="footer" id="footer">
                 <div className="footerContainer">
