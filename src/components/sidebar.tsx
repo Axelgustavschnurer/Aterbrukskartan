@@ -81,7 +81,6 @@ export default function Sidebar({ setFilter }: any) {
 
   /**
    * Returns an array of all the different material categories in the database
-   * @returns string[]
    */
   const getAllMaterialCategories = () => {
     // List of all strings in the availableMaterials and lookingForMaterials fields
@@ -109,7 +108,6 @@ export default function Sidebar({ setFilter }: any) {
 
   /**
    * Creates checkboxes for all the different lookingForMaterials categories in the database
-   * @returns JSX.Element
    */
   const getLookingFor = () => {
     let categories = getAllMaterialCategories()
@@ -141,7 +139,6 @@ export default function Sidebar({ setFilter }: any) {
 
   /**
    * Creates checkboxes for all the different availableMaterials categories in the database
-   * @returns JSX.Element
    */
   const getAvailable = () => {
     let categories = getAllMaterialCategories()
@@ -173,7 +170,6 @@ export default function Sidebar({ setFilter }: any) {
 
   /**
    * Creates checkboxes for all the different organisations in the database
-   * @returns JSX.Element
    */
   const getOrganisation = () => {
     let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
@@ -204,10 +200,9 @@ export default function Sidebar({ setFilter }: any) {
     )
   }
 
-  // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it. 
-  // It contains the type project buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter. 
-  // Lastly, it contains a button for closing the sidebar. 
-
+  // Returns the sidebar component. It cannot be interacted with if it is closed, other than opening it.
+  // It contains the project type buttons and the slider for filtering the map, as well as a form for filtering parts and organizastions, on top of a button to clear the current filter.
+  // Lastly, it contains a button for closing the sidebar.
   return (
     <>
       {isOpen && (

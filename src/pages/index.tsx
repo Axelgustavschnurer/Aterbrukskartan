@@ -7,14 +7,22 @@ import Head from 'next/head'
 import { Filter } from '../types'
 import Image from 'next/image'
 
-// This is the main page of the application
+/**
+ * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
+ * These values are also used at other points to check if the sliders are at their default values
+ */
+export const yearLimits = {
+  min: new Date().getFullYear(),
+  max: new Date().getFullYear() + 10,
+}
 
 export default function HomePage() {
   const router = useRouter()
-  // Declares the filter variable and its setter function 
+  // Declares the filter variable and its setter function
+  // Some defaults are set here in order to avoid unwanted behaviour when the filter is first loaded
   const [currentFilter, setFilter] = useState({
-    years: [new Date().getFullYear(), new Date().getFullYear() + 10],
-    organisation: [""],
+    years: [yearLimits.min, yearLimits.max],
+    organisation: [],
   } as Filter)
   const [searchInput, setSearchInput] = useState("")
 
@@ -27,16 +35,16 @@ export default function HomePage() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  // Declares function for navigating to the new post page
+  // Function for navigating to the new post page
   const goToNewPost = () => {
     router.push('/newPost')
   }
 
-  const [minYear, setMinYear] = useState(new Date().getFullYear())
-  const [maxYear, setMaxYear] = useState(new Date().getFullYear() + 10)
   const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
 
-  // Declares function for displaying the current filter
+  /**
+   * Returns an array of strings with the currently active project type filters
+   */
   const projectTypeLabels = () => {
     let projectTypeLabel: string[] | undefined = []
     for (let i = 0; i < 3; i++){
@@ -49,6 +57,9 @@ export default function HomePage() {
     return projectTypeLabel
   }
 
+  /**
+   * Returns an array of strings with the currently active year filters
+   */
   const yearLabels = () => {
     let yearLabel: string[] = []
     const getYears = currentFilter.years!.map((year: number) => {
@@ -57,7 +68,7 @@ export default function HomePage() {
     if (getYears){
       if(getYears[0] === getYears[1] && getYears[0] !== undefined){
         yearLabel!.push(getYears[0].toString())
-      } else if (Math.min(...getYears) === minYear && Math.max(...getYears) === maxYear){
+      } else if (Math.min(...getYears) === yearLimits.min && Math.max(...getYears) === yearLimits.max){
         null;
       } else {
         yearLabel!.push(Math.min(...getYears) + " - " + Math.max(...getYears))
@@ -66,6 +77,9 @@ export default function HomePage() {
     return yearLabel
   }
 
+  /**
+   * Returns an array of strings with the currently active filters regarding available materials
+   */
   const availableMaterialsLabels = () => {
     let availableMaterialsLabel: string[] | undefined = []
     for (let i = 0; i < 4; i++){
@@ -77,6 +91,9 @@ export default function HomePage() {
     return availableMaterialsLabel
   }
 
+  /**
+   * Returns an array of strings with the currently active filters regarding materials that are being searched for by the projects on the map
+   */
   const searchingMaterialsLabels = () => {
     let searchingMaterialsLabel: string[] | undefined = []
     for (let i = 0; i < 4; i++){
@@ -88,6 +105,9 @@ export default function HomePage() {
     return searchingMaterialsLabel
   }
 
+  /**
+   * Returns an array of strings with the currently active organisation filters
+   */
   const organisationLabels = () => {
     let organisationLabel: string[] | undefined = []
     const getOrganisations = currentFilter.organisation!.map((organisation: string) => {
@@ -110,7 +130,7 @@ export default function HomePage() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <Map currentFilter={currentFilter} searchInput={searchInput} />
-      <Sidebar setFilter={setFilter} minYear={minYear} maxYear={maxYear} />
+      <Sidebar setFilter={setFilter} />
       <div className="wrap">
         <div className="search">
           <input
@@ -154,8 +174,6 @@ export default function HomePage() {
           <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
         </button>
       </div>
-
     </>
-
   )
 }
