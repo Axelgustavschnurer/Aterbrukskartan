@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
-const LeafletAddressLookup = () => {
-    const [lat, setLat] = useState();
-    const [lon, setLon] = useState();
+function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
     const [location, setLocation] = useState('');
     const [results, setResults] = useState([]);
 

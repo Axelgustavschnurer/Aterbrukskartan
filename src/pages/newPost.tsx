@@ -25,6 +25,9 @@ export default function AddNewPost() {
 
 
     // Declares the filter variable and its setter function
+    const [lat, setLat] = useState();
+    const [lon, setLon] = useState();
+
     const [newData, setNewData] = useState([]);
     const [organization, setOrganization] = useState("");
     const [startYear, setStartYear] = useState("");
@@ -303,7 +306,13 @@ export default function AddNewPost() {
                                                 required
                                             />
                                         </>
-                                        : <LeafletAddressLookup />
+                                        :
+                                        <LeafletAddressLookup
+                                            setLat={setLat}
+                                            setLon={setLon}
+                                            lat={lat}
+                                            lon={lon}
+                                        />
                                 }
                             </div>
                             <div className="addNewPostFormLists">
