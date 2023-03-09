@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient, Prisma } from '@prisma/client'
-
-/**
- * This is the data format used when creating a new `Recycle` object in the database.
- */
-type DeepRecycleInput = Prisma.RecycleCreateWithoutMapItemInput & {
-  mapItem: Prisma.MapItemCreateWithoutRecycleInput
-}
+import { DeepRecycle, DeepRecycleInput } from '@/types'
 
 const prisma = new PrismaClient()
 
@@ -18,7 +12,16 @@ export default async function handler(
 
   switch (req.method) {
     case 'GET':
-      res.status(501).json({ message: 'Not implemented' });
+      /**
+       * Returns a list of all the `Recycle` objects in the database, with the mapItem object included
+       */
+      const getData: DeepRecycle[] = await prisma.recycle.findMany({
+        include: {
+          mapItem: true
+        }
+      })
+      
+      res.status(200).json(getData)
       break;
 
     case 'PUT':
