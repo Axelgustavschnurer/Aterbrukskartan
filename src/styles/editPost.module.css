@@ -148,7 +148,7 @@
 .inputGroup {
     background-color: #ffffff;
     display: block;
-    margin: 10px;
+    margin: 3px 10px;
     position: relative;
     border-radius: 20px;
     border: 1px solid #b1b1b1;
@@ -157,7 +157,7 @@
 .typeInputGroup {
     background-color: #ffffff;
     display: block;
-    margin: 10px 0;
+    margin: 3px 10px;
     position: relative;
     border-radius: 20px;
     max-width: 30%;
