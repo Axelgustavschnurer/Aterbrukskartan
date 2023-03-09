@@ -54,7 +54,7 @@ export default function EditPost() {
             </div>
             <div className={styles.addPostContainer}>
                 <div className={styles.addNewPostContainer}>
-                    <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
+                    <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
                     <div className={styles.addNewPostForm}>
                         <form method="post" onSubmit={handleSubmit}>
                             <div className={styles.addNewPostFormOrganization}>
