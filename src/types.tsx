@@ -8,6 +8,13 @@ export type DeepRecycle = Prisma.RecycleGetPayload<{
 }>
 
 /**
+ * This is the data format used when creating a new `Recycle` object in the database.
+ */
+export type DeepRecycleInput = Prisma.RecycleCreateWithoutMapItemInput & {
+  mapItem: Prisma.MapItemCreateWithoutRecycleInput
+}
+
+/**
  * @param projectType Array of strings containing the project types to filter by.
  * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
  * @param availableCategories Array of strings containing the materials to filter by
