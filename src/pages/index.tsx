@@ -23,6 +23,9 @@ export default function HomePage() {
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as Filter)
 
+  //Array of all months in swedish.
+  const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+
   // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
 
@@ -89,12 +92,12 @@ export default function HomePage() {
       }
       else if (currentFilter.months[0] === currentFilter.months[1] && currentFilter.months[0] !== undefined) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månad: {currentFilter.months[0]}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månad: {monthArray[currentFilter.months[0] - 1]}</p>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månader: {Math.min(...currentFilter.months)} - {Math.max(...currentFilter.months)}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månader: {monthArray[Math.min(...currentFilter.months) - 1]} - {monthArray[Math.max(...currentFilter.months) - 1]}</p>
         )
       }
     }
