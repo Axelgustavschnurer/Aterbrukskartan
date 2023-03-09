@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Filter } from '../types'
 import Image from 'next/image'
+import styles from '../styles/index.module.css'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -49,12 +50,12 @@ export default function HomePage() {
     if (currentFilter.projectType?.length) {
       if (currentFilter.projectType.length > maxCategoryAmount) {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.length} projekttyper</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.length} projekttyper</p>
         )
       }
       else {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.join(", ")}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.join(", ")}</p>
         )
       }
     }
@@ -70,12 +71,12 @@ export default function HomePage() {
       }
       else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {currentFilter.years[0]}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {currentFilter.years[0]}</p>
         )
       }
       else {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
         )
       }
     }
@@ -88,12 +89,12 @@ export default function HomePage() {
     if (currentFilter.lookingForCategories?.length) {
       if (currentFilter.lookingForCategories.length > maxCategoryAmount) {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</p>
         )
       }
       else {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</p>
         )
       }
     }
@@ -106,12 +107,12 @@ export default function HomePage() {
     if (currentFilter.availableCategories?.length) {
       if (currentFilter.availableCategories.length > maxCategoryAmount) {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</p>
         )
       }
       else {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</p>
         )
       }
     }
@@ -124,12 +125,12 @@ export default function HomePage() {
     if (currentFilter.organisation?.length) {
       if (currentFilter.organisation.length > maxCategoryAmount) {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>{currentFilter.organisation.length} Organisationer</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.organisation.length} Organisationer</p>
         )
       }
       else {
         return (
-          <p className="filterText" style={{ backgroundColor: "#fd9800" }}>Organisationer: {currentFilter.organisation.join(", ")}</p>
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Organisationer: {currentFilter.organisation.join(", ")}</p>
         )
       }
     }
@@ -147,24 +148,24 @@ export default function HomePage() {
       <Sidebar setFilter={setFilter} />
 
       {/* Searchbar */}
-      <div className="wrap">
-        <div className="search">
+      <div className={styles.wrap}>
+        <div className={styles.search}>
           <input
             type="search"
-            className="searchTerm"
+            className={styles.searchTerm}
             placeholder="Sök efter projekt..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <div className='searchIcon'>
+          <div className={styles.searchIcon}>
             <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
           </div>
         </div>
       </div>
 
       {/* Labels showing currently avtive filters, if any */}
-      <div className='filterTextContent'>
-        <div className="filterTextContainer">
+      <div className={styles.filterTextContent}>
+        <div className={styles.filterTextContainer}>
           {projectTypeLabel()}
           {yearLabel()}
           {lookingForMaterialsLabel()}
@@ -174,9 +175,9 @@ export default function HomePage() {
       </div>
 
       {/* Button leading to another page where one can add projects to the database */}
-      <div className="addNewPost tooltip">
-        <span className="tooltipText">Lägg till nytt projekt</span>
-        <button className="addNewPostButton" onClick={goToNewPost}>
+      <div className={`${styles.addNewPost} ${styles.tooltip}`}>
+        <span className={styles.tooltipText}>Lägg till nytt projekt</span>
+        <button className={styles.addNewPostButton} onClick={goToNewPost}>
           <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
         </button>
       </div>

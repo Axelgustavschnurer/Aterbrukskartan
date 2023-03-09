@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
+import styles from "../styles/dualSlider.module.css";
 
 // Range slider component for filtering by years
 
-const MultiRangeSlider = ({ min, max, onChange, reset}: any) => {
+const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef(min);
@@ -26,7 +27,7 @@ const MultiRangeSlider = ({ min, max, onChange, reset}: any) => {
 
     // Declares the styling classes and functionality of the range slider. Needs to be given min and max values, as well as onChange function to work.
     return (
-        <div className="rangeSliderContainer">
+        <div className={styles.rangeSliderContainer}>
             <input
                 type="range"
                 min={min}
@@ -37,7 +38,7 @@ const MultiRangeSlider = ({ min, max, onChange, reset}: any) => {
                     setMinVal(value);
                     minValRef.current = value;
                 }}
-                className="thumb thumb--left"
+                className={`${styles.thumb} ${styles.thumbLeft}`}
             />
             <input
                 type="range"
@@ -49,14 +50,14 @@ const MultiRangeSlider = ({ min, max, onChange, reset}: any) => {
                     setMaxVal(value);
                     maxValRef.current = value;
                 }}
-                className="thumb thumb--right"
+                className={`${styles.thumb} ${styles.thumbRight}`}
             />
 
-            <div className="slider">
-                <div className="slider__track" />
-                <div ref={range} className="slider__range" />
-                <div className="slider__left-value">{minVal <= 12 && minVal <= maxVal ? monthArray[minVal - 1] :minVal <= 12 && minVal >= maxVal ? monthArray[maxVal - 1] :  minVal < maxVal ? minVal : maxVal}</div>
-                <div className="slider__right-value">{maxVal <= 12 && maxVal >= minVal ? monthArray[maxVal - 1] :maxVal <= 12 && maxVal <= minVal ? monthArray[minVal - 1] : maxVal > minVal ? maxVal : minVal}</div>
+            <div className={styles.slider}>
+                <div className={styles.sliderTrack} />
+                <div ref={range} className={styles.sliderRange} />
+                <div className={styles.sliderLeftValue}>{minVal <= 12 && minVal <= maxVal ? monthArray[minVal - 1] : minVal <= 12 && minVal >= maxVal ? monthArray[maxVal - 1] : minVal < maxVal ? minVal : maxVal}</div>
+                <div className={styles.sliderRightValue}>{maxVal <= 12 && maxVal >= minVal ? monthArray[maxVal - 1] : maxVal <= 12 && maxVal <= minVal ? monthArray[minVal - 1] : maxVal > minVal ? maxVal : minVal}</div>
             </div>
         </div>
     );

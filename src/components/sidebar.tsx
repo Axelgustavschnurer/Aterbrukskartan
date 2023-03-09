@@ -5,6 +5,7 @@ import DualRangeSlider from "./dualSlider";
 import { Filter } from "@/types";
 import Image from "next/image";
 import { yearLimits } from "@/pages";
+import styles from "../styles/sidebar.module.css";
 
 // Sidebar component for filtering the map
 
@@ -88,14 +89,15 @@ export default function Sidebar({ setFilter }: any) {
       <>
         {categories.map((category: any) => {
           return (
-            <div className="alignBtn" key={category}>
+            <div className={styles.alignBtn} key={category}>
               <button
-                id={category}
+                id={styles[category]}
+                value={category}
                 onClick={(e: any) => {
-                  if (projectType.includes(e.currentTarget.id)) {
-                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.id))
+                  if (projectType.includes(e.currentTarget.value)) {
+                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
                   } else {
-                    setProjectType([...projectType, e.currentTarget.id])
+                    setProjectType([...projectType, e.currentTarget.value])
                   }
                 }}
               >
@@ -145,7 +147,7 @@ export default function Sidebar({ setFilter }: any) {
       <>
         {categories.map((category: any) => {
           return (
-            <div className="inputGroup" key={category + "Sökes"}>
+            <div className={styles.inputGroup} key={category + "Sökes"}>
               <input
                 id={category + "Sökes"}
                 name={category + "Sökes"}
@@ -178,7 +180,7 @@ export default function Sidebar({ setFilter }: any) {
       <>
         {categories.map((category: any) => {
           return (
-            <div className="inputGroup" key={category + "Erbjuds"}>
+            <div className={styles.inputGroup} key={category + "Erbjuds"}>
               <input
                 id={category + "Erbjuds"}
                 name={category + "Erbjuds"}
@@ -212,7 +214,7 @@ export default function Sidebar({ setFilter }: any) {
       <>
         {filteredData.map((pin: any) => {
           return (
-            <div className="inputGroup" key={pin}>
+            <div className={styles.inputGroup} key={pin}>
               <input
                 id={pin}
                 name={pin}
@@ -236,52 +238,53 @@ export default function Sidebar({ setFilter }: any) {
     )
   }
 
-return (
+  return (
     <>
       {isOpen && (
-        <div className="sidebar">
+        <div className={styles.sidebar}>
 
           {/* Buttons for choosing project types to filter by */}
-          <div className="filterBtn">
+          <div className={styles.filterBtn}>
             {createProjectTypeFilter()}
           </div>
 
           {/* Range slider for year filter */}
-          <div className="rSliderContainer">
-            <div className="range-slider">
-              <DualRangeSlider
-                min={yearLimits.min}
-                max={yearLimits.max}
-                onChange={({ min, max }: any) => {
-                  if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
-                    setYears([min, max]), setSliderReset(false)
-                  }
-                }}
-                reset={sliderReset}
-              />
-            </div>
+          <div className={styles.rSliderContainer}>
+            {/* <div className={styles.range - slider}> */}
+            <DualRangeSlider
+              min={yearLimits.min}
+              max={yearLimits.max}
+              onChange={({ min, max }: any) => {
+                if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
+                  setYears([min, max]), setSliderReset(false)
+                }
+              }}
+              reset={sliderReset}
+            />
+            {/* </div> */}
           </div>
 
           {/*This is a range slider for months. It is currently not in use, but can be used in the future. */}
-          <div className="rSliderContainer">
-            <div className="range-slider">
-              <DualRangeSlider
-                min={1}
-                max={12}
-                onChange={({ min, max }: any) => {
-                  if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
-                    setMonths([min, max])
-                  }
-                }}
-              />
-            </div>
+          <div className={styles.rSliderContainer}>
+            {/* <div className={styles.range - slider}> */}
+
+            <DualRangeSlider
+              min={1}
+              max={12}
+              onChange={({ min, max }: any) => {
+                if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
+                  setMonths([min, max])
+                }
+              }}
+            />
+            {/* </div> */}
           </div>
 
           {/* Checkboxes for filtering materials and organisations */}
-          <form className="form">
-          <h3>Erbjuds</h3>
+          <form className={styles.form}>
+            <h3>Erbjuds</h3>
             {createAvailableFilter()}
-            
+
             <h3>Sökes</h3>
             {createLookingForFilter()}
 
@@ -290,9 +293,9 @@ return (
           </form>
 
           {/* Button for clearing the current filter */}
-          <div className="clearFilter">
+          <div className={styles.clearFilter}>
             <button
-              id="clearBtn"
+              id={styles.clearBtn}
               onClick={() => {
                 setProjectType([])
                 setSliderReset(true)
@@ -311,29 +314,32 @@ return (
           </div>
 
           {/* Button for closing the sidebar */}
-          <div className="sidebarClose">
+          <div className={styles.sidebarClose}>
             <button
-              id="hideBtn"
+              id={styles.hideBtn}
               onClick={toggleMenu}>
               <Image src="/closeArrow.svg" alt="Closing arrow" width={20} height={20} />
             </button>
           </div>
 
         </div>
-      )}
+      )
+      }
 
       {/* Button for opening the sidebar when it's closed */}
-      {!isOpen && (
-        <div className="hiddenSidebar">
-          <div className="sidebarOpen">
-            <button
-              id="openBtn"
-              onClick={toggleMenu}>
-              <Image src="/openArrow.svg" alt="Open arrow" width={20} height={20} />
-            </button>
+      {
+        !isOpen && (
+          <div className={styles.hiddenSidebar}>
+            <div className={styles.sidebarOpen}>
+              <button
+                id={styles.openBtn}
+                onClick={toggleMenu}>
+                <Image src="/openArrow.svg" alt="Open arrow" width={20} height={20} />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 }

@@ -5,6 +5,12 @@
   z-index: 1;
 }
 
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 body {
@@ -12,149 +18,33 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/*Resize the wrap to see the search bar change!*/
-.wrap {
-  width: 20.5vw;
-  position: absolute;
-  top: 5%;
-  transform: translate(5px, -50%);
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-/* searchbar */
-.search {
-  width: 100%;
-  z-index: 2;
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
-.searchTerm {
-  width: 100%;
-  border: 2px solid #8a8a8a;
-  padding: 5px;
-  height: 40px;
-  border-radius: 10px;
-  outline: none;
-  color: #949494;
+textarea {
+  resize: none;
 }
 
-.searchIcon {
-  position: absolute;
-  right: 0;
-  transform: translate(-10%, -100%);
-  opacity: 0.8;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-
-.searchTerm:focus {
-  color: black;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-.filterTextContent {
-  position: fixed;
-  z-index: 2;
-  top: calc(20px + 5%);
-  left: 10px;
-}
-
-.filterTextContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  max-width: 100%;
-}
-
-.filterText {
-  font-size: 15px;
-  z-index: 4;
-  font-weight: bold;
-  color: #000000;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 5px;
-  transition: all 0.3s ease;
-}
-
-/* Container Tooltip */
-.tooltip {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 40px;
-  cursor: pointer;
-}
-
-/* Style text tooltip */
-.tooltipText {
-  width: 100px;
-  text-align: center;
-  background-color: #fff;
-  position: absolute;
-  bottom: 100%;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 14px;
-  opacity: 0;
-  transition: all .5s;
-}
-
-/*  Membuat dan style tip*/
-.tooltipText::after {
-  content: '';
-  border-width: 5px;
-  border-style: solid;
-  border-color: #fff transparent transparent transparent;
-  position: absolute;
-  top: 100%;
-  left: 40%;
-  margin-left: 5%;
-}
-
-/* Hover text tooltip */
-.tooltip:hover .tooltipText {
-  opacity: 1;
-  transform: translateY(-10px);
-}
-
-/*Add new post*/
-.addNewPost {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  height: auto;
-  width: auto;
-  margin: 30px;
-  padding-right: 30px;
-  z-index: 2;
-}
-
-/*Add new post button*/
-.addNewPostButton {
-  background-color: #f2f2f2;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  width: 60px;
-  border: 2px solid #8a8a8a;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.addNewPostButton img {
-  height: 50px;
-  width: 50px;
-}
-
-.addNewPostButton:hover {
-  background-color: #cccccc;
-}
-
-/* Media queries */
-@media screen and (min-width: 2000px) {
-  .wrap {
-    width: 15.5vw;
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8a8a8a;
 }

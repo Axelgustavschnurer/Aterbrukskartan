@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "../components/findAddress";
+import styles from '../styles/newPost.module.css';
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -178,19 +179,19 @@ export default function AddNewPost() {
                 <title>Återbrukskartan</title>
                 <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
             </Head>
-            <div className="header" id="header">
+            <div className={styles.header} id={styles.header}>
                 <img src="/images/stuns_logo.png" alt="logo" />
             </div>
-            <div className="addPostContainer">
-                <div className="addNewPostContainer">
-                    <div className="addNewPostTitle">
+            <div className={styles.addPostContainer}>
+                <div className={styles.addNewPostContainer}>
+                    <div className={styles.addNewPostTitle}>
                         <h1>Lägg till ett inlägg</h1>
                     </div>
-                    <div className="addNewPostForm">
+                    <div className={styles.addNewPostForm}>
                         <form method="post" onSubmit={handleSubmit}>
-                            <div className="addNewPostFormOrganization">
+                            <div className={styles.addNewPostFormOrganization}>
 
-                                <label className="newPostTitle" htmlFor="organization">Organisation *</label>
+                                <label className={styles.newPostTitle} htmlFor="organization">Organisation *</label>
                                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
                                 <input
@@ -213,8 +214,8 @@ export default function AddNewPost() {
 
                                 </select>
                             </div>
-                            <div className="startYear">
-                                <label className="newPostTitle" htmlFor="startYear">Startår</label>
+                            <div className={styles.startYear}>
+                                <label className={styles.newPostTitle} htmlFor="startYear">Startår</label>
                                 <input
                                     type="number"
                                     id="startYear"
@@ -225,8 +226,8 @@ export default function AddNewPost() {
                                 />
                             </div>
 
-                            <div className="startMonth">
-                                <label className="newPostTitle" htmlFor="startMonth">Startmånad</label>
+                            <div className={styles.startMonth}>
+                                <label className={styles.newPostTitle} htmlFor="startMonth">Startmånad</label>
                                 <select
                                     id="startMonth"
                                     name="startMonth"
@@ -249,9 +250,9 @@ export default function AddNewPost() {
                                 </select>
                             </div>
 
-                            <div className="typeOfProject">
-                                <label className="newPostTitle" htmlFor="type">Typ av projekt</label>
-                                <div className="padding">
+                            <div className={styles.typeOfProject}>
+                                <label className={styles.newPostTitle} htmlFor="type">Typ av projekt</label>
+                                <div className={styles.padding}>
                                     <input
                                         type="radio"
                                         id="rivning"
@@ -261,7 +262,7 @@ export default function AddNewPost() {
                                     />
                                     <label htmlFor="rivning">Rivning </label>
                                 </div>
-                                <div className="padding">
+                                <div className={styles.padding}>
                                     <input
                                         type="radio"
                                         id="nybyggnation"
@@ -271,7 +272,7 @@ export default function AddNewPost() {
                                     />
                                     <label htmlFor="nybyggnation">Nybyggnation </label>
                                 </div>
-                                <div className="padding">
+                                <div className={styles.padding}>
                                     <input
                                         type="radio"
                                         id="ombyggnation"
@@ -282,17 +283,17 @@ export default function AddNewPost() {
                                     <label htmlFor="ombyggnation">Ombyggnation</label>
                                 </div>
                             </div>
-                            <div className="addNewPostFormLocation">
-                                <label className="newPostTitle" htmlFor="location">Plats *</label>
-                                <div className="switch">
+                            <div className={styles.addNewPostFormLocation}>
+                                <label className={styles.newPostTitle} htmlFor="location">Plats *</label>
+                                <div className={styles.switch}>
                                     <input
                                         id="switch-1"
                                         type="checkbox"
-                                        className="switch-input"
+                                        className={styles.switchInput}
                                         onChange={(e) => setLocationToggle(e.target.checked)}
                                     />
                                     {/* If you want to switch to map, uncomment this part*/}
-                                    {/* <label htmlFor="switch-1" className="switch-label">Switch</label> */}
+                                    {/* <label htmlFor="switch-1" className={styles.switch-label">Switch</label> */}
                                 </div>
                                 {
                                     locationToggle === true ?
@@ -317,11 +318,11 @@ export default function AddNewPost() {
                                         />
                                 }
                             </div>
-                            <div className="addNewPostFormLists">
+                            <div className={styles.addNewPostFormLists}>
                                 <div>
-                                    <label className="newPostTitle" htmlFor="lists">Sökes</label>
-                                    <div className="optionList">
-                                        <div className="padding">
+                                    <label className={styles.newPostTitle} htmlFor="lists">Sökes</label>
+                                    <div className={styles.optionList}>
+                                        <div className={styles.padding}>
                                             <input
                                                 type="checkbox"
                                                 id="stomme"
@@ -331,7 +332,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="stomme">Stomme</label>
                                         </div>
-                                        <div className="padding">
+                                        <div className={styles.padding}>
                                             <input
                                                 type="checkbox"
                                                 id="inredning"
@@ -341,7 +342,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="inredning">Inredning</label>
                                         </div>
-                                        <div className="padding">
+                                        <div className={styles.padding}>
                                             <input
                                                 type="checkbox"
                                                 id="smasaker"
@@ -351,7 +352,7 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="smasaker">Småsaker</label>
                                         </div>
-                                        <div className="padding">
+                                        <div className={styles.padding}>
                                             <input
                                                 type="checkbox"
                                                 id="ovrigt"
@@ -361,12 +362,12 @@ export default function AddNewPost() {
                                             />
                                             <label htmlFor="ovrigt">Övrigt</label>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div >
+                                </div >
                                 <div>
-                                    <label className="newPostTitle" htmlFor="lists">Skänkes</label>
-                                    <div className="optionList">
-                                        <div className="padding">
+                                    <label className={styles.newPostTitle} htmlFor="lists">Skänkes</label>
+                                    <div className={styles.optionList}>
+                                        < div className={styles.padding}>
                                             <input
                                                 type="checkbox"
                                                 id="_stomme"
@@ -375,9 +376,9 @@ export default function AddNewPost() {
                                                 onChange={setOfferings}
                                             />
                                             <label htmlFor="_stomme">Stomme</label>
-                                        </div>
-                                        <div className="padding">
-                                            <input
+                                        </div >
+                                        <div className={styles.padding}>
+                                            < input
                                                 type="checkbox"
                                                 id="_inredning"
                                                 name="Inredning"
@@ -385,9 +386,9 @@ export default function AddNewPost() {
                                                 onChange={setOfferings}
                                             />
                                             <label htmlFor="_inredning">Inredning</label>
-                                        </div>
-                                        <div className="padding">
-                                            <input
+                                        </div >
+                                        <div className={styles.padding}>
+                                            < input
                                                 type="checkbox"
                                                 id="_smasaker"
                                                 name="Småsaker"
@@ -395,9 +396,9 @@ export default function AddNewPost() {
                                                 onChange={setOfferings}
                                             />
                                             <label htmlFor="_smasaker">Småsaker</label>
-                                        </div>
-                                        <div className="padding">
-                                            <input
+                                        </div >
+                                        <div className={styles.padding}>
+                                            < input
                                                 type="checkbox"
                                                 id="_ovrigt"
                                                 name="Övrigt"
@@ -405,12 +406,12 @@ export default function AddNewPost() {
                                                 onChange={setOfferings}
                                             />
                                             <label htmlFor="_ovrigt">Övrigt</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="addNewPostFormDescription">
-                                <label className="newPostTitle" htmlFor="description">Beskrivning *</label>
+                                        </div >
+                                    </div >
+                                </div >
+                            </div >
+                            <div className={styles.addNewPostFormDescription}>
+                                < label className={styles.newPostTitle} htmlFor="description">Beskrivning *</label>
                                 <textarea
                                     id="description"
                                     name="description"
@@ -418,53 +419,56 @@ export default function AddNewPost() {
                                     maxLength={3000}
                                     placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
                                     value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    onChange={(e) => setDescription(e.target.value)
+                                    }
                                     required
                                 />
-                            </div>
-                            <div className="addNewPostFormContact">
-                                <label className="newPostTitle" htmlFor="contact">Kontakt *</label>
+                            </div >
+                            <div className={styles.addNewPostFormContact}>
+                                < label className={styles.newPostTitle} htmlFor="contact">Kontakt *</label>
                                 <textarea
                                     id="contact"
                                     name="contact"
                                     rows={3}
                                     cols={100}
                                     value={contact}
-                                    onChange={(e) => setContact(e.target.value)}
+                                    onChange={(e) => setContact(e.target.value)
+                                    }
                                     required
                                 />
-                            </div>
-                            <div className="addNewPostFormExternalLinks">
-                                <label className="newPostTitle" htmlFor="externalLinks">Länkar</label>
+                            </div >
+                            <div className={styles.addNewPostFormExternalLinks}>
+                                < label className={styles.newPostTitle} htmlFor="externalLinks">Länkar</label>
                                 <textarea
                                     id="externalLinks"
                                     name="externalLinks"
                                     rows={1}
                                     cols={100}
                                     value={externalLinks}
-                                    onChange={(e) => setExternalLinks(e.target.value)}
+                                    onChange={(e) => setExternalLinks(e.target.value)
+                                    }
                                 />
-                            </div>
-                            <div className="addNewPostFormSubmit">
-                                <button type="submit">Spara</button>
-                            </div>
-                            <div className="message">{message ? <p>{message}</p> : null}</div>
-                        </form>
-                    </div>
-                </div>
+                            </div >
+                            <div className={styles.addNewPostFormSubmit}>
+                                < button type="submit" > Spara</button >
+                            </div >
+                            <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
+                        </form >
+                    </div >
+                </div >
             </div >
-            <div className="footer" id="footer">
-                <div className="footerContainer">
-                    <div className="footerRow">
-                        <div className="footerHeader">STUNS</div>
-                        <div className="footerLink">
+            <div className={styles.footer} id={styles.footer}>
+                < div className={styles.footerContainer}>
+                    <div className={styles.footerRow}>
+                        <div className={styles.footerHeader}>STUNS</div>
+                        <div className={styles.footerLink}>
                             <a href="https://stuns.se/" target="_blank" rel="noreferrer">
                                 STUNS
                             </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </div >
+                    </div >
+                </div >
+            </div >
         </>
     );
 }

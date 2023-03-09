@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import styles from '../styles/findAddress.module.css';
 
 function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
     const [location, setLocation] = useState('');
@@ -26,17 +27,17 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
     };
 
     return (
-        <div className="findAddressContainer">
+        <div className={styles.findAddressContainer}>
             <b>Skriv adress</b>
-            <div className="addressContent">
-                <div id="search">
-                    <div id='searchDir'>
+            <div className={styles.addressContent}>
+                <div id={styles.search}>
+                    <div id={styles.searchDir}>
                         <input type="text" name="addr" value={location} id="addr" onChange={(e) => setLocation(e.target.value)} />
-                        <button id="addressBtn" type="button" onClick={handleSearch}>
+                        <button id={styles.addressBtn} type="button" onClick={handleSearch}>
                             Sök
                         </button>
                     </div>
-                    <div id="results">
+                    <div id={styles.results}>
                         {results.length > 0 ? (
                             results.map((result) => (
                                 <div
@@ -57,9 +58,9 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
             <b>Koordinater</b>
             <form>
                 <label htmlFor="lat" style={{ margin: "5px" }}>Latitud:</label>
-                <input type="text" name="lat" id="lat" placeholder='Latitud' value={lat} onChange={(e) => setLat(Number(e.target.value))} />
+                <input type="text" name="lat" id={styles.lat} placeholder='Latitud' value={lat} onChange={(e) => setLat(Number(e.target.value))} />
                 <label htmlFor="lon" style={{ margin: "5px" }}>Longitud:</label>
-                <input type="text" name="lon" id="lon" placeholder='Longitud' value={lon} onChange={(e) => setLon(Number(e.target.value))} />
+                <input type="text" name="lon" id={styles.lon} placeholder='Longitud' value={lon} onChange={(e) => setLon(Number(e.target.value))} />
             </form>
 
 
