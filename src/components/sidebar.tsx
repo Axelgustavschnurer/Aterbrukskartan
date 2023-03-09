@@ -279,11 +279,11 @@ return (
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className="form">
+          <h3>Erbjuds</h3>
+            {createAvailableFilter()}
+            
             <h3>Sökes</h3>
             {createLookingForFilter()}
-
-            <h3>Erbjuds</h3>
-            {createAvailableFilter()}
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}
