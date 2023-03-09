@@ -34,6 +34,7 @@ export default function Sidebar({ setFilter }: any) {
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[])
 
+  // State of when to reset the range sliders
   const [sliderReset, setSliderReset] = useState(false)
 
   /**
@@ -70,11 +71,12 @@ export default function Sidebar({ setFilter }: any) {
     setFilter({
       projectType: projectType,
       years: years,
+      months: months,
       lookingForCategories: lookingForMaterials,
       availableCategories: availableMaterials,
       organisation: organisation,
     } as Filter)
-  }, [projectType, years, lookingForMaterials, availableMaterials, organisation, setFilter])
+  }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter])
 
   /**
    * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -250,7 +252,6 @@ export default function Sidebar({ setFilter }: any) {
 
           {/* Range slider for year filter */}
           <div className={styles.rSliderContainer}>
-            {/* <div className={styles.range - slider}> */}
             <DualRangeSlider
               min={yearLimits.min}
               max={yearLimits.max}
@@ -261,23 +262,20 @@ export default function Sidebar({ setFilter }: any) {
               }}
               reset={sliderReset}
             />
-            {/* </div> */}
           </div>
 
           {/*This is a range slider for months. It is currently not in use, but can be used in the future. */}
           <div className={styles.rSliderContainer}>
-            {/* <div className={styles.range - slider}> */}
-
             <DualRangeSlider
               min={1}
               max={12}
               onChange={({ min, max }: any) => {
                 if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
-                  setMonths([min, max])
+                  setMonths([min, max]), setSliderReset(false)
                 }
               }}
+              reset={sliderReset}
             />
-            {/* </div> */}
           </div>
 
           {/* Checkboxes for filtering materials and organisations */}

@@ -35,7 +35,8 @@ export default function Map({ currentFilter, searchInput }: any) {
           </div>
           <div style={PopupText}>
             <b>{pin.projectType}</b> <br />
-            {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year}
+            {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year} <br />
+            {!pin.month ? null : "Projektet påbörjas månad: " + pin.month}
             <>
               {pin.projectType === "Rivning" && pin.availableMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
                 : pin.projectType === "Rivning" && !pin.availableMaterials ? <p><b>Erbjuds</b> <br /> Inget material angivets</p>

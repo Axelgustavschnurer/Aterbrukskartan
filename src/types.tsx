@@ -24,6 +24,10 @@ export type Filter = {
    */
   years?: number[],
   /**
+   * Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
+   */
+  months?: number[],
+  /**
    * Array of strings containing the materials to filter by
    */
   availableCategories?: string[],

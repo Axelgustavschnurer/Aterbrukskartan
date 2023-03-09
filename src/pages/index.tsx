@@ -82,6 +82,25 @@ export default function HomePage() {
     }
   }
 
+  const monthLabel = () => {
+    if (currentFilter.months?.length) {
+      if (Math.min(...currentFilter.months) === 1 && Math.max(...currentFilter.months) === 12) {
+        return null;
+      }
+      else if (currentFilter.months[0] === currentFilter.months[1] && currentFilter.months[0] !== undefined) {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månad: {currentFilter.months[0]}</p>
+        )
+      }
+      else {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månader: {Math.min(...currentFilter.months)} - {Math.max(...currentFilter.months)}</p>
+        )
+      }
+    }
+  }
+  
+
   /**
    * Returns a p element with the currently active filters regarding materials that are being searched for by the projects on the map, if any
    */
@@ -168,6 +187,7 @@ export default function HomePage() {
         <div className={styles.filterTextContainer}>
           {projectTypeLabel()}
           {yearLabel()}
+          {monthLabel()}
           {lookingForMaterialsLabel()}
           {availableMaterialsLabel()}
           {organisationLabel()}
