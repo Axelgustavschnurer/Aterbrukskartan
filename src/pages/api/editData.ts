@@ -12,16 +12,23 @@ export default async function handler(
 
   switch (req.method) {
     case 'GET':
-      /**
-       * Returns a list of all the `Recycle` objects in the database, with the mapItem object included
-       */
-      const getData: DeepRecycle[] = await prisma.recycle.findMany({
-        include: {
-          mapItem: true
-        }
-      })
-      
-      res.status(200).json(getData)
+      try {
+        /**
+         * Returns the `Recycle` object with the given ID, with the mapItem object included, or throws an error if no `Recycle` object with the given ID exists.
+         */
+        const getData: DeepRecycle = await prisma.recycle.findFirstOrThrow({
+          where: {
+            id: parseInt(req.body.id)
+          },
+          include: {
+            mapItem: true
+          }
+        })
+
+        res.status(200).json(getData)
+      } catch (err) {
+        res.status(400).json({ message: 'Something went wrong, the requested ID might not exist in the database' });
+      }
       break;
 
     case 'PUT':
