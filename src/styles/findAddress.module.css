@@ -1,0 +1,61 @@
+.findAddressContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #8a8a8a;
+    box-shadow: 5px 10px #00000015;
+
+
+}
+
+.addressContent {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0 10px 0;
+}
+
+.address {
+    padding: 5px 0 5px 0;
+
+}
+
+#lat,
+#lon {
+    max-width: 40%;
+    border: none;
+    background-color: #ebebeb;
+    border-bottom: 2px solid #8a8a8a;
+}
+
+#addressBtn {
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+    background-color: #f2f2f2;
+}
+
+.button-55:focus {
+    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+#search {
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px;
+}
+
+#searchDir {
+    display: flex;
+}
+
+#results {
+    padding: 10px 0 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
