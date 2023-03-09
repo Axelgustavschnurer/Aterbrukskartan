@@ -56,12 +56,12 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
                 </div>
             </div>
             <b>Koordinater</b>
-            <form>
+            <div>
                 <label htmlFor="lat" style={{ margin: "5px" }}>Latitud:</label>
                 <input type="text" name="lat" id={styles.lat} placeholder='Latitud' value={lat} onChange={(e) => setLat(Number(e.target.value))} />
                 <label htmlFor="lon" style={{ margin: "5px" }}>Longitud:</label>
                 <input type="text" name="lon" id={styles.lon} placeholder='Longitud' value={lon} onChange={(e) => setLon(Number(e.target.value))} />
-            </form>
+            </div>
 
 
             <br />

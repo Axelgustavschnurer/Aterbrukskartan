@@ -176,7 +176,6 @@ export default function AddNewPost() {
         })
     }
 
-
     return (
         <>
             <Head>
@@ -189,13 +188,13 @@ export default function AddNewPost() {
             <div className={styles.addPostContainer}>
                 <div className={styles.addNewPostContainer}>
                     <div className={styles.addNewPostTitle}>
-                        <h1>Lägg till ett inlägg</h1>
+                        <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
                     </div>
                     <div className={styles.addNewPostForm}>
                         <form method="post" onSubmit={handleSubmit}>
                             <div className={styles.addNewPostFormOrganization}>
 
-                                <label className={styles.newPostTitle} htmlFor="organization">Organisation *</label>
+                                <h3>Organisation *</h3>
                                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
                                 <input
@@ -219,7 +218,7 @@ export default function AddNewPost() {
                                 </select>
                             </div>
                             <div className={styles.startYear}>
-                                <label className={styles.newPostTitle} htmlFor="startYear">Startår</label>
+                                <h3>Startår</h3>
                                 <input
                                     type="number"
                                     id="startYear"
@@ -231,7 +230,7 @@ export default function AddNewPost() {
                             </div>
 
                             <div className={styles.startMonth}>
-                                <label className={styles.newPostTitle} htmlFor="startMonth">Startmånad</label>
+                                <h3>Startmånad</h3>
                                 <select
                                     id="startMonth"
                                     name="startMonth"
@@ -255,42 +254,44 @@ export default function AddNewPost() {
                                     <option value={12}>December</option>
                                 </select>
                             </div>
-
-                            <div className={styles.typeOfProject}>
-                                <label className={styles.newPostTitle} htmlFor="type">Typ av projekt</label>
-                                <div className={styles.padding}>
-                                    <input
-                                        type="radio"
-                                        id="rivning"
-                                        name="category"
-                                        value="Rivning"
-                                        onChange={(e) => setProjectType(e.target.value)}
-                                    />
-                                    <label htmlFor="rivning">Rivning </label>
-                                </div>
-                                <div className={styles.padding}>
-                                    <input
-                                        type="radio"
-                                        id="nybyggnation"
-                                        name="category"
-                                        value="Nybyggnation"
-                                        onChange={(e) => setProjectType(e.target.value)}
-                                    />
-                                    <label htmlFor="nybyggnation">Nybyggnation </label>
-                                </div>
-                                <div className={styles.padding}>
-                                    <input
-                                        type="radio"
-                                        id="ombyggnation"
-                                        name="category"
-                                        value="Ombyggnation"
-                                        onChange={(e) => setProjectType(e.target.value)}
-                                    />
-                                    <label htmlFor="ombyggnation">Ombyggnation</label>
+                            <div className={styles.optionList}>
+                                <div className={styles.form}>
+                                    <h3>Typ av projekt</h3>
+                                    <div className={styles.typeInputGroup}>
+                                        <input
+                                            type="radio"
+                                            id="rivning"
+                                            name="category"
+                                            value="Rivning"
+                                            onChange={(e) => setProjectType(e.target.value)}
+                                        />
+                                        <label htmlFor="rivning">Rivning </label>
+                                    </div>
+                                    <div className={styles.typeInputGroup}>
+                                        <input
+                                            type="radio"
+                                            id="nybyggnation"
+                                            name="category"
+                                            value="Nybyggnation"
+                                            onChange={(e) => setProjectType(e.target.value)}
+                                        />
+                                        <label htmlFor="nybyggnation">Nybyggnation </label>
+                                    </div>
+                                    <div className={styles.typeInputGroup}>
+                                        <input
+                                            type="radio"
+                                            id="ombyggnation"
+                                            name="category"
+                                            value="Ombyggnation"
+                                            onChange={(e) => setProjectType(e.target.value)}
+                                        />
+                                        <label htmlFor="ombyggnation">Ombyggnation</label>
+                                    </div>
                                 </div>
                             </div>
+
                             <div className={styles.addNewPostFormLocation}>
-                                <label className={styles.newPostTitle} htmlFor="location">Plats *</label>
+                                <h3>Plats *</h3>
                                 <div className={styles.switch}>
                                     <input
                                         id="switch-1"
@@ -324,100 +325,98 @@ export default function AddNewPost() {
                                         />
                                 }
                             </div>
-                            <div className={styles.addNewPostFormLists}>
-                                <div>
-                                    <label className={styles.newPostTitle} htmlFor="lists">Sökes</label>
-                                    <div className={styles.optionList}>
-                                        <div className={styles.padding}>
-                                            <input
-                                                type="checkbox"
-                                                id="stomme"
-                                                name="Stomme"
-                                                value="Stomme"
-                                                onChange={setSearching}
-                                            />
-                                            <label htmlFor="stomme">Stomme</label>
-                                        </div>
-                                        <div className={styles.padding}>
-                                            <input
-                                                type="checkbox"
-                                                id="inredning"
-                                                name="Inredning"
-                                                value="Inredning"
-                                                onChange={setSearching}
-                                            />
-                                            <label htmlFor="inredning">Inredning</label>
-                                        </div>
-                                        <div className={styles.padding}>
-                                            <input
-                                                type="checkbox"
-                                                id="smasaker"
-                                                name="Småsaker"
-                                                value="Småsaker"
-                                                onChange={setSearching}
-                                            />
-                                            <label htmlFor="smasaker">Småsaker</label>
-                                        </div>
-                                        <div className={styles.padding}>
-                                            <input
-                                                type="checkbox"
-                                                id="ovrigt"
-                                                name="Övrigt"
-                                                value="Övrigt"
-                                                onChange={setSearching}
-                                            />
-                                            <label htmlFor="ovrigt">Övrigt</label>
-                                        </div>
-                                    </div >
-                                </div >
-                                <div>
-                                    <label className={styles.newPostTitle} htmlFor="lists">Skänkes</label>
-                                    <div className={styles.optionList}>
-                                        < div className={styles.padding}>
-                                            <input
-                                                type="checkbox"
-                                                id="_stomme"
-                                                name="Stomme"
-                                                value="Stomme"
-                                                onChange={setOfferings}
-                                            />
-                                            <label htmlFor="_stomme">Stomme</label>
-                                        </div >
-                                        <div className={styles.padding}>
-                                            < input
-                                                type="checkbox"
-                                                id="_inredning"
-                                                name="Inredning"
-                                                value="Inredning"
-                                                onChange={setOfferings}
-                                            />
-                                            <label htmlFor="_inredning">Inredning</label>
-                                        </div >
-                                        <div className={styles.padding}>
-                                            < input
-                                                type="checkbox"
-                                                id="_smasaker"
-                                                name="Småsaker"
-                                                value="Småsaker"
-                                                onChange={setOfferings}
-                                            />
-                                            <label htmlFor="_smasaker">Småsaker</label>
-                                        </div >
-                                        <div className={styles.padding}>
-                                            < input
-                                                type="checkbox"
-                                                id="_ovrigt"
-                                                name="Övrigt"
-                                                value="Övrigt"
-                                                onChange={setOfferings}
-                                            />
-                                            <label htmlFor="_ovrigt">Övrigt</label>
-                                        </div >
-                                    </div >
-                                </div >
-                            </div >
+                            <div className={styles.optionList}>
+                                <div className={styles.form}>
+                                    <h3>Erbjuds</h3>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="stomme"
+                                            name="Stomme"
+                                            value="Stomme"
+                                            onChange={setOfferings}
+                                        />
+                                        <label htmlFor="stomme">Stomme</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="inredning"
+                                            name="Inredning"
+                                            value="Inredning"
+                                            onChange={setOfferings}
+                                        />
+                                        <label htmlFor="inredning">Inredning</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="smasaker"
+                                            name="Småsaker"
+                                            value="Småsaker"
+                                            onChange={setOfferings}
+                                        />
+                                        <label htmlFor="smasaker">Småsaker</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="ovrigt"
+                                            name="Övrigt"
+                                            value="Övrigt"
+                                            onChange={setOfferings}
+                                        />
+                                        <label htmlFor="ovrigt">Övrigt</label>
+                                    </div>
+                                </div>
+
+                                <div className={styles.form}>
+                                    <h3>Sökes</h3>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="stomme"
+                                            name="Stomme"
+                                            value="Stomme"
+                                            onChange={setSearching}
+                                        />
+                                        <label htmlFor="stomme">Stomme</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="inredning"
+                                            name="Inredning"
+                                            value="Inredning"
+                                            onChange={setSearching}
+                                        />
+                                        <label htmlFor="inredning">Inredning</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="smasaker"
+                                            name="Småsaker"
+                                            value="Småsaker"
+                                            onChange={setSearching}
+                                        />
+                                        <label htmlFor="smasaker">Småsaker</label>
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <input
+                                            type="checkbox"
+                                            id="ovrigt"
+                                            name="Övrigt"
+                                            value="Övrigt"
+                                            onChange={setSearching}
+                                        />
+                                        <label htmlFor="ovrigt">Övrigt</label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className={styles.addNewPostFormDescription}>
-                                < label className={styles.newPostTitle} htmlFor="description">Beskrivning *</label>
+                                <h3>Beskrivning *</h3>
                                 <textarea
                                     id="description"
                                     name="description"
@@ -431,7 +430,7 @@ export default function AddNewPost() {
                                 />
                             </div >
                             <div className={styles.addNewPostFormContact}>
-                                < label className={styles.newPostTitle} htmlFor="contact">Kontakt *</label>
+                                <h3>Kontakt *</h3>
                                 <textarea
                                     id="contact"
                                     name="contact"
@@ -444,7 +443,7 @@ export default function AddNewPost() {
                                 />
                             </div >
                             <div className={styles.addNewPostFormExternalLinks}>
-                                < label className={styles.newPostTitle} htmlFor="externalLinks">Länkar</label>
+                                <h3>Länkar</h3>
                                 <textarea
                                     id="externalLinks"
                                     name="externalLinks"
