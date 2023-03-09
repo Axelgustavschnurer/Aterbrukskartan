@@ -57,8 +57,9 @@ export default function AddNewPost() {
         e.preventDefault();
         try {
             let mapItem: Prisma.MapItemCreateInput = {
-                latitude: parseFloat(location.split(", ")[0]),
-                longitude: parseFloat(location.split(", ")[1]),
+                // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
+                latitude: parseFloat(lat!),
+                longitude: parseFloat(lon!),
                 organisation: organization,
                 year: parseInt(startYear),
             }
@@ -230,7 +231,7 @@ export default function AddNewPost() {
                                     id="startMonth"
                                     name="startMonth"
                                     value={startMonth}
-                                    onChange={(e) => setStartMonth(e.target.value)}
+                                // onChange={(e) => setStartMonth(e.target.value)}
                                 >
                                     <option value="">Välj startmånad</option>
                                     <option value="Januari">Januari</option>
@@ -290,7 +291,8 @@ export default function AddNewPost() {
                                         className="switch-input"
                                         onChange={(e) => setLocationToggle(e.target.checked)}
                                     />
-                                    <label htmlFor="switch-1" className="switch-label">Switch</label>
+                                    {/* If you want to switch to map, uncomment this part*/}
+                                    {/* <label htmlFor="switch-1" className="switch-label">Switch</label> */}
                                 </div>
                                 {
                                     locationToggle === true ?
