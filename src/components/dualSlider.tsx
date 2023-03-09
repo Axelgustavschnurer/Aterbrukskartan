@@ -10,7 +10,7 @@ const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
     const maxValRef = useRef(max);
     const range = useRef(null);
 
-    //Array of all months in swedish. Used for displaying the months in the slider. Currently not in use.
+    //Array of all months in swedish.
     const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
     // Gets min and max values when their state changes.

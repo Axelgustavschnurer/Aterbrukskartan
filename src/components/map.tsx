@@ -13,6 +13,9 @@ export default function Map({ currentFilter, searchInput }: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
 
+  //Array of all months in swedish.
+  const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+
   // Fetches all "recycle" data from API
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/getData')
@@ -36,7 +39,7 @@ export default function Map({ currentFilter, searchInput }: any) {
           <div style={PopupText}>
             <b>{pin.projectType}</b> <br />
             {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : "Projektet påbörjas år: " + pin.mapItem.year} <br />
-            {!pin.month ? null : "Projektet påbörjas månad: " + pin.month}
+            {!pin.month ? null : "Projektet påbörjas månad: " + monthArray[pin.month - 1]}
             <>
               {pin.projectType === "Rivning" && pin.availableMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
                 : pin.projectType === "Rivning" && !pin.availableMaterials ? <p><b>Erbjuds</b> <br /> Inget material angivets</p>
