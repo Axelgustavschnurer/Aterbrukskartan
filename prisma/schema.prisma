@@ -42,6 +42,7 @@ model Story {
   reports                 String? @db.NVarChar(4000)
   videos                  String? @db.NVarChar(4000)
   pdfCase                 String? @map("pdf_case") @db.NVarChar(4000)
+  isEnergyStory           Boolean @default(true) @map("is_energy_story")
   mapItem                 MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("story")
@@ -50,6 +51,7 @@ model Story {
 model Recycle {
   id                  Int     @id @default(autoincrement())
   mapId               Int     @unique @map("map_id")
+  month               Int?
   projectType         String  @map("project_type")
   description         String? @db.NVarChar(4000)
   contact             String? @db.NVarChar(4000)
@@ -59,4 +61,12 @@ model Recycle {
   mapItem             MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("recycle")
+}
+
+// This table contains the list of organisations that are allowed to add Recycle items to the map, they will be shown in a dropdown list when adding a new Recycle item
+model RecycleOrganisation {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@map("recycle_organisation")
 }
