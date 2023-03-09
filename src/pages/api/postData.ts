@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient, Recycle, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 
 /**
  * This is the data format used when creating a new `Recycle` object in the database.
@@ -17,32 +17,38 @@ export default async function handler(
   res.setHeader('Allow', ['POST']);
   // Only allow POST requests, as this is an API route for creating new data.
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.status(405).json({ message: 'Method not allowepostd' });
   }
 
   try {
-    const newUser: DeepRecycleInput = req.body;
-    const savedUser = await prisma.recycle.create({
+    const newPost: DeepRecycleInput = req.body;
+    const savedPost = await prisma.recycle.create({
       data: {
         mapItem: {
           create: {
             // TODO: Possibly add a check to see if all the data matches with an existing mapItem, and if so, use that instead of creating a new one.
-            // TODO: Possibly add an option to include data for the name, address, postcode and city fields. They are currently not included in the form.
-            latitude: newUser.mapItem.latitude,
-            longitude: newUser.mapItem.longitude,
-            organisation: newUser.mapItem.organisation,
-            year: newUser.mapItem.year,
+            organisation: newPost.mapItem.organisation,
+            year: newPost.mapItem.year,
+            latitude: newPost.mapItem.latitude,
+            longitude: newPost.mapItem.longitude,
+
+            // These fields are currently not included in the form (as of 2023-03-09) but are included here for possible future use.
+            name: newPost.mapItem.name,
+            address: newPost.mapItem.address,
+            postcode: newPost.mapItem.postcode,
+            city: newPost.mapItem.city,
           }
         },
-        projectType: newUser.projectType,
-        lookingForMaterials: newUser.lookingForMaterials,
-        availableMaterials: newUser.availableMaterials,
-        description: newUser.description,
-        contact: newUser.contact,
-        externalLinks: newUser.externalLinks,
+        month: newPost.month,
+        projectType: newPost.projectType,
+        description: newPost.description,
+        contact: newPost.contact,
+        externalLinks: newPost.externalLinks,
+        lookingForMaterials: newPost.lookingForMaterials,
+        availableMaterials: newPost.availableMaterials,
       }
     });
-    res.status(200).json(savedUser);
+    res.status(200).json({ message: 'Successfully created new post'});
   } catch (err) {
     res.status(400).json({ message: 'Something went wrong' });
   }
