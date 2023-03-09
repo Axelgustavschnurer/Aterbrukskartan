@@ -292,7 +292,7 @@ export default function AddNewPost() {
                                         onChange={(e) => setLocationToggle(e.target.checked)}
                                     />
                                     {/* If you want to switch to map, uncomment this part*/}
-                                    <label htmlFor="switch-1" className="switch-label">Switch</label>
+                                    {/* <label htmlFor="switch-1" className="switch-label">Switch</label> */}
                                 </div>
                                 {
                                     locationToggle === true ?
