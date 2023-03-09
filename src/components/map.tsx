@@ -60,7 +60,7 @@ export default function Map({ currentFilter, searchInput }: any) {
   // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
   const getAllPins = () => {
     if (searchInput) {
-      currentFilter = { ...currentFilter, searchInput: searchInput}
+      currentFilter = { ...currentFilter, searchInput: searchInput }
     }
     let filteredData = runActiveFilters(mapData, currentFilter)
     return filteredData.map((pin: DeepRecycle, i) => {
@@ -89,7 +89,7 @@ export default function Map({ currentFilter, searchInput }: any) {
   // Returns map with all relevant pins
   return (
     <>
-      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={13} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
+      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={15} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
         <ZoomControl position="bottomright" />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
