@@ -94,6 +94,7 @@ export default function AddNewPost() {
                 body: JSON.stringify({
                     projectType,
                     mapItem,
+                    month: startMonth ? parseInt(startMonth) : undefined,
                     lookingForMaterials,
                     availableMaterials,
                     description,
@@ -106,8 +107,11 @@ export default function AddNewPost() {
             if (res.status === 200) {
                 // If the post was successful, reset the form and redirect to the home page
                 setOrganization("");
+                setStartYear("");
                 setProjectType("");
                 setLocation("");
+                setLat(undefined);
+                setLon(undefined);
                 setSearchingFor({
                     "Stomme": false,
                     "Inredning": false,
@@ -126,7 +130,7 @@ export default function AddNewPost() {
                 setLocationToggle(false);
                 router.push("/");
             } else {
-                setMessage("Something went wrong")
+                setMessage(resJson.message);
             }
         } catch (error) {
             console.log(error)
@@ -232,21 +236,23 @@ export default function AddNewPost() {
                                     id="startMonth"
                                     name="startMonth"
                                     value={startMonth}
-                                // onChange={(e) => setStartMonth(e.target.value)}
+                                    onChange={(e) => setStartMonth(
+                                        e.target.value
+                                    )}
                                 >
                                     <option value="">Välj startmånad</option>
-                                    <option value="Januari">Januari</option>
-                                    <option value="Februari">Februari</option>
-                                    <option value="Mars">Mars</option>
-                                    <option value="April">April</option>
-                                    <option value="Maj">Maj</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Augusti">Augusti</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="December">December</option>
+                                    <option value={1}>Januari</option>
+                                    <option value={2}>Februari</option>
+                                    <option value={3}>Mars</option>
+                                    <option value={4}>April</option>
+                                    <option value={5}>Maj</option>
+                                    <option value={6}>Juni</option>
+                                    <option value={7}>Juli</option>
+                                    <option value={8}>Augusti</option>
+                                    <option value={9}>September</option>
+                                    <option value={10}>Oktober</option>
+                                    <option value={11}>November</option>
+                                    <option value={12}>December</option>
                                 </select>
                             </div>
 
