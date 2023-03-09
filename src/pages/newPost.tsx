@@ -104,7 +104,7 @@ export default function AddNewPost() {
             });
 
             let resJson = await res.json();
-            if (res.status === 200) {
+            if (res.status >= 200 && res.status < 300) {
                 // If the post was successful, reset the form and redirect to the home page
                 setOrganization("");
                 setStartYear("");
@@ -187,9 +187,7 @@ export default function AddNewPost() {
             </div>
             <div className={styles.addPostContainer}>
                 <div className={styles.addNewPostContainer}>
-                    <div className={styles.addNewPostTitle}>
-                        <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
-                    </div>
+                    <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
                     <div className={styles.addNewPostForm}>
                         <form method="post" onSubmit={handleSubmit}>
                             <div className={styles.addNewPostFormOrganization}>
