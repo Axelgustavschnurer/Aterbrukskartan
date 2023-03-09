@@ -17,7 +17,7 @@ export default async function handler(
   res.setHeader('Allow', ['POST']);
   // Only allow POST requests, as this is an API route for creating new data.
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowepostd' });
+    return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
@@ -48,7 +48,7 @@ export default async function handler(
         availableMaterials: newPost.availableMaterials,
       }
     });
-    res.status(200).json({ message: 'Successfully created new post'});
+    res.status(201).json(savedPost);
   } catch (err) {
     res.status(400).json({ message: 'Something went wrong' });
   }
