@@ -331,42 +331,42 @@ export default function AddNewPost() {
                                     <div className={styles.inputGroup}>
                                         <input
                                             type="checkbox"
-                                            id="stomme"
+                                            id="_stomme"
                                             name="Stomme"
                                             value="Stomme"
                                             onChange={setOfferings}
                                         />
-                                        <label htmlFor="stomme">Stomme</label>
+                                        <label htmlFor="_stomme">Stomme</label>
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <input
                                             type="checkbox"
-                                            id="inredning"
+                                            id="_inredning"
                                             name="Inredning"
                                             value="Inredning"
                                             onChange={setOfferings}
                                         />
-                                        <label htmlFor="inredning">Inredning</label>
+                                        <label htmlFor="_inredning">Inredning</label>
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <input
                                             type="checkbox"
-                                            id="smasaker"
+                                            id="_smasaker"
                                             name="Småsaker"
                                             value="Småsaker"
                                             onChange={setOfferings}
                                         />
-                                        <label htmlFor="smasaker">Småsaker</label>
+                                        <label htmlFor="_smasaker">Småsaker</label>
                                     </div>
                                     <div className={styles.inputGroup}>
                                         <input
                                             type="checkbox"
-                                            id="ovrigt"
+                                            id="_ovrigt"
                                             name="Övrigt"
                                             value="Övrigt"
                                             onChange={setOfferings}
                                         />
-                                        <label htmlFor="ovrigt">Övrigt</label>
+                                        <label htmlFor="_ovrigt">Övrigt</label>
                                     </div>
                                 </div>
 
