@@ -170,7 +170,7 @@ export default function AddNewPost() {
             <>
                 {categories.map((category: any, index: any) => {
                     return (
-                        <div className={styles.typeInputGroup}>
+                        <div className={styles.typeInputGroup} key={category}>
                             <input
                                 type="radio"
                                 id={category}
@@ -198,7 +198,7 @@ export default function AddNewPost() {
             <>
                 {categories.map((category: any, index: any) => {
                     return (
-                        <div className={styles.inputGroup}>
+                        <div className={styles.inputGroup} key={"_" + category}>
                             <input
                                 type="checkbox"
                                 id={"_" + category}
@@ -225,7 +225,7 @@ export default function AddNewPost() {
             <>
                 {categories.map((category: any, index: any) => {
                     return (
-                        <div className={styles.inputGroup}>
+                        <div className={styles.inputGroup} key={category}>
                             <input
                                 type="checkbox"
                                 id={category}
