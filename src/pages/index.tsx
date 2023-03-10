@@ -85,6 +85,9 @@ export default function HomePage() {
     }
   }
 
+  /**
+   * Returns a p element with the currently active month filters, if any
+   */
   const monthLabel = () => {
     if (currentFilter.months?.length) {
       if (Math.min(...currentFilter.months) === 1 && Math.max(...currentFilter.months) === 12) {
