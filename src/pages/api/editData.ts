@@ -18,7 +18,7 @@ export default async function handler(
          */
         const getData: DeepRecycle = await prisma.recycle.findFirstOrThrow({
           where: {
-            id: parseInt(req.body.id)
+            id: parseInt(req.query.id as string)
           },
           include: {
             mapItem: true
