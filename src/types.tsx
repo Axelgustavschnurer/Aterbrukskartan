@@ -17,6 +17,7 @@ export type DeepRecycleInput = Prisma.RecycleCreateWithoutMapItemInput & {
 /**
  * @param projectType Array of strings containing the project types to filter by.
  * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
+ * @param months Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
  * @param availableCategories Array of strings containing the materials to filter by
  * @param lookingForCategories Array of strings containing the materials to filter by
  * @param organisation Array of strings containing the organisations to filter by

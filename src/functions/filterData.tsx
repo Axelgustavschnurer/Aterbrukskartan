@@ -99,7 +99,7 @@ function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
 
 /**
  * Filters out recycle objects that do not have a month that is within the range of the month parameter.
- * @param data Array of Recycle objects to filter by month.
+ * @param data Array of DeepRecycle objects to filter by month.
  * @param months Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
  * @returns The recycle objects that have a month that is within the range of the month parameter.
  */
@@ -180,6 +180,7 @@ function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   if (filters.projectType?.length) {
     returnData = filterByProjectType(returnData, filters.projectType);
   }
+  // The year and month filters are not run if they are in their respective default states
   if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
     returnData = filterByYear(returnData, filters.years);
   }
