@@ -6,25 +6,33 @@ import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "../components/findAddress";
 import styles from '../styles/editPost.module.css'
+import { DeepRecycle } from "@/types";
 
 
 export default function EditPost() {
     let currentDate = new Date().getFullYear();
     const router = useRouter();
 
-    const fetchData = async () => {
-        const response = await fetch('http://localhost:3000/api/getData')
+    const fetchData = async (id: any) => {
+        const response = await fetch('http://localhost:3000/api/editData?id=' + id)
         const data = await response.json()
+        console.log(data)
         setNewData(data)
     }
 
     // Runs fetchData function on component mount
     useEffect(() => {
-        fetchData()
+        fetchData(28)
     }, [])
 
-    const [newData, setNewData] = useState([]);
+    const [newData, setNewData] = useState({} as DeepRecycle);
 
+    const [projectType, setProjectType] = useState('');
+    const [description, setDescription] = useState("");
+    const [searchingFor, setSearchingFor] = useState("");
+    const [available, setAvailableMaterials] = useState("");
+    const [year, setYear] = useState(currentDate);
+    const [startMonth, setStartMonth] = useState("");
 
     const [lat, setLat] = useState();
     const [lon, setLon] = useState();
@@ -43,6 +51,92 @@ export default function EditPost() {
 
     const handleSubmit = async (e: any) => { }
 
+    const projectTypes = () => {
+        let categories = [
+            "Rivning",
+            "Nybyggnation",
+            "Ombyggnation",
+        ]
+        return (
+            <>
+                {categories.map((category: any, index: any) => {
+                    return (
+                        <div className={styles.typeInputGroup} key={category}>
+                            <input
+                                type="radio"
+                                id={category}
+                                name="category"
+                                value={category}
+                                defaultChecked={newData.projectType === category ? true : false}
+                                onChange={(e) => setProjectType(e.target.value)}
+
+                            />
+                            <label htmlFor={category}>{category} </label>
+                        </div>
+                    )
+                }
+                )}
+            </>
+        )
+    }
+
+    const offers = () => {
+        let categories = [
+            "Stomme",
+            "Inredning",
+            "Småsaker",
+            "Övrigt",
+        ]
+        return (
+            <>
+                {categories.map((category: any, index: any) => {
+                    return (
+                        <div className={styles.inputGroup} key={"_" + category}>
+                            <input
+                                type="checkbox"
+                                id={"_" + category}
+                                name={category}
+                                value={category}
+                                defaultChecked={newData.availableMaterials?.includes(category) ? true : false}
+                                onChange={(e) => setAvailableMaterials(e.target.value)}
+                            />
+                            <label htmlFor={"_" + category}>{category}</label>
+                        </div>
+                    )
+                })}
+            </>
+        )
+    }
+
+    const searchingFors = () => {
+        let categories = [
+            "Stomme",
+            "Inredning",
+            "Småsaker",
+            "Övrigt",
+        ]
+        return (
+            <>
+                {categories.map((category: any, index: any) => {
+                    return (
+                        <div className={styles.inputGroup} key={category}>
+                            <input
+                                type="checkbox"
+                                id={category}
+                                name={category}
+                                value={category}
+                                defaultChecked={newData.lookingForMaterials?.includes(category) ? true : false}
+                                onChange={(e) => setSearchingFor(e.target.value)}
+                            />
+                            <label htmlFor={category}>{category}</label>
+                        </div>
+                    )
+                })}
+            </>
+        )
+    }
+
+
     return (
         <>
             <Head>
@@ -58,7 +152,20 @@ export default function EditPost() {
                     <div className={styles.addNewPostForm}>
                         <form method="post" onSubmit={handleSubmit}>
                             <div className={styles.addNewPostFormOrganization}>
+                                <h3>Välj projekt</h3>
+                                <select
+                                    id="project"
+                                    name="project"
+                                    value={1}
+                                    // onChange={(e) => setOrganization(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Välj projekt</option>
+                                    {/* {getProject()} */}
+                                </select>
+                            </div>
 
+                            <div className={styles.addNewPostFormOrganization}>
                                 <h3>Organisation *</h3>
                                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input
@@ -77,8 +184,7 @@ export default function EditPost() {
                                     // onChange={(e) => setOrganization(e.target.value)}
                                     required
                                 >
-                                    <option value="">Välj organisation</option>
-                                    {/* {getOrganisation()} */}
+                                    {/* <option defaultValue={newData.mapItem.organisation ? newData.mapItem.organisation : ""}>{newData.mapItem.organisation}</option> */}
 
                                 </select>
                             </div>
@@ -88,7 +194,7 @@ export default function EditPost() {
                                     type="number"
                                     id="startYear"
                                     name="startYear"
-                                    value={""}
+                                    // defaultValue={newData.mapItem.year ? newData.mapItem.year : ""}
                                     min={currentDate}
                                 // onChange={(e) => setStartYear(e.target.value)}
                                 />
@@ -99,10 +205,10 @@ export default function EditPost() {
                                 <select
                                     id="startMonth"
                                     name="startMonth"
-                                    value={""}
-                                // onChange={(e) => setStartMonth(e.target.value)}
+                                    defaultValue={newData.month ? newData.month : ""}
+                                    onChange={(e) => setStartMonth(e.target.value)}
                                 >
-                                    <option value="">Välj startmånad</option>
+                                    <option value={""}>Välj startmånad</option>
                                     <option value={1}>Januari</option>
                                     <option value={2}>Februari</option>
                                     <option value={3}>Mars</option>
@@ -120,36 +226,7 @@ export default function EditPost() {
                             <div className={styles.optionList}>
                                 <div className={styles.form}>
                                     <h3>Typ av projekt</h3>
-                                    <div className={styles.typeInputGroup}>
-                                        <input
-                                            type="radio"
-                                            id="rivning"
-                                            name="category"
-                                            value="Rivning"
-                                        // onChange={(e) => setProjectType(e.target.value)}
-                                        />
-                                        <label htmlFor="rivning">Rivning </label>
-                                    </div>
-                                    <div className={styles.typeInputGroup}>
-                                        <input
-                                            type="radio"
-                                            id="nybyggnation"
-                                            name="category"
-                                            value="Nybyggnation"
-                                        // onChange={(e) => setProjectType(e.target.value)}
-                                        />
-                                        <label htmlFor="nybyggnation">Nybyggnation </label>
-                                    </div>
-                                    <div className={styles.typeInputGroup}>
-                                        <input
-                                            type="radio"
-                                            id="ombyggnation"
-                                            name="category"
-                                            value="Ombyggnation"
-                                        // onChange={(e) => setProjectType(e.target.value)}
-                                        />
-                                        <label htmlFor="ombyggnation">Ombyggnation</label>
-                                    </div>
+                                    {projectTypes()}
                                 </div>
                             </div>
 
@@ -191,90 +268,12 @@ export default function EditPost() {
                             <div className={styles.optionList}>
                                 <div className={styles.form}>
                                     <h3>Erbjuds</h3>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="_stomme"
-                                            name="Stomme"
-                                            value="Stomme"
-                                        // onChange={setOfferings}
-                                        />
-                                        <label htmlFor="_stomme">Stomme</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="_inredning"
-                                            name="Inredning"
-                                            value="Inredning"
-                                        // onChange={setOfferings}
-                                        />
-                                        <label htmlFor="_inredning">Inredning</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="_smasaker"
-                                            name="Småsaker"
-                                            value="Småsaker"
-                                        // onChange={setOfferings}
-                                        />
-                                        <label htmlFor="_smasaker">Småsaker</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="_ovrigt"
-                                            name="Övrigt"
-                                            value="Övrigt"
-                                        // onChange={setOfferings}
-                                        />
-                                        <label htmlFor="_ovrigt">Övrigt</label>
-                                    </div>
+                                    {offers()}
                                 </div>
 
                                 <div className={styles.form}>
                                     <h3>Sökes</h3>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="stomme"
-                                            name="Stomme"
-                                            value="Stomme"
-                                        // onChange={setSearching}
-                                        />
-                                        <label htmlFor="stomme">Stomme</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="inredning"
-                                            name="Inredning"
-                                            value="Inredning"
-                                        // onChange={setSearching}
-                                        />
-                                        <label htmlFor="inredning">Inredning</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="smasaker"
-                                            name="Småsaker"
-                                            value="Småsaker"
-                                        // onChange={setSearching}
-                                        />
-                                        <label htmlFor="smasaker">Småsaker</label>
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <input
-                                            type="checkbox"
-                                            id="ovrigt"
-                                            name="Övrigt"
-                                            value="Övrigt"
-                                        // onChange={setSearching}
-                                        />
-                                        <label htmlFor="ovrigt">Övrigt</label>
-                                    </div>
+                                    {searchingFors()}
                                 </div>
                             </div>
 
@@ -286,8 +285,10 @@ export default function EditPost() {
                                     rows={10}
                                     maxLength={3000}
                                     placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-                                    value={""}
-                                    // onChange={(e) => setDescription(e.target.value)}
+                                    defaultValue={newData.description ? newData.description : ""}
+                                    onChange={(e) => {
+                                        setDescription(e.target.value)
+                                    }}
                                     required
                                 />
                             </div >
@@ -298,7 +299,7 @@ export default function EditPost() {
                                     name="contact"
                                     rows={3}
                                     cols={100}
-                                    value={""}
+                                    defaultValue={newData.contact ? newData.contact : ""}
                                     // onChange={(e) => setContact(e.target.value)}
                                     required
                                 />
@@ -310,7 +311,7 @@ export default function EditPost() {
                                     name="externalLinks"
                                     rows={1}
                                     cols={100}
-                                    value={""}
+                                    defaultValue={newData.externalLinks ? newData.externalLinks : ""}
                                 // onChange={(e) => setExternalLinks(e.target.value)}
                                 />
                             </div >
