@@ -99,6 +99,10 @@ export default async function handler(
       res.status(501).json({ message: 'Not implemented' });
       break;
 
+    case 'POST':
+      res.status(405).json({ message: 'Method not allowed; use PUT if you want to modify data or got to /postData if you want to add data to the database.' });
+      break;
+
     default:
       res.status(405).json({ message: 'Method not allowed' });
       break;
