@@ -17,20 +17,23 @@ export const yearLimits = {
   max: new Date().getFullYear() + 10,
 }
 
+/**
+ * Array of all months in swedish.
+*/
+export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+
 export default function HomePage() {
   const router = useRouter()
 
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as Filter)
 
-  //Array of all months in swedish.
-  const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
   // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
 
   // State for configuring the max amount of items in a category that can be selected before the label is compacted
-  const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
+  const maxCategoryAmount = React.useMemo(() => 2, [])
 
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
@@ -85,6 +88,9 @@ export default function HomePage() {
     }
   }
 
+  /**
+   * Returns a p element with the currently active month filters, if any
+   */
   const monthLabel = () => {
     if (currentFilter.months?.length) {
       if (Math.min(...currentFilter.months) === 1 && Math.max(...currentFilter.months) === 12) {
