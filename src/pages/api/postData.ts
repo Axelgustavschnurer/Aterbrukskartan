@@ -50,6 +50,17 @@ export default async function handler(
     });
     res.status(201).json(savedPost);
   } catch (err) {
-    res.status(400).json({ message: 'Something went wrong' });
+    if (err instanceof Prisma.PrismaClientKnownRequestError || err instanceof Prisma.PrismaClientUnknownRequestError) {
+      res.status(400).json({ message: 'Bad request' });
+    }
+    else if (err instanceof Prisma.PrismaClientValidationError) {
+      res.status(400).json({ message: 'Something went wrong when processing the request. Some field(s) seems to be missing or have an incorrect type.' });
+    }
+    else if (err instanceof Prisma.PrismaClientInitializationError) {
+      res.status(500).json({ message: 'Internal server error. Failed to connect to database.' });
+    }
+    else {
+      res.status(400).json({ message: 'Something went wrong' });
+    }
   }
 }

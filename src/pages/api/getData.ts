@@ -8,7 +8,20 @@ const prisma = new PrismaClient()
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<DeepRecycle[]>
-  ) {
+) {
+  // Since this API fetches data from the database, we only allow GET and HEAD requests
+  res.setHeader('Allow', ['GET', 'HEAD']);
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return;
+  }
+
+  // Handle HEAD requests
+  if (req.method === 'HEAD') {
+    res.status(204).end();
+    return;
+  }
+
   /**
    * Returns a list of all the `Recycle` objects in the database, with the mapItem object included
    */
@@ -17,5 +30,5 @@ export default async function handler(
       mapItem: true
     }
   })
-  res.json(getData)
+  res.status(200).json(getData)
 }
