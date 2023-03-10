@@ -72,7 +72,7 @@ export default function Map({ currentFilter, searchInput }: any) {
         return null
       } else {
         return (
-          <Marker key={i} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
+          <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
             pin.projectType === "Rivning" ? IconPinRed :
               pin.projectType === "Nybyggnation" ? IconPinBlue :
                 IconPinGreen
