@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import styles from "../styles/dualSlider.module.css";
+import { monthArray } from "@/pages";
 
 // Range slider component for filtering by years
 
@@ -9,9 +10,6 @@ const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
     const minValRef = useRef(min);
     const maxValRef = useRef(max);
     const range = useRef(null);
-
-    //Array of all months in swedish.
-    const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
     // Gets min and max values when their state changes.
     useEffect(() => {

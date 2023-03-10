@@ -6,15 +6,13 @@ import React, { useState, useEffect } from 'react'
 import { PopupHead, PopupText } from "./popupStyles";
 import { DeepRecycle, Filter } from '@/types'
 import { runActiveFilters } from '@/functions/filterData'
+import { monthArray } from '@/pages'
 
 // Map component for main page
 
 export default function Map({ currentFilter, searchInput }: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
-
-  //Array of all months in swedish.
-  const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
   // Fetches all "recycle" data from API
   const fetchData = async () => {

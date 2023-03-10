@@ -17,14 +17,17 @@ export const yearLimits = {
   max: new Date().getFullYear() + 10,
 }
 
+/**
+ * Array of all months in swedish.
+*/
+export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+
 export default function HomePage() {
   const router = useRouter()
 
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as Filter)
 
-  //Array of all months in swedish.
-  const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
   // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
