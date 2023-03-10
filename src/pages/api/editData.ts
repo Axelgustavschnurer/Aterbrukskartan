@@ -8,16 +8,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
+  res.setHeader('Allow', ['GET', 'HEAD', 'PUT', 'DELETE']);
 
   switch (req.method) {
     case 'GET':
+    case 'HEAD':
       try {
+        if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
+        
         /**
          * Returns the `Recycle` object with the given ID, with the mapItem object included, or throws an error if no `Recycle` object with the given ID exists.
          */
-        if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
-
         const getData: DeepRecycle = await prisma.recycle.findFirstOrThrow({
           where: {
             id: parseInt(req.query.id as string)

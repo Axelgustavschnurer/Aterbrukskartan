@@ -16,12 +16,6 @@ export default async function handler(
     return;
   }
 
-  // Handle HEAD requests
-  if (req.method === 'HEAD') {
-    res.status(204).end();
-    return;
-  }
-
   /**
    * Returns a list of all the `Recycle` objects in the database, with the mapItem object included
    */
