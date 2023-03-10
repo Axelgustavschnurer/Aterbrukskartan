@@ -100,7 +100,7 @@ export default async function handler(
       break;
 
     case 'POST':
-      res.status(405).json({ message: 'Method not allowed; use PUT if you want to modify data or got to /postData if you want to add data to the database.' });
+      res.status(405).json({ message: 'Method not allowed; use PUT if you want to modify data or got to /postData if you want to add data to the databa' });
       break;
 
     default:
