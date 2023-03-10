@@ -6,6 +6,7 @@ import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "../components/findAddress";
 import styles from '../styles/newPost.module.css';
+import Image from "next/image";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -265,7 +266,7 @@ export default function AddNewPost() {
                 <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
             </Head>
             <div className={styles.header} id={styles.header}>
-                <img src="/images/stuns_logo.png" alt="logo" />
+                <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
             </div>
             <div className={styles.addPostContainer}>
                 <div className={styles.addNewPostContainer}>
