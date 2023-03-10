@@ -1,13 +1,41 @@
 # Återbrukskartan
+
 This project aims to facilitate recycling of construction materials by displaying planned projects on a map.
 The idea is that companies enter some project information, like when and where they will do what, and what kinds of materials they will need or have available.
 
 # Dev stuff
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+```
+
+Then, create a `.env` file in the root directory containing the following:
+
+```
+DATABASE_URL = "sqlserver://<url>:<port>;database=<database>;user=<user>;pwd=<password>;<optional arguments>"
+
+SHADOW_DATABASE_URL="sqlserver://localhost:1433;database=shadow;trustServerCertificate=true;integratedSecurity=true"
+```
+
+The shadow database url doesn't need to be on localhost, however it shouldn't match the actual database url.
+
+Run prisma generate to generate the prisma client:
+
+```
+npx prisma generate
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -17,7 +45,17 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the aterbrukskartan site.
+
+To view the database, run the following command:
+
+```bash
+npx prisma studio
+```
+
+Then open [http://localhost:5555](http://localhost:5555) with your browser to see the database.
+
+## API Routes
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
