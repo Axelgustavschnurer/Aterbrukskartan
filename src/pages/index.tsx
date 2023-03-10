@@ -33,7 +33,7 @@ export default function HomePage() {
   const [searchInput, setSearchInput] = useState("")
 
   // State for configuring the max amount of items in a category that can be selected before the label is compacted
-  const [maxCategoryAmount, setMaxCategoryAmount] = useState(2)
+  const maxCategoryAmount = React.useMemo(() => 2, [])
 
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
