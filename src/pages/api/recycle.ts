@@ -104,6 +104,7 @@ export default async function handler(
           res.status(500).json({ message: 'Internal server error' });
         }
       }
+      break;
 
     // On PUT requests, update the `Recycle` object with the given ID and return it
     // Throws an error if no ID is specified or no `Recycle` object with the given ID exists
@@ -156,7 +157,7 @@ export default async function handler(
         }
       }
       break;
-    
+
     // The functionality of DELETE requests is not yet decided, so it is not implemented
     // We might want to delete `Recycle` objects, but we might also want to keep them in the database and instead add some kind of 'deleted' tag to them
     case 'DELETE':
