@@ -16,12 +16,16 @@ export default function EditPost() {
 
   const [projectType, setProjectType] = useState("");
   const [description, setDescription] = useState("");
-  const [searchingFor, setSearchingFor] = useState({});
-  const [available, setAvailableMaterials] = useState({});
+
+  const [searchingFor, setSearchingFor] = useState([] as string[]);
+  const [available, setAvailableMaterials] = useState([] as string[]);
+
   const [startYear, setStartYear] = useState(yearLimits.min);
   const [startMonth, setStartMonth] = useState("");
   const [project, setProject] = useState("");
   const [organisation, setOrganisation] = useState("");
+  const [contact, setContact] = useState("");
+  const [externalLinks, setExternalLinks] = useState("");
 
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
@@ -55,6 +59,12 @@ export default function EditPost() {
     fetchFilterData(project)
   }, [project])
 
+  useEffect(() => {
+    // setLat(filterData.mapItem?.latitude as any)
+    // setLon(filterData.mapItem?.longitude as any)
+    setAvailableMaterials(filterData.availableMaterials?.split(", ") as string[])
+    setSearchingFor(filterData.lookingForMaterials?.split(", ") as string[])
+  }, [filterData])
 
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../components/newPostMap'),
@@ -66,37 +76,19 @@ export default function EditPost() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // Gets the keys of the searchingFor object and returns them as a string
-    let lookingForMaterials: string = (() => {
-      let materials: string[] = [];
-      for (let key in searchingFor as any) {
-        if (searchingFor![key as keyof (typeof searchingFor)]) {
-          materials.push(key);
-        }
-      }
-      return materials.join(", ");
-    })();
-    // Gets the keys of the offering object and returns them as a string
-    let availableMaterials: string = (() => {
-      let materials: string[] = [];
-      for (let key in available as any) {
-        if (available![key as keyof (typeof available)]) {
-          materials.push(key);
-        }
-      }
-      return materials.join(", ");
-    })();
     const data = {
       projectType: projectType ? projectType : undefined,
       description: description ? description : undefined,
-      lookingForMaterials: lookingForMaterials ? lookingForMaterials : null,
-      availableMaterials: availableMaterials ? availableMaterials : null,
+      lookingForMaterials: searchingFor ? searchingFor.join(", ") : null,
+      availableMaterials: available ? available.join(", ") : null,
       month: startMonth ? parseInt(startMonth) : undefined,
+      contact: contact ? contact : undefined,
+      externalLinks: externalLinks ? externalLinks : undefined,
       mapItem: {
         organisation: organisation ? organisation : undefined,
         year: startYear ? startYear : undefined,
-        latitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
-        longitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
+        latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
+        longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
       }
 
     }
@@ -114,7 +106,9 @@ export default function EditPost() {
   }
 
   const getProject = () => {
-    let mappedData = newData.map((pin: any) => pin.id)
+    let mappedData = newData.map((pin: any) => {
+      return pin.id
+    })
     return (
       <>
         {mappedData.map((pin: any, index: any) => {
@@ -173,10 +167,15 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 defaultChecked={filterData.availableMaterials?.includes(category) ? true : false}
-                onChange={(e) => setAvailableMaterials({
-                  ...available,
-                  [e.target.name]: e.target.checked
-                })}
+                onChange={(e) => {
+                  if (available.includes(e.target.value) && !e.target.checked) {
+                    setAvailableMaterials(available.filter((item: any) => item !== e.target.value))
+                  }
+
+                  else if (!available.includes(e.target.value) && e.target.checked) {
+                    setAvailableMaterials([...available, e.target.value])
+                  }
+                }}
               />
               <label htmlFor={"_" + category}>{category}</label>
             </div>
@@ -204,11 +203,15 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 defaultChecked={filterData.lookingForMaterials?.includes(category) ? true : false}
-                onChange={(e) => setSearchingFor({
-                  ...searchingFor,
-                  [e.target.name]: e.target.checked
-                })
-                }
+                onChange={(e) => {
+                  if (searchingFor.includes(e.target.value) && !e.target.checked) {
+                    setSearchingFor(searchingFor.filter((item: any) => item !== e.target.value))
+                  }
+
+                  else if (!searchingFor.includes(e.target.value) && e.target.checked) {
+                    setSearchingFor([...searchingFor, e.target.value])
+                  }
+                }}
               />
               <label htmlFor={category}>{category}</label>
             </div>
@@ -328,6 +331,8 @@ export default function EditPost() {
                         setLon={setLon}
                         lat={lat}
                         lon={lon}
+                        defaultLat={filterData.mapItem.latitude}
+                        defaultLon={filterData.mapItem.longitude}
                       />
                     </>
                     :
@@ -373,7 +378,7 @@ export default function EditPost() {
                   rows={3}
                   cols={100}
                   defaultValue={filterData.contact ? filterData.contact : undefined}
-                // onChange={(e) => setContact(e.target.value)}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </div >
               <div className={styles.addNewPostFormExternalLinks}>
@@ -384,7 +389,7 @@ export default function EditPost() {
                   rows={1}
                   cols={100}
                   defaultValue={filterData.externalLinks ? filterData.externalLinks : undefined}
-                // onChange={(e) => setExternalLinks(e.target.value)}
+                  onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
               <div className={styles.addNewPostFormSubmit}>
