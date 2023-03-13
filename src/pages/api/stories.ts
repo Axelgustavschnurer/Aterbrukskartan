@@ -11,6 +11,7 @@ export default async function handler(
   res.setHeader('Allow', ['GET', 'HEAD', 'POST', 'PUT', 'DELETE']);
 
   switch (req.method) {
+    // On GET or HEAD requests, return the `Story` object with the given ID, or all `Story` objects if no ID is specified
     case 'GET':
     case 'HEAD':
       if (!parseInt(req.query.id as string)) {
@@ -68,8 +69,41 @@ export default async function handler(
       }
       break;
 
+    // On POST requests, create a new `Story` object and return it
     case 'POST':
-      res.status(501).json({ message: 'Not implemented' });
+      try {
+        const newPost: DeepStoryInput = req.body;
+        /**
+         * Creates a new `Story` object with the given data, and returns it with the `mapItem` object included.
+         */
+        const savedPost = await prisma.story.create({
+          data: {
+            ...newPost,
+            mapItem: {
+              create: { ...newPost.mapItem }
+            },
+          },
+          include: {
+            mapItem: true
+          },
+        })
+
+        res.status(201).json(savedPost);
+      }
+      catch (err: any) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError || err instanceof Prisma.PrismaClientUnknownRequestError) {
+          res.status(400).json({ message: 'Bad request' });
+        }
+        else if (err instanceof Prisma.PrismaClientValidationError) {
+          res.status(400).json({ message: 'Something went wrong when processing the request. Some fields seem to be missing or have incorrect types.' });
+        }
+        else if (err instanceof Prisma.PrismaClientInitializationError) {
+          res.status(500).json({ message: 'Internal server error. Failed to connect to database.' });
+        }
+        else {
+          res.status(500).json({ message: 'Internal server error' });
+        }
+      }
       break;
 
     case 'PUT':
