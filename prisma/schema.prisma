@@ -64,6 +64,7 @@ model Recycle {
 }
 
 // This table contains the list of organisations that are allowed to add Recycle items to the map, they will be shown in a dropdown list when adding a new Recycle item
+// The above mentioned functionality is NOT YET IMPLEMENTED
 model RecycleOrganisation {
   id   Int    @id @default(autoincrement())
   name String
