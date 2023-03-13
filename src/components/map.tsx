@@ -7,6 +7,7 @@ import { PopupHead, PopupText } from "./popupStyles";
 import { DeepRecycle, Filter } from '@/types'
 import { runActiveFilters } from '@/functions/filterData'
 import { monthArray } from '@/pages'
+import MarkerClusterGroup from './markerCluster/index.js'
 
 // Map component for main page
 
@@ -96,7 +97,9 @@ export default function Map({ currentFilter, searchInput }: any) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+      <MarkerClusterGroup>
         {getAllPins()}
+      </MarkerClusterGroup>
       </MapContainer>
     </>
   )
