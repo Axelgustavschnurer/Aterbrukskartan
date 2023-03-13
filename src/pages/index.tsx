@@ -19,7 +19,7 @@ export const yearLimits = {
 
 /**
  * Array of all months in swedish.
-*/
+ */
 export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
 export default function HomePage() {
