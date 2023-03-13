@@ -11,37 +11,49 @@ import { yearLimits } from ".";
 
 
 export default function EditPost() {
-  const [newData, setNewData] = useState({} as DeepRecycle);
+  const [newData, setNewData] = useState([{}] as DeepRecycle[]);
+  const [filterData, setFilterData] = useState({} as DeepRecycle);
 
-  const [projectType, setProjectType] = useState('');
+  const [projectType, setProjectType] = useState("");
   const [description, setDescription] = useState("");
-  const [searchingFor, setSearchingFor] = useState("");
-  const [available, setAvailableMaterials] = useState("");
+  const [searchingFor, setSearchingFor] = useState({});
+  const [available, setAvailableMaterials] = useState({});
   const [startYear, setStartYear] = useState(yearLimits.min);
   const [startMonth, setStartMonth] = useState("");
+  const [project, setProject] = useState("");
   const [organisation, setOrganisation] = useState("");
 
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
 
-  const [location, setLocation] = useState('');
   const [locationToggle, setLocationToggle] = useState(false);
 
   const router = useRouter();
 
-  const fetchData = async (id: any) => {
-    const response = await fetch('http://localhost:3000/api/editData?id=' + id)
-    const data: DeepRecycle = await response.json()
-    console.log(data)
+  // Fetches all data from the database
+  const fetchData = async () => {
+    const response = await fetch('http://localhost:3000/api/getData')
+    const data = await response.json()
     setNewData(data)
   }
 
   // Runs fetchData function on component mount
   useEffect(() => {
-    fetchData(28)
+    fetchData()
   }, [])
 
+  // Fetches the data with a specific id from the database
+  const fetchFilterData = async (id: any) => {
+    const response = await fetch('http://localhost:3000/api/editData?id=' + id)
+    const data: DeepRecycle = await response.json()
+    console.log(data)
+    setFilterData(data)
+  }
 
+  // Runs fetchData function when the project state changes
+  useEffect(() => {
+    fetchFilterData(project)
+  }, [project])
 
 
   const NewPostMap = React.useMemo(() => dynamic(
@@ -52,7 +64,67 @@ export default function EditPost() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  const handleSubmit = async (e: any) => { }
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    // Gets the keys of the searchingFor object and returns them as a string
+    let lookingForMaterials: string = (() => {
+      let materials: string[] = [];
+      for (let key in searchingFor as any) {
+        if (searchingFor![key as keyof (typeof searchingFor)]) {
+          materials.push(key);
+        }
+      }
+      return materials.join(", ");
+    })();
+    // Gets the keys of the offering object and returns them as a string
+    let availableMaterials: string = (() => {
+      let materials: string[] = [];
+      for (let key in available as any) {
+        if (available![key as keyof (typeof available)]) {
+          materials.push(key);
+        }
+      }
+      return materials.join(", ");
+    })();
+    const data = {
+      projectType: projectType ? projectType : undefined,
+      description: description ? description : undefined,
+      lookingForMaterials: lookingForMaterials ? lookingForMaterials : null,
+      availableMaterials: availableMaterials ? availableMaterials : null,
+      month: startMonth ? parseInt(startMonth) : undefined,
+      mapItem: {
+        organisation: organisation ? organisation : undefined,
+        year: startYear ? startYear : undefined,
+        latitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+        longitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
+      }
+
+    }
+    console.log(data)
+    const response = await fetch(('http://localhost:3000/api/editData?id=' + project), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await response.json()
+    console.log(result)
+    router.push('/')
+  }
+
+  const getProject = () => {
+    let mappedData = newData.map((pin: any) => pin.id)
+    return (
+      <>
+        {mappedData.map((pin: any, index: any) => {
+          return (
+            <option key={pin} value={pin}>{pin}</option>
+          )
+        })}
+      </>
+    )
+  }
 
   const projectTypes = () => {
     let categories = [
@@ -70,7 +142,7 @@ export default function EditPost() {
                 id={category}
                 name="category"
                 value={category}
-                defaultChecked={newData.projectType === category ? true : false}
+                defaultChecked={filterData.projectType === category ? true : false}
                 onChange={(e) => setProjectType(e.target.value)}
 
               />
@@ -100,8 +172,11 @@ export default function EditPost() {
                 id={"_" + category}
                 name={category}
                 value={category}
-                defaultChecked={newData.availableMaterials?.includes(category) ? true : false}
-                onChange={(e) => setAvailableMaterials(e.target.value)}
+                defaultChecked={filterData.availableMaterials?.includes(category) ? true : false}
+                onChange={(e) => setAvailableMaterials({
+                  ...available,
+                  [e.target.name]: e.target.checked
+                })}
               />
               <label htmlFor={"_" + category}>{category}</label>
             </div>
@@ -128,8 +203,12 @@ export default function EditPost() {
                 id={category}
                 name={category}
                 value={category}
-                defaultChecked={newData.lookingForMaterials?.includes(category) ? true : false}
-                onChange={(e) => setSearchingFor(e.target.value)}
+                defaultChecked={filterData.lookingForMaterials?.includes(category) ? true : false}
+                onChange={(e) => setSearchingFor({
+                  ...searchingFor,
+                  [e.target.name]: e.target.checked
+                })
+                }
               />
               <label htmlFor={category}>{category}</label>
             </div>
@@ -153,40 +232,37 @@ export default function EditPost() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
+            <form method="put" onSubmit={handleSubmit}>
               <div className={styles.addNewPostFormOrganization}>
                 <h3>Välj projekt</h3>
                 <select
                   id="project"
                   name="project"
-                  defaultValue={newData?.id}
-                  // onChange={(e) => setOrganization(e.target.value)}
-                  required
+                  defaultValue={filterData?.id}
+                  onChange={(e) => setProject(e.target.value)}
                 >
                   <option value="">Välj projekt</option>
-                  {/* {getProject()} */}
+                  {getProject()}
                 </select>
               </div>
 
               <div className={styles.addNewPostFormOrganization}>
                 <h3>Organisation *</h3>
-                {/*
-                                if you want to use the text input instead of the select, comment out the select and uncomment the text input
-                                <input
-                                    type="text"
-                                    id="organization"
-                                    name="organization"
-                                    value={organization}
-                                    onChange={(e) => setOrganization(e.target.value)}
-                                    required
-                                /> */}
+
+                {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
+                <input
+                  type="text"
+                  id="organization"
+                  name="organization"
+                  value={organisation}
+                  onChange={(e) => setOrganisation(e.target.value)}
+                /> */}
                 <select
                   id="organization"
                   name="organization"
                   onChange={(e) => setOrganisation(e.target.value)}
-                  required
                 >
-                  <option defaultValue={newData.mapItem?.organisation ? newData.mapItem.organisation : ""}>{newData.mapItem?.organisation}</option>
+                  <option defaultValue={filterData.mapItem?.organisation ? filterData.mapItem.organisation : undefined}>{filterData.mapItem?.organisation}</option>
 
                 </select>
               </div>
@@ -196,7 +272,7 @@ export default function EditPost() {
                   type="number"
                   id="startYear"
                   name="startYear"
-                  defaultValue={newData.mapItem?.year ? newData.mapItem.year : ""}
+                  defaultValue={filterData.mapItem?.year ? filterData.mapItem.year : undefined}
                   min={yearLimits.min}
                   onChange={(e) => setStartYear(parseInt(e.target.value))}
                 />
@@ -207,7 +283,7 @@ export default function EditPost() {
                 <select
                   id="startMonth"
                   name="startMonth"
-                  defaultValue={newData.month ? newData.month : ""}
+                  defaultValue={filterData.month ? filterData.month : undefined}
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
                   <option value={""}>Välj startmånad</option>
@@ -283,11 +359,10 @@ export default function EditPost() {
                   rows={10}
                   maxLength={3000}
                   placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-                  defaultValue={newData.description ? newData.description : ""}
+                  defaultValue={filterData.description ? filterData.description : undefined}
                   onChange={(e) => {
                     setDescription(e.target.value)
                   }}
-                  required
                 />
               </div >
               <div className={styles.addNewPostFormContact}>
@@ -297,9 +372,8 @@ export default function EditPost() {
                   name="contact"
                   rows={3}
                   cols={100}
-                  defaultValue={newData.contact ? newData.contact : ""}
-                  // onChange={(e) => setContact(e.target.value)}
-                  required
+                  defaultValue={filterData.contact ? filterData.contact : undefined}
+                // onChange={(e) => setContact(e.target.value)}
                 />
               </div >
               <div className={styles.addNewPostFormExternalLinks}>
@@ -309,7 +383,7 @@ export default function EditPost() {
                   name="externalLinks"
                   rows={1}
                   cols={100}
-                  defaultValue={newData.externalLinks ? newData.externalLinks : ""}
+                  defaultValue={filterData.externalLinks ? filterData.externalLinks : undefined}
                 // onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
