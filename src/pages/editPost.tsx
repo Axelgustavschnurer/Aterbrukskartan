@@ -62,8 +62,8 @@ export default function EditPost() {
   useEffect(() => {
     // setLat(filterData.mapItem?.latitude as any)
     // setLon(filterData.mapItem?.longitude as any)
-    setAvailableMaterials(filterData.availableMaterials?.split(", ") as string[])
-    setSearchingFor(filterData.lookingForMaterials?.split(", ") as string[])
+    setAvailableMaterials(filterData.availableMaterials ? filterData.availableMaterials.split(", ") as string[] : [] as string[])
+    setSearchingFor(filterData.lookingForMaterials ? filterData.lookingForMaterials.split(", ") as string[] : [] as string[])
   }, [filterData])
 
   const NewPostMap = React.useMemo(() => dynamic(
