@@ -97,7 +97,7 @@ export default function Map({ currentFilter, searchInput }: any) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      <MarkerClusterGroup>
+      <MarkerClusterGroup disableClusteringAtZoom={13} showCoverageOnHover={false} maxClusterRadius={((zoom:14) => 50)}>
         {getAllPins()}
       </MarkerClusterGroup>
       </MapContainer>
