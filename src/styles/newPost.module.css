@@ -298,11 +298,11 @@
     transition: left 0.25s ease;
 }
 
-.switchInput:checked+.switch-label:before {
+.switchInput:checked+.switchLabel:before {
     background-color: #89c12d;
 }
 
-.switchInput:checked+.switch-label:after {
+.switchInput:checked+.switchLabel:after {
     left: 24px;
 }
 
