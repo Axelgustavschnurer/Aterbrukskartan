@@ -8,10 +8,24 @@ export type DeepRecycle = Prisma.RecycleGetPayload<{
 }>
 
 /**
- * This is the data format used when creating a new `Recycle` object in the database.
+ * A version of Story that includes the mapItem relation
+ */
+export type DeepStory = Prisma.StoryGetPayload<{
+  include: { mapItem: true }
+}>
+
+/**
+ * The data format used when creating a new `Recycle` object in the database.
  */
 export type DeepRecycleInput = Prisma.RecycleCreateWithoutMapItemInput & {
   mapItem: Prisma.MapItemCreateWithoutRecycleInput
+}
+
+/**
+ * The data format used when creating a new `Story` object in the database.
+ */
+export type DeepStoryInput = Prisma.StoryCreateWithoutMapItemInput & {
+  mapItem: Prisma.MapItemCreateWithoutStoryInput
 }
 
 /**
