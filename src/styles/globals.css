@@ -69,30 +69,24 @@ textarea {
 
 /* To solve Next.js issues source from https://github.com/Leaflet/Leaflet.markercluster/blob/master/dist/MarkerCluster.Default.css */
 .marker-cluster-small {
-	background-color: #f1f1f1;
-  opacity: 0.6;
+	background-color: #a7a7a7;
 	}
 .marker-cluster-small div {
 	background-color: #f1f1f1;
-  opacity: 0.6;
 	}
 
 .marker-cluster-medium {
-	background-color: #f1f1f1;
-  opacity: 0.6;
+	background-color: #a7a7a7;
 	}
 .marker-cluster-medium div {
 	background-color: #f1f1f1;
-  opacity: 0.6;
   }
 
 .marker-cluster-large {
-	background-color: #f1f1f1;
-  opacity: 0.6;
+	background-color: #a7a7a7;
 	}
 .marker-cluster-large div {
 	background-color: #f1f1f1;
-  opacity: 0.6;
 	}
 
 	/* IE 6-8 fallback colors */
@@ -126,7 +120,6 @@ textarea {
 	height: 30px;
 	margin-left: 5px;
 	margin-top: 5px;
-
 	text-align: center;
 	border-radius: 15px;
 	font: 15px "Helvetica Neue", Arial, Helvetica, sans-serif;
