@@ -1,12 +1,10 @@
-import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
+import { Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from '../components/icons'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
 import { DeepRecycle, Filter } from '@/types'
 import { runActiveFilters } from '@/functions/filterData'
-import MarkerClusterGroup from '../components/markerCluster/index.js'
 import { monthArray } from '@/pages/aterbruk'
 
 export function recyclePopup(pin: any) {
@@ -48,7 +46,6 @@ export function recyclePins(mapData: DeepRecycle[], currentFilter: Filter, searc
 
   return filteredData.map((pin: DeepRecycle, i) => {
     if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
-      console.log("no lat or long");
       return null
     } else {
       return (

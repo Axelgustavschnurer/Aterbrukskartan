@@ -1,14 +1,10 @@
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
 import React, { useState, useEffect, useMemo } from 'react'
-import { PopupHead, PopupText } from "./popupStyles";
-import { DeepRecycle, Filter } from '@/types'
-import { runActiveFilters } from '@/functions/filterData'
-import { monthArray } from '@/pages/aterbruk'
 import MarkerClusterGroup from './markerCluster/index.js'
 import { recyclePins } from '@/functions/recycleMap'
+import { storiesPins } from '@/functions/storiesMap'
 
 // Map component for main page
 
@@ -18,9 +14,16 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
 
   // Fetches all "recycle" data from API
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/recycle')
-    const data = await response.json()
-    setMapData(data)
+    if (currentMap === "Stories") {
+      const response = await fetch('http://localhost:3000/api/stories')
+      const data = await response.json()
+      setMapData(data)
+    } 
+    else if (currentMap === "Recycle") {
+      const response = await fetch('http://localhost:3000/api/recycle')
+      const data = await response.json()
+      setMapData(data)
+    }
   }
 
   // Runs fetchData function on component mount
@@ -51,7 +54,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
               return 40
             } else { return 80 }
           })}>
-          {currentMap === "Stories" ? null : recyclePins(mapData, currentFilter, searchInput)}
+          {currentMap === "Stories" ? storiesPins(mapData, currentFilter, searchInput) : recyclePins(mapData, currentFilter, searchInput)}
         </MarkerClusterGroup>
       </MapContainer>
     </>

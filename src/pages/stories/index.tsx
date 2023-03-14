@@ -108,7 +108,7 @@ export default function HomePage() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <Map currentFilter={currentFilter} searchInput={searchInput} />
+      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories"/>
 
       <Sidebar setFilter={setFilter} />
 
