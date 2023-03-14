@@ -20,7 +20,7 @@ export default function EditPost() {
   const [searchingFor, setSearchingFor] = useState([] as string[]);
   const [available, setAvailableMaterials] = useState([] as string[]);
 
-  const [startYear, setStartYear] = useState(yearLimits.min);
+  const [startYear, setStartYear] = useState(Number);
   const [startMonth, setStartMonth] = useState("");
   const [project, setProject] = useState("");
   const [organisation, setOrganisation] = useState("");
@@ -36,7 +36,7 @@ export default function EditPost() {
 
   // Fetches all data from the database
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/getData')
+    const response = await fetch('http://localhost:3000/api/recycle')
     const data = await response.json()
     setNewData(data)
   }
@@ -48,7 +48,7 @@ export default function EditPost() {
 
   // Fetches the data with a specific id from the database
   const fetchFilterData = async (id: any) => {
-    const response = await fetch('http://localhost:3000/api/editData?id=' + id)
+    const response = await fetch('http://localhost:3000/api/recycle?id=' + id)
     const data: DeepRecycle = await response.json()
     console.log(data)
     setFilterData(data)
@@ -64,6 +64,9 @@ export default function EditPost() {
     setLon(filterData.mapItem?.longitude as any)
     setAvailableMaterials(filterData.availableMaterials ? filterData.availableMaterials.split(", ") as string[] : [] as string[])
     setSearchingFor(filterData.lookingForMaterials ? filterData.lookingForMaterials.split(", ") as string[] : [] as string[])
+    setDescription(filterData.description ? filterData.description : "")
+    setContact(filterData.contact ? filterData.contact : "")
+    setExternalLinks(filterData.externalLinks ? filterData.externalLinks : "")
   }, [filterData])
 
   const NewPostMap = React.useMemo(() => dynamic(
@@ -76,24 +79,27 @@ export default function EditPost() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("description: " + description + "\n filterdata.description: " + filterData.description);
+    
     const data = {
       projectType: projectType ? projectType : undefined,
-      description: description ? description === filterData.description ? undefined : description : undefined,
-      lookingForMaterials: searchingFor ? searchingFor.join(", ") : null,
-      availableMaterials: available ? available.join(", ") : null,
+      description: description === filterData.description ? undefined : description ? description : null,
+      lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
+      availableMaterials: available.length ? available.join(", ") : null,
+      // TODO: Allow this to be null if the user removes it
       month: startMonth ? parseInt(startMonth) : undefined,
-      contact: contact ? contact : undefined,
-      externalLinks: externalLinks ? externalLinks : undefined,
+      contact: contact === filterData.contact ? undefined : contact ? contact : null,
+      externalLinks: externalLinks === filterData.externalLinks ? undefined : externalLinks ? externalLinks : null,
       mapItem: {
+        // TODO: Allow these to be null if the user removes them
         organisation: organisation ? organisation : undefined,
         year: startYear ? startYear : undefined,
         latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
         longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
       }
-
     }
     console.log(data)
-    const response = await fetch(('http://localhost:3000/api/editData?id=' + project), {
+    const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
