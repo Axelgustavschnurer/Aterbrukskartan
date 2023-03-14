@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
-import LeafletAddressLookup from "../components/findAddress";
+import LeafletAddressLookup from "../../components/findAddress";
 import styles from '../styles/newPost.module.css';
 import Image from "next/image";
 
@@ -15,7 +15,7 @@ export default function AddNewPost() {
     const currentDate = new Date().getFullYear();
 
     const fetchData = async () => {
-        const response = await fetch('http://localhost:3000/api/aterbruk')
+        const response = await fetch('http://localhost:3000/api/recycle')
         const data = await response.json()
         setNewData(data)
     }
@@ -87,7 +87,7 @@ export default function AddNewPost() {
             })();
 
             // Sends a post request to the api with the data from the form
-            let res = await fetch("http://localhost:3000/api/aterbruk", {
+            let res = await fetch("http://localhost:3000/api/recycle", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -139,7 +139,7 @@ export default function AddNewPost() {
     }
 
     const NewPostMap = React.useMemo(() => dynamic(
-        () => import('../components/newPostMap'),
+        () => import('../../components/newPostMap'),
         {
             loading: () => <p>A map is loading</p>,
             ssr: false

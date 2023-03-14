@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Filter } from '../../types'
 import Image from 'next/image'
-import styles from '../styles/index.module.css'
+import styles from '../../styles/index.module.css'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
