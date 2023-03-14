@@ -158,10 +158,51 @@ export default async function handler(
       }
       break;
 
-    // The functionality of DELETE requests is not yet decided, so it is not implemented
-    // We might want to delete `Recycle` objects, but we might also want to keep them in the database and instead add some kind of 'deleted' tag to them
+    // On DELETE requests, change the `isActive` field of the `Recycle` object with the given ID to false, and return it
     case 'DELETE':
-      res.status(501).json({ message: 'Not implemented' });
+      try {
+        if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
+
+        const updateData: DeepRecycleInput = req.body;
+        /**
+         * Updates the `Recycle` object with the given ID to be inactive, and returns it with the `mapItem` object included.
+         */
+        const updatedData = await prisma.recycle.update({
+          where: {
+            id: parseInt(req.query.id as string)
+          },
+
+          data: {
+            isActive: false,
+          },
+
+          include: {
+            mapItem: true
+          },
+        });
+
+        res.status(200).json(updatedData);
+      }
+      catch (err: any) {
+        if (err.message === 'No ID specified') {
+          res.status(400).json({ message: 'No ID specified' })
+        }
+        else if (err instanceof Prisma.PrismaClientKnownRequestError) {
+          res.status(400).json({ message: 'Something went wrong when processing the request. The specified ID might not exist in the database.' });
+        }
+        else if (err instanceof Prisma.PrismaClientUnknownRequestError) {
+          res.status(400).json({ message: 'Something went wrong when processing the request. Cause unknown.' });
+        }
+        else if (err instanceof Prisma.PrismaClientValidationError) {
+          res.status(400).json({ message: 'Something went wrong when processing the request. Some field(s) seems to be missing or have an incorrect type.' });
+        }
+        else if (err instanceof Prisma.PrismaClientInitializationError) {
+          res.status(500).json({ message: 'Internal server error. Failed to connect to database.' });
+        }
+        else {
+          res.status(500).json({ message: 'Internal server error' });
+        }
+      }
       break;
 
     // If the request method is not one of the above, return a 405 error
