@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { Filter } from '../../types'
 import Image from 'next/image'
-import styles from '../styles/index.module.css'
+import styles from '../../styles/index.module.css'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -108,7 +108,7 @@ export default function HomePage() {
       }
     }
   }
-  
+
 
   /**
    * Returns a p element with the currently active filters regarding materials that are being searched for by the projects on the map, if any

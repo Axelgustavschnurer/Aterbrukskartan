@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "../../components/findAddress";
-import styles from '../styles/editPost.module.css'
+import styles from '../../styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimits } from ".";
 
@@ -80,7 +80,7 @@ export default function EditPost() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("description: " + description + "\n filterdata.description: " + filterData.description);
-    
+
     const data = {
       projectType: projectType ? projectType : undefined,
       description: description === filterData.description ? undefined : description ? description : null,
