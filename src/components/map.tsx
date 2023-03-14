@@ -101,7 +101,6 @@ export default function Map({ currentFilter, searchInput }: any) {
         disableClusteringAtZoom={13}
         showCoverageOnHover={false}
         spiderfyOnMaxZoom={false}
-        animate={false}
         maxClusterRadius={((zoom:number) => {
           if (zoom > 6 && zoom < 13) {
             return 40
