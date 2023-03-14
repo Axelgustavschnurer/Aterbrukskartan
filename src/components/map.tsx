@@ -2,13 +2,13 @@ import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leafl
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { IconPinRed, IconPinGreen, IconPinBlue } from './icons'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { PopupHead, PopupText } from "./popupStyles";
 import { DeepRecycle, Filter } from '@/types'
 import { runActiveFilters } from '@/functions/filterData'
 import { monthArray } from '@/pages/aterbruk'
 import MarkerClusterGroup from './markerCluster/index.js'
-import recycleMap from './recycleMap'
+import { recyclePins } from '@/functions/recycleMap'
 
 // Map component for main page
 
@@ -28,19 +28,10 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
     fetchData()
   }, [])
 
-  // Declrares content of popups that will be displayed when clicking on a pin
-  const [popup, setPopup] = useState(() => null)
-
-  // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
-  const [allPins, setAllPins] = useState(() => null)
-
   // Declares map bounds
   var southWest = L.latLng(50, -20),
     northEast = L.latLng(72, 60),
     bounds = L.latLngBounds(southWest, northEast);
-
-  // Add if statement to call recycleMap or storiesMap depending on currentMap
-  recycleMap({popup, setPopup, setAllPins, currentFilter, searchInput, mapData})
 
   // Returns map with all relevant pins
   return (
@@ -60,7 +51,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
               return 40
             } else { return 80 }
           })}>
-          {allPins}
+          {currentMap === "Stories" ? null : recyclePins(mapData, currentFilter, searchInput)}
         </MarkerClusterGroup>
       </MapContainer>
     </>
