@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
 import { Filter } from "@/types";
 import Image from "next/image";
-import { yearLimits } from "@/pages";
+import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
 
 // Sidebar component for filtering the map

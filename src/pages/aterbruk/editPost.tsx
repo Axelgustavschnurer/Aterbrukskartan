@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
-import LeafletAddressLookup from "../components/findAddress";
+import LeafletAddressLookup from "../../components/findAddress";
 import styles from '../styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimits } from ".";
@@ -70,7 +70,7 @@ export default function EditPost() {
   }, [filterData])
 
   const NewPostMap = React.useMemo(() => dynamic(
-    () => import('../components/newPostMap'),
+    () => import('../../components/newPostMap'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false

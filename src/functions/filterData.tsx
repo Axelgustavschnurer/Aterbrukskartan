@@ -1,6 +1,6 @@
 import { DeepRecycle, Filter } from "@/types";
 import { Recycle } from "@prisma/client";
-import { yearLimits } from "@/pages";
+import { yearLimits } from "@/pages/aterbruk";
 
 export default runActiveFilters;
 export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };

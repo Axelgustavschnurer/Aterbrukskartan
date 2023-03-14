@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import styles from "../styles/dualSlider.module.css";
-import { monthArray } from "@/pages";
+import { monthArray } from "@/pages/aterbruk";
 
 // Range slider component for filtering by years
 
