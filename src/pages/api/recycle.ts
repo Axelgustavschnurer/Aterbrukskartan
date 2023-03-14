@@ -20,6 +20,12 @@ export default async function handler(
            * Returns all `Recycle` objects, with `mapItem` objects included.
            */
           const getData: DeepRecycle[] = await prisma.recycle.findMany({
+            where: {
+              isActive: true,
+              mapItem: {
+                isActive: true
+              },
+            },
             include: {
               mapItem: true
             }

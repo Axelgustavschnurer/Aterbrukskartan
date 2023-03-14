@@ -20,6 +20,12 @@ export default async function handler(
            * Returns all `Story` objects, with `mapItem` objects included.
            */
           const getData: DeepStory[] = await prisma.story.findMany({
+            where: {
+              isActive: true,
+              mapItem: {
+                isActive: true
+              },
+            },
             include: {
               mapItem: true
             }
