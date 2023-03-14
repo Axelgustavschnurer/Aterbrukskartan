@@ -41,7 +41,7 @@ export default function Sidebar({ setFilter }: any) {
    * Fetches data from the database
    */
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/getData')
+    const response = await fetch('http://localhost:3000/api/aterbruk')
     const data = await response.json()
     setMapData(data)
   }

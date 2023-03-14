@@ -17,7 +17,7 @@ export default function Map({ currentFilter, searchInput }: any) {
 
   // Fetches all "recycle" data from API
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/getData')
+    const response = await fetch('http://localhost:3000/api/aterbruk')
     const data = await response.json()
     setMapData(data)
   }
