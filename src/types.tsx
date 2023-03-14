@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, Recycle, Story } from '@prisma/client'
 
 /**
  * A version of Recycle that includes the mapItem relation
@@ -8,11 +8,47 @@ export type DeepRecycle = Prisma.RecycleGetPayload<{
 }>
 
 /**
+ * Checks if an object is a `DeepRecycle` or `Recycle` object rather than a `DeepStory` or `Story` object.
+ * @param object Object to check
+ * @returns `true` if the object is a `DeepRecycle` or `Recycle` object, `false` otherwise.
+ */
+export function isRecycle(object: any): object is DeepRecycle | Recycle {
+  return (object as DeepRecycle | Recycle).projectType !== undefined
+}
+
+/**
+ * Checks if an object is an array of `DeepRecycle` or `Recycle` objects rather than an array of `DeepStory` or `Story` objects.
+ * @param object Object to check
+ * @returns `true` if the object is an array of `DeepRecycle` or `Recycle` objects, `false` otherwise.
+ */
+export function isRecycleArray(object: any): object is DeepRecycle[] | Recycle[] {
+  return Array.isArray(object) && isRecycle(object[0])
+}
+
+/**
  * A version of Story that includes the mapItem relation
  */
 export type DeepStory = Prisma.StoryGetPayload<{
   include: { mapItem: true }
 }>
+
+/**
+ * Checks if an object is a `DeepStory` or `Story` object rather than a `DeepRecycle` or `Recycle` object.
+ * @param object Object to check
+ * @returns `true` if the object is a `DeepStory` or `Story` object, `false` otherwise.
+ */
+export function isStory(object: any): object is DeepStory | Story {
+  return (object as DeepStory | Story).isEnergyStory !== undefined
+}
+
+/**
+ * Checks if an object is an array of `DeepStory` or `Story` objects rather than an array of `DeepRecycle` or `Recycle` objects.
+ * @param object Object to check
+ * @returns `true` if the object is an array of `DeepStory` or `Story` objects, `false` otherwise.
+ */
+export function isStoryArray(object: any): object is DeepStory[] | Story[] {
+  return Array.isArray(object) && isStory(object[0])
+}
 
 /**
  * The data format used when creating a new `Recycle` object in the database.
