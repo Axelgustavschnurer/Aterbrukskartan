@@ -8,6 +8,7 @@ import { DeepRecycle, Filter } from '@/types'
 import { runActiveFilters } from '@/functions/filterData'
 import { monthArray } from '@/pages/aterbruk'
 import MarkerClusterGroup from './markerCluster/index.js'
+import recycleMap from './recycleMap'
 
 // Map component for main page
 
@@ -28,15 +29,18 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   }, [])
 
   // Declrares content of popups that will be displayed when clicking on a pin
-  const [popup, setPopup] = useState(null)
+  const [popup, setPopup] = useState(() => null)
 
   // Declares function that returns all pins with the correct icon, depending on project type. Also checks if a filter is applied and only returns pins that match the filter.
-  const [allPins, setAllPins] = useState(null)
+  const [allPins, setAllPins] = useState(() => null)
 
   // Declares map bounds
   var southWest = L.latLng(50, -20),
     northEast = L.latLng(72, 60),
     bounds = L.latLngBounds(southWest, northEast);
+
+  // Add if statement to call recycleMap or storiesMap depending on currentMap
+  recycleMap({popup, setPopup, setAllPins, currentFilter, searchInput, mapData})
 
   // Returns map with all relevant pins
   return (
@@ -47,18 +51,17 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      <MarkerClusterGroup 
-        disableClusteringAtZoom={13}
-        showCoverageOnHover={false}
-        spiderfyOnMaxZoom={false}
-        maxClusterRadius={((zoom:number) => {
-          if (zoom > 6 && zoom < 13) {
-            return 40
-        } else {return 80}
-      })}>
-      {popup}
-      {allPins}
-      </MarkerClusterGroup>
+        <MarkerClusterGroup
+          disableClusteringAtZoom={13}
+          showCoverageOnHover={false}
+          spiderfyOnMaxZoom={false}
+          maxClusterRadius={((zoom: number) => {
+            if (zoom > 6 && zoom < 13) {
+              return 40
+            } else { return 80 }
+          })}>
+          {allPins}
+        </MarkerClusterGroup>
       </MapContainer>
     </>
   )
