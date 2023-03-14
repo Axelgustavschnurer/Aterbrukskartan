@@ -80,35 +80,40 @@ export default function EditPost() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("description: " + description + "\n filterdata.description: " + filterData.description);
-
-    const data = {
-      projectType: projectType ? projectType : undefined,
-      description: description === filterData.description ? undefined : description ? description : null,
-      lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
-      availableMaterials: available.length ? available.join(", ") : null,
-      // TODO: Allow this to be null if the user removes it
-      month: startMonth ? parseInt(startMonth) : undefined,
-      contact: contact === filterData.contact ? undefined : contact ? contact : null,
-      externalLinks: externalLinks === filterData.externalLinks ? undefined : externalLinks ? externalLinks : null,
-      mapItem: {
-        // TODO: Allow these to be null if the user removes them
-        organisation: organisation ? organisation : undefined,
-        year: startYear ? startYear : undefined,
-        latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
-        longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+    try {
+      const data = {
+        projectType: projectType ? projectType : undefined,
+        description: description === filterData.description ? undefined : description ? description : null,
+        lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
+        availableMaterials: available.length ? available.join(", ") : null,
+        // TODO: Allow this to be null if the user removes it
+        month: startMonth ? parseInt(startMonth) : undefined,
+        contact: contact === filterData.contact ? undefined : contact ? contact : null,
+        externalLinks: externalLinks === filterData.externalLinks ? undefined : externalLinks ? externalLinks : null,
+        mapItem: {
+          // TODO: Allow these to be null if the user removes them
+          organisation: organisation ? organisation : undefined,
+          year: startYear ? startYear : undefined,
+          latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
+          longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+        }
       }
+      console.log(data)
+      const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const result = await response.json()
+      console.log(result)
+      if (result.status >= 200 && result.status < 300) {
+        router.push('/aterbruk')
+      }
+    } catch (error) {
+      console.log(error)
     }
-    console.log(data)
-    const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const result = await response.json()
-    console.log(result)
-    router.push('/')
   }
 
   const getProject = () => {

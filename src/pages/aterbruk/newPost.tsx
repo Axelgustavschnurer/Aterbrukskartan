@@ -129,7 +129,7 @@ export default function AddNewPost() {
                 setContact("");
                 setExternalLinks("");
                 setLocationToggle(false);
-                router.push("/");
+                router.push("/aterbruk");
             } else {
                 setMessage(resJson.message);
             }

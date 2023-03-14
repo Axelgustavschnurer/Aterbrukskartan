@@ -46,7 +46,7 @@ export default function HomePage() {
 
   // Function for navigating to the new post page
   const goToNewPost = () => {
-    router.push('/newPost')
+    router.push('/aterbruk/newPost')
   }
 
   /**
