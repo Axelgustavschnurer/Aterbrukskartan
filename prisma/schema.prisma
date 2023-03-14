@@ -21,6 +21,7 @@ model MapItem {
   address      String?
   postcode     Int?
   city         String?
+  isActive     Boolean  @default(true) @map("is_active")
   story        Story?
   recycle      Recycle?
 
@@ -39,10 +40,14 @@ model Story {
   descriptionSwedishShort String? @map("description_swedish_short")
   descriptionEnglishShort String? @map("description_english_short")
   openData                String? @map("open_data") @db.NVarChar(4000)
+  // Link to a report OR the site the report is/will be hosted on
   reports                 String? @db.NVarChar(4000)
+  // Title of the report, used to search for the report if it is not directly linked
+  reportTitle             String? @map("report_title")
   videos                  String? @db.NVarChar(4000)
   pdfCase                 String? @map("pdf_case") @db.NVarChar(4000)
   isEnergyStory           Boolean @default(true) @map("is_energy_story")
+  isActive                Boolean @default(true) @map("is_active")
   mapItem                 MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("story")
@@ -58,6 +63,7 @@ model Recycle {
   externalLinks       String? @map("external_links") @db.NVarChar(4000)
   availableMaterials  String? @map("available_materials")
   lookingForMaterials String? @map("looking_for_materials")
+  isActive            Boolean @default(true) @map("is_active")
   mapItem             MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("recycle")
