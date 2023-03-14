@@ -262,7 +262,7 @@ export default function AddNewPost() {
     return (
         <>
             <Head>
-                <title>Återbrukskartan</title>
+                <title>Lägg till inlägg</title>
                 <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
             </Head>
             <div className={styles.header} id={styles.header}>

@@ -60,8 +60,8 @@ export default function EditPost() {
   }, [project])
 
   useEffect(() => {
-    // setLat(filterData.mapItem?.latitude as any)
-    // setLon(filterData.mapItem?.longitude as any)
+    setLat(filterData.mapItem?.latitude as any)
+    setLon(filterData.mapItem?.longitude as any)
     setAvailableMaterials(filterData.availableMaterials ? filterData.availableMaterials.split(", ") as string[] : [] as string[])
     setSearchingFor(filterData.lookingForMaterials ? filterData.lookingForMaterials.split(", ") as string[] : [] as string[])
   }, [filterData])
@@ -78,7 +78,7 @@ export default function EditPost() {
     e.preventDefault();
     const data = {
       projectType: projectType ? projectType : undefined,
-      description: description ? description : undefined,
+      description: description ? description === filterData.description ? undefined : description : undefined,
       lookingForMaterials: searchingFor ? searchingFor.join(", ") : null,
       availableMaterials: available ? available.join(", ") : null,
       month: startMonth ? parseInt(startMonth) : undefined,
@@ -106,9 +106,7 @@ export default function EditPost() {
   }
 
   const getProject = () => {
-    let mappedData = newData.map((pin: any) => {
-      return pin.id
-    })
+    let mappedData = newData.map((pin: any) => pin.id)
     return (
       <>
         {mappedData.map((pin: any, index: any) => {
@@ -167,7 +165,7 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 defaultChecked={filterData.availableMaterials?.includes(category) ? true : false}
-                onChange={(e) => {
+                onClick={(e: any) => {
                   if (available.includes(e.target.value) && !e.target.checked) {
                     setAvailableMaterials(available.filter((item: any) => item !== e.target.value))
                   }
@@ -175,6 +173,8 @@ export default function EditPost() {
                   else if (!available.includes(e.target.value) && e.target.checked) {
                     setAvailableMaterials([...available, e.target.value])
                   }
+                  console.log(available);
+
                 }}
               />
               <label htmlFor={"_" + category}>{category}</label>
@@ -203,7 +203,7 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 defaultChecked={filterData.lookingForMaterials?.includes(category) ? true : false}
-                onChange={(e) => {
+                onClick={(e: any) => {
                   if (searchingFor.includes(e.target.value) && !e.target.checked) {
                     setSearchingFor(searchingFor.filter((item: any) => item !== e.target.value))
                   }
@@ -211,6 +211,7 @@ export default function EditPost() {
                   else if (!searchingFor.includes(e.target.value) && e.target.checked) {
                     setSearchingFor([...searchingFor, e.target.value])
                   }
+                  console.log(searchingFor);
                 }}
               />
               <label htmlFor={category}>{category}</label>
@@ -225,7 +226,7 @@ export default function EditPost() {
   return (
     <>
       <Head>
-        <title>Återbrukskartan</title>
+        <title>Redigera inlägg</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <div className={styles.header} id={styles.header}>
@@ -286,7 +287,7 @@ export default function EditPost() {
                 <select
                   id="startMonth"
                   name="startMonth"
-                  defaultValue={filterData.month ? filterData.month : undefined}
+                  defaultValue={filterData.month ? { value: filterData.month } as any : undefined}
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
                   <option value={""}>Välj startmånad</option>
