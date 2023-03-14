@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "../../components/findAddress";
-import styles from '../styles/editPost.module.css'
+import styles from '../../styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimits } from ".";
+import Image from "next/image";
 
 
 export default function EditPost() {
@@ -236,7 +237,7 @@ export default function EditPost() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <div className={styles.header} id={styles.header}>
-        <img src="/images/stuns_logo.png" alt="logo" />
+        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
