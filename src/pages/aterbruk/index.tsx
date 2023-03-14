@@ -108,7 +108,7 @@ export default function HomePage() {
       }
     }
   }
-  
+
 
   /**
    * Returns a p element with the currently active filters regarding materials that are being searched for by the projects on the map, if any

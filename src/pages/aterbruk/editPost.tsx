@@ -81,7 +81,7 @@ export default function EditPost() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("description: " + description + "\n filterdata.description: " + filterData.description);
-    
+
     const data = {
       projectType: projectType ? projectType : undefined,
       description: description === filterData.description ? undefined : description ? description : null,
