@@ -15,7 +15,7 @@ export default function AddNewPost() {
     const currentDate = new Date().getFullYear();
 
     const fetchData = async () => {
-        const response = await fetch('http://localhost:3000/api/aterbruk')
+        const response = await fetch('http://localhost:3000/api/recycle')
         const data = await response.json()
         setNewData(data)
     }
@@ -87,7 +87,7 @@ export default function AddNewPost() {
             })();
 
             // Sends a post request to the api with the data from the form
-            let res = await fetch("http://localhost:3000/api/aterbruk", {
+            let res = await fetch("http://localhost:3000/api/recycle", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
