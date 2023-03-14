@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
-import LeafletAddressLookup from "../../components/findAddress";
-import styles from '../../styles/newPost.module.css';
+import LeafletAddressLookup from "@/components/findAddress";
+import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.

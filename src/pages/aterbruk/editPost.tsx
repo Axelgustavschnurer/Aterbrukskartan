@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
-import LeafletAddressLookup from "../../components/findAddress";
-import styles from '../../styles/editPost.module.css'
+import LeafletAddressLookup from "@/components/findAddress";
+import styles from '@/styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimits } from ".";
 import Image from "next/image";
