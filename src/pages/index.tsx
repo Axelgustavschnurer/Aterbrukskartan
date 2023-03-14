@@ -18,7 +18,7 @@ export default function NavPage() {
     return (
         <>
             <Head>
-                <title>Lägg till inlägg</title>
+                <title>Välkommen</title>
                 <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
             </Head>
             <div className={styles.header} id={styles.header}>
@@ -35,7 +35,7 @@ export default function NavPage() {
                         </div>
                         <div className={styles.gotoImg}>
                             <Image src="/images/aterbruk.png" alt="logo" width={500} height={250} onClick={gotoStories} />
-                            <p>Stuns Street Map</p>
+                            <p>Stories</p>
                         </div>
                     </div>
                 </div>
