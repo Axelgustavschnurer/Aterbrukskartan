@@ -3,7 +3,6 @@ import { MapItem, Recycle } from "@prisma/client";
 import { yearLimits } from "@/pages/aterbruk";
 
 export default runActiveFilters;
-export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYear, filterByLookingFor, filterByAvailable, filterByOrganisation };
 
 /**
  * Looks through most of the fields of the Recycle objects and returns an array of the objects that match the search string.
@@ -11,7 +10,7 @@ export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYea
  * @param search String to search for.
  * @returns Recycle objects where a field matches the search string.
  */
-function filterBySearchInput(data: DeepRecycle[], search: string): DeepRecycle[] {
+export function filterBySearchInput(data: DeepRecycle[], search: string): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
 
   // Fields to search through in the Recycle objects.
@@ -68,7 +67,7 @@ function filterBySearchInput(data: DeepRecycle[], search: string): DeepRecycle[]
  * @param projectType Array of strings containing the project types to filter by.
  * @returns Recycle objects with a project type that matches with *one or more* of the project types in the projectType parameter.
  */
-function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRecycle[] {
+export function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     for (let j in data[i].projectType?.split(", ")) {
@@ -87,7 +86,7 @@ function filterByProjectType(data: DeepRecycle[], projectType: string[]): DeepRe
  * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
  * @returns The recycle objects that have a year that is within the range of the year parameter.
  */
-function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
+export function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     if (data[i].mapItem.year! <= Math.max(...years) && data[i].mapItem.year! >= Math.min(...years)) {
@@ -103,7 +102,7 @@ function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
  * @param months Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
  * @returns The recycle objects that have a month that is within the range of the month parameter.
  */
-function filterByMonth(data: DeepRecycle[], months: number[]): DeepRecycle[] {
+export function filterByMonth(data: DeepRecycle[], months: number[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     if (data[i].month! <= Math.max(...months) && data[i].month! >= Math.min(...months)) {
@@ -119,7 +118,7 @@ function filterByMonth(data: DeepRecycle[], months: number[]): DeepRecycle[] {
  * @param lookingFor Array of strings containing the materials to filter by
  * @returns Recycle objects that are looking for *one or more* of the materials in the lookingFor parameter
  */
-function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecycle[] {
+export function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     for (let j in data[i].lookingForMaterials?.split(", ")) {
@@ -138,7 +137,7 @@ function filterByLookingFor(data: DeepRecycle[], lookingFor: string[]): DeepRecy
  * @param available Array of strings containing the materials to filter by
  * @returns Recycle objects offering *one or more* of the materials in the available parameter
  */
-function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycle[] {
+export function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   // Just like the filterByLookingFor function, this function is a bit hard to understand. See the comments there for more info.
   for (let i in data) {
@@ -158,7 +157,7 @@ function filterByAvailable(data: DeepRecycle[], available: string[]): DeepRecycl
  * @param organisation Array of strings containing the organisations to filter by
  * @returns Recycle objects that belong to *one or more* of the organisations in the organisation parameter
 */
-function filterByOrganisation(data: DeepRecycle[], organisation: string[]): DeepRecycle[] {
+export function filterByOrganisation(data: DeepRecycle[], organisation: string[]): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
   for (let i in data) {
     if (organisation.includes(data[i].mapItem.organisation!)) {
@@ -174,7 +173,7 @@ function filterByOrganisation(data: DeepRecycle[], organisation: string[]): Deep
  * @param filters Which filters to apply
  * @returns Filtered list of DeepRecycle objects
  */
-function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
+export function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
 
   if (filters.projectType?.length) {
