@@ -1,5 +1,5 @@
 import { DeepRecycle, Filter } from "@/types";
-import { Recycle } from "@prisma/client";
+import { MapItem, Recycle } from "@prisma/client";
 import { yearLimits } from "@/pages/aterbruk";
 
 export default runActiveFilters;
@@ -13,50 +13,50 @@ export { runActiveFilters, filterBySearchInput, filterByProjectType, filterByYea
  */
 function filterBySearchInput(data: DeepRecycle[], search: string): DeepRecycle[] {
   let returnData: DeepRecycle[] = [];
+
+  // Fields to search through in the Recycle objects.
+  let recycleSearchFields = [
+    "projectType",
+    "description",
+    "contact",
+    "externalLinks",
+    "availableMaterials",
+    "lookingForMaterials",
+  ]
+
+  // Fields to search through in the MapItem objects.
+  let mapItemSearchFields = [
+    "name",
+    "organisation",
+    "year",
+    "address",
+    "postcode",
+    "city",
+  ]
+
+  search = search.toLowerCase();
+
   for (let i in data) {
-    if (data[i].mapItem.organisation?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
+    // Used to continue to next iteration of the outer loop if a match is found in the first inner loop.
+    let breakCheck = false;
+
+    for (let j of recycleSearchFields) {
+      if (String(data[i][j as keyof DeepRecycle])?.toLowerCase().includes(search)) {
+        returnData.push(data[i]);
+        breakCheck = true;
+        break;
+      }
     }
-    if (data[i].projectType?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].description?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].contact?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].externalLinks?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].availableMaterials?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].lookingForMaterials?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].mapItem.name?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].mapItem.year?.toString().toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].mapItem.city?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
-    }
-    if (data[i].mapItem.address?.toLowerCase().includes(search.toLowerCase())) {
-      returnData.push(data[i]);
-      continue;
+
+    if (breakCheck) continue;
+
+    // TODO: Add a check for months here. It will require special logic as the months are stored as numbers in the database, but the user will search using their Swedish names.
+
+    for (let k of mapItemSearchFields) {
+      if (String(data[i].mapItem[k as keyof MapItem])?.toLowerCase().includes(search)) {
+        returnData.push(data[i]);
+        break;
+      }
     }
   }
   return returnData;
