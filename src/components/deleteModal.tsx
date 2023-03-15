@@ -19,6 +19,6 @@ export default function Modal(props: any) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

@@ -9,8 +9,9 @@
     align-items: center;
     visibility: hidden;
     opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    transform: scale(0);
+    transition: opacity 0.3s, visibility 0.3s;
+    background-color: #00000081;
 }
 
 .container.active {
@@ -43,4 +44,9 @@
     display: flex;
     margin-top: 40px;
     cursor: pointer;
+}
+
+.stopScrolling {
+    height: 100%;
+    overflow: hidden;
 }
