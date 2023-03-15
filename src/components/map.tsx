@@ -45,17 +45,26 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MarkerClusterGroup
-          disableClusteringAtZoom={13}
-          showCoverageOnHover={false}
-          spiderfyOnMaxZoom={false}
-          maxClusterRadius={((zoom: number) => {
-            if (zoom > 6 && zoom < 13) {
-              return 40
-            } else { return 80 }
-          })}>
-          {currentMap === "Stories" ? storiesPins(mapData, currentFilter, searchInput) : recyclePins(mapData, currentFilter, searchInput)}
+        {currentMap === "Stories" ? 
+        <MarkerClusterGroup 
+          showCoverageOnHover={false} 
+          maxClusterRadius={((zoom: number) => 
+            {if (zoom > 6 && zoom < 13) {return 40}
+             else if (zoom >= 13) {return 30}
+             else { return 80 }})}> 
+            {storiesPins(mapData, currentFilter, searchInput)} 
+        </MarkerClusterGroup> 
+        : currentMap === "Recycle" ? 
+        <MarkerClusterGroup 
+          disableClusteringAtZoom={13} 
+          showCoverageOnHover={false} 
+          spiderfyOnMaxZoom={false} 
+          maxClusterRadius={((zoom: number) => 
+          {if (zoom > 6 && zoom < 13) {return 40} 
+           else { return 80 }})}>
+          {recyclePins(mapData, currentFilter, searchInput)}
         </MarkerClusterGroup>
+        : null}
       </MapContainer>
     </>
   )
