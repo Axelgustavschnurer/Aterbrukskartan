@@ -109,7 +109,26 @@ export default function EditPost() {
       })
       const result = await response.json()
       console.log(result)
-      if (result.status >= 200 && result.status < 300) {
+      if (response.status >= 200 && response.status < 300) {
+        router.push('/aterbruk')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDelete = async (e: any) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const result = await response.json()
+      console.log(result);
+      if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
     } catch (error) {
@@ -129,6 +148,8 @@ export default function EditPost() {
       </>
     )
   }
+
+
 
   const projectTypes = () => {
     let categories = [
@@ -405,11 +426,17 @@ export default function EditPost() {
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
-              <div className={styles.addNewPostFormSubmit}>
-                < button type="submit" > Spara</button >
-              </div >
               {/* <div className={styles.message}>{message ? <p>{message}</p> : null}</div> */}
             </form >
+            <div className={styles.btnAlignContainer}>
+              <div className={styles.addNewPostFormSubmit}>
+                < button type="submit" onClick={handleSubmit}> Spara </button >
+              </div >
+              <div className={styles.addNewPostFormSubmit}>
+                < button onClick={handleDelete}> Ta bort </button >
+              </div >
+            </div>
+
           </div >
         </div >
       </div >
