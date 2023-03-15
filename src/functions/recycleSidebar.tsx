@@ -44,7 +44,7 @@ let categories = [
 /**
  * Returns an array of all the different material categories in the database
  */
-export function getAllMaterialCategories(mapData: any) {
+function getAllMaterialCategories(mapData: any) {
     // List of all strings in the availableMaterials and lookingForMaterials fields
     let unsplitMaterials: string[] = []
     mapData.map((pin: any) => {
@@ -71,8 +71,8 @@ export function getAllMaterialCategories(mapData: any) {
 /**
  * Creates checkboxes for all the different lookingForMaterials categories in the database
  */
-export function createLookingForFilter(getAllMaterialCategories: any, lookingForMaterials: any, setLookingForMaterials: any) {
-    let categories = getAllMaterialCategories()
+export function createLookingForFilter(mapData: any, lookingForMaterials: any, setLookingForMaterials: any) {
+    let categories = getAllMaterialCategories(mapData)
     return (
         <>
         {categories.map((category: any) => {
@@ -104,8 +104,8 @@ export function createLookingForFilter(getAllMaterialCategories: any, lookingFor
 /**
  * Creates checkboxes for all the different availableMaterials categories in the database
  */
-export function createAvailableFilter(getAllMaterialCategories: any, availableMaterials: any, setAvailableMaterials: any) {
-    let categories = getAllMaterialCategories()
+export function createAvailableFilter(mapData: any, availableMaterials: any, setAvailableMaterials: any) {
+    let categories = getAllMaterialCategories(mapData)
     return (
         <>
         {categories.map((category: any) => {

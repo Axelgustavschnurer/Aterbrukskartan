@@ -6,7 +6,7 @@ import { Filter } from "@/types";
 import Image from "next/image";
 import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
-import { createProjectTypeFilter, getAllMaterialCategories, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
+import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
 
 // Sidebar component for filtering the map
 
@@ -161,10 +161,10 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
             <h3>Erbjuds</h3>
-            {createAvailableFilter(getAllMaterialCategories(mapData), availableMaterials, setAvailableMaterials)}
+            {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)}
 
             <h3>Sökes</h3>
-            {createLookingForFilter(getAllMaterialCategories(mapData), lookingForMaterials, setLookingForMaterials)}
+            {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}
