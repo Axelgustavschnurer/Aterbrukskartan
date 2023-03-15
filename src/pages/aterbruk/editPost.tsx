@@ -83,8 +83,8 @@ export default function EditPost() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("description: " + description + "\n filterdata.description: " + filterData.description);
     try {
+      // The data that is sent to the database
       const data = {
         projectType: projectType ? projectType : undefined,
         description: description === filterData.description ? undefined : description ? description : null,
@@ -103,6 +103,8 @@ export default function EditPost() {
         }
       }
       console.log(data)
+
+      // Fetches the data from the database with the id of the project as a PUT request
       const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
         method: 'PUT',
         headers: {
@@ -112,6 +114,8 @@ export default function EditPost() {
       })
       const result = await response.json()
       console.log(result)
+
+      // If the response is successful, the user is redirected to the aterbruk page else an error is logged
       if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
@@ -123,6 +127,7 @@ export default function EditPost() {
   const handleDelete = async (e: any) => {
     e.preventDefault();
     try {
+      // Fetches the data from the database with the id of the project as a DELETE request
       const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
         method: 'DELETE',
         headers: {
@@ -131,6 +136,8 @@ export default function EditPost() {
       })
       const result = await response.json()
       console.log(result);
+
+      // If the response is successful, the user is redirected to the aterbruk page else an error is logged
       if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
@@ -139,10 +146,12 @@ export default function EditPost() {
     }
   }
 
+  // Handles the state of the modal
   const handleDeleteModalOnclick = () => {
     setModalState(!modalState)
   }
 
+  // Gets the project id from the database 
   const getProject = () => {
     let mappedData = newData.map((pin: any) => pin.id)
     return (
@@ -156,7 +165,9 @@ export default function EditPost() {
     )
   }
 
+
   const projectTypes = () => {
+    // List of project types
     let categories = [
       "Rivning",
       "Nybyggnation",
@@ -164,6 +175,7 @@ export default function EditPost() {
     ]
     return (
       <>
+        {/* Loops through the list and creates an input for each item in the list*/}
         {categories.map((category: any, index: any) => {
           return (
             <div className={styles.typeInputGroup} key={category}>
@@ -185,6 +197,7 @@ export default function EditPost() {
     )
   }
 
+  // Creates a list of checkboxes for the materials that are being offered
   const offers = () => {
     let categories = [
       "Stomme",
@@ -223,6 +236,7 @@ export default function EditPost() {
     )
   }
 
+  // Creates a list of checkboxes for the materials that are being searched for
   const searchingFors = () => {
     let categories = [
       "Stomme",
@@ -320,6 +334,7 @@ export default function EditPost() {
                 />
               </div>
 
+              {/*TODO: Fix the defaultValue of the startmonth to display the date in db */}
               <div className={styles.startMonth}>
                 <h3>Startmånad</h3>
                 <select
@@ -359,7 +374,6 @@ export default function EditPost() {
                     className={styles.switchInput}
                     onChange={(e) => setLocationToggle(e.target.checked)}
                   />
-                  {/* If you want to switch to map, uncomment this part*/}
                   <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
                 </div>
                 {
