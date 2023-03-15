@@ -9,11 +9,14 @@ import styles from '@/styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimits } from ".";
 import Image from "next/image";
+import Modal from '@/components/deleteModal';
 
 
 export default function EditPost() {
   const [newData, setNewData] = useState([{}] as DeepRecycle[]);
   const [filterData, setFilterData] = useState({} as DeepRecycle);
+
+  const [modalState, setModalState] = useState(false);
 
   const [projectType, setProjectType] = useState("");
   const [description, setDescription] = useState("");
@@ -136,6 +139,10 @@ export default function EditPost() {
     }
   }
 
+  const handleDeleteModalOnclick = () => {
+    setModalState(!modalState)
+  }
+
   const getProject = () => {
     let mappedData = newData.map((pin: any) => pin.id)
     return (
@@ -148,8 +155,6 @@ export default function EditPost() {
       </>
     )
   }
-
-
 
   const projectTypes = () => {
     let categories = [
@@ -433,7 +438,8 @@ export default function EditPost() {
                 < button type="submit" onClick={handleSubmit}> Spara </button >
               </div >
               <div className={styles.addNewPostFormSubmit}>
-                < button onClick={handleDelete}> Ta bort </button >
+                < button onClick={handleDeleteModalOnclick}> Ta bort </button >
+                <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div >
             </div>
 
