@@ -6,10 +6,11 @@ import { Filter } from "@/types";
 import Image from "next/image";
 import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
+import { createProjectTypeFilter, getAllMaterialCategories, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
 
 // Sidebar component for filtering the map
 
-export default function Sidebar({ setFilter }: any) {
+export default function Sidebar({ setFilter, currentMap }: any) {
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);
 
@@ -41,9 +42,16 @@ export default function Sidebar({ setFilter }: any) {
    * Fetches data from the database
    */
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/recycle')
-    const data = await response.json()
-    setMapData(data)
+    if (currentMap === "Stories") {
+      const response = await fetch('http://localhost:3000/api/stories')
+      const data = await response.json()
+      setMapData(data)
+    } 
+    else if (currentMap === "Recycle") {
+      const response = await fetch('http://localhost:3000/api/recycle')
+      const data = await response.json()
+      setMapData(data)
+    }
   }
 
   // Runs fetchData function on component mount
@@ -77,134 +85,6 @@ export default function Sidebar({ setFilter }: any) {
       organisation: organisation,
     } as Filter)
   }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter])
-
-  /**
-   * Creates buttons for all the project categories defined in the array `categories` in this function
-   */
-  const createProjectTypeFilter = () => {
-    let categories = [
-      "Rivning",
-      "Nybyggnation",
-      "Ombyggnation",
-    ]
-    return (
-      <>
-        {categories.map((category: any) => {
-          return (
-            <div className={styles.alignBtn} key={category}>
-              <button
-                id={styles[category]}
-                value={category}
-                onClick={(e: any) => {
-                  if (projectType.includes(e.currentTarget.value)) {
-                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
-                  } else {
-                    setProjectType([...projectType, e.currentTarget.value])
-                  }
-                }}
-              >
-                <Image src={"/images/" + category.toLowerCase() + ".svg"} alt={category} width={40} height={40} />
-              </button>
-              <p>{category}</p>
-            </div>
-          )
-        })}
-      </>
-    )
-  }
-
-  /**
-   * Returns an array of all the different material categories in the database
-   */
-  const getAllMaterialCategories = () => {
-    // List of all strings in the availableMaterials and lookingForMaterials fields
-    let unsplitMaterials: string[] = []
-    mapData.map((pin: any) => {
-      if (pin.availableMaterials) {
-        unsplitMaterials.push(pin.availableMaterials)
-      }
-      if (pin.lookingForMaterials) {
-        unsplitMaterials.push(pin.lookingForMaterials)
-      }
-    })
-
-    // Splits the strings into arrays and flattens them into one array
-    let splitMaterials: string[] = []
-    unsplitMaterials.map((material: any) => {
-      splitMaterials.push(...material.split(',').map((item: any) => item.trim()))
-    })
-
-    // Removes duplicates and sorts the array
-    let filteredMaterials = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
-
-    return filteredMaterials
-  }
-
-  /**
-   * Creates checkboxes for all the different lookingForMaterials categories in the database
-   */
-  const createLookingForFilter = () => {
-    let categories = getAllMaterialCategories()
-    return (
-      <>
-        {categories.map((category: any) => {
-          return (
-            <div className={styles.inputGroup} key={category + "Sökes"}>
-              <input
-                id={category + "Sökes"}
-                name={category + "Sökes"}
-                type="checkbox"
-                onChange={(e) => {
-                  // If the checkbox is now checked and the category is not in the lookingForMaterials array, add it to the array
-                  if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
-                    setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
-                  }
-                  // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
-                  else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
-                    setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
-                  }
-                }}
-              />
-              <label htmlFor={category + "Sökes"}>{category}</label>
-            </div>
-          )
-        })}
-      </>
-    )
-  }
-
-  /**
-   * Creates checkboxes for all the different availableMaterials categories in the database
-   */
-  const createAvailableFilter = () => {
-    let categories = getAllMaterialCategories()
-    return (
-      <>
-        {categories.map((category: any) => {
-          return (
-            <div className={styles.inputGroup} key={category + "Erbjuds"}>
-              <input
-                id={category + "Erbjuds"}
-                name={category + "Erbjuds"}
-                type="checkbox"
-                onChange={(e) => {
-                  // If the checkbox is now checked and the category is not in the availableMaterials array, add it to the array
-                  if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
-                    setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
-                  }
-                  // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
-                  else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
-                    setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
-                  }
-                }}
-              />
-              <label htmlFor={category + "Erbjuds"}>{category}</label>
-            </div>
-          )
-        })}
-      </>
-    )
-  }
 
   /**
    * Creates checkboxes for all the different organisations in the database
@@ -247,7 +127,7 @@ export default function Sidebar({ setFilter }: any) {
 
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
-            {createProjectTypeFilter()}
+            {createProjectTypeFilter(projectType, setProjectType)}
           </div>
 
           {/* Range slider for year filter */}
@@ -281,10 +161,10 @@ export default function Sidebar({ setFilter }: any) {
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
             <h3>Erbjuds</h3>
-            {createAvailableFilter()}
+            {createAvailableFilter(getAllMaterialCategories(mapData), availableMaterials, setAvailableMaterials)}
 
             <h3>Sökes</h3>
-            {createLookingForFilter()}
+            {createLookingForFilter(getAllMaterialCategories(mapData), lookingForMaterials, setLookingForMaterials)}
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}

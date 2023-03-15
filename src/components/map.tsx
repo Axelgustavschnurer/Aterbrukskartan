@@ -12,7 +12,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
 
-  // Fetches all "recycle" data from API
+  // Fetches all relevant data from API
   const fetchData = async () => {
     if (currentMap === "Stories") {
       const response = await fetch('http://localhost:3000/api/stories')
