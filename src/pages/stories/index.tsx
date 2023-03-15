@@ -45,24 +45,6 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active project type filters, if any
-   */
-  const projectTypeLabel = () => {
-    if (currentFilter.projectType?.length) {
-      if (currentFilter.projectType.length > maxCategoryAmount) {
-        return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.length} projekttyper</p>
-        )
-      }
-      else {
-        return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.join(", ")}</p>
-        )
-      }
-    }
-  }
-
-  /**
    * Returns a p element with the currently active year filters, if any
    */
   const yearLabel = () => {
@@ -110,7 +92,7 @@ export default function HomePage() {
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories" />
 
-      <Sidebar setFilter={setFilter} />
+      <Sidebar setFilter={setFilter} currentMap="Stories"/>
 
       {/* Searchbar */}
       <div className={styles.wrap}>
@@ -131,7 +113,6 @@ export default function HomePage() {
       {/* Labels showing currently avtive filters, if any */}
       <div className={styles.filterTextContent}>
         <div className={styles.filterTextContainer}>
-          {projectTypeLabel()}
           {yearLabel()}
           {organisationLabel()}
         </div>

@@ -173,7 +173,7 @@ export default function HomePage() {
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle"/>
 
-      <Sidebar setFilter={setFilter} />
+      <Sidebar setFilter={setFilter} currentMap="Recycle"/>
 
       {/* Searchbar */}
       <div className={styles.wrap}>

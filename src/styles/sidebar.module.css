@@ -308,3 +308,75 @@
         left: 15%;
     }
 }
+
+
+/* Filter buttons for stories */
+
+#Solel {
+    background-color: #c2047c;
+    border: black;
+    border-radius: 100%;
+    padding: 5px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Solel:hover {
+    background-color: #c2047c;
+    opacity: 0.9;
+}
+
+#Solel img {
+    width: 30px;
+    height: 30px;
+}
+
+#Energilagring {
+    background-color: #05f0b9;
+    border: black;
+    border-radius: 100%;
+    padding: 5px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Energilagring:hover {
+    background-color: #05f0b9;
+    opacity: 0.9;
+}
+
+#Energilagring img {
+    width: 30px;
+    height: 30px;
+}
+
+#Hållbarhet {
+    background-color: #0e6905;
+    border: black;
+    border-radius: 100%;
+    padding: 5px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#Hållbarhet:hover {
+    background-color: #0e6905;
+    opacity: 0.9;
+}
+
+#Hållbarhet img {
+    width: 30px;
+    height: 30px;
+}

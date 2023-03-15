@@ -7,6 +7,7 @@ import Image from "next/image";
 import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
 import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
+import { createCategoryFilter } from "@/functions/storiesSidebar";
 
 // Sidebar component for filtering the map
 
@@ -25,6 +26,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   // List of all active filters for the field `projectType`
   const [projectType, setProjectType] = useState([] as string[])
+
+  // List of all active filters for the field `storyCategory`
+  const [storyCategory, setStoryCategory] = useState([] as string[])
 
   // List of all active filters for the field `lookingForMaterials`
   const [lookingForMaterials, setLookingForMaterials] = useState([] as string[])
@@ -127,7 +131,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
-            {createProjectTypeFilter(projectType, setProjectType)}
+            {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType) : null}
           </div>
 
           {/* Range slider for year filter */}

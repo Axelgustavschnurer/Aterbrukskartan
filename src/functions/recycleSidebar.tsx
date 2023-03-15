@@ -1,9 +1,5 @@
-import React, { useMemo } from "react";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { Filter } from "@/types";
+import React from "react";
 import Image from "next/image";
-import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
 
 /**
