@@ -1,7 +1,9 @@
 import { DeepStory, Filter } from "@/types";
 import { yearLimits } from "@/pages/stories";
 import { MapItem } from "@prisma/client";
-import { filterByYear } from "@/functions/filterData";
+import { filterByYear, filterByOrganisation } from "./commonFilters";
+
+export default runActiveFilters;
 
 /**
  * Looks through most of the fields of the `Story` objects and returns an array of the objects that match the search string.
@@ -105,6 +107,32 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
         break;
       }
     }
+  }
+
+  return returnData;
+}
+
+/**
+ * 
+ */
+export function runActiveFilters(data: DeepStory[], filters: Filter) {
+  let returnData: DeepStory[] = data;
+
+  // The year filter is not run if the year values are in their default state.
+  if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
+    returnData = filterByYear(returnData, filters.years) as DeepStory[];
+  }
+  if (filters.organisation?.length) {
+    returnData = filterByOrganisation(returnData, filters.organisation) as DeepStory[];
+  }
+  if (filters.categories?.length) {
+    returnData = filterByCategories(returnData, filters.categories);
+  }
+  if (filters.educationalProgram?.length) {
+    returnData = filterByEducationalProgram(returnData, filters.educationalProgram);
+  }
+  if (filters.searchInput) {
+    returnData = filterStoriesBySearchInput(returnData, filters.searchInput);
   }
 
   return returnData;

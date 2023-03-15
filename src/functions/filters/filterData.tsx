@@ -1,6 +1,7 @@
 import { DeepRecycle, Filter } from "@/types";
 import { MapItem, Recycle } from "@prisma/client";
 import { yearLimits } from "@/pages/aterbruk";
+import { filterByYear, filterByOrganisation } from "./commonFilters";
 
 export default runActiveFilters;
 
@@ -81,22 +82,6 @@ export function filterByProjectType(data: DeepRecycle[], projectType: string[]):
 }
 
 /**
- * Filters out recycle objects that do not have a year that is within the range of the year parameter.
- * @param data Array of DeepRecycle objects to filter by year.
- * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
- * @returns The recycle objects that have a year that is within the range of the year parameter.
- */
-export function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
-  let returnData: DeepRecycle[] = [];
-  for (let i in data) {
-    if (data[i].mapItem.year! <= Math.max(...years) && data[i].mapItem.year! >= Math.min(...years)) {
-      returnData.push(data[i]);
-    }
-  }
-  return returnData;
-}
-
-/**
  * Filters out recycle objects that do not have a month that is within the range of the month parameter.
  * @param data Array of DeepRecycle objects to filter by month.
  * @param months Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
@@ -152,22 +137,6 @@ export function filterByAvailable(data: DeepRecycle[], available: string[]): Dee
 }
 
 /**
- * Filters out recycle objects that do not belong to any of the organisations in the organisation parameter
- * @param data Array of DeepRecycle objects to filter by organisation
- * @param organisation Array of strings containing the organisations to filter by
- * @returns Recycle objects that belong to *one or more* of the organisations in the organisation parameter
-*/
-export function filterByOrganisation(data: DeepRecycle[], organisation: string[]): DeepRecycle[] {
-  let returnData: DeepRecycle[] = [];
-  for (let i in data) {
-    if (organisation.includes(data[i].mapItem.organisation!)) {
-      returnData.push(data[i]);
-    }
-  }
-  return returnData;
-}
-
-/**
  * Filters through the data parameter using the filters parameter
  * @param data Array of DeepRecycle objects to run through filters
  * @param filters Which filters to apply
@@ -181,7 +150,7 @@ export function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecy
   }
   // The year and month filters are not run if they are in their respective default states
   if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
-    returnData = filterByYear(returnData, filters.years);
+    returnData = filterByYear(returnData, filters.years) as DeepRecycle[];
   }
   if (filters.months && (Math.max(...filters.months) != 12 || Math.min(...filters.months) != 1)) {
     returnData = filterByMonth(returnData, filters.months);
@@ -193,7 +162,7 @@ export function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecy
     returnData = filterByLookingFor(returnData, filters.lookingForCategories);
   }
   if (filters.organisation?.length) {
-    returnData = filterByOrganisation(returnData, filters.organisation);
+    returnData = filterByOrganisation(returnData, filters.organisation) as DeepRecycle[];
   }
   if (filters.searchInput) {
     returnData = filterBySearchInput(returnData, filters.searchInput);

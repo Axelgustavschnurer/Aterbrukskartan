@@ -4,7 +4,7 @@ import { IconPinRed, IconPinGreen, IconPinBlue } from '../components/icons'
 import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
 import { DeepRecycle, Filter } from '@/types'
-import { runActiveFilters } from '@/functions/filterData'
+import { runActiveFilters } from '@/functions/filters/filterData'
 import { monthArray } from '@/pages/aterbruk'
 
 export function recyclePopup(pin: any) {
