@@ -13,8 +13,8 @@ import styles from '@/styles/index.module.css'
  * These values are also used at other points to check if the sliders are at their default values
  */
 export const yearLimits = {
-  min: new Date().getFullYear(),
-  max: new Date().getFullYear() + 10,
+  min: 2014,
+  max: new Date().getFullYear(),
 }
 
 export default function HomePage() {
