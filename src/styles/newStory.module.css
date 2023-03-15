@@ -42,6 +42,7 @@
 .addNewPostForm,
 .addNewPostFormOrganization,
 .addNewPostFormTitle,
+.addNewPostFormOrientation,
 .addNewPostFormName,
 .startYear,
 .addNewPostFormDescription,
@@ -64,7 +65,8 @@
 }
 
 .addNewPostFormTitle input,
-.addNewPostFormName input {
+.addNewPostFormName input,
+.addNewPostFormOrientation input {
     height: 30px;
     width: 50%;
     border-radius: 5px;

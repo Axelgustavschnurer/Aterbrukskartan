@@ -31,14 +31,21 @@ export default function AddNewStory() {
     const [lon, setLon] = useState();
 
     const [newData, setNewData] = useState([]);
+
     const [organization, setOrganization] = useState("");
+
     const [program, setProgram] = useState("");
+    const [programOrientation, setProgramOrientation] = useState("");
+    const [joinProgram, setJoinProgram] = useState("");
+
+    const [title, setTitle] = useState("");
+    const [reportTitle, setReportTitle] = useState("");
+    const [reportLink, setReportLink] = useState("");
     const [startYear, setStartYear] = useState("");
-    const [projectType, setProjectType] = useState("");
-    const [location, setLocation] = useState("");
+    const [categorys, setCategorys] = useState([] as string[]);
     const [description, setDescription] = useState("");
-    const [contact, setContact] = useState("");
-    const [externalLinks, setExternalLinks] = useState("");
+    const [caseDescription, setCaseDescription] = useState("");
+    const [videos, setVideos] = useState("");
     const [energyStory, setEnergyStory] = useState(true);
     const [message, setMessage] = useState("");
     const [locationToggle, setLocationToggle] = useState(false);
@@ -50,39 +57,57 @@ export default function AddNewStory() {
                 // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
                 latitude: parseFloat(lat!),
                 longitude: parseFloat(lon!),
+                address: "",
+                postcode: parseInt(""),
+                city: "",
                 organisation: organization,
                 year: parseInt(startYear),
+                name: title,
             }
             // Gets the keys of the searchingFor object and returns them as a strin
             // Sends a post request to the api with the data from the form
-            let res = await fetch("http://localhost:3000/api/recycle", {
+            let res = await fetch("http://localhost:3000/api/stories", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    projectType,
                     mapItem,
-                    description,
-                    contact,
-                    externalLinks
+                    categorySwedish: categorys.join(", "),
+                    educationalProgram: program,
+                    descriptionSwedish: description,
+                    reports: reportLink,
+                    reportTitle,
+                    videos,
+                    pdfCase: caseDescription,
+                    isEnergyStory: energyStory,
                 }),
             });
+
+            console.log(JSON.stringify({
+                mapItem,
+                categorySwedish: categorys.join(", "),
+                educationalProgram: programOrientation ? (program + ", " + programOrientation) : program,
+                descriptionSwedish: description,
+                reports: reportLink,
+                reportTitle,
+                videos,
+                pdfCase: caseDescription,
+                isEnergyStory: energyStory,
+            })
+            );
+
 
             let resJson = await res.json();
             if (res.status >= 200 && res.status < 300) {
                 // If the post was successful, reset the form and redirect to the home page
                 setOrganization("");
                 setStartYear("");
-                setProjectType("");
-                setLocation("");
                 setLat(undefined);
                 setLon(undefined);
                 setDescription("");
-                setContact("");
-                setExternalLinks("");
                 setLocationToggle(false);
-                router.push("/aterbruk");
+                router.push("/stories");
             } else {
                 setMessage(resJson.message);
             }
@@ -133,23 +158,6 @@ export default function AddNewStory() {
         return filteredCategories
     }
 
-    const getAllEducationalPrograms = () => {
-        let unsplitPrograms: string[] = [];
-        newData.map((pin: any) => {
-            if (pin.educationalProgram) {
-                unsplitPrograms.push(pin.educationalProgram)
-            }
-        })
-
-        let splitPrograms: string[] = [];
-        unsplitPrograms.map((program: any) => {
-            splitPrograms.push(...program.split(", ").map((item: any) => item.trim().toLowerCase()))
-        })
-        let filteredPrograms = splitPrograms.filter((data: any, index: any) => splitPrograms.indexOf(data) === index && data).sort()
-
-        return filteredPrograms
-    }
-
     const getFilterdCategories = () => {
         let categories = getAllCategories();
         return (
@@ -162,7 +170,14 @@ export default function AddNewStory() {
                                 id={category}
                                 name={category}
                                 value={category}
-                            // onChange={setSearching}
+                                onClick={(e: any) => {
+                                    if (categorys.includes(e.target.value) && !e.target.checked) {
+                                        setCategorys(categorys.filter((item: any) => item !== e.target.value))
+                                    }
+                                    else if (!categorys.includes(e.target.value) && e.target.checked) {
+                                        setCategorys([...categorys, e.target.value])
+                                    }
+                                }}
                             />
                             <label htmlFor={category}>{category}</label>
                         </div>
@@ -174,7 +189,8 @@ export default function AddNewStory() {
     }
 
     const getEducationalPrograms = () => {
-        let programs = getAllEducationalPrograms();
+        let programs = ["Agronom", "Aivilingenjör", "Högskoleingenjör", "Handidatprogram"];
+        ;
         return (
             <>
                 {programs.map((program: any) => {
@@ -217,7 +233,6 @@ export default function AddNewStory() {
                                     name="organization"
                                     value={organization}
                                     onChange={(e) => setOrganization(e.target.value)}
-                                    required
                                 >
                                     <option value="">Välj organisation</option>
                                     {getOrganisation()}
@@ -231,12 +246,27 @@ export default function AddNewStory() {
                                     name="program"
                                     value={program}
                                     onChange={(e: any) => setProgram(e.target.value)}
-                                    required
                                 >
                                     <option value="">Välj program</option>
                                     {getEducationalPrograms()}
                                 </select>
                             </div>
+                            {
+                                program ?
+                                    <div className={styles.addNewPostFormOrientation}>
+                                        <h3>Programinriktning *</h3>
+                                        <input
+                                            type="text"
+                                            id={program}
+                                            name={program}
+                                            value={programOrientation}
+                                            onChange={(e) => setProgramOrientation(e.target.value)}
+                                        />
+                                    </div>
+                                    :
+                                    null
+
+                            }
 
                             <div className={styles.addNewPostFormTitle}>
                                 <h3>Titel</h3>
@@ -244,8 +274,8 @@ export default function AddNewStory() {
                                     type="text"
                                     id="title"
                                     name="title"
-                                // value={title}
-                                // onChange={(e) => setTitle(e.target.value)}
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
                                 />
                             </div>
                             <div className={styles.addNewPostFormName}>
@@ -254,8 +284,18 @@ export default function AddNewStory() {
                                     type="text"
                                     id="name"
                                     name="name"
-                                // value={title}
-                                // onChange={(e) => setTitle(e.target.value)}
+                                    value={reportTitle}
+                                    onChange={(e) => setReportTitle(e.target.value)}
+                                />
+                            </div>
+                            <div className={styles.addNewPostFormName}>
+                                <h3>Länk till rapport</h3>
+                                <input
+                                    type="text"
+                                    id="reportLink"
+                                    name="reportLink"
+                                    value={reportLink}
+                                    onChange={(e) => setReportLink(e.target.value)}
                                 />
                             </div>
                             <div className={styles.startYear}>
@@ -315,33 +355,30 @@ export default function AddNewStory() {
                                     name="description"
                                     rows={10}
                                     maxLength={3000}
-                                    placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    required
                                 />
                             </div >
                             <div className={styles.addNewPostFormContact}>
                                 <h3>Länk till case-beskrivning *</h3>
                                 <textarea
-                                    id="contact"
-                                    name="contact"
+                                    id="caseDescription"
+                                    name="caseDescription"
                                     rows={1}
                                     cols={100}
-                                    value={contact}
-                                    onChange={(e) => setContact(e.target.value)}
-                                    required
+                                    value={caseDescription}
+                                    onChange={(e) => setCaseDescription(e.target.value)}
                                 />
                             </div >
                             <div className={styles.addNewPostFormExternalLinks}>
                                 <h3>Videolänk</h3>
                                 <textarea
-                                    id="externalLinks"
-                                    name="externalLinks"
+                                    id="videos"
+                                    name="videos"
                                     rows={1}
                                     cols={100}
-                                    value={externalLinks}
-                                    onChange={(e) => setExternalLinks(e.target.value)}
+                                    value={videos}
+                                    onChange={(e) => setVideos(e.target.value)}
                                 />
                             </div >
                             <div className={styles.energyStory}>
