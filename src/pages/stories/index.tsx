@@ -13,7 +13,7 @@ import Footer from '@/components/footer'
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
  * These values are also used at other points to check if the sliders are at their default values
  */
-export const yearLimits = {
+export const yearLimitsStories = {
   min: 2014,
   max: new Date().getFullYear(),
 }
@@ -50,7 +50,7 @@ export default function HomePage() {
    */
   const yearLabel = () => {
     if (currentFilter.years?.length) {
-      if (Math.min(...currentFilter.years) === yearLimits.min && Math.max(...currentFilter.years) === yearLimits.max) {
+      if (Math.min(...currentFilter.years) === yearLimitsStories.min && Math.max(...currentFilter.years) === yearLimitsStories.max) {
         return null;
       }
       else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {

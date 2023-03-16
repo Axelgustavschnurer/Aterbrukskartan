@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
 import { RecycleFilter } from "@/types";
 import Image from "next/image";
-import { yearLimits } from "@/pages/aterbruk";
+import { yearLimitsRecycle } from "@/pages/aterbruk";
+import { yearLimitsStories } from "@/pages/stories";
 import styles from "../styles/sidebar.module.css";
 import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
 import { createCategoryFilter } from "@/functions/storiesSidebar";
@@ -137,8 +138,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           {/* Range slider for year filter */}
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
-              min={yearLimits.min}
-              max={yearLimits.max}
+              min={currentMap === "Stories" ? yearLimitsStories.min : currentMap === "Recycle" ? yearLimitsRecycle.min : null}
+              max={currentMap === "Stories" ? yearLimitsStories.max : currentMap === "Recycle" ? yearLimitsRecycle.max : null}
               onChange={({ min, max }: any) => {
                 if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
                   setYears([min, max]), setSliderReset(false)
@@ -148,7 +149,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
             />
           </div>
 
-          {/*This is a range slider for months. It is currently not in use, but can be used in the future. */}
+          {/*This is a range slider for months filter. Recycle map only */}
+          {currentMap === "Recycle" ? 
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
               min={1}
@@ -161,6 +163,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
               reset={sliderReset}
             />
           </div>
+           :null}
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
@@ -181,7 +184,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
               onClick={() => {
                 setProjectType([])
                 setSliderReset(true)
-                setYears([yearLimits.min, yearLimits.max])
+                {currentMap === "Stories" ? setYears([yearLimitsStories.min, yearLimitsStories.max]) : currentMap === "Recycle" ? setYears([yearLimitsRecycle.min, yearLimitsRecycle.max]) : null}
                 setLookingForMaterials([])
                 setAvailableMaterials([])
                 setOrganisation([])

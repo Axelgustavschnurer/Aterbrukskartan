@@ -1,6 +1,6 @@
 import { DeepRecycle, RecycleFilter } from "@/types";
 import { MapItem, Recycle } from "@prisma/client";
-import { yearLimits } from "@/pages/aterbruk";
+import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { filterByYear, filterByOrganisation } from "./commonFilters";
 
 export default runActiveFilters;
@@ -149,7 +149,7 @@ export function runActiveFilters(data: DeepRecycle[], filters: RecycleFilter): D
     returnData = filterByProjectType(returnData, filters.projectType);
   }
   // The year and month filters are not run if they are in their respective default states
-  if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
+  if (filters.years && (Math.max(...filters.years) != yearLimitsRecycle.max || Math.min(...filters.years) != yearLimitsRecycle.min)) {
     returnData = filterByYear(returnData, filters.years) as DeepRecycle[];
   }
   if (filters.months && (Math.max(...filters.months) != 12 || Math.min(...filters.months) != 1)) {
