@@ -40,7 +40,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
                         <button
                             id={styles[category]}
                             className={styles.categoryBtn}
-                            value={category}
+                            value={category.replace("-", " ")}
                             onClick={(e: any) => {
                                 if (storyCategory.includes(e.currentTarget.value)) {
                                     setStoryCategory(storyCategory.filter((item: any) => item !== e.currentTarget.value))

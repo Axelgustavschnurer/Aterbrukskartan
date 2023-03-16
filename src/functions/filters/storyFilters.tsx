@@ -74,10 +74,16 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 export function filterByCategories(data: DeepStory[], categories: string[]) {
   let returnData: DeepStory[] = [];
 
+  // Convert all categories to lowercase to make the comparison actually fucking work with the messed up data from users
+  let lowerCaseCategories: string[] = [];
+  for (let i in categories) {
+    lowerCaseCategories.push(categories[i].toLowerCase());
+  }
+
   for (let i in data) {
     if (!data[i].categorySwedish) continue;
     for (let j = 0; j < data[i].categorySwedish!?.split(",").length; j++) {      
-      if (categories.includes(data[i].categorySwedish!?.split(",")[j].trim())) {
+      if (lowerCaseCategories.includes(data[i].categorySwedish!?.split(",")[j].trim().toLowerCase())) {
         returnData.push(data[i]);
         break;
       }
@@ -102,7 +108,7 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
   for (let i in data) {
     if (!data[i].educationalProgram) continue;
     for (let j in educationalProgram) {
-      if (data[i].educationalProgram?.includes(educationalProgram[j])) {
+      if (data[i].educationalProgram?.toLowerCase().includes(educationalProgram[j].toLowerCase())) {
         returnData.push(data[i]);
         break;
       }
