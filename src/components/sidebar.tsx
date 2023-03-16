@@ -167,11 +167,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
-            <h3>Erbjuds</h3>
-            {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)}
-
-            <h3>Sökes</h3>
-            {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}
+            {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}</span>
+            :currentMap === "Stories" ? <span><h3>Utbildningsprogram</h3> <p>Placeholder</p></span> 
+            :null}
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}
