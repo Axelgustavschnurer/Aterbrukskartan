@@ -1,0 +1,179 @@
+/* Close and open sidebar */
+.sidebarClose {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 100px;
+    animation: moveOpenButton 0.2s;
+    z-index: 100;
+}
+
+.hiddenSidebar {
+    width: 0%;
+    height: 0%;
+    position: fixed;
+    top: 100px;
+    left: 10px;
+}
+
+.sidebarOpen {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    animation: moveHideButton 0.2s;
+    z-index: 100;
+
+}
+
+#hideBtn {
+    background-color: #f1f1f1;
+    opacity: 90%;
+    border: 2px solid #8a8a8a;
+    border-radius: 10px;
+    height: 24px;
+    width: 48px;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 4;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    outline: none;
+    transition: .3s .1s;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#hideBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+#openBtn {
+    background-color: #f1f1f1;
+    opacity: 90%;
+    border: 2px solid #8a8a8a;
+    border-radius: 10px;
+    height: 24px;
+    width: 48px;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 4;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    outline: none;
+    transition: .3s .1s;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#openBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #f1f1f1;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 -10px 10px 5px #00000015;
+    z-index: 100;
+    position: fixed;
+    border-top: 2px solid #8a8a8a;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+}
+
+.footerRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    max-height: 180px;
+}
+
+.footerHeader {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.footerLink {
+    font-size: 16px;
+    font-weight: 4000;
+    padding: 2px;
+}
+
+.footerLink a {
+    color: #e47b1e;
+    text-decoration: none;
+}
+
+.footerLink a:visited {
+    color: #e47b1e;
+    text-decoration: none;
+}
+
+@keyframes moveHideButton {
+    0% {
+        bottom: 7%;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+
+@keyframes moveOpenButton {
+    0% {
+        bottom: 0;
+    }
+
+    100% {
+        bottom: 7%;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    .sidebar {
+        width: 15%;
+    }
+
+    .sidebarClose {
+        left: 15%;
+    }
+}
+
+
+.euLogoContainer {
+    position: absolute;
+    right: 3vw;
+    height: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.euLogoFooter {
+    width: 164px;
+    height: 57px;
+    aspect-ratio: 167 / 57;
+}
