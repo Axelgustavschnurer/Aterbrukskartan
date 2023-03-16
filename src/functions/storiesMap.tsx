@@ -29,9 +29,10 @@ export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, se
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }
   }
+  console.log("currentFilter", currentFilter)
   let filteredData = runActiveFilters(mapData, currentFilter)
 
-  return mapData.map((pin: DeepStory, i) => {
+  return filteredData.map((pin: DeepStory, i) => {
     if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
       return null
     } else {
