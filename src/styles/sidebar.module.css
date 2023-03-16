@@ -315,7 +315,27 @@
     }
 
     .sidebarClose {
-        left: 15%;
+        left: calc(15% + 10px);
+    }
+
+    @keyframes moveHideButton {
+        0% {
+            left: 15%;
+        }
+
+        100% {
+            left: 0;
+        }
+    }
+
+    @keyframes moveOpenButton {
+        0% {
+            left: 0;
+        }
+
+        100% {
+            left: 15%;
+        }
     }
 }
 
