@@ -51,10 +51,6 @@
     user-select: none;
 }
 
-#hideBtn img {
-    width: 20px;
-    height: 20px;
-}
 
 #openBtn {
     background-color: #f1f1f1;
@@ -73,11 +69,6 @@
     transition: .3s .1s;
     -webkit-user-select: none;
     user-select: none;
-}
-
-#openBtn img {
-    width: 20px;
-    height: 20px;
 }
 
 .footer {
