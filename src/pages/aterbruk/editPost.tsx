@@ -7,7 +7,7 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
-import { yearLimits } from ".";
+import { yearLimitsRecycle } from ".";
 import Image from "next/image";
 import Modal from '@/components/deleteModal';
 
@@ -329,7 +329,7 @@ export default function EditPost() {
                   id="startYear"
                   name="startYear"
                   defaultValue={filterData.mapItem?.year ? filterData.mapItem.year : undefined}
-                  min={yearLimits.min}
+                  min={yearLimitsRecycle.min}
                   onChange={(e) => setStartYear(parseInt(e.target.value))}
                 />
               </div>
