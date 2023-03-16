@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
-import { Filter } from "@/types";
+import { RecycleFilter } from "@/types";
 import Image from "next/image";
 import { yearLimits } from "@/pages/aterbruk";
 import styles from "../styles/sidebar.module.css";
@@ -87,7 +87,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
       lookingForCategories: lookingForMaterials,
       availableCategories: availableMaterials,
       organisation: organisation,
-    } as Filter)
+    } as RecycleFilter)
   }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter])
 
   /**

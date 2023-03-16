@@ -1,4 +1,4 @@
-import { DeepRecycle, Filter } from "@/types";
+import { DeepRecycle, RecycleFilter } from "@/types";
 import { MapItem, Recycle } from "@prisma/client";
 import { yearLimits } from "@/pages/aterbruk";
 import { filterByYear, filterByOrganisation } from "./commonFilters";
@@ -142,7 +142,7 @@ export function filterByAvailable(data: DeepRecycle[], available: string[]): Dee
  * @param filters Which filters to apply
  * @returns Filtered list of DeepRecycle objects
  */
-export function runActiveFilters(data: DeepRecycle[], filters: Filter): DeepRecycle[] {
+export function runActiveFilters(data: DeepRecycle[], filters: RecycleFilter): DeepRecycle[] {
   let returnData: DeepRecycle[] = data;
 
   if (filters.projectType?.length) {

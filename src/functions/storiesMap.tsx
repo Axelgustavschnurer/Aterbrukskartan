@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import  *  as pinIcons from '../components/icons'
 import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
-import { DeepStory, Filter } from '@/types'
+import { DeepStory, RecycleFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/filterData'
 
 export function storiesPopup(pin: any) {
@@ -25,7 +25,7 @@ export function storiesPopup(pin: any) {
 
 const iconArray = [pinIcons.IconPinPink, pinIcons.IconPinPaleGreen, pinIcons.IconPinDarkGreen, pinIcons.IconPinYellow, pinIcons.IconPinMagenta, pinIcons.IconPinRed, pinIcons.IconPinPurple, pinIcons.IconPinBlue, pinIcons.IconPinPalePurple, pinIcons.IconPinPalePink, pinIcons.IconPinTeal, pinIcons.IconPinOrange, pinIcons.IconPinHotPink, pinIcons.IconPinGray, pinIcons.IconPinLime, pinIcons.IconPinDarkPurple, pinIcons.IconPinNavy, pinIcons.IconPinGreen, pinIcons.IconPinGold, pinIcons.IconPinCrimson, pinIcons.IconPinPaleGray, pinIcons.IconPinPaleBlue, pinIcons.IconPinLightBlue];
 
-export function storiesPins(mapData: DeepStory[], currentFilter: Filter, searchInput: string | undefined) {
+export function storiesPins(mapData: DeepStory[], currentFilter: RecycleFilter, searchInput: string | undefined) {
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }
   }

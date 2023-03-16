@@ -4,7 +4,7 @@ import Sidebar from '@/components/sidebar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { Filter } from '@/types'
+import { RecycleFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 
@@ -26,7 +26,7 @@ export default function HomePage() {
   const router = useRouter()
 
   // Contains the currently active filters
-  const [currentFilter, setFilter] = useState({} as Filter)
+  const [currentFilter, setFilter] = useState({} as RecycleFilter)
 
 
   // Content of the search bar

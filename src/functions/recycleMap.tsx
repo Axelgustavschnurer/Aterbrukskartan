@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import { IconPinRed, IconPinGreen, IconPinBlue } from '../components/icons'
 import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
-import { DeepRecycle, Filter } from '@/types'
+import { DeepRecycle, RecycleFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/filterData'
 import { monthArray } from '@/pages/aterbruk'
 
@@ -38,7 +38,7 @@ export function recyclePopup(pin: any) {
   )
 }
 
-export function recyclePins(mapData: DeepRecycle[], currentFilter: Filter, searchInput: string | undefined) {
+export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter, searchInput: string | undefined) {
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }
   }

@@ -72,7 +72,7 @@ export type DeepStoryInput = Prisma.StoryCreateWithoutMapItemInput & {
  * @param lookingForCategories Array of strings containing the materials to filter by
  * @param organisation Array of strings containing the organisations to filter by
  */
-export type Filter = {
+export type RecycleFilter = {
   /**
    * Array of strings containing the project types to filter by.
    */
