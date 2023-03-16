@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { RecycleFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
+import Footer from '@/components/footer'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -92,7 +93,7 @@ export default function HomePage() {
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories" />
 
-      <Sidebar setFilter={setFilter} currentMap="Stories"/>
+      <Sidebar setFilter={setFilter} currentMap="Stories" />
 
       {/* Searchbar */}
       <div className={styles.wrap}>
@@ -125,6 +126,7 @@ export default function HomePage() {
           <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
         </button>
       </div>
+      <Footer />
     </>
   )
 }
