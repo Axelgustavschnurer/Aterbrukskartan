@@ -39,7 +39,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Returns map with all relevant pins
   return (
     <>
-      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={15} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
+      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
         <ZoomControl position="bottomright" />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

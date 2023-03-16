@@ -129,12 +129,19 @@ export default function Sidebar({ setFilter, currentMap }: any) {
     <>
       {isOpen && (
         <div className={styles.sidebar}>
-
+          <div className={styles.sidebarHeader}>
+            {currentMap === "Stories" ? <h3>Kategorier</h3>: currentMap === "Recycle" ? <h3>Projekttyper</h3> : null}
+          </div>  
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
             {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType) : null}
           </div>
 
+          <div className={styles.sidebarHeader}>
+            <div className={styles.sidebarTitle}>
+            <h3>År</h3>
+            </div>
+          </div> 
           {/* Range slider for year filter */}
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
@@ -150,7 +157,13 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           </div>
 
           {/*This is a range slider for months filter. Recycle map only */}
-          {currentMap === "Recycle" ? 
+          {currentMap === "Recycle" ?
+          <>
+          <div className={styles.sidebarHeader}>
+            <div className={styles.sidebarTitle}>
+            <h3>Månad</h3>
+            </div>
+          </div>
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
               min={1}
@@ -163,7 +176,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
               reset={sliderReset}
             />
           </div>
-           :null}
+          </>
+          :null}
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>

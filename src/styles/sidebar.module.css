@@ -16,9 +16,20 @@
     scrollbar-width: thin;
 }
 
+.sidebarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.sidebarTitle {
+    margin-top: 5%;
+}
+
 /* Filter components */
 .filterBtn {
-    margin-top: 10%;
+    margin-top: 1%;
     width: 100%;
     font-size: 15px;
     display: flex;
