@@ -6,33 +6,33 @@ import styles from "../styles/sidebar.module.css";
 * Creates buttons for all the project categories defined in the array `categories` in this function
 */
 export function createProjectTypeFilter(projectType: any, setProjectType: any) {
-let categories = [
-    "Rivning",
-    "Nybyggnation",
-    "Ombyggnation",
-]
+    let categories = [
+        "Rivning",
+        "Nybyggnation",
+        "Ombyggnation",
+    ]
     return (
         <>
-        {categories.map((category: any) => {
-            return (
-            <div className={styles.alignBtn} key={category}>
-                <button
-                id={styles[category]}
-                value={category}
-                onClick={(e: any) => {
-                    if (projectType.includes(e.currentTarget.value)) {
-                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
-                    } else {
-                    setProjectType([...projectType, e.currentTarget.value])
-                    }
-                }}
-                >
-                <Image src={"/images/" + category.toLowerCase() + ".svg"} alt={category} width={40} height={40} />
-                </button>
-                <p>{category}</p>
-            </div>
-            )
-        })}
+            {categories.map((category: any) => {
+                return (
+                    <div className={styles.alignBtn} key={category}>
+                        <button
+                            id={styles[category]}
+                            value={category}
+                            onClick={(e: any) => {
+                                if (projectType.includes(e.currentTarget.value)) {
+                                    setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
+                                } else {
+                                    setProjectType([...projectType, e.currentTarget.value])
+                                }
+                            }}
+                        >
+                            <Image src={"/images/" + category.toLowerCase() + ".svg"} alt={category} width={40} height={40} />
+                        </button>
+                        <p>{category}</p>
+                    </div>
+                )
+            })}
         </>
     )
 }
@@ -45,10 +45,10 @@ function getAllMaterialCategories(mapData: any) {
     let unsplitMaterials: string[] = []
     mapData.map((pin: any) => {
         if (pin.availableMaterials) {
-        unsplitMaterials.push(pin.availableMaterials)
+            unsplitMaterials.push(pin.availableMaterials)
         }
         if (pin.lookingForMaterials) {
-        unsplitMaterials.push(pin.lookingForMaterials)
+            unsplitMaterials.push(pin.lookingForMaterials)
         }
     })
 
@@ -71,28 +71,28 @@ export function createLookingForFilter(mapData: any, lookingForMaterials: any, s
     let categories = getAllMaterialCategories(mapData)
     return (
         <>
-        {categories.map((category: any) => {
-            return (
-            <div className={styles.inputGroup} key={category + "Sökes"}>
-                <input
-                id={category + "Sökes"}
-                name={category + "Sökes"}
-                type="checkbox"
-                onChange={(e) => {
-                    // If the checkbox is now checked and the category is not in the lookingForMaterials array, add it to the array
-                    if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
-                    setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
-                    }
-                    // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
-                    else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
-                    setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
-                    }
-                }}
-                />
-                <label htmlFor={category + "Sökes"}>{category}</label>
-            </div>
-            )
-        })}
+            {categories.map((category: any) => {
+                return (
+                    <div className={styles.inputGroup} key={category + "Sökes"}>
+                        <input
+                            id={category + "Sökes"}
+                            name={category + "Sökes"}
+                            type="checkbox"
+                            onChange={(e) => {
+                                // If the checkbox is now checked and the category is not in the lookingForMaterials array, add it to the array
+                                if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
+                                    setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
+                                }
+                                // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
+                                else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
+                                    setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
+                                }
+                            }}
+                        />
+                        <label htmlFor={category + "Sökes"}>{category}</label>
+                    </div>
+                )
+            })}
         </>
     )
 }
@@ -104,28 +104,28 @@ export function createAvailableFilter(mapData: any, availableMaterials: any, set
     let categories = getAllMaterialCategories(mapData)
     return (
         <>
-        {categories.map((category: any) => {
-            return (
-            <div className={styles.inputGroup} key={category + "Erbjuds"}>
-                <input
-                id={category + "Erbjuds"}
-                name={category + "Erbjuds"}
-                type="checkbox"
-                onChange={(e) => {
-                    // If the checkbox is now checked and the category is not in the availableMaterials array, add it to the array
-                    if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
-                    setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
-                    }
-                    // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
-                    else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
-                    setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
-                    }
-                }}
-                />
-                <label htmlFor={category + "Erbjuds"}>{category}</label>
-            </div>
-            )
-        })}
+            {categories.map((category: any) => {
+                return (
+                    <div className={styles.inputGroup} key={category + "Erbjuds"}>
+                        <input
+                            id={category + "Erbjuds"}
+                            name={category + "Erbjuds"}
+                            type="checkbox"
+                            onChange={(e) => {
+                                // If the checkbox is now checked and the category is not in the availableMaterials array, add it to the array
+                                if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
+                                    setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
+                                }
+                                // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
+                                else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
+                                    setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
+                                }
+                            }}
+                        />
+                        <label htmlFor={category + "Erbjuds"}>{category}</label>
+                    </div>
+                )
+            })}
         </>
     )
 }
