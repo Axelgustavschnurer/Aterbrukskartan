@@ -2,6 +2,7 @@
 .sidebarClose {
     display: flex;
     width: 100%;
+    left: 0;
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -24,6 +25,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
+    left: 0;
     bottom: 0;
     animation: moveHideButton 0.2s;
     z-index: 100;
@@ -131,6 +133,22 @@
     text-decoration: none;
 }
 
+.euLogoContainer {
+    position: absolute;
+    right: 3vw;
+    height: 100%;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.euLogoFooter {
+    width: 164px;
+    height: 57px;
+    aspect-ratio: 167 / 57;
+}
+
 @keyframes moveHideButton {
     0% {
         bottom: 7%;
@@ -159,21 +177,4 @@
     .sidebarClose {
         left: 15%;
     }
-}
-
-
-.euLogoContainer {
-    position: absolute;
-    right: 3vw;
-    height: 100%;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-}
-
-.euLogoFooter {
-    width: 164px;
-    height: 57px;
-    aspect-ratio: 167 / 57;
 }
