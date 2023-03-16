@@ -313,11 +313,18 @@
 
 
 /* Filter buttons for stories */
+.alignCategories {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 33.33%;
+    margin-top: 3%;
+}
 
-#Solel {
-    background-color: #c2047c;
+.categoryBtn{
     border: black;
-    border-radius: 100%;
+    border-radius: 25px;
     padding: 5px;
     cursor: pointer;
     width: 50px;
@@ -327,58 +334,103 @@
     justify-content: center;
 }
 
-#Solel:hover {
-    background-color: #c2047c;
-    opacity: 0.9;
+.categoryBtn:hover {
+    opacity: 0.8;
 }
 
-#Solel img {
+.categoryBtn img {
     width: 30px;
     height: 30px;
+}
+
+#Solel {
+    background-color: #c2047c;
 }
 
 #Energilagring {
     background-color: #05f0b9;
-    border: black;
-    border-radius: 100%;
-    padding: 5px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#Energilagring:hover {
-    background-color: #05f0b9;
-    opacity: 0.9;
-}
-
-#Energilagring img {
-    width: 30px;
-    height: 30px;
 }
 
 #Hållbarhet {
     background-color: #0e6905;
-    border: black;
-    border-radius: 100%;
-    padding: 5px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-#Hållbarhet:hover {
-    background-color: #0e6905;
-    opacity: 0.9;
+#Energi {
+    background-color: #f0d318;
 }
 
-#Hållbarhet img {
-    width: 30px;
-    height: 30px;
+#Stories {
+    background-color: #b65ed1;
+}
+
+#Videos {
+    background-color: #ff0000;
+}
+
+#Mätning {
+    background-color: #a208d1;
+}
+
+#Vatten {
+    background-color: #0080ff;
+}
+
+#Social-hållbarhet {
+    background-color: #dd99f2;
+}
+
+#Hälsa {
+    background-color: #ff82cd;
+}
+
+#Bioteknik {
+    background-color: #16a88b;
+}
+
+#Öppna-data {
+    background-color: #c45d21;
+}
+
+#Elbil {
+    background-color: #f52ff1;
+}
+
+#Transport {
+    background-color: #7a7979;
+}
+
+#Byggnader {
+    background-color: #6aeb46;
+}
+
+#Skolkök {
+    background-color: #590487;
+}
+
+#Renovering {
+    background-color: #050aa6;
+}
+
+#Klimat, #Cases {
+    background-color: #008000;
+}
+
+#Effekt{
+    background-color: #c2c934;
+}
+
+#Värme {
+    background-color: #a90808;
+}
+
+#Cleantech {
+    background-color: #b8b8b8;
+}
+
+#Vindkraft {
+    background-color: #8bbecf;
+}
+
+#Kyla {
+    background-color: #8fd8f2;
 }

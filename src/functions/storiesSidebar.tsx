@@ -15,10 +15,10 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
         "Videos": "playbutton",
         "Mätning": "ruler",
         "Vatten": "water",
-        "Social hållbarhet": "social",
+        "Social-hållbarhet": "social",
         "Hälsa": "heartbeat",
         "Bioteknik": "dna",
-        "Öppna data": "data",
+        "Öppna-data": "data",
         "Elbil": "car",
         "Transport": "truck",
         "Byggnader": "building",
@@ -36,9 +36,10 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
         <>
             {Object.keys(categories).map((category: any) => {  
                 return (
-                    <div className={styles.alignBtn} key={category}>
+                    <div className={styles.alignCategories} key={category}>
                         <button
                             id={styles[category]}
+                            className={styles.categoryBtn}
                             value={category}
                             onClick={(e: any) => {
                                 if (category.includes(e.currentTarget.value)) {
@@ -50,7 +51,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
                         >
                             <Image src={"/images/categories/" + categories[category as keyof typeof categories] + ".svg"} alt={category} width={40} height={40} />
                         </button>
-                        <p>{category}</p>
+                        <p>{category.replace("-", " ")}</p>
                     </div>
                 )
             })}
