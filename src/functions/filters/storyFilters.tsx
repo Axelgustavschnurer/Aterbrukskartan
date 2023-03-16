@@ -1,4 +1,4 @@
-import { DeepStory, RecycleFilter } from "@/types";
+import { DeepStory, StoryFilter } from "@/types";
 import { yearLimits } from "@/pages/stories";
 import { MapItem } from "@prisma/client";
 import { filterByYear, filterByOrganisation } from "./commonFilters";
@@ -113,9 +113,12 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
 }
 
 /**
- * 
+ * Filters through the data parameter using the filters parameter.
+ * @param data Array of `DeepStory` objects to run through the filters.
+ * @param filters Object containing the filters to apply.
+ * @returns Filtered list of `DeepStory` objects.
  */
-export function runActiveFilters(data: DeepStory[], filters: RecycleFilter) {
+export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   let returnData: DeepStory[] = data;
 
   // The year filter is not run if the year values are in their default state.

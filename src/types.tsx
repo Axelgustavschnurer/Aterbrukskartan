@@ -65,40 +65,48 @@ export type DeepStoryInput = Prisma.StoryCreateWithoutMapItemInput & {
 }
 
 /**
+ * A type containing filters for the recycle page
  * @param projectType Array of strings containing the project types to filter by.
  * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
  * @param months Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
- * @param availableCategories Array of strings containing the materials to filter by
- * @param lookingForCategories Array of strings containing the materials to filter by
+ * @param availableCategories Array of strings containing materials to filter out which projects have them available
+ * @param lookingForCategories Array of strings containing materials to filter out which projects are looking for them
  * @param organisation Array of strings containing the organisations to filter by
  */
 export type RecycleFilter = {
-  /**
-   * Array of strings containing the project types to filter by.
-   */
+  /** Array of strings containing the project types to filter by. */
   projectType?: string[],
-  /**
-   * Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
-   */
+  /** Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year. */
   years?: number[],
-  /**
-   * Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month.
-   */
+  /** Array of numbers, where the highest number is the max month and the lowest number is the min month. Can contain a single number, which will be used as both the min and max month. */
   months?: number[],
-  /**
-   * Array of strings containing the materials to filter by
-   */
+  /** Array of strings containing materials to filter out which projects have them available */
   availableCategories?: string[],
-  /**
-   * Array of strings containing the materials to filter by
-   */
+  /** Array of strings containing materials to filter out which projects are looking for them */
   lookingForCategories?: string[],
-  /**
-   * Array of strings containing the organisations to filter by
-   */
+  /** Array of strings containing organisations to filter by */
   organisation?: string[],
-  /**
-   * String containing the search input
-   */
+  /** String containing the search input */
+  searchInput?: string,
+}
+
+/**
+ * A type containing filters for the story page
+ * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
+ * @param organisation Array of strings containing organisations to filter by
+ * @param categories Array of strings containing categories to filter by
+ * @param educationalProgram Array of strings containing educational programs to filter by
+ * @param searchInput String containing the search input
+ */
+export type StoryFilter = {
+  /** Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year. */
+  years?: number[],
+  /** Array of strings containing organisations to filter by */
+  organisation?: string[],
+  /** Array of strings containing projects categories to filter by */
+  categories?: string[],
+  /** Array of strings containing educational programs to filter by */
+  educationalProgram?: string[],
+  /** String containing the search input */
   searchInput?: string,
 }

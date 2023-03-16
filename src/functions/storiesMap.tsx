@@ -4,7 +4,7 @@ import  *  as pinIcons from '../components/icons'
 import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
 import { DeepStory, RecycleFilter } from '@/types'
-import { runActiveFilters } from '@/functions/filters/filterData'
+import { runActiveFilters } from '@/functions/filters/storyFilters'
 
 export function storiesPopup(pin: any) {
   return (
