@@ -8,7 +8,7 @@ import styles from "../styles/sidebar.module.css";
 export function createCategoryFilter(storyCategory: any, setStoryCategory: any) {
     let categories = {
         "Solel": "solar",
-        "Energilagring": "battery", 
+        "Energilagring": "battery",
         "Hållbarhet": "leaf",
         "Energi": "lightbulb",
         "Stories": "newspaper",
@@ -34,7 +34,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
     }
     return (
         <>
-            {Object.keys(categories).map((category: any) => {  
+            {Object.keys(categories).map((category: any) => {
                 return (
                     <div className={styles.alignCategories} key={category}>
                         <button
@@ -52,6 +52,45 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
                             <Image src={"/images/categories/" + categories[category as keyof typeof categories] + ".svg"} alt={category} width={40} height={40} />
                         </button>
                         <p>{category.replace("-", " ")}</p>
+                    </div>
+                )
+            })}
+        </>
+    )
+}
+
+/**
+ * Stuff
+ */
+export function createEducationalFilter(educationalProgram: any, setEducationalProgram: any) {
+    let programs = ["Civilingenjör", "Högskoleingenjör", "Agronom", "Kandidatprogram"]
+    return (
+        <>
+            {programs.map((program: any) => {
+                return (
+                    <div className={styles.inputGroup} key={program}>
+                        <input
+                            id={program}
+                            name={program}
+                            type="checkbox"
+                            onChange={(e) => {
+                                // If the checkbox is now checked and the program is not in the educationalProgram array, add it to the array
+                                if (educationalProgram.includes(e.target.name) && !e.target.checked) {
+                                    setEducationalProgram(educationalProgram.filter((item: any) => item !== e.target.name))
+                                    console.log("remove", educationalProgram);
+
+                                }
+                                // If the checkbox is now unchecked and the program is in the educationalProgram array, remove it from the array
+                                else if (!educationalProgram.includes(e.target.name) && e.target.checked) {
+                                    setEducationalProgram([...educationalProgram, e.target.name])
+                                    console.log("add", educationalProgram);
+
+                                }
+                                console.log(educationalProgram, "but no pass?", "checked?", e.target.checked, "includes?", educationalProgram.includes(e.target.name));
+
+                            }}
+                        />
+                        <label htmlFor={program}>{program}</label>
                     </div>
                 )
             })}

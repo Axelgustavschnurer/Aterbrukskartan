@@ -8,7 +8,7 @@ import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { yearLimitsStories } from "@/pages/stories";
 import styles from "../styles/sidebar.module.css";
 import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
-import { createCategoryFilter } from "@/functions/storiesSidebar";
+import { createCategoryFilter, createEducationalFilter } from "@/functions/storiesSidebar";
 
 // Sidebar component for filtering the map
 
@@ -53,7 +53,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
       const response = await fetch('http://localhost:3000/api/stories')
       const data = await response.json()
       setMapData(data)
-    } 
+    }
     else if (currentMap === "Recycle") {
       const response = await fetch('http://localhost:3000/api/recycle')
       const data = await response.json()
@@ -85,12 +85,13 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   useEffect(() => {
     if (currentMap === "Stories") {
       setFilter({
-       years: years,
-       organisation: organisation,
-       categories: storyCategory,
-       educationalProgram: educationalProgram,
+        years: years,
+        organisation: organisation,
+        categories: storyCategory,
+        educationalProgram: educationalProgram,
       } as StoryFilter)
-    } 
+      console.log(educationalProgram)
+    }
     else if (currentMap === "Recycle") {
       setFilter({
         projectType: projectType,
@@ -143,8 +144,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
       {isOpen && (
         <div className={styles.sidebar}>
           <div className={styles.sidebarHeader}>
-            {currentMap === "Stories" ? <h3>Kategorier</h3>: currentMap === "Recycle" ? <h3>Projekttyper</h3> : null}
-          </div>  
+            {currentMap === "Stories" ? <h3>Kategorier</h3> : currentMap === "Recycle" ? <h3>Projekttyper</h3> : null}
+          </div>
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
             {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType) : null}
@@ -152,9 +153,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           <div className={styles.sidebarHeader}>
             <div className={styles.sidebarTitle}>
-            <h3>År</h3>
+              <h3>År</h3>
             </div>
-          </div> 
+          </div>
           {/* Range slider for year filter */}
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
@@ -171,32 +172,32 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           {/*This is a range slider for months filter. Recycle map only */}
           {currentMap === "Recycle" ?
-          <>
-          <div className={styles.sidebarHeader}>
-            <div className={styles.sidebarTitle}>
-            <h3>Månad</h3>
-            </div>
-          </div>
-          <div className={styles.rSliderContainer}>
-            <DualRangeSlider
-              min={1}
-              max={12}
-              onChange={({ min, max }: any) => {
-                if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
-                  setMonths([min, max]), setSliderReset(false)
-                }
-              }}
-              reset={sliderReset}
-            />
-          </div>
-          </>
-          :null}
+            <>
+              <div className={styles.sidebarHeader}>
+                <div className={styles.sidebarTitle}>
+                  <h3>Månad</h3>
+                </div>
+              </div>
+              <div className={styles.rSliderContainer}>
+                <DualRangeSlider
+                  min={1}
+                  max={12}
+                  onChange={({ min, max }: any) => {
+                    if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
+                      setMonths([min, max]), setSliderReset(false)
+                    }
+                  }}
+                  reset={sliderReset}
+                />
+              </div>
+            </>
+            : null}
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
             {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}</span>
-            :currentMap === "Stories" ? <span><h3>Utbildningsprogram</h3> <p>Placeholder</p></span> 
-            :null}
+              : currentMap === "Stories" ? <span><h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram)}</span>
+                : null}
 
             <h3>Organisation</h3>
             {createOrganisationFilter()}
@@ -209,7 +210,6 @@ export default function Sidebar({ setFilter, currentMap }: any) {
               onClick={() => {
                 setProjectType([])
                 setSliderReset(true)
-                {currentMap === "Stories" ? setYears([yearLimitsStories.min, yearLimitsStories.max]) : currentMap === "Recycle" ? setYears([yearLimitsRecycle.min, yearLimitsRecycle.max]) : null}
                 setLookingForMaterials([])
                 setAvailableMaterials([])
                 setOrganisation([])
