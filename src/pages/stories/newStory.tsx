@@ -189,7 +189,7 @@ export default function AddNewStory() {
     }
 
     const getEducationalPrograms = () => {
-        let programs = ["Agronom", "Aivilingenjör", "Högskoleingenjör", "Handidatprogram"];
+        let programs = ["Agronom", "Civilingenjör", "Högskoleingenjör", "Handidatprogram"];
         ;
         return (
             <>
