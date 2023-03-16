@@ -12,7 +12,7 @@ import styles from '@/styles/index.module.css'
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
  * These values are also used at other points to check if the sliders are at their default values
  */
-export const yearLimits = {
+export const yearLimitsRecycle = {
   min: new Date().getFullYear(),
   max: new Date().getFullYear() + 10,
 }
@@ -72,7 +72,7 @@ export default function HomePage() {
    */
   const yearLabel = () => {
     if (currentFilter.years?.length) {
-      if (Math.min(...currentFilter.years) === yearLimits.min && Math.max(...currentFilter.years) === yearLimits.max) {
+      if (Math.min(...currentFilter.years) === yearLimitsRecycle.min && Math.max(...currentFilter.years) === yearLimitsRecycle.max) {
         return null;
       }
       else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {

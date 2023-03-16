@@ -1,5 +1,5 @@
 import { DeepStory, StoryFilter } from "@/types";
-import { yearLimits } from "@/pages/stories";
+import { yearLimitsStories } from "@/pages/stories";
 import { MapItem } from "@prisma/client";
 import { filterByYear, filterByOrganisation } from "./commonFilters";
 
@@ -122,7 +122,7 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   let returnData: DeepStory[] = data;
 
   // The year filter is not run if the year values are in their default state.
-  if (filters.years && (Math.max(...filters.years) != yearLimits.max || Math.min(...filters.years) != yearLimits.min)) {
+  if (filters.years && (Math.max(...filters.years) != yearLimitsStories.max || Math.min(...filters.years) != yearLimitsStories.min)) {
     returnData = filterByYear(returnData, filters.years) as DeepStory[];
   }
   if (filters.organisation?.length) {
