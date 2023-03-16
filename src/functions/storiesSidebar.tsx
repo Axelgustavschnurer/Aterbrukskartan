@@ -42,10 +42,10 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
                             className={styles.categoryBtn}
                             value={category}
                             onClick={(e: any) => {
-                                if (category.includes(e.currentTarget.value)) {
-                                    setStoryCategory(category.filter((item: any) => item !== e.currentTarget.value))
+                                if (storyCategory.includes(e.currentTarget.value)) {
+                                    setStoryCategory(storyCategory.filter((item: any) => item !== e.currentTarget.value))
                                 } else {
-                                    setStoryCategory([...category, e.currentTarget.value])
+                                    setStoryCategory([...storyCategory, e.currentTarget.value])
                                 }
                             }}
                         >

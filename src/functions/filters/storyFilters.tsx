@@ -76,7 +76,7 @@ export function filterByCategories(data: DeepStory[], categories: string[]) {
 
   for (let i in data) {
     if (!data[i].categorySwedish) continue;
-    for (let j = 0; j <= data[i].categorySwedish!?.split(",").length; j++) {
+    for (let j = 0; j < data[i].categorySwedish!?.split(",").length; j++) {      
       if (categories.includes(data[i].categorySwedish!?.split(",")[j].trim())) {
         returnData.push(data[i]);
         break;

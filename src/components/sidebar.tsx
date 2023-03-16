@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DualRangeSlider from "./dualSlider";
-import { RecycleFilter } from "@/types";
+import { RecycleFilter, StoryFilter } from "@/types";
 import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { yearLimitsStories } from "@/pages/stories";
@@ -30,6 +30,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   // List of all active filters for the field `storyCategory`
   const [storyCategory, setStoryCategory] = useState([] as string[])
+
+  const [educationalProgram, setEducationalProgram] = useState([] as string[])
 
   // List of all active filters for the field `lookingForMaterials`
   const [lookingForMaterials, setLookingForMaterials] = useState([] as string[])
@@ -81,15 +83,26 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   // Updates filter state when the user interacts with any of the filter components
   useEffect(() => {
-    setFilter({
-      projectType: projectType,
-      years: years,
-      months: months,
-      lookingForCategories: lookingForMaterials,
-      availableCategories: availableMaterials,
-      organisation: organisation,
-    } as RecycleFilter)
-  }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter])
+    if (currentMap === "Stories") {
+      setFilter({
+       years: years,
+       organisation: organisation,
+       categories: storyCategory,
+       educationalProgram: educationalProgram,
+      } as StoryFilter)
+    } 
+    else if (currentMap === "Recycle") {
+      setFilter({
+        projectType: projectType,
+        years: years,
+        months: months,
+        lookingForCategories: lookingForMaterials,
+        availableCategories: availableMaterials,
+        organisation: organisation,
+      } as RecycleFilter)
+    }
+  }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter, storyCategory, currentMap, educationalProgram])
+
 
   /**
    * Creates checkboxes for all the different organisations in the database
@@ -200,6 +213,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setLookingForMaterials([])
                 setAvailableMaterials([])
                 setOrganisation([])
+                setStoryCategory([])
+                setEducationalProgram([])
 
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {
