@@ -2,10 +2,10 @@
 .sidebarClose {
     display: flex;
     width: 100%;
-    left: 0;
     align-items: center;
     justify-content: center;
     position: fixed;
+    left: 0;
     bottom: 100px;
     animation: moveOpenButton 0.2s;
     z-index: 100;
@@ -163,6 +163,10 @@
 @media screen and (min-width: 2000px) {
     .sidebar {
         width: 15%;
+    }
+
+    .sidebarClose {
+        width: 70%;
     }
 
     .sidebarClose {
