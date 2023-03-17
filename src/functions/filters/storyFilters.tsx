@@ -44,8 +44,9 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
     // Used to continue to next iteration of the outer loop if a match is found in the first inner loop.
     let breakCheck = false;
 
+    // Search through the fields in the `Story` objects.
     for (let j of storySearchFields) {
-      if ((data[i][j as keyof DeepStory] as string)?.toLowerCase().includes(search)) {
+      if (String((data[i][j as keyof DeepStory]))?.toLowerCase().includes(search)) {
         returnData.push(data[i]);
         breakCheck = true;
         break;
@@ -54,8 +55,9 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 
     if (breakCheck) continue;
 
+    // Search through the fields in the `MapItem` objects.
     for (let k of mapItemSearchFields) {
-      if ((data[i].mapItem[k as keyof MapItem] as string)?.toLowerCase().includes(search)) {
+      if (String((data[i].mapItem[k as keyof MapItem]))?.toLowerCase().includes(search)) {
         returnData.push(data[i]);
         break;
       }
@@ -82,7 +84,7 @@ export function filterByCategories(data: DeepStory[], categories: string[]) {
 
   for (let i in data) {
     if (!data[i].categorySwedish) continue;
-    for (let j = 0; j < data[i].categorySwedish!?.split(",").length; j++) {      
+    for (let j = 0; j < data[i].categorySwedish!?.split(",").length; j++) {
       if (lowerCaseCategories.includes(data[i].categorySwedish!?.split(",")[j].trim().toLowerCase())) {
         returnData.push(data[i]);
         break;
