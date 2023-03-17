@@ -71,72 +71,77 @@ export default function EditStory() {
         setProgram(filterData.educationalProgram?.split(", ")[0] as any)
         setProgramOrientation(filterData.educationalProgram?.split(", ")[1] as any)
         setCategorys(filterData.categorySwedish?.split(", ") as string[])
+        setReportTitle(filterData.reportTitle as any)
+        setReportLink(filterData.reports as any)
+        setVideos(filterData.videos as any)
+        setCaseDescription(filterData.pdfCase as any)
+        setDescription(filterData.descriptionSwedish as any)
     }, [filterData])
 
     const handleSubmit = async (e: any) => {
-        // e.preventDefault();
-        // try {
-        //     let mapItem: Prisma.MapItemCreateInput = {
-        //         // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
-        //         latitude: parseFloat(lat!),
-        //         longitude: parseFloat(lon!),
-        //         address: "",
-        //         postcode: parseInt(""),
-        //         city: "",
-        //         organisation: organization,
-        //         year: parseInt(startYear),
-        //         name: title,
-        //     }
-        //     // Gets the keys of the searchingFor object and returns them as a strin
-        //     // Sends a post request to the api with the data from the form
-        //     let res = await fetch("http://localhost:3000/api/stories", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({
-        //             mapItem,
-        //             categorySwedish: categorys.join(", "),
-        //             educationalProgram: program,
-        //             descriptionSwedish: description,
-        //             reports: reportLink,
-        //             reportTitle,
-        //             videos,
-        //             pdfCase: caseDescription,
-        //             isEnergyStory: energyStory,
-        //         }),
-        //     });
+        e.preventDefault();
+        try {
+            let mapItem: Prisma.MapItemCreateInput = {
+                // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
+                latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
+                longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+                address: "" ? "" : undefined,
+                postcode: parseInt("") ? parseInt("") : undefined,
+                city: "" ? "" : undefined,
+                organisation: organization ? organization : undefined,
+                year: parseInt(startYear) ? parseInt(startYear) : undefined,
+                name: title ? title : undefined,
+            }
+            // Gets the keys of the searchingFor object and returns them as a strin
+            // Sends a post request to the api with the data from the form
+            let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mapItem,
+                    categorySwedish: categorys.length ? categorys.join(", ") : null,
+                    educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
+                    descriptionSwedish: description === filterData.descriptionSwedish ? undefined : description ? description : null,
+                    reports: reportLink === filterData.reports ? undefined : reportLink ? reportLink : null,
+                    reportTitle: reportTitle === filterData.reportTitle ? undefined : reportTitle ? reportTitle : null,
+                    videos: videos === filterData.videos ? undefined : videos ? videos : null,
+                    pdfCase: caseDescription === filterData.pdfCase ? undefined : caseDescription ? caseDescription : null,
+                    isEnergyStory: energyStory,
+                }),
+            });
 
-        //     console.log(JSON.stringify({
-        //         mapItem,
-        //         categorySwedish: categorys.join(", "),
-        //         educationalProgram: programOrientation ? (program + ", " + programOrientation) : program,
-        //         descriptionSwedish: description,
-        //         reports: reportLink,
-        //         reportTitle,
-        //         videos,
-        //         pdfCase: caseDescription,
-        //         isEnergyStory: energyStory,
-        //     })
-        //     );
+            console.log(JSON.stringify({
+                mapItem,
+                categorySwedish: categorys.length ? categorys.join(", ") : null,
+                educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
+                descriptionSwedish: description === filterData.descriptionSwedish ? undefined : description ? description : null,
+                reports: reportLink === filterData.reports ? undefined : reportLink ? reportLink : null,
+                reportTitle: reportTitle === filterData.reportTitle ? undefined : reportTitle ? reportTitle : null,
+                videos: videos === filterData.videos ? undefined : videos ? videos : null,
+                pdfCase: caseDescription === filterData.pdfCase ? undefined : caseDescription ? caseDescription : null,
+                isEnergyStory: energyStory,
+            })
+            );
 
 
-        //     let resJson = await res.json();
-        //     if (res.status >= 200 && res.status < 300) {
-        //         // If the post was successful, reset the form and redirect to the home page
-        //         setOrganization("");
-        //         setStartYear("");
-        //         setLat(undefined);
-        //         setLon(undefined);
-        //         setDescription("");
-        //         setLocationToggle(false);
-        //         router.push("/stories");
-        //     } else {
-        //         setMessage(resJson.message);
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        // }
+            let resJson = await res.json();
+            if (res.status >= 200 && res.status < 300) {
+                // If the post was successful, reset the form and redirect to the home page
+                setOrganization("");
+                setStartYear("");
+                setLat(undefined);
+                setLon(undefined);
+                setDescription("");
+                setLocationToggle(false);
+                router.push("/stories");
+            } else {
+                setMessage(resJson.message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const NewPostMap = React.useMemo(() => dynamic(
@@ -203,9 +208,10 @@ export default function EditStory() {
                             <input
                                 type="checkbox"
                                 id={index}
+                                key={index}
                                 name={category}
                                 value={category}
-                                defaultChecked={filterData.categorySwedish?.toLowerCase().includes(category.toLowerCase()) ? true : false}
+                                checked={filterData.categorySwedish?.includes(category) ? true : false}
                                 onClick={(e: any) => {
                                     if (categorys.includes(e.target.value) && !e.target.checked) {
                                         setCategorys(categorys.filter((item: any) => item !== e.target.value))
@@ -225,7 +231,7 @@ export default function EditStory() {
     }
 
     const getEducationalPrograms = () => {
-        let programs = ["Agronom", "Civilingenjör", "Högskoleingenjör", "Handidatprogram"];
+        let programs = ["Agronom", "Civilingenjör", "Högskoleingenjör", "Kandidatprogram"];
         ;
         return (
             <>
@@ -298,7 +304,7 @@ export default function EditStory() {
                                 </select>
                             </div>
                             {
-                                program ?
+                                program === "Agronom" || program === "Civilingenjör" || program === "Högskoleingenjör" || program === "Kandidatprogram" ?
                                     <div className={styles.addNewPostFormOrientation}>
                                         <h3>Programinriktning *</h3>
                                         <input
@@ -356,7 +362,7 @@ export default function EditStory() {
                                     name="startYear"
                                     // value={startYear}
                                     defaultValue={filterData.mapItem?.year ? filterData.mapItem?.year : undefined}
-                                    min={currentDate}
+                                    min={2014}
                                     onChange={(e) => setStartYear(e.target.value)}
                                 />
                             </div>
