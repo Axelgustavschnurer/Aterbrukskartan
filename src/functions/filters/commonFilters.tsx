@@ -10,7 +10,16 @@ export function filterByYear(data: DeepRecycle[] | DeepStory[], years: number[])
   let returnData: DeepRecycle[] | DeepStory[] = [];
   
   for (let i in data) {
-    if (data[i].mapItem.year! <= Math.max(...years) && data[i].mapItem.year! >= Math.min(...years)) {
+    // If the year is not defined, use the current year
+    let current: number
+    if (!data[i].mapItem.year) {
+      current = new Date().getFullYear()
+    }
+    else {
+      current = data[i].mapItem.year!
+    }
+
+    if (current <= Math.max(...years) && current >= Math.min(...years)) {
       // @ts-ignore - `data` should always fit
       returnData.push(data[i]);
     }
