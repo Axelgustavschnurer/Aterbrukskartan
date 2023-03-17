@@ -114,6 +114,8 @@ export type StoryFilter = {
   video?: boolean,
   /** Boolean to filter out stories that don't have a report */
   report?: boolean,
+  /** Boolean to filter out stories that don't have a link to a case */
+  cases?: boolean,
   /** Boolean to filter out stories that aren't energy stories, whatever that means */
   energyStory?: boolean,
   /** String containing the search input */

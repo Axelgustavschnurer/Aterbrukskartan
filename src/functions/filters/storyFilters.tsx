@@ -154,6 +154,19 @@ export function filterHasReport(data: DeepStory[]) {
   return returnData;
 }
 
+export function filterHasCase(data: DeepStory[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
+    if (!!data[i].pdfCase) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
 /**
  * Filters out `Story` objects that are not energy stories, whatever that means.
  * @param data Array of `DeepStory` objects to filter.
@@ -198,6 +211,9 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   }
   if (filters.report) {
     returnData = filterHasReport(returnData);
+  }
+  if (filters.cases) {
+    returnData = filterHasCase(returnData);
   }
   if (filters.energyStory) {
     returnData = filterIsEnergyStory(returnData);
