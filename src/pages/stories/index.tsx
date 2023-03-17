@@ -46,6 +46,24 @@ export default function HomePage() {
   }
 
   /**
+   * Returns a p element with the currently active category filters, if any
+   */
+  const categoryLabel = () => {
+    if (currentFilter.categories?.length) {
+      if (currentFilter.categories.length > maxCategoryAmount) {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.categories.length} Kategorier</p>
+        )
+      }
+      else {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Kategorier: {currentFilter.categories.join(", ")}</p>
+        )
+      }
+    }
+  }  
+
+  /**
    * Returns a p element with the currently active year filters, if any
    */
   const yearLabel = () => {
@@ -61,6 +79,21 @@ export default function HomePage() {
       else {
         return (
           <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
+        )
+      }
+    }
+  }
+
+  const educationLabel = () => {
+    if (currentFilter.educationalProgram?.length) {
+      if (currentFilter.educationalProgram.length > maxCategoryAmount) {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.educationalProgram.length} Utbildningar</p>
+        )
+      }
+      else {
+        return (
+          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Utbildningar: {currentFilter.educationalProgram.join(", ")}</p>
         )
       }
     }
@@ -114,7 +147,9 @@ export default function HomePage() {
       {/* Labels showing currently avtive filters, if any */}
       <div className={styles.filterTextContent}>
         <div className={styles.filterTextContainer}>
+          {categoryLabel()}
           {yearLabel()}
+          {educationLabel()}
           {organisationLabel()}
         </div>
       </div>
