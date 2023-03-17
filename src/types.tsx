@@ -96,6 +96,7 @@ export type RecycleFilter = {
  * @param organisation Array of strings containing organisations to filter by
  * @param categories Array of strings containing categories to filter by
  * @param educationalProgram Array of strings containing educational programs to filter by
+ * @param video Boolean to filter out stories that don't have a video
  * @param searchInput String containing the search input
  */
 export type StoryFilter = {
@@ -107,6 +108,8 @@ export type StoryFilter = {
   categories?: string[],
   /** Array of strings containing educational programs to filter by */
   educationalProgram?: string[],
+  /** Boolean to filter out stories that don't have a video */
+  video?: boolean,
   /** String containing the search input */
   searchInput?: string,
 }

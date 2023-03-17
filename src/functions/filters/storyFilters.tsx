@@ -119,6 +119,24 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
 }
 
 /**
+ * Filters out `Story` objects that do not have any videos.
+ * @param data Array of `DeepStory` objects to filter.
+ * @returns `Story` objects that have at least one video.
+ */
+export function filterByVideo(data: DeepStory[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
+    if (!!data[i].videos) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
  * Filters through the data parameter using the filters parameter.
  * @param data Array of `DeepStory` objects to run through the filters.
  * @param filters Object containing the filters to apply.
@@ -139,6 +157,9 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   }
   if (filters.educationalProgram?.length) {
     returnData = filterByEducationalProgram(returnData, filters.educationalProgram);
+  }
+  if (filters.video) {
+    returnData = filterByVideo(returnData);
   }
   if (filters.searchInput) {
     returnData = filterStoriesBySearchInput(returnData, filters.searchInput);
