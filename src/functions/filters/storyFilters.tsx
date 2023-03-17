@@ -123,12 +123,47 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
  * @param data Array of `DeepStory` objects to filter.
  * @returns `Story` objects that have at least one video.
  */
-export function filterByVideo(data: DeepStory[]) {
+export function filterHasVideo(data: DeepStory[]) {
   let returnData: DeepStory[] = [];
 
   for (let i in data) {
     // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
     if (!!data[i].videos) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
+ * Filters out `Story` objects that do not have any reports.
+ * @param data Array of `DeepStory` objects to filter.
+ * @returns `Story` objects that have at least one report.
+ */
+export function filterHasReport(data: DeepStory[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
+    if (!!data[i].reports) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
+ * Filters out `Story` objects that are not energy stories, whatever that means.
+ * @param data Array of `DeepStory` objects to filter.
+ * @returns `Story` objects where the `isEnergyStory` field is true.
+ */
+export function filterIsEnergyStory(data: DeepStory[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    if (!!data[i].isEnergyStory) {
       returnData.push(data[i]);
     }
   }
@@ -159,7 +194,13 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
     returnData = filterByEducationalProgram(returnData, filters.educationalProgram);
   }
   if (filters.video) {
-    returnData = filterByVideo(returnData);
+    returnData = filterHasVideo(returnData);
+  }
+  if (filters.report) {
+    returnData = filterHasReport(returnData);
+  }
+  if (filters.energyStory) {
+    returnData = filterIsEnergyStory(returnData);
   }
   if (filters.searchInput) {
     returnData = filterStoriesBySearchInput(returnData, filters.searchInput);
