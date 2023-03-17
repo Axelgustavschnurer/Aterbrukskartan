@@ -46,6 +46,9 @@ model Story {
   reportTitle             String? @map("report_title")
   videos                  String? @db.NVarChar(4000)
   pdfCase                 String? @map("pdf_case") @db.NVarChar(4000)
+  // What is an energy story? What is the difference between an energy story and a regular story? Nobody knows, so we'll just keep it here for now.
+  // Some (4 in total as of 2023-03-17) stories have this set to false, or rather, empty strings "" rather than "x" in the old database.
+  // TODO: Possibly move the entries with is_energy_story = false to a separate table.
   isEnergyStory           Boolean @default(true) @map("is_energy_story")
   isActive                Boolean @default(true) @map("is_active")
   mapItem                 MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
