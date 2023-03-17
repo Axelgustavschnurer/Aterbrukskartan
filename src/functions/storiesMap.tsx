@@ -27,7 +27,13 @@ export function storiesPopup(pin: any) {
 const iconArray = [pinIcons.IconPinPink, pinIcons.IconPinPaleGreen, pinIcons.IconPinDarkGreen, pinIcons.IconPinYellow, pinIcons.IconPinPurple, pinIcons.IconPinBlue, pinIcons.IconPinPalePurple, pinIcons.IconPinPalePink, pinIcons.IconPinTeal, pinIcons.IconPinOrange, pinIcons.IconPinHotPink, pinIcons.IconPinGray, pinIcons.IconPinLime, pinIcons.IconPinDarkPurple, pinIcons.IconPinNavy, pinIcons.IconPinGreen, pinIcons.IconPinGold, pinIcons.IconPinCrimson, pinIcons.IconPinPaleGray, pinIcons.IconPinPaleBlue, pinIcons.IconPinLightBlue];
 const categoryArray = ["solel", "energilagring", "hållbarhet", "energi", "mätning", "vatten", "social hållbarhet", "hälsa", "bioteknik", "öppna data", "elbil", "transport", "byggnader", "skolkök", "renovering", "klimat", "effekt", "värme", "cleantech", "vindkraft", "kyla"]
 
-function getIcon(pinIndex: number, mapData: DeepStory[]) {
+function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFilter) {
+  // TODO Make it so pins are colored based on the first category in the filter that macthes the pin
+  for (let i in categoryArray) {
+    if (currentFilter.categories && currentFilter.categories[0]?.toLowerCase().includes(categoryArray[i])) {
+      return iconArray[i]
+    }
+  }
   for (let i in categoryArray) {
     if (mapData[pinIndex].categorySwedish?.toLowerCase().includes(categoryArray[i])) {
       return iconArray[i]
@@ -47,7 +53,7 @@ export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, se
       return null
     } else {
       return (
-        <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={getIcon(pinIndex, filteredData)}>
+        <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={getIcon(pinIndex, filteredData, currentFilter)}>
           {pin ? storiesPopup(pin) : null}
         </Marker>
       )
