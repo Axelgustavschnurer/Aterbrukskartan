@@ -34,14 +34,32 @@ export function filterBySearchInput(data: DeepRecycle[], search: string): DeepRe
     "city",
   ]
 
-  search = search.toLowerCase();
+  // RegExps for the months in Swedish, surrounded by word boundaries.
+  // The word boundaries are used to prevent the RegExp from matching a string that contains the month name, but is not the month name, like "januari" in "januarii".
+  let months = [
+    /\bjanuari\b/,
+    /\bfebruari\b/,
+    /\bmars\b/,
+    /\bapril\b/,
+    /\bmaj\b/,
+    /\bjuni\b/,
+    /\bjuli\b/,
+    /\baugusti\b/,
+    /\bseptember\b/,
+    /\boctober\b/,
+    /\bnovember\b/,
+    /\bdecember\b/,
+  ]
+
+  let lowerCaseSearch: string = search.toLowerCase();
 
   for (let i in data) {
-    // Used to continue to next iteration of the outer loop if a match is found in the first inner loop.
+    // Used to continue to next iteration of the outer loop if a match is found in the first or second inner loop.
     let breakCheck = false;
 
+    // Search through the fields in the Recycle objects.
     for (let j of recycleSearchFields) {
-      if (String(data[i][j as keyof DeepRecycle])?.toLowerCase().includes(search)) {
+      if (String(data[i][j as keyof DeepRecycle])?.toLowerCase().includes(lowerCaseSearch)) {
         returnData.push(data[i]);
         breakCheck = true;
         break;
@@ -50,10 +68,20 @@ export function filterBySearchInput(data: DeepRecycle[], search: string): DeepRe
 
     if (breakCheck) continue;
 
-    // TODO: Add a check for months here. It will require special logic as the months are stored as numbers in the database, but the user will search using their Swedish names.
+    // Search through the months in the Recycle objects.
+    for (let month of months) {
+      if (month.test(lowerCaseSearch) && data[i].month === months.indexOf(month) + 1) {
+        returnData.push(data[i]);
+        breakCheck = true;
+        break;
+      }
+    }
 
+    if (breakCheck) continue;
+
+    // Search through the fields in the MapItem objects.
     for (let k of mapItemSearchFields) {
-      if (String(data[i].mapItem[k as keyof MapItem])?.toLowerCase().includes(search)) {
+      if (String(data[i].mapItem[k as keyof MapItem])?.toLowerCase().includes(lowerCaseSearch)) {
         returnData.push(data[i]);
         break;
       }
