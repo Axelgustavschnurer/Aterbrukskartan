@@ -142,7 +142,7 @@
 
 @keyframes moveHideButton {
     0% {
-        bottom: 7%;
+        bottom: 100px;
     }
 
     100% {
@@ -156,7 +156,7 @@
     }
 
     100% {
-        bottom: 7%;
+        bottom: 100px;
     }
 }
 
