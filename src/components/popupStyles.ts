@@ -20,7 +20,15 @@ const AlignLinks = {
     marginTop: "3%"
 }
 
-const PopupLinkPdf  = {
+const flexRow = {
+    display: "flex",
+    flexDirection: "row" as any,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+}
+
+const PopupLinkPdf = {
     backgroundColor: "#008000",
     border: "black",
     borderRadius: "25px",
@@ -33,7 +41,7 @@ const PopupLinkPdf  = {
     justifyContent: "center"
 };
 
-const PopupLinkReport  = {
+const PopupLinkReport = {
     backgroundColor: "#b65ed1",
     border: "black",
     borderRadius: "25px",
@@ -46,4 +54,4 @@ const PopupLinkReport  = {
     justifyContent: "center"
 };
 
-export { PopupHead, PopupText, AlignLinks, PopupLinkPdf, PopupLinkReport};
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport };

@@ -2,7 +2,7 @@ import { Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
-import { PopupHead, PopupText, AlignLinks, PopupLinkPdf, PopupLinkReport } from "../components/popupStyles";
+import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Story } from '@prisma/client';
@@ -19,10 +19,11 @@ export function storiesPopup(pin: any) {
           {!pin.mapItem.address ? null : <span>{pin.mapItem.address}<br /></span>}
           {!pin.mapItem.organisation ? null : <span>{pin.mapItem.organisation}<br /></span>}
           {!pin.descriptionSwedish ? null : <p>{pin.descriptionSwedish}</p>}
-          {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos}/>}
-          {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><img width="30px" height="30px" src="/images/categories/case.svg" /></span></a>Case</div>}
-          {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><img width="30px" height="30px" src="/images/categories/newspaper.svg" /></span></a>Rapport</div>}
-          
+          {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos} />}
+          <div style={flexRow}>
+            {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><img width="30px" height="30px" src="/images/categories/case.svg" /></span></a>Case</div>}
+            {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><img width="30px" height="30px" src="/images/categories/newspaper.svg" /></span></a>Rapport</div>}
+          </div>
         </div>
       </div>
     </Popup>
