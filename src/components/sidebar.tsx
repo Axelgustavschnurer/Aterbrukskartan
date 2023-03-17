@@ -231,8 +231,11 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setOrganisation([])
                 setStoryCategory([])
                 setEducationalProgram([])
-
-
+                setHasVideo(false)
+                setHasReport(false)
+                setHasCase(false)
+                setIsEnergy(false)
+                
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {
                   checkbox.checked = false
