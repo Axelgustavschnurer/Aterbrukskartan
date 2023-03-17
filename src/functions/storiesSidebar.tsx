@@ -17,8 +17,6 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
     "Energilagring": "battery",
     "Hållbarhet": "leaf",
     "Energi": "lightbulb",
-    "Stories": "newspaper",
-    "Videos": "playbutton",
     "Mätning": "ruler",
     "Vatten": "water",
     "Social-hållbarhet": "social",
@@ -31,7 +29,6 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
     "Skolkök": "school",
     "Renovering": "tools",
     "Klimat": "tree",
-    "Cases": "case",
     "Effekt": "lightning",
     "Värme": "fire",
     "Cleantech": "gears",
@@ -60,6 +57,37 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
               <Image src={"/images/categories/" + categories[category as keyof typeof categories] + ".svg"} alt={category} width={40} height={40} />
             </button>
             <p>{category.replace("-", " ")}</p>
+          </div>
+        )
+      })}
+    </>
+  )
+}
+
+export function createMiscFilter(hasReport: any, setHasReport: any, hasVideo: any, setHasVideo: any, hasCase: any, setHasCase: any, isEnergy: any, setIsEnergy: any) {
+  let options = ["Rapport", "Videos", "Cases", "Energy Story"]
+  return (
+    <>
+      {options.map((item: any) => {
+        return (
+          <div className={styles.inputGroup} key={item}>
+            <input
+              id={item}
+              name={item}
+              type="checkbox"
+              onChange={(e) => {
+                if (item === "Rapport" && hasReport !== e.target.checked) {
+                  setHasReport(e.target.checked)
+                  } else if (item === "Videos" && hasVideo !== e.target.checked) {
+                    setHasVideo(e.target.checked)
+                    } else if (item === "Cases" && hasCase !== e.target.checked) {
+                      setHasCase(e.target.checked)
+                      } else if (item === "Energy Story" && isEnergy !== e.target.checked) {
+                        setIsEnergy(e.target.checked)
+                        }
+              }}
+            />
+            <label htmlFor={item}>{item}</label>
           </div>
         )
       })}

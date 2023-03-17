@@ -8,7 +8,7 @@ import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { yearLimitsStories } from "@/pages/stories";
 import styles from "../styles/sidebar.module.css";
 import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
-import { createCategoryFilter, createEducationalFilter } from "@/functions/storiesSidebar";
+import { createCategoryFilter, createEducationalFilter, createMiscFilter } from "@/functions/storiesSidebar";
 
 // Sidebar component for filtering the map
 
@@ -31,7 +31,19 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   // List of all active filters for the field `storyCategory`
   const [storyCategory, setStoryCategory] = useState([] as string[])
 
+  // List of all active filters for the field `educationalProgram`
   const [educationalProgram, setEducationalProgram] = useState([] as string[])
+
+  const[isEnergy, setIsEnergy] = useState(false as boolean)
+
+  // List of all active filters for the field `Rapport`
+  const [hasReport, setHasReport] = useState(false as boolean)
+  
+  // List of all active filters for the field `Videos`
+  const [hasVideo, setHasVideo] = useState(false as boolean)
+  
+  // List of all active filters for the field `Case`
+  const [hasCase, setHasCase] = useState(false as boolean)
 
   // List of all active filters for the field `lookingForMaterials`
   const [lookingForMaterials, setLookingForMaterials] = useState([] as string[])
@@ -43,7 +55,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   const [organisation, setOrganisation] = useState([] as string[])
 
   // State of when to reset the range sliders
-  const [sliderReset, setSliderReset] = useState(false)
+  const [sliderReset, setSliderReset] = useState(false as boolean)
 
   /**
    * Fetches data from the database
@@ -89,6 +101,10 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         organisation: organisation,
         categories: storyCategory,
         educationalProgram: educationalProgram,
+        video: hasVideo,
+        report: hasReport,
+        cases: hasCase,
+        energyStory: isEnergy,
       } as StoryFilter)
       console.log(educationalProgram)
     }
@@ -102,7 +118,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         organisation: organisation,
       } as RecycleFilter)
     }
-  }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter, storyCategory, currentMap, educationalProgram])
+  }, [projectType, years, months, lookingForMaterials, availableMaterials, organisation, setFilter, storyCategory, currentMap, educationalProgram, hasVideo, hasReport, hasCase, isEnergy])
 
 
   /**
@@ -196,7 +212,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
             {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}</span>
-              : currentMap === "Stories" ? <span><h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram)}</span>
+              : currentMap === "Stories" ? <span><h3>Projekt innehåll</h3> {createMiscFilter(hasReport, setHasReport, hasVideo, setHasVideo, hasCase, setHasCase, isEnergy, setIsEnergy)} <h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram)}</span>
                 : null}
 
             <h3>Organisation</h3>
@@ -215,6 +231,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setOrganisation([])
                 setStoryCategory([])
                 setEducationalProgram([])
+
 
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {
