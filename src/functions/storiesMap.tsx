@@ -2,6 +2,7 @@ import { Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
+import Image from 'next/image'
 import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
@@ -21,8 +22,8 @@ export function storiesPopup(pin: any) {
           {!pin.descriptionSwedish ? null : <p>{pin.descriptionSwedish}</p>}
           {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos} />}
           <div style={flexRow}>
-            {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><img width="30px" height="30px" src="/images/categories/case.svg" /></span></a>Case</div>}
-            {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><img width="30px" height="30px" src="/images/categories/newspaper.svg" /></span></a>Rapport</div>}
+            {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><Image width={30} height={30} src="/images/categories/case.svg" alt="Case"/></span></a>Case</div>}
+            {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><Image width={0} height={30} src="/images/categories/newspaper.svg" alt="Rapport"/></span></a>Rapport</div>}
           </div>
         </div>
       </div>
