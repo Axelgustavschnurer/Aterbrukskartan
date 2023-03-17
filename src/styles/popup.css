@@ -1,3 +1,8 @@
-.request-popup .leaflet-popup-content-wrapper {
-    border-radius: 10px;
+.request-popup .leaflet-popup-content-wrapper .leaflet-popup-content .popup_content .popup_info .popup_info_separator {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: .2em;
+    width: 100%;
 }

@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
 import Image from 'next/image'
-import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport } from "../components/popupStyles";
+import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Story } from '@prisma/client';
@@ -19,11 +19,60 @@ export function storiesPopup(pin: any) {
           {!pin.mapItem.year ? null : <span>{pin.mapItem.year}<br /></span>}
           {!pin.mapItem.address ? null : <span>{pin.mapItem.address}<br /></span>}
           {!pin.mapItem.organisation ? null : <span>{pin.mapItem.organisation}<br /></span>}
+          {!pin.descriptionSwedish ? null :
+            <div style={Divider}>
+              <div style={DividerLineDesc}></div>
+              <Image width={25} height={25} src="/images/dividers/description.svg" alt="Delare" />
+              <div style={DividerLineDesc}></div>
+            </div>}
           {!pin.descriptionSwedish ? null : <p>{pin.descriptionSwedish}</p>}
+          {
+            !pin.videos ? null :
+              <div style={Divider}>
+                <div style={DividerLineVideo}></div>
+                <Image width={25} height={25} src="/images/dividers/video.svg" alt="Delare" />
+                <div style={DividerLineVideo}></div>
+              </div>
+          }
           {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos} />}
+
+          {/*Divider for pdfCase */}
+          {
+            !pin.pdfCase && pin.reports || !pin.pdfCase && !pin.reports || pin.pdfCase && pin.reports ? null :
+              <div style={Divider}>
+                <div style={DividerLineCase}></div>
+                <Image width={25} height={25} src="/images/dividers/case.svg" alt="Delare" />
+                <div style={DividerLineCase}></div>
+              </div>
+          }
+          {/*Divider for reports */}
+          {
+            !pin.reports && pin.pdfCase || !pin.pdfCase && !pin.reports ? null :
+              <div style={Divider}>
+                <div style={DividerLineReport}></div>
+                <Image width={25} height={25} src="/images/dividers/report.svg" alt="Delare" />
+                <div style={DividerLineReport}></div>
+              </div>
+          }
           <div style={flexRow}>
-            {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><Image width={30} height={30} src="/images/categories/case.svg" alt="Case"/></span></a>Case</div>}
-            {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><Image width={0} height={30} src="/images/categories/newspaper.svg" alt="Rapport"/></span></a>Rapport</div>}
+            {!pin.pdfCase ? null :
+              <div style={AlignLinks}>
+                <a href={pin.pdfCase}>
+                  <span style={PopupLinkPdf}>
+                    <Image width={30} height={30} src="/images/categories/case.svg" alt="Case" />
+                  </span>
+                </a>
+                Case
+              </div>}
+            {!pin.reports ? null :
+              <div style={AlignLinks}>
+                <a href={pin.reports}>
+                  <span style={PopupLinkReport}>
+                    <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
+                  </span>
+                </a>
+                Rapport
+              </div>}
           </div>
         </div>
       </div>

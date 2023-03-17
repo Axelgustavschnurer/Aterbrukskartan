@@ -54,4 +54,41 @@ const PopupLinkReport = {
     justifyContent: "center"
 };
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport };
+const Divider = {
+    display: "flex",
+    flexDirection: "row" as any,
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "15px",
+}
+
+const DividerLineDesc = {
+    width: "45%",
+    height: "3px",
+    backgroundColor: "#F18C00"
+}
+
+const DividerLineVideo = {
+    width: "45%",
+    height: "3px",
+    backgroundColor: "#F54242"
+}
+
+const DividerLineCase = {
+    width: "45%",
+    height: "3px",
+    backgroundColor: "#008000"
+}
+
+const DividerLineReport = {
+    width: "45%",
+    height: "3px",
+    backgroundColor: "#BA55D3"
+}
+
+
+
+
+
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport };
