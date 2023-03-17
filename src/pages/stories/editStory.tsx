@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import styles from '@/styles/newStory.module.css';
+import styles from '@/styles/editStory.module.css';
 import Image from "next/image";
 import { DeepStory } from "@/types";
+import Modal from "@/components/deleteModal";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -18,6 +19,8 @@ export default function EditStory() {
     // Declares the filter variable and its setter function
     const [lat, setLat] = useState();
     const [lon, setLon] = useState();
+
+    const [modalState, setModalState] = useState(false);
 
     const [newData, setNewData] = useState([{}] as Recycle[]);
     const [filterData, setFilterData] = useState({} as DeepStory);
@@ -142,6 +145,34 @@ export default function EditStory() {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handleDelete = async (e: any) => {
+        e.preventDefault();
+        try {
+            // Sends a post request to the api with the data from the form
+            let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            let resJson = await res.json();
+            console.log(resJson)
+            if (res.status >= 200 && res.status < 300) {
+                // If the post was successful, reset the form and redirect to the home page
+                router.push("/stories");
+            } else {
+                setMessage(resJson.message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDeleteModalOnclick = () => {
+        setModalState(!modalState)
     }
 
     const NewPostMap = React.useMemo(() => dynamic(
@@ -458,11 +489,16 @@ export default function EditStory() {
                                         <p>Nej</p>
                                 }
                             </div>
+                        </form>
+                        <div className={styles.btnAlignContainer}>
                             <div className={styles.addNewPostFormSubmit}>
-                                < button type="submit" > Spara</button >
-                            </div >
-                            <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
-                        </form >
+                                <button type="submit" onClick={handleSubmit}> Spara </button>
+                            </div>
+                            <div className={styles.addNewPostFormSubmit}>
+                                <button onClick={handleDeleteModalOnclick}> Ta bort </button>
+                                <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
+                            </div>
+                        </div>
                     </div >
                 </div >
             </div >
