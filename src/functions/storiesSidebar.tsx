@@ -84,11 +84,11 @@ export function createEducationalFilter(educationalProgram: any, setEducationalP
               name={program}
               type="checkbox"
               onChange={(e) => {
-                // If the checkbox is now checked and the program is not in the educationalProgram array, add it to the array
+                // If the checkbox is now unchecked and the program is in the educationalProgram array, remove it from the array
                 if (educationalProgram.includes(e.target.name) && !e.target.checked) {
                   setEducationalProgram(educationalProgram.filter((item: any) => item !== e.target.name))
                 }
-                // If the checkbox is now unchecked and the program is in the educationalProgram array, remove it from the array
+                // If the checkbox is now checked and the program is not in the educationalProgram array, add it to the array
                 else if (!educationalProgram.includes(e.target.name) && e.target.checked) {
                   setEducationalProgram([...educationalProgram, e.target.name])
                 }

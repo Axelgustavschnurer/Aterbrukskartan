@@ -121,11 +121,11 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 name={pin}
                 type="checkbox"
                 onChange={(e) => {
-                  // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
+                  // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
                   if (organisation.includes(e.target.name) && !e.target.checked) {
                     setOrganisation(organisation.filter((item: any) => item !== e.target.name))
                   }
-                  // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
+                  // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
                   else if (!organisation.includes(e.target.name) && e.target.checked) {
                     setOrganisation([...organisation, e.target.name])
                   }
