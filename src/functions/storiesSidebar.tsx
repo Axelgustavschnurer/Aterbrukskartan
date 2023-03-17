@@ -40,6 +40,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
   }
   return (
     <>
+    {/* Creates a button for each category in the `categories` object. */}
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
@@ -55,6 +56,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
                 }
               }}
             >
+              {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
               <Image src={"/images/categories/" + categories[category as keyof typeof categories] + ".svg"} alt={category} width={40} height={40} />
             </button>
             <p>{category.replace("-", " ")}</p>
