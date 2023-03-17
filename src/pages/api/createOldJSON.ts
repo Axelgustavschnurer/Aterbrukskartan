@@ -59,7 +59,7 @@ export default async function handler(
       year: mapItem.year?.toString() || "Ongoing",
       coordinates: `${mapItem.latitude}, ${mapItem.longitude}`,
       address: mapItem.address,
-      // TODO: Add a space after the third number.
+      // TODO: Add a space after the third number in postal code.
       "postal code": mapItem.postcode?.toString(),
       city: mapItem.city,
       category_swedish: story.categorySwedish,
@@ -71,10 +71,8 @@ export default async function handler(
       description_english_short: story.descriptionEnglishShort,
       "open data": story.openData,
       // Energy stories is a confusing field, the old data sets it to "x" for all entries except 4, which are null.
-      // The new data instead currently infers it from the fact that the data exists in the Story table.
-      // This workaround maistakenly assigns "x" to all entries, including the 4 that were originally null, but it is good enough for now.
-      // TODO: Possibly add this field to the Story table.
-      "energy stories": "x",
+      // The new data sets it to true or false, but the non-energy stories should probably be moved to another table instead?
+      "energy stories": story.isEnergyStory ? "x" : null,
       reports: story.reports,
       videos: story.videos,
       pdfcase: story.pdfCase,
