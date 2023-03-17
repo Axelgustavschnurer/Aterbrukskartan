@@ -11,4 +11,39 @@ const PopupText = {
     marginBottom: "5px"
 };
 
-export { PopupHead, PopupText};
+const AlignLinks = {
+    display: "flex",
+    flexDirection: "column" as any,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "3%"
+}
+
+const PopupLinkPdf  = {
+    backgroundColor: "#008000",
+    border: "black",
+    borderRadius: "25px",
+    padding: "5px",
+    cursor: "pointer",
+    width: "50px",
+    height: "50px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+};
+
+const PopupLinkReport  = {
+    backgroundColor: "#b65ed1",
+    border: "black",
+    borderRadius: "25px",
+    padding: "5px",
+    cursor: "pointer",
+    width: "50px",
+    height: "50px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+};
+
+export { PopupHead, PopupText, AlignLinks, PopupLinkPdf, PopupLinkReport};

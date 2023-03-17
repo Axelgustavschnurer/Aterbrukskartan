@@ -2,7 +2,7 @@ import { Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
-import { PopupHead, PopupText } from "../components/popupStyles";
+import { PopupHead, PopupText, AlignLinks, PopupLinkPdf, PopupLinkReport } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Story } from '@prisma/client';
@@ -12,12 +12,17 @@ export function storiesPopup(pin: any) {
     <Popup className='request-popup'>
       <div>
         <div style={PopupHead}>
-          {pin.mapItem.organisation}
+          {pin.mapItem.name}
         </div>
         <div style={PopupText}>
-          {!pin.mapItem.year ? "Inget startår angivet" : "Projektet startardes " + pin.mapItem.year}
-          {pin.projectType}
-          {!pin.contact ? <p><b>Kontakt</b> <br /> Ingen kontaktinformation tillgänglig</p> : <p><b>Kontakt</b> <br /> {pin.contact}</p>}
+          {!pin.mapItem.year ? null : <span>{pin.mapItem.year}<br /></span>}
+          {!pin.mapItem.address ? null : <span>{pin.mapItem.address}<br /></span>}
+          {!pin.mapItem.organisation ? null : <span>{pin.mapItem.organisation}<br /></span>}
+          {!pin.descriptionSwedish ? null : <p>{pin.descriptionSwedish}</p>}
+          {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos}/>}
+          {!pin.pdfCase ? null : <div style={AlignLinks}><a href={pin.pdfCase}><span style={PopupLinkPdf}><img width="30px" height="30px" src="/images/categories/case.svg" /></span></a>Case</div>}
+          {!pin.reports ? null : <div style={AlignLinks}><a href={pin.reports}><span style={PopupLinkReport}><img width="30px" height="30px" src="/images/categories/newspaper.svg" /></span></a>Rapport</div>}
+          
         </div>
       </div>
     </Popup>
