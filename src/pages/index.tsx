@@ -22,19 +22,23 @@ export default function NavPage() {
                 <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
             </Head>
             <div className={styles.header} id={styles.header}>
-                <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+                <Image src="/images/stuns_logo.png" alt="Bild på Stuns logga" width={170} height={50} />
             </div>
 
             <div className={styles.addPostContainer}>
                 <div className={styles.addNewPostContainer}>
-                    <h1 className={styles.addNewPostTitle}>Vilken sida vill du besöka</h1>
+                    <h1 className={styles.addNewPostTitle}>Vilken sida vill du besöka?</h1>
                     <div className={styles.gotoContainer}>
-                        <div className={styles.gotoImg}>
-                            <Image src="/images/aterbruk.png" alt="logo" width={500} height={250} onClick={gotoStunsAterbrukkarta} />
+                        <div className={styles.goto}>
+                            <div className={styles.gotoImg}>
+                                <Image src="/images/aterbruk.png" alt="Bild på återbrukskartan" width={500} height={250} onClick={gotoStunsAterbrukkarta} className={styles.image} />
+                            </div>
                             <p>Återbrukskartan</p>
                         </div>
-                        <div className={styles.gotoImg}>
-                            <Image src="/images/aterbruk.png" alt="logo" width={500} height={250} onClick={gotoStories} />
+                        <div className={styles.goto}>
+                            <div className={styles.gotoImg}>
+                                <Image src="/images/story.png" alt="Bild på storieskartan" width={500} height={250} onClick={gotoStories} className={styles.image} />
+                            </div>
                             <p>Stories</p>
                         </div>
                     </div>
