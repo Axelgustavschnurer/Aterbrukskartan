@@ -133,10 +133,17 @@ export default function HomePage() {
 
       <div className={styles.smallRightContainerOpacity} />
       <div className={styles.smallRightContainer}>
-        <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
-        <div className={styles.iconContainer} onClick={handleRedirect}>
-          <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
-        </div>
+        <Tooltip content={"Till\xa0Stuns"} placement="left">
+          <a href="https://stuns.se/" target="_blank" className={styles.stunsIcon}>
+            <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+          </a>
+        </Tooltip>
+
+        <Tooltip content={"Till\xa0Återbruk"} placement="left">
+          <div className={styles.iconContainer} onClick={handleRedirect}>
+            <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
+          </div>
+        </Tooltip>
       </div>
 
       <Sidebar setFilter={setFilter} currentMap="Stories" />
