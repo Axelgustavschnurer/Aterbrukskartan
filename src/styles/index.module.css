@@ -151,7 +151,7 @@
 .addNewPost {
     position: fixed;
     right: 0.5rem;
-    bottom: 7%;
+    bottom: 10%;
     height: auto;
     width: auto;
     z-index: 2;
@@ -184,6 +184,10 @@
 @media screen and (min-width: 2000px) {
     .wrap {
         width: 15.5vw;
+    }
+
+    .addNewPost {
+        bottom: 7%;
     }
 }
 
