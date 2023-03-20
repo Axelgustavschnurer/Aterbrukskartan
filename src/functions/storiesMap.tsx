@@ -60,7 +60,7 @@ export function storiesPopup(pin: any) {
           <div style={flexRow}>
             {!pin.pdfCase ? null :
               <div style={AlignLinks}>
-                <a href={pin.pdfCase} target="_blank">
+                <a href={pin.pdfCase} target="_blank" rel="noreferrer">
                   <span style={PopupLinkPdf}>
                     <Image width={30} height={30} src="/images/categories/case.svg" alt="Case" />
                   </span>
@@ -69,7 +69,7 @@ export function storiesPopup(pin: any) {
               </div>}
             {!pin.reports ? null :
               <div style={AlignLinks}>
-                <a href={pin.reports} target="_blank">
+                <a href={pin.reports} target="_blank" rel="noreferrer">
                   <span style={PopupLinkReport}>
                     <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
                   </span>
