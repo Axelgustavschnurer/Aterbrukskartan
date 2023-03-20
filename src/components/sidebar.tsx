@@ -58,6 +58,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   // State of when to reset the range sliders
   const [sliderReset, setSliderReset] = useState(false as boolean)
 
+  // State of when the reset button should be active
+  const [disableReset, setDisableReset] = useState(true as boolean)
+
   /**
    * Fetches data from the database
    */
@@ -107,7 +110,6 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         cases: hasCase,
         energyStory: isEnergy,
       } as StoryFilter)
-      console.log(educationalProgram)
     }
     else if (currentMap === "Recycle") {
       setFilter({
@@ -141,10 +143,16 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                   // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
                   if (organisation.includes(e.target.name) && !e.target.checked) {
                     setOrganisation(organisation.filter((item: any) => item !== e.target.name))
+                    // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                    if (organisation.length <= 1) {
+                      setDisableReset(true)
+                    }
                   }
                   // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
                   else if (!organisation.includes(e.target.name) && e.target.checked) {
                     setOrganisation([...organisation, e.target.name])
+                    // Enable the reset button when a filter is active
+                    setDisableReset(false)
                   }
                 }}
               />
@@ -165,7 +173,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           </div>
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
-            {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType) : null}
+            {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory, setDisableReset) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType, setDisableReset) : null}
           </div>
 
           <div className={styles.sidebarHeader}>
@@ -212,7 +220,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
-            {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials)}</span>
+            {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials, setDisableReset)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials, setDisableReset)}</span>
               : currentMap === "Stories" ? <span><h3>Projekt innehåll</h3> {createMiscFilter(hasReport, setHasReport, hasVideo, setHasVideo, hasCase, setHasCase, isEnergy, setIsEnergy)} <h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram)}</span>
                 : null}
 
@@ -224,22 +232,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           <div className={styles.clearFilter}>
             <Button
               id={styles.clearBtn}
-              disabled={!projectType.length
-                && !lookingForMaterials.length
-                && !availableMaterials.length
-                && !organisation.length
-                && !storyCategory.length
-                && !educationalProgram.length
-                && !hasVideo
-                && !hasReport
-                && !hasCase
-                && !isEnergy
-                && Math.min(...years) === (currentMap === "Stories" ? yearLimitsStories.min : currentMap === "Recycle" ? yearLimitsRecycle.min : null)
-                && Math.max(...years) === (currentMap === "Stories" ? yearLimitsStories.max : currentMap === "Recycle" ? yearLimitsRecycle.max : null)
-                && (Math.min(...months) === 1 || months[0] == null)
-                && (Math.max(...months) === 12 || months[1] == null)}
+              disabled={disableReset}
               onPress={() => {
-                console.log(!![]);
                 setProjectType([])
                 setSliderReset(true)
                 setLookingForMaterials([])
@@ -251,6 +245,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setHasReport(false)
                 setHasCase(false)
                 setIsEnergy(false)
+                setDisableReset(true)
 
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {

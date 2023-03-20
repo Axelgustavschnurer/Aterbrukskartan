@@ -5,7 +5,7 @@ import styles from "../styles/sidebar.module.css";
 /**
 * Creates buttons for all the project categories defined in the array `categories` in this function
 */
-export function createProjectTypeFilter(projectType: any, setProjectType: any) {
+export function createProjectTypeFilter(projectType: any, setProjectType: any, setDisableReset: any) {
   let categories = [
     "Rivning",
     "Nybyggnation",
@@ -22,11 +22,16 @@ export function createProjectTypeFilter(projectType: any, setProjectType: any) {
               onClick={(e: any) => {
                 // If category is already in the projectType array, remove it
                 if (projectType.includes(e.currentTarget.value)) {
+                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                  if (projectType.length <= 1) {
+                    setDisableReset(true)
+                  }
                   setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
                 }
                 // Otherwise, add it
                 else {
                   setProjectType([...projectType, e.currentTarget.value])
+                  setDisableReset(false)
                 }
               }}
             >
@@ -70,7 +75,7 @@ function getAllMaterialCategories(mapData: any) {
 /**
  * Creates checkboxes for all the different lookingForMaterials categories in the database
  */
-export function createLookingForFilter(mapData: any, lookingForMaterials: any, setLookingForMaterials: any) {
+export function createLookingForFilter(mapData: any, lookingForMaterials: any, setLookingForMaterials: any, setDisableReset: any) {
   let categories = getAllMaterialCategories(mapData)
   return (
     <>
@@ -85,10 +90,14 @@ export function createLookingForFilter(mapData: any, lookingForMaterials: any, s
                 // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
                 if (lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && !e.target.checked) {
                   setLookingForMaterials(lookingForMaterials.filter((item: any) => item !== e.target.name.replace('Sökes', '')))
+                  if (lookingForMaterials.length <= 1) {
+                    setDisableReset(true)
+                  }
                 }
                 // If the checkbox is now checked and the category is not in the lookingForMaterials array, add it to the array
                 else if (!lookingForMaterials.includes(e.target.name.replace('Sökes', '')) && e.target.checked) {
                   setLookingForMaterials([...lookingForMaterials, e.target.name.replace('Sökes', '')])
+                  setDisableReset(false)
                 }
               }}
             />
@@ -103,7 +112,7 @@ export function createLookingForFilter(mapData: any, lookingForMaterials: any, s
 /**
  * Creates checkboxes for all the different availableMaterials categories in the database
  */
-export function createAvailableFilter(mapData: any, availableMaterials: any, setAvailableMaterials: any) {
+export function createAvailableFilter(mapData: any, availableMaterials: any, setAvailableMaterials: any, setDisableReset: any) {
   let categories = getAllMaterialCategories(mapData)
   return (
     <>
@@ -118,10 +127,14 @@ export function createAvailableFilter(mapData: any, availableMaterials: any, set
                 // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
                 if (availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && !e.target.checked) {
                   setAvailableMaterials(availableMaterials.filter((item: any) => item !== e.target.name.replace('Erbjuds', '')))
+                  if (availableMaterials.length <= 1) {
+                    setDisableReset(true)
+                  }
                 }
                 // If the checkbox is now checked and the category is not in the availableMaterials array, add it to the array
                 else if (!availableMaterials.includes(e.target.name.replace('Erbjuds', '')) && e.target.checked) {
                   setAvailableMaterials([...availableMaterials, e.target.name.replace('Erbjuds', '')])
+                  setDisableReset(false)
                 }
               }}
             />

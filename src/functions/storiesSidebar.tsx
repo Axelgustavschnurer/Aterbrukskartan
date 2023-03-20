@@ -12,7 +12,7 @@ import { educationalPrograms } from "@/pages/stories/newStory";
  * @param storyCategory Array of strings containing the currently active category filters
  * @param setStoryCategory Function to set the `storyCategory` state
  */
-export function createCategoryFilter(storyCategory: any, setStoryCategory: any) {
+export function createCategoryFilter(storyCategory: any, setStoryCategory: any, setDisableReset: any) {
   let categories = {
     "Solel": "solar",
     "Energilagring": "battery",
@@ -38,7 +38,7 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
   }
   return (
     <>
-    {/* Creates a button for each category in the `categories` object. */}
+      {/* Creates a button for each category in the `categories` object. */}
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
@@ -47,10 +47,18 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any) 
               className={styles.categoryBtn}
               value={category.replace("-", " ")}
               onClick={(e: any) => {
+                // If category is already in the storyCategory array, remove it
                 if (storyCategory.includes(e.currentTarget.value)) {
+                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                  if (storyCategory.length <= 1) {
+                    setDisableReset(true)
+                  }
                   setStoryCategory(storyCategory.filter((item: any) => item !== e.currentTarget.value))
-                } else {
+                }
+                // Otherwise, add it 
+                else {
                   setStoryCategory([...storyCategory, e.currentTarget.value])
+                  setDisableReset(false)
                 }
               }}
             >
@@ -79,13 +87,13 @@ export function createMiscFilter(hasReport: any, setHasReport: any, hasVideo: an
               onChange={(e) => {
                 if (item === "Rapport" && hasReport !== e.target.checked) {
                   setHasReport(e.target.checked)
-                  } else if (item === "Videos" && hasVideo !== e.target.checked) {
-                    setHasVideo(e.target.checked)
-                    } else if (item === "Cases" && hasCase !== e.target.checked) {
-                      setHasCase(e.target.checked)
-                      } else if (item === "Energy Story" && isEnergy !== e.target.checked) {
-                        setIsEnergy(e.target.checked)
-                        }
+                } else if (item === "Videos" && hasVideo !== e.target.checked) {
+                  setHasVideo(e.target.checked)
+                } else if (item === "Cases" && hasCase !== e.target.checked) {
+                  setHasCase(e.target.checked)
+                } else if (item === "Energy Story" && isEnergy !== e.target.checked) {
+                  setIsEnergy(e.target.checked)
+                }
               }}
             />
             <label htmlFor={item}>{item}</label>
