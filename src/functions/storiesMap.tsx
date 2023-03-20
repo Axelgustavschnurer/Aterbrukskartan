@@ -87,7 +87,7 @@ const iconArray = [pinIcons.IconPinPink, pinIcons.IconPinPaleGreen, pinIcons.Ico
 const categoryArray = ["solel", "energilagring", "hållbarhet", "energi", "mätning", "vatten", "social hållbarhet", "hälsa", "bioteknik", "öppna data", "elbil", "transport", "byggnader", "skolkök", "renovering", "klimat", "effekt", "värme", "cleantech", "vindkraft", "kyla"]
 
 function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFilter) {
-  // TODO Make it so pins are colored based on the first category in the filter that macthes the pin
+  // TODO Make it so pins are colored based on the first category in the filter *that matches with the pin*
   for (let i in categoryArray) {
     if (currentFilter.categories && currentFilter.categories[0]?.toLowerCase().includes(categoryArray[i])) {
       return iconArray[i]
