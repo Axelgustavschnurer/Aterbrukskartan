@@ -205,11 +205,12 @@ export default function HomePage() {
       </div>
 
       {/* Button leading to another page where one can add projects to the database */}
-      <div className={`${styles.addNewPost} ${styles.tooltip}`}>
-        <span className={styles.tooltipText}>Lägg till nytt projekt</span>
-        <button className={styles.addNewPostButton} onClick={goToNewPost}>
-          <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
-        </button>
+      <div className={styles.addNewPost}>
+        <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+          <button className={styles.addNewPostButton} onClick={goToNewPost}>
+            <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+          </button>
+        </Tooltip>
       </div>
     </>
   )

@@ -8,6 +8,7 @@ import { StoryFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Footer from '@/components/footer'
+import { Tooltip } from '@nextui-org/react'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -61,7 +62,7 @@ export default function HomePage() {
         )
       }
     }
-  }  
+  }
 
   /**
    * Returns a p element with the currently active year filters, if any
@@ -155,11 +156,12 @@ export default function HomePage() {
       </div>
 
       {/* Button leading to another page where one can add projects to the database */}
-      <div className={`${styles.addNewPost} ${styles.tooltip}`}>
-        <span className={styles.tooltipText}>Lägg till nytt projekt</span>
-        <button className={styles.addNewPostButton} onClick={goToNewStory}>
-          <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
-        </button>
+      <div className={`${styles.addNewPost}`}>
+        <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
+          <button className={styles.addNewPostButton} onClick={goToNewStory}>
+            <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
+          </button>
+        </Tooltip>
       </div>
       <Footer />
     </>
