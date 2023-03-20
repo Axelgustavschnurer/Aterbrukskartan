@@ -59,9 +59,8 @@ export default function AddNewPost() {
         e.preventDefault();
         try {
             let mapItem: Prisma.MapItemCreateInput = {
-                // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
-                latitude: parseFloat(lat!),
-                longitude: parseFloat(lon!),
+                latitude: lat ? parseFloat(lat) : null,
+                longitude: lon ? parseFloat(lon) : null,
                 organisation: organization,
                 year: parseInt(startYear),
             }

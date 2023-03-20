@@ -84,10 +84,10 @@ export default function EditStory() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
+          // TODO: implement address, postcode and city
             let mapItem: Prisma.MapItemCreateInput = {
-                // FIX: We should not use ! here. We should check if lat and lon are defined before we use them.
-                latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
-                longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+                latitude: lat ? parseFloat(lat) : undefined,
+                longitude: lon ? parseFloat(lon) : undefined,
                 address: "" ? "" : undefined,
                 postcode: parseInt("") ? parseInt("") : undefined,
                 city: "" ? "" : undefined,
