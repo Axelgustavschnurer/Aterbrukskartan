@@ -20,9 +20,12 @@ export function createProjectTypeFilter(projectType: any, setProjectType: any) {
               id={styles[category]}
               value={category}
               onClick={(e: any) => {
+                // If category is already in the projectType array, remove it
                 if (projectType.includes(e.currentTarget.value)) {
                   setProjectType(projectType.filter((item: any) => item !== e.currentTarget.value))
-                } else {
+                }
+                // Otherwise, add it
+                else {
                   setProjectType([...projectType, e.currentTarget.value])
                 }
               }}
