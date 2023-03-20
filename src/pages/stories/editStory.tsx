@@ -9,6 +9,7 @@ import styles from '@/styles/editStory.module.css';
 import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
+import { educationalPrograms } from "./newStory";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -262,8 +263,7 @@ export default function EditStory() {
   }
 
   const getEducationalPrograms = () => {
-    let programs = ["Agronom", "Civilingenjör", "Högskoleingenjör", "Kandidatprogram"];
-    ;
+    let programs = educationalPrograms;
     return (
       <>
         {programs.map((program: any, index: any) => {
