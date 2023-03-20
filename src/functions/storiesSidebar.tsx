@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
+import { educationalPrograms } from "@/pages/stories/newStory";
 
 /**
  * Creates buttons for all the categories defined in the object `categories` in this function.
@@ -96,14 +97,12 @@ export function createMiscFilter(hasReport: any, setHasReport: any, hasVideo: an
 }
 
 /**
- * Creates checkboxes for all the educational programs defined in the array `programs` in this function
- * 
- * TODO: Should instead import an array of educational programs from newStory.tsx to allow filtering for any allowed educational program
- * @param educationalProgram Array of strings containing the currently active educational program filters
- * @param setEducationalProgram Function to set the `educationalProgram` state
+ * Creates checkboxes for all the educational programs defined in the array `educationalPrograms` defined in the file `newStory.tsx`.
+ * @param educationalProgram Array of strings containing the currently active educational program filters.
+ * @param setEducationalProgram Function to set the `educationalProgram` state.
  */
 export function createEducationalFilter(educationalProgram: any, setEducationalProgram: any) {
-  let programs = ["Civilingenjör", "Högskoleingenjör", "Agronom", "Kandidatprogram"]
+  let programs = educationalPrograms
   return (
     <>
       {programs.map((program: any) => {

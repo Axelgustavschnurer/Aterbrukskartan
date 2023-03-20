@@ -10,6 +10,14 @@ import Image from "next/image";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
+/** Array containing all the allowed educational programs */
+export const educationalPrograms: string[] = [
+  "Agronom",
+  "Civilingenjör",
+  "Högskoleingenjör",
+  "Kandidatprogram",
+];
+
 export default function AddNewStory() {
   const router = useRouter();
   const currentDate = new Date().getFullYear();
@@ -188,8 +196,7 @@ export default function AddNewStory() {
   }
 
   const getEducationalPrograms = () => {
-    let programs = ["Agronom", "Civilingenjör", "Högskoleingenjör", "Kandidatprogram"];
-    ;
+    let programs = educationalPrograms;
     return (
       <>
         {programs.map((program: any) => {
