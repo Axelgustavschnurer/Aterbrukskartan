@@ -9,6 +9,7 @@ import { yearLimitsStories } from "@/pages/stories";
 import styles from "../styles/sidebar.module.css";
 import { createProjectTypeFilter, createLookingForFilter, createAvailableFilter } from "@/functions/recycleSidebar";
 import { createCategoryFilter, createEducationalFilter, createMiscFilter } from "@/functions/storiesSidebar";
+import { Button } from "@nextui-org/react";
 
 // Sidebar component for filtering the map
 
@@ -34,14 +35,14 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   // List of all active filters for the field `educationalProgram`
   const [educationalProgram, setEducationalProgram] = useState([] as string[])
 
-  const[isEnergy, setIsEnergy] = useState(false as boolean)
+  const [isEnergy, setIsEnergy] = useState(false as boolean)
 
   // List of all active filters for the field `Rapport`
   const [hasReport, setHasReport] = useState(false as boolean)
-  
+
   // List of all active filters for the field `Videos`
   const [hasVideo, setHasVideo] = useState(false as boolean)
-  
+
   // List of all active filters for the field `Case`
   const [hasCase, setHasCase] = useState(false as boolean)
 
@@ -219,11 +220,26 @@ export default function Sidebar({ setFilter, currentMap }: any) {
             {createOrganisationFilter()}
           </form>
 
-          {/* Button for clearing the current filter */}
+          {/* Button for clearing the current filter. Disabled when no filter is active */}
           <div className={styles.clearFilter}>
-            <button
+            <Button
               id={styles.clearBtn}
-              onClick={() => {
+              disabled={!projectType.length
+                && !lookingForMaterials.length
+                && !availableMaterials.length
+                && !organisation.length
+                && !storyCategory.length
+                && !educationalProgram.length
+                && !hasVideo
+                && !hasReport
+                && !hasCase
+                && !isEnergy
+                && Math.min(...years) === (currentMap === "Stories" ? yearLimitsStories.min : currentMap === "Recycle" ? yearLimitsRecycle.min : null)
+                && Math.max(...years) === (currentMap === "Stories" ? yearLimitsStories.max : currentMap === "Recycle" ? yearLimitsRecycle.max : null)
+                && (Math.min(...months) === 1 || months[0] == null)
+                && (Math.max(...months) === 12 || months[1] == null)}
+              onPress={() => {
+                console.log(!![]);
                 setProjectType([])
                 setSliderReset(true)
                 setLookingForMaterials([])
@@ -235,14 +251,14 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setHasReport(false)
                 setHasCase(false)
                 setIsEnergy(false)
-                
+
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {
                   checkbox.checked = false
                 })
               }}>
               Rensa filter
-            </button>
+            </Button>
           </div>
 
           {/* Button for closing the sidebar */}
