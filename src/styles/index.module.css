@@ -1,6 +1,6 @@
-.smallRightContainerOpacity {
+.smallRightContainerOpacityStory {
     background-color: #f2f2f2;
-    height: 120px;
+    height: 170px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -13,10 +13,11 @@
     z-index: 1;
     border-bottom-left-radius: 20px;
     opacity: 0.5;
+
 }
 
-.smallRightContainer {
-    height: 120px;
+.smallRightContainerStory {
+    height: 170px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -25,6 +26,43 @@
     position: fixed;
     right: 0;
     top: 0;
+}
+
+.smallRightContainerOpacity {
+    background-color: #f2f2f2;
+    height: 130px;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    border: 1px solid #000000;
+    z-index: 1;
+    border-bottom-left-radius: 20px;
+    opacity: 0.5;
+
+}
+
+.smallRightContainer {
+    height: 130px;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.stunsIcon {
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 .iconContainer {
@@ -137,4 +175,19 @@
     .wrap {
         width: 15.5vw;
     }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+
 }

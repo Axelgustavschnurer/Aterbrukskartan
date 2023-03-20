@@ -46,8 +46,12 @@ export default function HomePage() {
     router.push('/stories/newStory')
   }
 
-  const handleRedirect = () => {
+  const handleRedirectAter = () => {
     router.push('/aterbruk')
+  }
+
+  const handleRedirectSolar = () => {
+    router.push('/solar')
   }
 
   /**
@@ -131,12 +135,25 @@ export default function HomePage() {
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories" />
 
-      <div className={styles.smallRightContainerOpacity} />
-      <div className={styles.smallRightContainer}>
-        <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
-        <div className={styles.iconContainer} onClick={handleRedirect}>
-          <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
-        </div>
+      <div className={styles.smallRightContainerOpacityStory} />
+      <div className={styles.smallRightContainerStory}>
+        <Tooltip content={"Till\xa0Stuns"} placement="left">
+          <a href="https://stuns.se/" target="_blank" className={styles.stunsIcon}>
+            <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+          </a>
+        </Tooltip>
+
+        <Tooltip content={"Till\xa0Återbruk"} placement="left">
+          <div className={styles.iconContainerStory} onClick={handleRedirectAter}>
+            <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
+          </div>
+        </Tooltip>
+
+        <Tooltip content={"Till\xa0Solar"} placement="left">
+          <div className={styles.iconContainerStory} onClick={handleRedirectSolar}>
+            <Image src="/images/solar.svg" alt="Redirect" width={50} height={50} />
+          </div>
+        </Tooltip>
       </div>
 
       <Sidebar setFilter={setFilter} currentMap="Stories" />
