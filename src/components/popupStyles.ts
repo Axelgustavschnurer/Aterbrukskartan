@@ -87,8 +87,12 @@ const DividerLineReport = {
     backgroundColor: "#BA55D3"
 }
 
+const PopupDesc = {
+    maxHeight: "200px",
+    overflowY: "auto" as any,
+}
 
 
 
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport };
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, PopupDesc };

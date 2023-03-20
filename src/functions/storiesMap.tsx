@@ -3,10 +3,11 @@ import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
 import Image from 'next/image'
-import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport } from "../components/popupStyles";
+import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, PopupDesc } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Story } from '@prisma/client';
+import { Collapse } from '@nextui-org/react'
 
 export function storiesPopup(pin: any) {
   return (
@@ -25,7 +26,7 @@ export function storiesPopup(pin: any) {
               <Image width={25} height={25} src="/images/dividers/description.svg" alt="Delare" />
               <div style={DividerLineDesc}></div>
             </div>}
-          {!pin.descriptionSwedish ? null : <p>{pin.descriptionSwedish}</p>}
+          {!pin.descriptionSwedish ? null : <Collapse title="Beskrivning" subtitle="Tryck för att visa / gömma beskrivning" divider={false}><div style={PopupDesc}><p>{pin.descriptionSwedish}</p></div></Collapse>}
           {
             !pin.videos ? null :
               <div style={Divider}>
