@@ -126,7 +126,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
    */
   const createOrganisationFilter = () => {
     let mappedData = mapData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
+    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index && !!mappedData[index]).sort()
     return (
       <>
         {filteredData.map((pin: any) => {
