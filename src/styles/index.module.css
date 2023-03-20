@@ -1,6 +1,6 @@
 .smallRightContainerOpacityStory {
     background-color: #f2f2f2;
-    height: 170px;
+    height: 190px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
 }
 
 .smallRightContainerStory {
-    height: 170px;
+    height: 190px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -71,6 +71,16 @@
 }
 
 .iconContainer:hover {
+    background-color: #f7f7f79d;
+    border-radius: 100%;
+}
+
+.iconContainerStory {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.iconContainerStory:hover {
     background-color: #f7f7f79d;
     border-radius: 100%;
 }
