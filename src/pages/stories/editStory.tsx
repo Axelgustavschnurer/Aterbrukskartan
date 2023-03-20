@@ -22,7 +22,7 @@ export default function EditStory() {
 
     const [modalState, setModalState] = useState(false);
 
-    const [newData, setNewData] = useState([{}] as Recycle[]);
+    const [newData, setNewData] = useState([{}] as DeepStory[]);
     const [filterData, setFilterData] = useState({} as DeepStory);
 
     const [project, setProject] = useState("");
@@ -84,7 +84,7 @@ export default function EditStory() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-          // TODO: implement address, postcode and city
+            // TODO: implement address, postcode and city
             let mapItem: Prisma.MapItemCreateInput = {
                 latitude: lat ? parseFloat(lat) : undefined,
                 longitude: lon ? parseFloat(lon) : undefined,
@@ -516,8 +516,4 @@ export default function EditStory() {
             </div >
         </>
     );
-}
-
-function updateState(arg0: {}): any {
-    throw new Error("Function not implemented.");
 }
