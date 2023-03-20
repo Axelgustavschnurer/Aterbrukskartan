@@ -51,6 +51,9 @@ export default async function handler(
   getData.map((item) => {
     const { mapItem, ...story } = item
 
+    // Postcodes are stored as numbers (12345) in the database, but they are usually formatted as "123 45" in practice
+    const postcodeString = mapItem.postcode?.toString().substring(0, 3) + " " + mapItem.postcode?.toString().substring(3)
+
     const formattedString = {
       id: mapItem.id.toString(),
       name: mapItem.name,
@@ -59,8 +62,7 @@ export default async function handler(
       year: mapItem.year?.toString() || "Ongoing",
       coordinates: `${mapItem.latitude}, ${mapItem.longitude}`,
       address: mapItem.address,
-      // TODO: Add a space after the third number in postal code.
-      "postal code": mapItem.postcode?.toString(),
+      "postal code": postcodeString,
       city: mapItem.city,
       category_swedish: story.categorySwedish,
       category_english: story.categoryEnglish,
