@@ -45,6 +45,10 @@ export default function HomePage() {
     router.push('/stories/newStory')
   }
 
+  const handleRedirect = () => {
+    router.push('/aterbruk')
+  }
+
   /**
    * Returns a p element with the currently active category filters, if any
    */
@@ -61,7 +65,7 @@ export default function HomePage() {
         )
       }
     }
-  }  
+  }
 
   /**
    * Returns a p element with the currently active year filters, if any
@@ -125,6 +129,14 @@ export default function HomePage() {
       </Head>
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories" />
+
+      <div className={styles.smallRightContainerOpacity} />
+      <div className={styles.smallRightContainer}>
+        <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+        <div className={styles.iconContainer} onClick={handleRedirect}>
+          <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
+        </div>
+      </div>
 
       <Sidebar setFilter={setFilter} currentMap="Stories" />
 

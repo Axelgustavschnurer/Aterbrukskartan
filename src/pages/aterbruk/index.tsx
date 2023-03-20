@@ -50,6 +50,10 @@ export default function HomePage() {
     router.push('/aterbruk/newPost')
   }
 
+  const handleRedirect = () => {
+    router.push('/stories')
+  }
+
   /**
    * Returns a p element with the currently active project type filters, if any
    */
@@ -173,6 +177,15 @@ export default function HomePage() {
       </Head>
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+
+      <div className={styles.smallRightContainerOpacity} />
+      <div className={styles.smallRightContainer}>
+        <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+        <div className={styles.iconContainer} onClick={handleRedirect}>
+          <Image src="/images/story.svg" alt="Redirect" width={50} height={50} />
+        </div>
+      </div>
+
 
       <Sidebar setFilter={setFilter} currentMap="Recycle" />
 

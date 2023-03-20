@@ -1,3 +1,42 @@
+.smallRightContainerOpacity {
+    background-color: #f2f2f2;
+    height: 120px;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    border: 1px solid #000000;
+    z-index: 1;
+    border-bottom-left-radius: 20px;
+    opacity: 0.5;
+}
+
+.smallRightContainer {
+    height: 120px;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.iconContainer {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.iconContainer:hover {
+    background-color: #f7f7f79d;
+    border-radius: 100%;
+}
+
 .wrap {
     width: 20.5vw;
     position: absolute;
