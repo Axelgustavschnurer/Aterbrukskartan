@@ -153,12 +153,12 @@ export default function EditPost() {
 
   // Gets the project id from the database 
   const getProject = () => {
-    let mappedData = newData.map((pin: any) => pin.id)
+    let mappedData = newData.map((pin: any) => pin)
     return (
       <>
         {mappedData.map((pin: any, index: any) => {
           return (
-            <option key={pin} value={pin}>{pin}</option>
+            <option key={pin.id} value={pin.id}>{pin.id}: {pin.mapItem.organisation}, {pin.mapItem.year}</option>
           )
         })}
       </>
