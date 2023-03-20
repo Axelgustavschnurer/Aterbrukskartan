@@ -158,7 +158,7 @@ export default function EditPost() {
       <>
         {mappedData.map((pin: any, index: any) => {
           return (
-            <option key={pin.id} value={pin.id}>{pin.id}: {pin.mapItem.organisation}, {pin.mapItem.year}</option>
+            <option key={pin.id} value={pin.id}>{pin.id}: {pin.mapItem?.organisation}, {pin.mapItem?.year}</option>
           )
         })}
       </>
