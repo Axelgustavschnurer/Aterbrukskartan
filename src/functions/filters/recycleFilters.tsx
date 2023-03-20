@@ -59,6 +59,7 @@ export function filterBySearchInput(data: DeepRecycle[], search: string): DeepRe
 
     // Search through the fields in the Recycle objects.
     for (let j of recycleSearchFields) {
+      if (!data[i][j as keyof DeepRecycle]) continue;
       if (String(data[i][j as keyof DeepRecycle])?.toLowerCase().includes(lowerCaseSearch)) {
         returnData.push(data[i]);
         breakCheck = true;
@@ -81,6 +82,7 @@ export function filterBySearchInput(data: DeepRecycle[], search: string): DeepRe
 
     // Search through the fields in the MapItem objects.
     for (let k of mapItemSearchFields) {
+      if (!data[i].mapItem[k as keyof MapItem]) continue;
       if (String(data[i].mapItem[k as keyof MapItem])?.toLowerCase().includes(lowerCaseSearch)) {
         returnData.push(data[i]);
         break;

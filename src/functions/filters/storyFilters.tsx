@@ -46,6 +46,7 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 
     // Search through the fields in the `Story` objects.
     for (let j of storySearchFields) {
+      if (!data[i][j as keyof DeepStory]) continue;
       if (String((data[i][j as keyof DeepStory]))?.toLowerCase().includes(search)) {
         returnData.push(data[i]);
         breakCheck = true;
@@ -57,6 +58,7 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 
     // Search through the fields in the `MapItem` objects.
     for (let k of mapItemSearchFields) {
+      if (!data[i].mapItem[k as keyof MapItem]) continue;
       if (String((data[i].mapItem[k as keyof MapItem]))?.toLowerCase().includes(search)) {
         returnData.push(data[i]);
         break;
