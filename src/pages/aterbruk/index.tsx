@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { RecycleFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
+import { Tooltip } from '@nextui-org/react'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -171,9 +172,9 @@ export default function HomePage() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle"/>
+      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
 
-      <Sidebar setFilter={setFilter} currentMap="Recycle"/>
+      <Sidebar setFilter={setFilter} currentMap="Recycle" />
 
       {/* Searchbar */}
       <div className={styles.wrap}>
