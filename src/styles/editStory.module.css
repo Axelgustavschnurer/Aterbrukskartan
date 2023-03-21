@@ -177,7 +177,7 @@
 }
 
 
-/* CSS for both type of project and searching for and offering checkboxes*/
+/* CSS for categories checkboxes*/
 .optionList {
     width: 100%;
 }
@@ -300,7 +300,7 @@
     visibility: hidden;
 }
 
-/* Toogle map currently not used*/
+/* Toogle map */
 .switch {
     position: relative;
     display: inline-block;
@@ -461,6 +461,7 @@
     visibility: hidden;
 }
 
+/* footer */
 .footer {
     left: 0;
     bottom: 0;

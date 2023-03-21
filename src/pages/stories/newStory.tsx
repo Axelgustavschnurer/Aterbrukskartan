@@ -11,7 +11,7 @@ import { yearLimitsStories } from "./index";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
-/** Array containing all the allowed educational programs */
+//Array containing all the allowed educational programs
 export const educationalPrograms: string[] = [
   "Agronom",
   "Civilingenjör",
@@ -21,8 +21,8 @@ export const educationalPrograms: string[] = [
 
 export default function AddNewStory() {
   const router = useRouter();
-  const currentDate = new Date().getFullYear();
 
+  // Fetches all the data from the database
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/stories')
     const data = await response.json()
@@ -34,10 +34,10 @@ export default function AddNewStory() {
     fetchData()
   }, [])
 
-  // Data from the database
+  // Data from the database is stored in this state
   const [storiesData, setStoriesData] = useState([]);
 
-  // Declares the filter variable and its setter function
+  // All the states used in the form, where the data is stored until the form is susccessfully submitted
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
 
@@ -45,7 +45,6 @@ export default function AddNewStory() {
 
   const [program, setProgram] = useState("");
   const [programOrientation, setProgramOrientation] = useState("");
-  const [joinProgram, setJoinProgram] = useState("");
 
   const [title, setTitle] = useState("");
   const [reportTitle, setReportTitle] = useState("");
@@ -59,8 +58,12 @@ export default function AddNewStory() {
   const [message, setMessage] = useState("");
   const [locationToggle, setLocationToggle] = useState(false);
 
+
+  // Handles the submit of the form
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    // Checks if the form is filled out correctly
     try {
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,
@@ -79,6 +82,8 @@ export default function AddNewStory() {
         headers: {
           "Content-Type": "application/json",
         },
+
+        // What is being sent to the api
         body: JSON.stringify({
           mapItem,
           categorySwedish: categorys.join(", "),
@@ -92,6 +97,7 @@ export default function AddNewStory() {
         }),
       });
 
+      //TODO: Remove this console.log when the form is working properly and we don't need to see the data anymore
       console.log(JSON.stringify({
         mapItem,
         categorySwedish: categorys.join(", "),
@@ -109,13 +115,9 @@ export default function AddNewStory() {
       let resJson = await res.json();
       if (res.status >= 200 && res.status < 300) {
         // If the post was successful, reset the form and redirect to the home page
-        setOrganization("");
-        setStartYear("");
-        setLat(undefined);
-        setLon(undefined);
-        setDescription("");
-        setLocationToggle(false);
         router.push("/stories");
+
+        // If the post was not successful, display the error message
       } else {
         setMessage(resJson.message);
       }
@@ -124,15 +126,16 @@ export default function AddNewStory() {
     }
   }
 
+  // Redner the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
     }
-  ), [/* list variables which should trigger a re-render here */])
+  ), [])
 
-  // gets all the organisations from the database and returns them as options in a select element
+  // Gets all the organisations from the database and returns them as options in a select element
   const getOrganisation = () => {
     let mappedData = storiesData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
@@ -147,25 +150,28 @@ export default function AddNewStory() {
     )
   }
 
-  // gets all the categories from the database and returns them as checkboxes
-
+  // Gets all the categories from the database and returns them as checkboxes
   const getAllCategories = () => {
-    let unsplitMaterials: string[] = [];
+    let unsplitCategories: string[] = [];
     storiesData.map((pin: any) => {
       if (pin.categorySwedish) {
-        unsplitMaterials.push(pin.categorySwedish)
+        unsplitCategories.push(pin.categorySwedish)
       }
     })
 
-    let splitMaterials: string[] = [];
-    unsplitMaterials.map((category: any) => {
-      splitMaterials.push(...category.split(", ").map((item: any) => item.trim().toLowerCase()))
+    let splitCategories: string[] = [];
+    unsplitCategories.map((category: any) => {
+      // Adds the splited categories to the splitCategories array and sets it to lowercase
+      splitCategories.push(...category.split(", ").map((item: any) => item.trim().toLowerCase()))
     })
-    let filteredCategories = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
+
+    // Removes duplicates and sorts the array
+    let filteredCategories = splitCategories.filter((data: any, index: any) => splitCategories.indexOf(data) === index && data).sort()
 
     return filteredCategories
   }
 
+  // Gets all the categories from the 'getAllCatagories' function and returns them as checkboxes
   const getFilterdCategories = () => {
     let categories = getAllCategories();
     return (
@@ -223,6 +229,7 @@ export default function AddNewStory() {
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
             <form method="post" onSubmit={handleSubmit}>
+              {/*Oraganisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
                 {/*
@@ -246,6 +253,7 @@ export default function AddNewStory() {
 
                 </select>
               </div>
+              {/*Program section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Program *</h3>
                 <select
@@ -258,6 +266,7 @@ export default function AddNewStory() {
                   {getEducationalPrograms()}
                 </select>
               </div>
+              {/*Program orientation section */}
               {
                 program ?
                   <div className={styles.addNewPostFormOrientation}>
@@ -274,7 +283,7 @@ export default function AddNewStory() {
                   null
 
               }
-
+              {/*Title section */}
               <div className={styles.addNewPostFormTitle}>
                 <h3>Titel</h3>
                 <input
@@ -285,6 +294,8 @@ export default function AddNewStory() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
+
+              {/*Report section */}
               <div className={styles.addNewPostFormName}>
                 <h3>Rapportnamn</h3>
                 <input
@@ -295,6 +306,8 @@ export default function AddNewStory() {
                   onChange={(e) => setReportTitle(e.target.value)}
                 />
               </div>
+
+              {/*Report link section */}
               <div className={styles.addNewPostFormName}>
                 <h3>Länk till rapport</h3>
                 <input
@@ -305,6 +318,8 @@ export default function AddNewStory() {
                   onChange={(e) => setReportLink(e.target.value)}
                 />
               </div>
+
+              {/*Start year section */}
               <div className={styles.startYear}>
                 <h3>Startår</h3>
                 <input
@@ -316,6 +331,8 @@ export default function AddNewStory() {
                   onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>
+
+              {/*Category section */}
               <div className={styles.addNewPostForm}>
                 <h3>Kategorier</h3>
                 <div className={styles.optionList}>
@@ -324,6 +341,8 @@ export default function AddNewStory() {
                   </div>
                 </div>
               </div>
+
+              {/*Location section */}
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
                 <div className={styles.switch}>
@@ -355,6 +374,7 @@ export default function AddNewStory() {
                     />
                 }
               </div>
+              {/*Description section */}
               <div className={styles.addNewPostFormDescription}>
                 <h3 style={{ marginTop: "10px" }}>Beskrivning *</h3>
                 <textarea
@@ -366,6 +386,8 @@ export default function AddNewStory() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div >
+
+              {/*Link to case section */}
               <div className={styles.addNewPostFormContact}>
                 <h3>Länk till case-beskrivning *</h3>
                 <textarea
@@ -377,6 +399,8 @@ export default function AddNewStory() {
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
               </div >
+
+              {/*External links section */}
               <div className={styles.addNewPostFormExternalLinks}>
                 <h3>Videolänk</h3>
                 <textarea
@@ -388,6 +412,8 @@ export default function AddNewStory() {
                   onChange={(e) => setVideos(e.target.value)}
                 />
               </div >
+
+              {/*isEnergystory section */}
               <div className={styles.energyStory}>
                 <h3>Är det en energy story?</h3>
                 <input
@@ -405,6 +431,8 @@ export default function AddNewStory() {
                     <p>Nej</p>
                 }
               </div>
+
+              {/*Submit button section */}
               <div className={styles.addNewPostFormSubmit}>
                 < button type="submit" > Spara</button >
               </div >
@@ -413,6 +441,8 @@ export default function AddNewStory() {
           </div >
         </div >
       </div >
+
+      {/*Footer section */}
       <div className={styles.footer} id={styles.footer}>
         < div className={styles.footerContainer}>
           <div className={styles.footerRow}>

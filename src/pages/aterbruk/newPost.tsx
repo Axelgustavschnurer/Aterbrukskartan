@@ -37,6 +37,7 @@ export default function AddNewPost() {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
 
+  // Form data
   const [organization, setOrganization] = useState("");
   const [projectStartYear, setStartYear] = useState("");
   const [projectStartMonth, setStartMonth] = useState("");
@@ -77,7 +78,7 @@ export default function AddNewPost() {
         headers: {
           "Content-Type": "application/json",
         },
-        // 
+        // What is being sent to the api, which is then saved to the database
         body: JSON.stringify({
           projectType,
           mapItem,
@@ -103,13 +104,14 @@ export default function AddNewPost() {
     }
   }
 
+  // Dynamically imports the map component, which is only rendered on the client side. This is done to prevent the map from being rendered on the server side, which would cause an hydration error.
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
     }
-  ), [/* list variables which should trigger a re-render here */])
+  ), [])
 
   /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {

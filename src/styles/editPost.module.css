@@ -24,7 +24,6 @@
     padding-bottom: 20px;
 }
 
-
 .addNewPostContainer {
     display: flex;
     flex-direction: column;
@@ -124,12 +123,28 @@
     border: 2px solid #ff7300;
 }
 
+.btnAlignContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
 #save:hover {
     background-color: #00910cab;
 }
 
 #remove:hover {
     background-color: #ff0000b9;
+}
+
+.addNewPostFormSubmit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
 }
 
 .addNewPostFormSubmit button {
@@ -277,7 +292,7 @@
     visibility: hidden;
 }
 
-/* Toogle map currently not used*/
+/* Toogle map */
 .switch {
     position: relative;
     display: inline-block;
@@ -332,16 +347,7 @@
     left: 24px;
 }
 
-.btnAlignContainer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-}
-
-
-
+/* footer */
 .footer {
     left: 0;
     bottom: 0;

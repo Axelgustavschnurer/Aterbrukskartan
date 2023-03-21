@@ -2,23 +2,14 @@ import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from 'react-leafl
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { IconPinRed } from './icons'
-import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 
 // Map component for "New Post" page
-
-
-
 export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.85599174491208, defaultLon = 17.640352062197294 }: any) {
-    // Declares default position of the marker
-
-    // const [position, setPosition] = useState(defaultPos)
-
     // Declares bounds of the map
     var southWest = L.latLng(50, -20),
         northEast = L.latLng(72, 60),
         bounds = L.latLngBounds(southWest, northEast);
-
-    // Declares state of the marker position
 
     // Declares funtion to get coordinates of the marker
     const markerRef = useRef(null)
@@ -27,9 +18,8 @@ export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.8
             async dragend() {
                 const marker: any = markerRef.current
                 if (marker != null) {
-                    // setPosition(marker.getLatLng())
-                    // await navigator.clipboard.writeText(`${marker.getLatLng().lat.toFixed(6)}, ${marker.getLatLng().lng.toFixed(6)}`)
-                    // marker.openPopup()
+                    marker.openPopup()
+                    // Sets the coordinates of the marker to the state that is passed to the component from the parent component
                     setLat(marker.getLatLng().lat.toFixed(6))
                     setLon(marker.getLatLng().lng.toFixed(6))
                 }
@@ -58,7 +48,7 @@ export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.8
                     ref={markerRef}
                 >
                     <Popup>
-                        <span>Koordinater kopierade</span>
+                        <span>Platsen har sparats</span>
                     </Popup>
                 </Marker>
             </MapContainer>

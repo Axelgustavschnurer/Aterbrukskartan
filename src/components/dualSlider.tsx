@@ -3,7 +3,6 @@ import styles from "../styles/dualSlider.module.css";
 import { monthArray } from "@/pages/aterbruk";
 
 // Range slider component for filtering by years
-
 const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);

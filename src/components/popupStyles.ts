@@ -92,7 +92,4 @@ const PopupDesc = {
     overflowY: "auto" as any,
 }
 
-
-
-
 export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, PopupDesc };

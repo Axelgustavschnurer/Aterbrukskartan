@@ -8,14 +8,14 @@ import styles from "../styles/footer.module.css";
 
 // Footer component
 export default function Footer() {
+    const router = useRouter();
     const [isOpen, setOpen] = useState(false);
 
+    // Sets the state to the opposite of what it is
     const toggleMenu = () => {
         setOpen(!isOpen);
     };
 
-    // Closes the sidebar when the user navigates to a new page
-    const router = useRouter();
     useEffect(() => {
         const closeMenu = () => isOpen && setOpen(false);
         router.events.on("routeChangeStart", closeMenu);
@@ -62,7 +62,7 @@ export default function Footer() {
                             <Image src="/images/euLogo.png" alt="EU logo" width={164} height={57} />
                         </div>
                     </div >
-                    <div className={styles.sidebarClose}>
+                    <div className={styles.footerClose}>
                         <button
                             id={styles.hideBtn}
                             onClick={toggleMenu}>
@@ -73,8 +73,8 @@ export default function Footer() {
             )
             }
             {!isOpen && (
-                <div className={styles.hiddenSidebar}>
-                    <div className={styles.sidebarOpen}>
+                <div className={styles.hiddenFooter}>
+                    <div className={styles.footerOpen}>
                         <button
                             id={styles.openBtn}
                             onClick={toggleMenu}>

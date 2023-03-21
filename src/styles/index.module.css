@@ -1,3 +1,4 @@
+/* redirects to different pages */
 .smallRightContainerOpacityStory {
     background-color: #f2f2f2;
     height: 190px;
@@ -13,7 +14,6 @@
     z-index: 1;
     border-bottom-left-radius: 20px;
     opacity: 0.5;
-
 }
 
 .smallRightContainerStory {
@@ -84,6 +84,8 @@
     background-color: #f7f7f79d;
     border-radius: 100%;
 }
+
+/* end of redirects to different pages */
 
 .wrap {
     width: 20.5vw;
@@ -187,6 +189,7 @@
     }
 }
 
+/* keframes to make the stuns logo spin */
 @keyframes spin {
     0% {
         transform: rotate(0deg);

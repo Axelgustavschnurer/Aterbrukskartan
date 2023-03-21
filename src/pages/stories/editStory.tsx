@@ -15,9 +15,8 @@ import { educationalPrograms } from "./newStory";
 
 export default function EditStory() {
   const router = useRouter();
-  const currentDate = new Date().getFullYear();
 
-  // Declares the filter variable and its setter function
+  // All the states used in the form, where the data is stored until the form is susccessfully submitted
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
 
@@ -65,10 +64,12 @@ export default function EditStory() {
     setFilterData(data)
   }
 
+  // Runs fetchFilterData function when the project state changes
   useEffect(() => {
     fetchFilterData(project)
   }, [project])
 
+  // Sets the default stats of the form to the data from the selected project from the database
   useEffect(() => {
     setLat(filterData.mapItem?.latitude as any)
     setLon(filterData.mapItem?.longitude as any)
@@ -84,6 +85,8 @@ export default function EditStory() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    // Checks if the form is filled out correctly
     try {
       // TODO: implement address, postcode and city
       let mapItem: Prisma.MapItemCreateInput = {
@@ -103,6 +106,8 @@ export default function EditStory() {
         headers: {
           "Content-Type": "application/json",
         },
+
+        // What is being sent to the api on susccessful PUT request
         body: JSON.stringify({
           mapItem,
           categorySwedish: categorys.length ? categorys.join(", ") : null,
@@ -116,6 +121,7 @@ export default function EditStory() {
         }),
       });
 
+      // TODO: Remove this console.log when editStory is refactored and working as intended.
       console.log(JSON.stringify({
         mapItem,
         categorySwedish: categorys.length ? categorys.join(", ") : null,
@@ -132,14 +138,10 @@ export default function EditStory() {
 
       let resJson = await res.json();
       if (res.status >= 200 && res.status < 300) {
-        // If the post was successful, reset the form and redirect to the home page
-        setOrganization("");
-        setStartYear("");
-        setLat(undefined);
-        setLon(undefined);
-        setDescription("");
-        setLocationToggle(false);
+        // If the PUT request was successful, reset the form and redirect to the home page
         router.push("/stories");
+
+        // If the PUT request was not successful, display the error message
       } else {
         setMessage(resJson.message);
       }
@@ -151,7 +153,7 @@ export default function EditStory() {
   const handleDelete = async (e: any) => {
     e.preventDefault();
     try {
-      // Sends a post request to the api with the data from the form
+      // Sends a DELETE request to the api with the data from the form
       let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
         method: "DELETE",
         headers: {
@@ -162,8 +164,10 @@ export default function EditStory() {
       let resJson = await res.json();
       console.log(resJson)
       if (res.status >= 200 && res.status < 300) {
-        // If the post was successful, reset the form and redirect to the home page
+        // If the DELETE requset was successful, reset the form and redirect to the home page
         router.push("/stories");
+
+        // If the DELETE request was not successful, display the error message
       } else {
         setMessage(resJson.message);
       }
@@ -172,33 +176,22 @@ export default function EditStory() {
     }
   }
 
+  // Make the modal visible or invisible depening on the previous state
   const handleDeleteModalOnclick = () => {
     setModalState(!modalState)
   }
 
+
+  // Redner the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
     }
-  ), [/* list variables which should trigger a re-render here */])
+  ), [])
 
-  // gets all the organisations from the database and returns them as options in a select element
-  // const getOrganisation = () => {
-  //     let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
-  //     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
-  //     return (
-  //         <>
-  //             {filteredData.map((pin: any, index: any) => {
-  //                 return (
-  //                     <option key={pin} value={pin}>{pin}</option>
-  //                 )
-  //             })}
-  //         </>
-  //     )
-  // }
-
+  // Gets all the projects from the database and returns them as options in a select element
   const getProject = () => {
     let mappedData = newData.map((pin: any) => pin)
     return (
@@ -212,7 +205,7 @@ export default function EditStory() {
     )
   }
 
-  // gets all the categories from the database and returns them as checkboxes
+  // Gets all the categories from the database and returns them as checkboxes
   const getAllCategories = () => {
     let unsplitMaterials: string[] = [];
     newData.map((pin: any) => {
@@ -230,6 +223,7 @@ export default function EditStory() {
     return filteredCategories
   }
 
+  // Gets all the categories from the 'getAllCategories' and returns them as checkboxes
   const getFilterdCategories = () => {
     let categories = getAllCategories();
     return (
@@ -262,6 +256,7 @@ export default function EditStory() {
     )
   }
 
+  // Gets all the educational programs from 'educationalPrograms' imported from newStory and returns them as options in a select element
   const getEducationalPrograms = () => {
     let programs = educationalPrograms;
     return (
@@ -289,6 +284,8 @@ export default function EditStory() {
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
             <form method="post" onSubmit={handleSubmit}>
+
+              {/* Choose project section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Välj projekt</h3>
                 <select
@@ -301,6 +298,8 @@ export default function EditStory() {
                   {getProject()}
                 </select>
               </div>
+
+              {/* Organisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
                 {/*
@@ -322,6 +321,8 @@ export default function EditStory() {
                   <option defaultValue={filterData.mapItem?.organisation ? filterData.mapItem?.organisation : undefined}>{filterData.mapItem?.organisation}</option>
                 </select>
               </div>
+
+              {/* Program section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Program *</h3>
                 <select
@@ -334,6 +335,8 @@ export default function EditStory() {
                   {getEducationalPrograms()}
                 </select>
               </div>
+
+              {/* Program orientation section */}
               {
                 program === "Agronom" || program === "Civilingenjör" || program === "Högskoleingenjör" || program === "Kandidatprogram" ?
                   <div className={styles.addNewPostFormOrientation}>
@@ -352,6 +355,7 @@ export default function EditStory() {
 
               }
 
+              {/* Title section */}
               <div className={styles.addNewPostFormTitle}>
                 <h3>Titel</h3>
                 <input
@@ -363,6 +367,8 @@ export default function EditStory() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
+
+              {/* Report section */}
               <div className={styles.addNewPostFormName}>
                 <h3>Rapportnamn</h3>
                 <input
@@ -374,6 +380,8 @@ export default function EditStory() {
                   onChange={(e) => setReportTitle(e.target.value)}
                 />
               </div>
+
+              {/* Report link section */}
               <div className={styles.addNewPostFormName}>
                 <h3>Länk till rapport</h3>
                 <input
@@ -385,6 +393,8 @@ export default function EditStory() {
                   onChange={(e) => setReportLink(e.target.value)}
                 />
               </div>
+
+              {/* Start year section */}
               <div className={styles.startYear}>
                 <h3>Startår</h3>
                 <input
@@ -397,6 +407,8 @@ export default function EditStory() {
                   onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>
+
+              {/* Category section */}
               <div className={styles.addNewPostForm}>
                 <h3>Kategorier</h3>
                 <div className={styles.optionList}>
@@ -405,6 +417,8 @@ export default function EditStory() {
                   </div>
                 </div>
               </div>
+
+              {/* Location section */}
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
                 <div className={styles.switch}>
@@ -438,6 +452,8 @@ export default function EditStory() {
                     />
                 }
               </div>
+
+              {/* Description section */}
               <div className={styles.addNewPostFormDescription}>
                 <h3 style={{ marginTop: "10px" }}>Beskrivning *</h3>
                 <textarea
@@ -450,6 +466,8 @@ export default function EditStory() {
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div >
+
+              {/* Link to case section */}
               <div className={styles.addNewPostFormContact}>
                 <h3>Länk till case-beskrivning *</h3>
                 <textarea
@@ -461,6 +479,8 @@ export default function EditStory() {
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
               </div >
+
+              {/* External links section */}
               <div className={styles.addNewPostFormExternalLinks}>
                 <h3>Videolänk</h3>
                 <textarea
@@ -472,6 +492,8 @@ export default function EditStory() {
                   onChange={(e) => setVideos(e.target.value)}
                 />
               </div >
+
+              {/* isEnergystory section */}
               <div className={styles.energyStory}>
                 <h3>Är det en energy story?</h3>
                 <input
@@ -490,6 +512,8 @@ export default function EditStory() {
                 }
               </div>
             </form>
+
+            {/* Submit and delete button */}
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
                 <button id={styles.save} type="submit" onClick={handleSubmit}> Spara </button>
@@ -502,6 +526,8 @@ export default function EditStory() {
           </div >
         </div >
       </div >
+
+      {/* Footer */}
       <div className={styles.footer} id={styles.footer}>
         < div className={styles.footerContainer}>
           <div className={styles.footerRow}>

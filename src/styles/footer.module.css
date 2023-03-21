@@ -1,5 +1,5 @@
 /* Close and open sidebar */
-.sidebarClose {
+.footerClose {
     display: flex;
     width: 100%;
     align-items: center;
@@ -11,7 +11,7 @@
     z-index: 100;
 }
 
-.hiddenSidebar {
+.hiddenFooter {
     width: 0%;
     height: 0%;
     position: fixed;
@@ -19,7 +19,7 @@
     left: 10px;
 }
 
-.sidebarOpen {
+.footerOpen {
     display: flex;
     width: 100%;
     align-items: center;
@@ -161,15 +161,8 @@
 }
 
 @media screen and (min-width: 2000px) {
-    .sidebar {
-        width: 15%;
-    }
-
-    .sidebarClose {
+    .footerClose {
         width: 70%;
-    }
-
-    .sidebarClose {
         left: 15%;
     }
 }

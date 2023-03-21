@@ -1,5 +1,4 @@
-/* Classes */
-
+/* sidebar container */
 .sidebar {
     width: 20%;
     height: calc(90% - 120px);
@@ -381,6 +380,8 @@
     width: 30px;
     height: 30px;
 }
+
+/* different color for each category */
 
 #Solel {
     background-color: #c2047c;
