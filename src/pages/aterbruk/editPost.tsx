@@ -289,7 +289,7 @@ export default function EditPost() {
           <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
           <div className={styles.addNewPostForm}>
             <form method="put" onSubmit={handleSubmit}>
-              <div className={styles.addNewPostFormOrganization}>
+              <div className={styles.addNewPostFormSelect}>
                 <h3>Välj projekt</h3>
                 <select
                   id="project"
@@ -302,7 +302,7 @@ export default function EditPost() {
                 </select>
               </div>
 
-              <div className={styles.addNewPostFormOrganization}>
+              <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
 
                 {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
@@ -449,10 +449,10 @@ export default function EditPost() {
             </form >
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                < button type="submit" onClick={handleSubmit}> Spara </button >
+                < button id={styles.save} type="submit" onClick={handleSubmit}> Spara </button >
               </div >
               <div className={styles.addNewPostFormSubmit}>
-                < button onClick={handleDeleteModalOnclick}> Ta bort </button >
+                < button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </button >
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div >
             </div>

@@ -40,7 +40,7 @@
 }
 
 .addNewPostForm,
-.addNewPostFormOrganization,
+.addNewPostFormSelect,
 .startYear,
 .startMonth,
 .addNewPostFormDescription,
@@ -54,15 +54,7 @@
     padding: 5px;
 }
 
-.addNewPostFormName input,
-.addNewPostFormLocation input {
-    height: 30px;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
-}
-
-.addNewPostFormOrganization select {
+.addNewPostFormSelect select {
     height: 30px;
     width: 40%;
     border: 2px solid #8a8a8a;
@@ -73,7 +65,12 @@
     transition: 0.2s ease-in-out;
 }
 
-.addNewPostFormOrganization option {
+.addNewPostFormSelect select:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
+
+.addNewPostFormSelect option {
     width: 100%;
     line-height: 45px;
     padding-left: 20px;
@@ -81,11 +78,17 @@
     transition: 0.2s ease-in-out;
 }
 
+
 .startYear input {
     height: 30px;
     width: 20%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
+}
+
+.startYear input:focus {
+    outline: none;
+    border: 2px solid #ff7300;
 }
 
 .startMonth select {
@@ -99,12 +102,34 @@
     transition: 0.2s ease-in-out;
 }
 
+.startMonth select:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
+
 .addNewPostFormDescription textarea,
 .addNewPostFormContact textarea,
 .addNewPostFormExternalLinks textarea {
+    margin: auto;
+    display: block;
     width: 100%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
+}
+
+.addNewPostFormDescription textarea:focus,
+.addNewPostFormContact textarea:focus,
+.addNewPostFormExternalLinks textarea:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
+
+#save:hover {
+    background-color: #00910cab;
+}
+
+#remove:hover {
+    background-color: #ff0000b9;
 }
 
 .addNewPostFormSubmit button {
@@ -117,10 +142,14 @@
     cursor: pointer;
 }
 
-.addNewPostFormSubmit button:active {
-    background-color: #c0c0c0;
+.addNewPostFormSubmit button:hover {
+    background-color: #d6d6d6;
 }
 
+.addNewPostFormSubmit button:active {
+    background-color: #777777;
+    color: #dedede;
+}
 
 /* CSS for both type of project and searching for and offering checkboxes*/
 .optionList {
