@@ -3,46 +3,80 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimitsRecycle } from ".";
 import Image from "next/image";
 import Modal from '@/components/deleteModal';
+import { categories, projectTypes } from "./newPost";
 
+/** Array of objects containing the values and labels for the month dropdown */
+export const monthOptionArray = [
+  { value: "", label: "Välj startmånad" },
+  { value: "1", label: "Januari" },
+  { value: "2", label: "Februari" },
+  { value: "3", label: "Mars" },
+  { value: "4", label: "April" },
+  { value: "5", label: "Maj" },
+  { value: "6", label: "Juni" },
+  { value: "7", label: "Juli" },
+  { value: "8", label: "Augusti" },
+  { value: "9", label: "September" },
+  { value: "10", label: "Oktober" },
+  { value: "11", label: "November" },
+  { value: "12", label: "December" },
+];
+
+/** Returns the month options for the month dropdown */
+export const monthOptions = () => {
+  return (
+    <>
+      {monthOptionArray.map((month: any) => {
+        return (
+          <option key={month.label} value={month.value} label={month.label} />
+        )
+      })}
+    </>
+  )
+};
 
 export default function EditPost() {
-  const [newData, setNewData] = useState([{}] as DeepRecycle[]);
-  const [filterData, setFilterData] = useState({} as DeepRecycle);
+  // All recycle data from the database
+  const [recycleData, setRecycleData] = useState([] as DeepRecycle[]);
+  // ID of the currently selected project, used when calling fetchRecycleObject
+  const [project, setProject] = useState("");
+  // Data for the currently selected project
+  const [selectedRecycleObject, setSelectedRecycleObject] = useState({} as DeepRecycle);
 
+  // State for the delete modal
   const [modalState, setModalState] = useState(false);
 
-  const [projectType, setProjectType] = useState("");
-  const [description, setDescription] = useState("");
+  // State for the location toggle
+  // false = use address lookup
+  // true = use map
+  const [locationToggle, setLocationToggle] = useState(false);
 
-  const [searchingFor, setSearchingFor] = useState([] as string[]);
-  const [available, setAvailableMaterials] = useState([] as string[]);
-
-  const [startYear, setStartYear] = useState(Number);
-  const [startMonth, setStartMonth] = useState("");
-  const [project, setProject] = useState("");
+  // Form data
   const [organisation, setOrganisation] = useState("");
+  const [startYear, setStartYear] = useState(undefined as string | undefined);
+  const [startMonth, setStartMonth] = useState("");
+  const [projectType, setProjectType] = useState("");
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
+  const [available, setAvailableMaterials] = useState([] as string[]);
+  const [searchingFor, setSearchingFor] = useState([] as string[]);
+  const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
 
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
-
-  const [locationToggle, setLocationToggle] = useState(false);
-
   const router = useRouter();
 
-  // Fetches all data from the database
+  /** Fetches all recycle data from the database */
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/recycle')
     const data = await response.json()
-    setNewData(data)
+    setRecycleData(data)
   }
 
   // Runs fetchData function on component mount
@@ -50,29 +84,34 @@ export default function EditPost() {
     fetchData()
   }, [])
 
-  // Fetches the data with a specific id from the database
-  const fetchFilterData = async (id: any) => {
+  /** Fetches the recycle object with a specific id from the database */
+  const fetchRecycleObject = async (id: any) => {
     const response = await fetch('http://localhost:3000/api/recycle?id=' + id)
     const data: DeepRecycle = await response.json()
     console.log(data)
-    setFilterData(data)
+    setSelectedRecycleObject(data)
   }
 
-  // Runs fetchData function when the project state changes
+  // Runs fetchRecycleObject function whenever a project is selected
   useEffect(() => {
-    fetchFilterData(project)
+    fetchRecycleObject(project)
   }, [project])
 
+  // Sets the state variables to the values of the selected recycle object, whenever project selection changes
   useEffect(() => {
-    setLat(filterData.mapItem?.latitude as any)
-    setLon(filterData.mapItem?.longitude as any)
-    setAvailableMaterials(filterData.availableMaterials ? filterData.availableMaterials.split(", ") as string[] : [] as string[])
-    setSearchingFor(filterData.lookingForMaterials ? filterData.lookingForMaterials.split(", ") as string[] : [] as string[])
-    setDescription(filterData.description ? filterData.description : "")
-    setContact(filterData.contact ? filterData.contact : "")
-    setExternalLinks(filterData.externalLinks ? filterData.externalLinks : "")
-  }, [filterData])
+    setLat(selectedRecycleObject.mapItem?.latitude as any)
+    setLon(selectedRecycleObject.mapItem?.longitude as any)
+    setStartYear(selectedRecycleObject.mapItem?.year ? selectedRecycleObject.mapItem?.year.toString() : undefined)
+    setStartMonth(selectedRecycleObject.month ? selectedRecycleObject.month.toString() : "")
+    setProjectType(selectedRecycleObject.projectType ? selectedRecycleObject.projectType : "")
+    setAvailableMaterials(selectedRecycleObject.availableMaterials ? selectedRecycleObject.availableMaterials.split(", ") as string[] : [] as string[])
+    setSearchingFor(selectedRecycleObject.lookingForMaterials ? selectedRecycleObject.lookingForMaterials.split(", ") as string[] : [] as string[])
+    setDescription(selectedRecycleObject.description ? selectedRecycleObject.description : "")
+    setContact(selectedRecycleObject.contact ? selectedRecycleObject.contact : "")
+    setExternalLinks(selectedRecycleObject.externalLinks ? selectedRecycleObject.externalLinks : "")
+  }, [selectedRecycleObject])
 
+  /** A map component used as an alternative to the address lookup */
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
@@ -81,30 +120,30 @@ export default function EditPost() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
+  /** Handles the submit event */
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      // The data that is sent to the database
+      /** The data that is sent to the database */
       const data = {
         projectType: projectType ? projectType : undefined,
-        description: description === filterData.description ? undefined : description ? description : null,
+        description: description === selectedRecycleObject.description ? undefined : description ? description : null,
         lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
         availableMaterials: available.length ? available.join(", ") : null,
-        // TODO: Allow this to be null if the user removes it
-        month: startMonth ? parseInt(startMonth) : undefined,
-        contact: contact === filterData.contact ? undefined : contact ? contact : null,
-        externalLinks: externalLinks === filterData.externalLinks ? undefined : externalLinks ? externalLinks : null,
+        month: !!startMonth ? parseInt(startMonth) : null,
+        contact: contact === selectedRecycleObject.contact ? undefined : contact ? contact : null,
+        externalLinks: externalLinks === selectedRecycleObject.externalLinks ? undefined : externalLinks ? externalLinks : null,
         mapItem: {
           // TODO: Allow these to be null if the user removes them
           organisation: organisation ? organisation : undefined,
-          year: startYear ? startYear : undefined,
+          year: !!startYear ? parseInt(startYear) : null,
           latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
           longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
         }
       }
       console.log(data)
 
-      // Fetches the data from the database with the id of the project as a PUT request
+      // Update the data in the database with a PUT request
       const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
         method: 'PUT',
         headers: {
@@ -115,11 +154,13 @@ export default function EditPost() {
       const result = await response.json()
       console.log(result)
 
-      // If the response is successful, the user is redirected to the aterbruk page else an error is logged
+      // If the response is successful, the user is redirected to the aterbruk page, else an error is logged
       if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
-    } catch (error) {
+      // TODO: Show message from the API if the request fails
+    }
+    catch (error) {
       console.log(error)
     }
   }
@@ -127,7 +168,7 @@ export default function EditPost() {
   const handleDelete = async (e: any) => {
     e.preventDefault();
     try {
-      // Fetches the data from the database with the id of the project as a DELETE request
+      // Sends a DELETE request to the database to mark the selected project as deleted
       const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
         method: 'DELETE',
         headers: {
@@ -141,19 +182,21 @@ export default function EditPost() {
       if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
-    } catch (error) {
+      // TODO: Show message from the API if the request fails
+    }
+    catch (error) {
       console.log(error)
     }
   }
 
-  // Handles the state of the modal
+  /** Handles the state of the modal */
   const handleDeleteModalOnclick = () => {
     setModalState(!modalState)
   }
 
-  // Gets the project id from the database 
+  /** Gets the project id from the database */
   const getProject = () => {
-    let mappedData = newData.map((pin: any) => pin)
+    let mappedData = recycleData.map((pin: any) => pin)
     return (
       <>
         {mappedData.map((pin: any, index: any) => {
@@ -165,18 +208,12 @@ export default function EditPost() {
     )
   }
 
-
-  const projectTypes = () => {
-    // List of project types
-    let categories = [
-      "Rivning",
-      "Nybyggnation",
-      "Ombyggnation",
-    ]
+  /** Creates radio buttons for the project types */
+  const projectTypeSelector = () => {
     return (
       <>
         {/* Loops through the list and creates an input for each item in the list*/}
-        {categories.map((category: any, index: any) => {
+        {projectTypes.map((category: any, index: any) => {
           return (
             <div className={styles.typeInputGroup} key={category}>
               <input
@@ -184,7 +221,7 @@ export default function EditPost() {
                 id={category}
                 name="category"
                 value={category}
-                defaultChecked={filterData.projectType === category ? true : false}
+                checked={projectType === category}
                 onChange={(e) => setProjectType(e.target.value)}
 
               />
@@ -197,14 +234,8 @@ export default function EditPost() {
     )
   }
 
-  // Creates a list of checkboxes for the materials that are being offered
+  /** Gets all the categories defined in the imported list `categories`, and returns them as a list of checkboxes for the availableMaterials field */
   const offers = () => {
-    let categories = [
-      "Stomme",
-      "Inredning",
-      "Småsaker",
-      "Övrigt",
-    ]
     return (
       <>
         {categories.map((category: any, index: any) => {
@@ -215,7 +246,7 @@ export default function EditPost() {
                 id={"_" + category}
                 name={category}
                 value={category}
-                defaultChecked={filterData.availableMaterials?.includes(category) ? true : false}
+                checked={available.includes(category)}
                 onClick={(e: any) => {
                   if (available.includes(e.target.value) && !e.target.checked) {
                     setAvailableMaterials(available.filter((item: any) => item !== e.target.value))
@@ -236,14 +267,8 @@ export default function EditPost() {
     )
   }
 
-  // Creates a list of checkboxes for the materials that are being searched for
+  /** Gets all the categories defined in the imported list `categories`, and returns them as a list of checkboxes for the lookingForMaterials field */
   const searchingFors = () => {
-    let categories = [
-      "Stomme",
-      "Inredning",
-      "Småsaker",
-      "Övrigt",
-    ]
     return (
       <>
         {categories.map((category: any, index: any) => {
@@ -254,7 +279,7 @@ export default function EditPost() {
                 id={category}
                 name={category}
                 value={category}
-                defaultChecked={filterData.lookingForMaterials?.includes(category) ? true : false}
+                checked={searchingFor.includes(category)}
                 onClick={(e: any) => {
                   if (searchingFor.includes(e.target.value) && !e.target.checked) {
                     setSearchingFor(searchingFor.filter((item: any) => item !== e.target.value))
@@ -294,7 +319,7 @@ export default function EditPost() {
                 <select
                   id="project"
                   name="project"
-                  defaultValue={filterData?.id}
+                  defaultValue={selectedRecycleObject?.id}
                   onChange={(e) => setProject(e.target.value)}
                 >
                   <option value="">Välj projekt</option>
@@ -318,64 +343,55 @@ export default function EditPost() {
                   name="organization"
                   onChange={(e) => setOrganisation(e.target.value)}
                 >
-                  <option defaultValue={filterData.mapItem?.organisation ? filterData.mapItem.organisation : undefined}>{filterData.mapItem?.organisation}</option>
+                  <option defaultValue={selectedRecycleObject.mapItem?.organisation ? selectedRecycleObject.mapItem.organisation : undefined}>{selectedRecycleObject.mapItem?.organisation}</option>
 
                 </select>
               </div>
+
               <div className={styles.startYear}>
                 <h3>Startår</h3>
                 <input
                   type="number"
                   id="startYear"
                   name="startYear"
-                  defaultValue={filterData.mapItem?.year ? filterData.mapItem.year : undefined}
+                  value={startYear}
                   min={yearLimitsRecycle.min}
-                  onChange={(e) => setStartYear(parseInt(e.target.value))}
+                  onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>
 
-              {/*TODO: Fix the defaultValue of the startmonth to display the date in db */}
               <div className={styles.startMonth}>
                 <h3>Startmånad</h3>
                 <select
                   id="startMonth"
                   name="startMonth"
-                  defaultValue={filterData.month ? { value: filterData.month } as any : undefined}
+                  value={monthOptionArray.find((option) => option.value === startMonth)?.value}
+                  // defaultValue={selectedRecycleObject.month ? { value: selectedRecycleObject.month } as any : undefined}
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
-                  <option value={""}>Välj startmånad</option>
-                  <option value={1}>Januari</option>
-                  <option value={2}>Februari</option>
-                  <option value={3}>Mars</option>
-                  <option value={4}>April</option>
-                  <option value={5}>Maj</option>
-                  <option value={6}>Juni</option>
-                  <option value={7}>Juli</option>
-                  <option value={8}>Augusti</option>
-                  <option value={9}>September</option>
-                  <option value={10}>Oktober</option>
-                  <option value={11}>November</option>
-                  <option value={12}>December</option>
+                  {monthOptions()}
                 </select>
               </div>
               <div className={styles.optionList}>
                 <div className={styles.form}>
                   <h3>Typ av projekt</h3>
-                  {projectTypes()}
+                  {projectTypeSelector()}
                 </div>
               </div>
 
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
-                <div className={styles.switch}>
-                  <input
-                    id="switch-1"
-                    type="checkbox"
-                    className={styles.switchInput}
-                    onChange={(e) => setLocationToggle(e.target.checked)}
-                  />
-                  <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
-                </div>
+                { // The map switch is hidden if no project is selected (by checking if mapItem exists)
+                  !!selectedRecycleObject.mapItem &&
+                  <div className={styles.switch}>
+                    <input
+                      id="switch-1"
+                      type="checkbox"
+                      className={styles.switchInput}
+                      onChange={(e) => setLocationToggle(e.target.checked)}
+                    />
+                    <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
+                  </div>}
                 {
                   locationToggle === true ?
                     <>
@@ -384,8 +400,8 @@ export default function EditPost() {
                         setLon={setLon}
                         lat={lat}
                         lon={lon}
-                        defaultLat={filterData.mapItem.latitude}
-                        defaultLon={filterData.mapItem.longitude}
+                        defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
+                        defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
                       />
                     </>
                     :
@@ -417,7 +433,7 @@ export default function EditPost() {
                   rows={10}
                   maxLength={3000}
                   placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-                  defaultValue={filterData.description ? filterData.description : undefined}
+                  defaultValue={selectedRecycleObject.description ? selectedRecycleObject.description : undefined}
                   onChange={(e) => {
                     setDescription(e.target.value)
                   }}
@@ -430,7 +446,7 @@ export default function EditPost() {
                   name="contact"
                   rows={3}
                   cols={100}
-                  defaultValue={filterData.contact ? filterData.contact : undefined}
+                  defaultValue={selectedRecycleObject.contact ? selectedRecycleObject.contact : undefined}
                   onChange={(e) => setContact(e.target.value)}
                 />
               </div >
@@ -441,7 +457,7 @@ export default function EditPost() {
                   name="externalLinks"
                   rows={1}
                   cols={100}
-                  defaultValue={filterData.externalLinks ? filterData.externalLinks : undefined}
+                  defaultValue={selectedRecycleObject.externalLinks ? selectedRecycleObject.externalLinks : undefined}
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
