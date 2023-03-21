@@ -138,7 +138,7 @@ export default function HomePage() {
       <div className={styles.smallRightContainerOpacityStory} />
       <div className={styles.smallRightContainerStory}>
         <Tooltip content={"Till\xa0Stuns"} placement="left">
-          <a href="https://stuns.se/" target="_blank" className={styles.stunsIcon}>
+          <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
             <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
           </a>
         </Tooltip>
