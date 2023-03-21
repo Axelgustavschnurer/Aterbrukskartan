@@ -37,7 +37,7 @@ export function storiesPopup(pin: any) {
                 <div style={DividerLineVideo}></div>
               </div>
           }
-          {!pin.videos ? null : <iframe width="100%" height="auto" src={pin.videos} />}
+          {!pin.videos ? null : <iframe style={{ borderRadius: "10px" }} width="100%" height="auto" src={pin.videos} allowFullScreen />}
 
           {/*Divider for pdfCase */}
           {
