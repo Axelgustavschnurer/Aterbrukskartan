@@ -7,6 +7,7 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
+import { yearLimitsRecycle } from ".";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -25,7 +26,6 @@ export const projectTypes = [
 
 export default function AddNewPost() {
   const router = useRouter();
-  const currentDate = new Date().getFullYear();
 
   // Toggles the location input between a map and a text input with address lookup
   const [locationToggle, setLocationToggle] = useState(false);
@@ -259,7 +259,7 @@ export default function AddNewPost() {
                   id="startYear"
                   name="startYear"
                   value={projectStartYear}
-                  min={currentDate}
+                  min={yearLimitsRecycle.min}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>
