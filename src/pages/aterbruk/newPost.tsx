@@ -227,7 +227,7 @@ export default function AddNewPost() {
           <div className={styles.addNewPostForm}>
             <form method="post" onSubmit={handleSubmit}>
               {/* Organisation selection */}
-              <div className={styles.addNewPostFormOrganization}>
+              <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
                 {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
                 <input
