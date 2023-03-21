@@ -7,6 +7,7 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/newStory.module.css';
 import Image from "next/image";
+import { yearLimitsStories } from "./index";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -222,7 +223,7 @@ export default function AddNewStory() {
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
             <form method="post" onSubmit={handleSubmit}>
-              <div className={styles.addNewPostFormOrganization}>
+              <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
@@ -245,7 +246,7 @@ export default function AddNewStory() {
 
                 </select>
               </div>
-              <div className={styles.addNewPostFormOrganization}>
+              <div className={styles.addNewPostFormSelect}>
                 <h3>Program *</h3>
                 <select
                   id="program"
@@ -311,7 +312,7 @@ export default function AddNewStory() {
                   id="startYear"
                   name="startYear"
                   value={startYear}
-                  min={currentDate}
+                  min={yearLimitsStories.min}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>

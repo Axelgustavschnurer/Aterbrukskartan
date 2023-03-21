@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    min-width: 0%;
+    min-width: 40%;
     padding: 100px;
     background-color: #ebebeb;
     border-radius: 20px;
@@ -40,13 +40,12 @@
 }
 
 .addNewPostForm,
-.addNewPostFormOrganization,
+.addNewPostFormSelect,
 .addNewPostFormTitle,
 .addNewPostFormOrientation,
 .addNewPostFormName,
 .startYear,
 .addNewPostFormDescription,
-.addNewPostFormLocation,
 .addNewPostFormContact,
 .energyStory,
 .addNewPostFormExternalLinks {
@@ -57,23 +56,28 @@
     margin-top: 10px;
 }
 
-.addNewPostFormLocation input {
-    height: 30px;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
-}
-
 .addNewPostFormTitle input,
 .addNewPostFormName input,
 .addNewPostFormOrientation input {
-    height: 30px;
+    border: 0;
+    border-bottom: 2px solid #333;
+    padding: 10px 0;
+    display: block;
+    font-size: 12px;
+    font-family: 'Muli', sans-serif;
     width: 50%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
+    transition: 0.1s ease-in;
+    background-color: #ebebeb;
 }
 
-.addNewPostFormOrganization select {
+.addNewPostFormTitle input:focus,
+.addNewPostFormName input:focus,
+.addNewPostFormOrientation input:focus {
+    outline: none;
+    border-bottom: 2px solid #ff7300;
+}
+
+.addNewPostFormSelect select {
     height: 30px;
     width: 40%;
     border: 2px solid #8a8a8a;
@@ -84,7 +88,12 @@
     transition: 0.2s ease-in-out;
 }
 
-.addNewPostFormOrganization option {
+.addNewPostFormSelect select:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
+
+.addNewPostFormSelect option {
     width: 100%;
     line-height: 45px;
     padding-left: 20px;
@@ -93,29 +102,37 @@
 }
 
 .startYear input {
-    height: 30px;
+    border: 0;
+    border-bottom: 2px solid #333;
+    padding: 10px 0;
+    display: block;
+    font-size: 12px;
+    font-family: 'Muli', sans-serif;
     width: 20%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
+    transition: 0.1s ease-in;
+    background-color: #ebebeb;
 }
 
-.startMonth select {
-    height: 30px;
-    width: 20%;
-    border: 2px solid #8a8a8a;
-    background-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    -webkit-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;
+.startYear input:focus {
+    outline: none;
+    border-bottom: 2px solid #ff7300;
 }
 
 .addNewPostFormDescription textarea,
 .addNewPostFormContact textarea,
 .addNewPostFormExternalLinks textarea {
+    margin: auto;
+    display: block;
     width: 100%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
+}
+
+.addNewPostFormDescription textarea:focus,
+.addNewPostFormContact textarea:focus,
+.addNewPostFormExternalLinks textarea:focus {
+    outline: none;
+    border: 2px solid #ff7300;
 }
 
 .addNewPostFormSubmit {

@@ -8,8 +8,6 @@
     border: 1px solid #8a8a8a;
     box-shadow: 5px 10px #00000015;
     border-radius: 10px;
-
-
 }
 
 .addressContent {
@@ -20,37 +18,73 @@
 
 .address {
     padding: 5px 0 5px 0;
-
 }
 
-#lat,
-#lon {
-    max-width: 40%;
+.container {
+    display: flex;
+}
+
+.latLon {
+    width: 100%;
     border: none;
     background-color: #ebebeb;
-    border-bottom: 2px solid #8a8a8a;
+    padding-top: 10px;
+}
+
+.latLon input {
+    height: 30px;
+    width: 90%;
+    border: 0;
+    margin: 0 10px;
+    border-bottom: 2px solid #333;
+    background-color: #ebebeb;
+}
+
+.latLon input:focus {
+    outline: none;
+    border-bottom: 2px solid #ff7300
 }
 
 #addressBtn {
     padding: 5px;
+    width: 50px;
     margin-left: 5px;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
     background-color: #f2f2f2;
 }
 
-.button-55:focus {
-    box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+#addressBtn:hover {
+    background-color: #ff7300;
+    border: 1px solid #000000;
+    cursor: pointer;
+    box-shadow: 5px 5px #00000015;
 }
 
 #search {
-    border-radius: 5px;
     width: 100%;
     padding: 5px;
 }
 
 #searchDir {
     display: flex;
+}
+
+#searchDir input {
+    border: 0;
+    border-bottom: 2px solid #333;
+    padding: 10px 0;
+    display: block;
+    font-size: 12px;
+    font-family: 'Muli', sans-serif;
+    width: 100%;
+    transition: 0.1s ease-in;
+    background-color: #ebebeb;
+}
+
+#searchDir input:focus {
+    outline: none;
+    border-bottom: 2px solid #ff7300
 }
 
 #results {

@@ -45,8 +45,3 @@
     margin-top: 40px;
     cursor: pointer;
 }
-
-.stopScrolling {
-    height: 100%;
-    overflow: hidden;
-}
