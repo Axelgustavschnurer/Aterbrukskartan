@@ -27,10 +27,32 @@ export default function AddNewPost() {
   const router = useRouter();
   const currentDate = new Date().getFullYear();
 
+  // Toggles the location input between a map and a text input with address lookup
+  const [locationToggle, setLocationToggle] = useState(false);
+
+  // Data from the database
+  const [recycleData, setRecycleData] = useState([]);
+
+  // Coordinates
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
+
+  const [organization, setOrganization] = useState("");
+  const [projectStartYear, setStartYear] = useState("");
+  const [projectStartMonth, setStartMonth] = useState("");
+  const [projectType, setProjectType] = useState("");
+  const [searchingFor, setSearchingFor] = useState([] as string[]);
+  const [offering, setOffering] = useState([] as string[]);
+  const [description, setDescription] = useState("");
+  const [contact, setContact] = useState("");
+  const [externalLinks, setExternalLinks] = useState("");
+  const [message, setMessage] = useState("");
+
+  /** Fetches data from the api */
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/recycle')
     const data = await response.json()
-    setNewData(data)
+    setRecycleData(data)
   }
 
   // Runs fetchData function on component mount
@@ -38,38 +60,16 @@ export default function AddNewPost() {
     fetchData()
   }, [])
 
-
-  // Declares the filter variable and its setter function
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
-
-  const [newData, setNewData] = useState([]);
-  const [organization, setOrganization] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [startMonth, setStartMonth] = useState("");
-  const [projectType, setProjectType] = useState("");
-  const [location, setLocation] = useState("");
-  const [searchingFor, setSearchingFor] = useState([] as string[]);
-  const [offering, setOffering] = useState([] as string[]);
-  const [description, setDescription] = useState("");
-  const [contact, setContact] = useState("");
-  const [externalLinks, setExternalLinks] = useState("");
-  const [message, setMessage] = useState("");
-  const [locationToggle, setLocationToggle] = useState(false);
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,
         longitude: lon ? parseFloat(lon) : null,
         organisation: organization,
-        year: parseInt(startYear),
+        year: parseInt(projectStartYear),
       }
-      // Gets the keys of the searchingFor object and returns them as a string
-      let lookingForMaterials: string = searchingFor.join(", ");
-      // Gets the keys of the offering object and returns them as a string
-      let availableMaterials: string = offering.join(", ");
 
       // Sends a post request to the api with the data from the form
       let res = await fetch("http://localhost:3000/api/recycle", {
@@ -77,12 +77,13 @@ export default function AddNewPost() {
         headers: {
           "Content-Type": "application/json",
         },
+        // 
         body: JSON.stringify({
           projectType,
           mapItem,
-          month: startMonth ? parseInt(startMonth) : undefined,
-          lookingForMaterials,
-          availableMaterials,
+          month: projectStartMonth ? parseInt(projectStartMonth) : undefined,
+          lookingForMaterials: searchingFor.length > 0 ? searchingFor.join(", ") : undefined,
+          availableMaterials: offering.length > 0 ? offering.join(", ") : undefined,
           description,
           contact,
           externalLinks
@@ -92,18 +93,7 @@ export default function AddNewPost() {
       let resJson = await res.json();
       if (res.status >= 200 && res.status < 300) {
         // If the post was successful, reset the form and redirect to the home page
-        setOrganization("");
-        setStartYear("");
-        setProjectType("");
-        setLocation("");
-        setLat(undefined);
-        setLon(undefined);
-        setSearchingFor([] as string[]);
-        setOffering([] as string[]);
-        setDescription("");
-        setContact("");
-        setExternalLinks("");
-        setLocationToggle(false);
+        console.log(resJson)
         router.push("/aterbruk");
       } else {
         setMessage(resJson.message);
@@ -121,13 +111,13 @@ export default function AddNewPost() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  // gets all the organisations from the database and returns them as options in a select element
+  /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {
-    let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
+    let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
     return (
       <>
-        {filteredData.map((pin: any, index: any) => {
+        {filteredData.map((pin: any) => {
           return (
             <option key={pin} value={pin}>{pin}</option>
           )
@@ -136,37 +126,33 @@ export default function AddNewPost() {
     )
   }
 
-  const projectTypes = () => {
-    let categories = [
-      "Rivning",
-      "Nybyggnation",
-      "Ombyggnation",
-    ]
+  /** Gets all the project types from the database and returns them as radio buttons */
+  const projectTypeSelector = () => {
     return (
       <>
-        {categories.map((category: any, index: any) => {
+        {projectTypes.map((type: any) => {
           return (
-            <div className={styles.typeInputGroup} key={category}>
+            <div className={styles.typeInputGroup} key={type}>
               <input
                 type="radio"
-                id={category}
+                id={type}
                 name="category"
-                value={category}
+                value={type}
                 onChange={(e) => setProjectType(e.target.value)}
               />
-              <label htmlFor={category}>{category} </label>
+              <label htmlFor={type}>{type} </label>
             </div>
           )
-        }
-        )}
+        })}
       </>
     )
   }
 
+  /** Gets all the categories defined at the start of this file and returns them as checkboxes for the availableMaterials field */
   const offers = () => {
     return (
       <>
-        {categories.map((category: any, index: any) => {
+        {categories.map((category: any) => {
           return (
             <div className={styles.inputGroup} key={"_" + category}>
               <input
@@ -174,7 +160,16 @@ export default function AddNewPost() {
                 id={"_" + category}
                 name={category}
                 value={category}
-                onChange={setOfferings}
+                onChange={(e: any) => {
+                  // If the checkbox is checked and the value is not already in the array, add it
+                  if (e.target.checked && !offering.includes(e.target.value)) {
+                    setOffering([...offering, e.target.value])
+                  }
+                  // Otherwise, remove it from the array
+                  else if (!e.target.checked) {
+                    setOffering(offering.filter((item: string) => item !== e.target.value))
+                  }
+                }}
               />
               <label htmlFor={"_" + category}>{category}</label>
             </div>
@@ -184,10 +179,11 @@ export default function AddNewPost() {
     )
   }
 
+  /** Gets all the categories defined at the start of this file and returns them as checkboxes for the lookingForMaterials field */
   const searchingFors = () => {
     return (
       <>
-        {categories.map((category: any, index: any) => {
+        {categories.map((category: any) => {
           return (
             <div className={styles.inputGroup} key={category}>
               <input
@@ -195,7 +191,16 @@ export default function AddNewPost() {
                 id={category}
                 name={category}
                 value={category}
-                onChange={setSearching}
+                onChange={(e: any) => {
+                  // If the checkbox is checked and the value is not already in the array, add it
+                  if (e.target.checked && !searchingFor.includes(e.target.value)) {
+                    setSearchingFor([...searchingFor, e.target.value])
+                  }
+                  // Otherwise, remove it from the array
+                  else if (!e.target.checked) {
+                    setSearchingFor(searchingFor.filter((item: string) => item !== e.target.value))
+                  }
+                }}
               />
               <label htmlFor={category}>{category}</label>
             </div>
@@ -205,57 +210,35 @@ export default function AddNewPost() {
     )
   }
 
-
-  // sets the state of the searchingFor object
-  const setSearching = (e: any) => {
-    // If the checkbox is checked and the value is not already in the array, add it
-    if (e.target.checked && !searchingFor.includes(e.target.value)) {
-      setSearchingFor([...searchingFor, e.target.value])
-    }
-    // Otherwise, remove it from the array
-    else if (!e.target.checked) {
-      setSearchingFor(searchingFor.filter((item: string) => item !== e.target.value))
-    }
-  }
-
-  // sets the state of the offering object
-  const setOfferings = (e: any) => {
-    // If the checkbox is checked and the value is not already in the array, add it
-    if (e.target.checked && !offering.includes(e.target.value)) {
-      setOffering([...offering, e.target.value])
-    }
-    // Otherwise, remove it from the array
-    else if (!e.target.checked) {
-      setOffering(offering.filter((item: string) => item !== e.target.value))
-    }
-  }
-
   return (
     <>
       <Head>
         <title>Lägg till inlägg</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+
       <div className={styles.header} id={styles.header}>
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
+
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
           <div className={styles.addNewPostForm}>
             <form method="post" onSubmit={handleSubmit}>
+              {/* Organisation selection */}
               <div className={styles.addNewPostFormOrganization}>
                 <h3>Organisation *</h3>
-                {/*
-                                if you want to use the text input instead of the select, comment out the select and uncomment the text input 
-                                <input
-                                    type="text"
-                                    id="organization"
-                                    name="organization"
-                                    value={organization}
-                                    onChange={(e) => setOrganization(e.target.value)}
-                                    required
-                                /> */}
+                {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
+                <input
+                  type="text"
+                  id="organization"
+                  name="organization"
+                  value={organization}
+                  onChange={(e) => setOrganization(e.target.value)}
+                  required
+                /> */}
+
                 <select
                   id="organization"
                   name="organization"
@@ -265,27 +248,29 @@ export default function AddNewPost() {
                 >
                   <option value="">Välj organisation</option>
                   {getOrganisation()}
-
                 </select>
               </div>
+
+              {/* Year selection */}
               <div className={styles.startYear}>
                 <h3>Startår</h3>
                 <input
                   type="number"
                   id="startYear"
                   name="startYear"
-                  value={startYear}
+                  value={projectStartYear}
                   min={currentDate}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
               </div>
 
+              {/* Month selection */}
               <div className={styles.startMonth}>
                 <h3>Startmånad</h3>
                 <select
                   id="startMonth"
                   name="startMonth"
-                  value={startMonth}
+                  value={projectStartMonth}
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
                   <option value="">Välj startmånad</option>
@@ -303,12 +288,16 @@ export default function AddNewPost() {
                   <option value={12}>December</option>
                 </select>
               </div>
+
+              {/* Project type selection */}
               <div className={styles.optionList}>
                 <div className={styles.form}>
                   <h3>Typ av projekt</h3>
-                  {projectTypes()}
+                  {projectTypeSelector()}
                 </div>
               </div>
+
+              {/* Position selection */}
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
                 <div className={styles.switch}>
@@ -318,9 +307,10 @@ export default function AddNewPost() {
                     className={styles.switchInput}
                     onChange={(e) => setLocationToggle(e.target.checked)}
                   />
-                  {/* If you want to switch to map, uncomment this part*/}
+                  {/* A toggle for switching between the map and the address lookup */}
                   <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
                 </div>
+
                 {
                   locationToggle === true ?
                     <>
@@ -340,6 +330,8 @@ export default function AddNewPost() {
                     />
                 }
               </div>
+
+              {/* Offered and wanted material selection */}
               <div className={styles.optionList}>
                 <div className={styles.form}>
                   <h3>Erbjuds</h3>
@@ -351,6 +343,8 @@ export default function AddNewPost() {
                   {searchingFors()}
                 </div>
               </div>
+
+              {/* Description */}
               <div className={styles.addNewPostFormDescription}>
                 <h3>Beskrivning *</h3>
                 <textarea
@@ -364,6 +358,8 @@ export default function AddNewPost() {
                   required
                 />
               </div >
+
+              {/* Contact */}
               <div className={styles.addNewPostFormContact}>
                 <h3>Kontakt *</h3>
                 <textarea
@@ -376,6 +372,8 @@ export default function AddNewPost() {
                   required
                 />
               </div >
+
+              {/* External links */}
               <div className={styles.addNewPostFormExternalLinks}>
                 <h3>Länkar</h3>
                 <textarea
@@ -387,16 +385,20 @@ export default function AddNewPost() {
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
+
+              {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
                 < button type="submit" > Spara</button >
               </div >
+
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
           </div >
         </div >
       </div >
+
       <div className={styles.footer} id={styles.footer}>
-        < div className={styles.footerContainer}>
+        <div className={styles.footerContainer}>
           <div className={styles.footerRow}>
             <div className={styles.footerHeader}>STUNS</div>
             <div className={styles.footerLink}>
