@@ -12,7 +12,7 @@ import { educationalPrograms } from "@/pages/stories/newStory";
  * @param storyCategory Array of strings containing the currently active category filters
  * @param setStoryCategory Function to set the `storyCategory` state
  */
-export function createCategoryFilter(storyCategory: any, setStoryCategory: any, setDisableReset: any) {
+export function createCategoryFilter(storyCategory: any, setStoryCategory: any, disableReset: any, setDisableReset: any) {
   let categories = {
     "Solel": "solar",
     "Energilagring": "battery",
@@ -51,14 +51,14 @@ export function createCategoryFilter(storyCategory: any, setStoryCategory: any, 
                 if (storyCategory.includes(e.currentTarget.value)) {
                   // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
                   if (storyCategory.length <= 1) {
-                    setDisableReset(true)
+                    setDisableReset({...disableReset, storyCategory: true})
                   }
                   setStoryCategory(storyCategory.filter((item: any) => item !== e.currentTarget.value))
                 }
                 // Otherwise, add it 
                 else {
                   setStoryCategory([...storyCategory, e.currentTarget.value])
-                  setDisableReset(false)
+                  setDisableReset({...disableReset, storyCategory: false})
                 }
               }}
             >
@@ -109,7 +109,7 @@ export function createMiscFilter(hasReport: any, setHasReport: any, hasVideo: an
  * @param educationalProgram Array of strings containing the currently active educational program filters.
  * @param setEducationalProgram Function to set the `educationalProgram` state.
  */
-export function createEducationalFilter(educationalProgram: any, setEducationalProgram: any) {
+export function createEducationalFilter(educationalProgram: any, setEducationalProgram: any, disableReset: any, setDisableReset: any) {
   let programs = educationalPrograms
   return (
     <>
@@ -124,10 +124,12 @@ export function createEducationalFilter(educationalProgram: any, setEducationalP
                 // If the checkbox is now unchecked and the program is in the educationalProgram array, remove it from the array
                 if (educationalProgram.includes(e.target.name) && !e.target.checked) {
                   setEducationalProgram(educationalProgram.filter((item: any) => item !== e.target.name))
+                  setDisableReset({...disableReset, educationalProgram: true})
                 }
                 // If the checkbox is now checked and the program is not in the educationalProgram array, add it to the array
                 else if (!educationalProgram.includes(e.target.name) && e.target.checked) {
                   setEducationalProgram([...educationalProgram, e.target.name])
+                  setDisableReset({...disableReset, educationalProgram: false})
                 }
               }}
             />

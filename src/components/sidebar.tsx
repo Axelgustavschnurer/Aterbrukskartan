@@ -59,7 +59,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   const [sliderReset, setSliderReset] = useState(false as boolean)
 
   // State of when the reset button should be active
-  const [disableReset, setDisableReset] = useState(true as boolean)
+  const [disableReset, setDisableReset] = useState({projectType: true, lookingForMaterials: true, availableMaterials: true, organisation: true, storyCategory: true, educationalProgram: true} as any)
 
   /**
    * Fetches data from the database
@@ -145,14 +145,14 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                     setOrganisation(organisation.filter((item: any) => item !== e.target.name))
                     // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
                     if (organisation.length <= 1) {
-                      setDisableReset(true)
+                      setDisableReset({...disableReset, organisation: true})
                     }
                   }
                   // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
                   else if (!organisation.includes(e.target.name) && e.target.checked) {
                     setOrganisation([...organisation, e.target.name])
                     // Enable the reset button when a filter is active
-                    setDisableReset(false)
+                    setDisableReset({...disableReset, organisation: false})
                   }
                 }}
               />
@@ -173,7 +173,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           </div>
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterBtn}>
-            {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory, setDisableReset) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType, setDisableReset) : null}
+            {currentMap === "Stories" ? createCategoryFilter(storyCategory, setStoryCategory, disableReset, setDisableReset) : currentMap === "Recycle" ? createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset) : null}
           </div>
 
           <div className={styles.sidebarHeader}>
@@ -220,8 +220,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
           {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
-            {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials, setDisableReset)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials, setDisableReset)}</span>
-              : currentMap === "Stories" ? <span><h3>Projekt innehåll</h3> {createMiscFilter(hasReport, setHasReport, hasVideo, setHasVideo, hasCase, setHasCase, isEnergy, setIsEnergy)} <h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram)}</span>
+            {currentMap === "Recycle" ? <span><h3>Erbjuds</h3> {createAvailableFilter(mapData, availableMaterials, setAvailableMaterials, disableReset, setDisableReset)} <h3>Sökes</h3> {createLookingForFilter(mapData, lookingForMaterials, setLookingForMaterials, disableReset, setDisableReset)}</span>
+              : currentMap === "Stories" ? <span><h3>Projekt innehåll</h3> {createMiscFilter(hasReport, setHasReport, hasVideo, setHasVideo, hasCase, setHasCase, isEnergy, setIsEnergy)} <h3>Utbildningsprogram</h3> {createEducationalFilter(educationalProgram, setEducationalProgram, disableReset, setDisableReset)}</span>
                 : null}
 
             <h3>Organisation</h3>
@@ -232,7 +232,21 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           <div className={styles.clearFilter}>
             <Button
               id={styles.clearBtn}
-              disabled={disableReset}
+              disabled={
+                disableReset.projectType 
+                && disableReset.lookingForMaterials 
+                && disableReset.availableMaterials 
+                && disableReset.organisation 
+                && disableReset.storyCategory 
+                && disableReset.educationalProgram 
+                && !isEnergy 
+                && !hasCase 
+                && !hasReport 
+                && !hasVideo 
+                && (currentMap === "Stories" ? years[0] === yearLimitsStories.min && years[1] === yearLimitsStories.max : currentMap === "Recycle" ? years[0] === yearLimitsRecycle.min && years[1] === yearLimitsRecycle.max : false)  
+                && (months[0] === 1 || !months[0]) 
+                && (months[1] === 12 || !months[1])
+              }
               onPress={() => {
                 setProjectType([])
                 setSliderReset(true)
@@ -245,7 +259,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setHasReport(false)
                 setHasCase(false)
                 setIsEnergy(false)
-                setDisableReset(true)
+                setDisableReset({projectType: true, lookingForMaterials: true, availableMaterials: true, organisation: true, storyCategory: true, educationalProgram: true})
 
                 let checkboxes = document.querySelectorAll("input[type=checkbox]")
                 checkboxes.forEach((checkbox: any) => {
