@@ -26,7 +26,7 @@ export default function AddNewStory() {
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/stories')
     const data = await response.json()
-    setNewData(data)
+    setStoriesData(data)
   }
 
   // Runs fetchData function on component mount
@@ -34,12 +34,12 @@ export default function AddNewStory() {
     fetchData()
   }, [])
 
+  // Data from the database
+  const [storiesData, setStoriesData] = useState([]);
 
   // Declares the filter variable and its setter function
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
-
-  const [newData, setNewData] = useState([]);
 
   const [organization, setOrganization] = useState("");
 
@@ -134,7 +134,7 @@ export default function AddNewStory() {
 
   // gets all the organisations from the database and returns them as options in a select element
   const getOrganisation = () => {
-    let mappedData = newData.map((pin: any) => pin.mapItem.organisation)
+    let mappedData = storiesData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
     return (
       <>
@@ -151,7 +151,7 @@ export default function AddNewStory() {
 
   const getAllCategories = () => {
     let unsplitMaterials: string[] = [];
-    newData.map((pin: any) => {
+    storiesData.map((pin: any) => {
       if (pin.categorySwedish) {
         unsplitMaterials.push(pin.categorySwedish)
       }
