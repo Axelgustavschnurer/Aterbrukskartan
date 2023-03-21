@@ -188,7 +188,7 @@ export default function HomePage() {
 
         <Tooltip content={"Till\xa0Huvudsidan"} placement="left">
           <div className={styles.iconContainer} onClick={handleRedirect}>
-            <Image src="/images/story.svg" alt="Redirect" width={50} height={50} />
+            <Image src="/images/story.svg" alt="Redirect" width={48} height={44} />
           </div>
         </Tooltip>
       </div>

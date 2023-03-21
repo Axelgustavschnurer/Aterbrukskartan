@@ -145,13 +145,13 @@ export default function HomePage() {
 
         <Tooltip content={"Till\xa0Återbruk"} placement="left">
           <div className={styles.iconContainerStory} onClick={handleRedirectAter}>
-            <Image src="/images/aterbruk.svg" alt="Redirect" width={50} height={50} />
+            <Image src="/images/aterbruk.svg" alt="Redirect" width={48} height={44} />
           </div>
         </Tooltip>
 
         <Tooltip content={"Till\xa0Solpaneler"} placement="left">
           <div className={styles.iconContainerStory} onClick={handleRedirectSolar}>
-            <Image src="/images/solar.svg" alt="Redirect" width={50} height={50} />
+            <Image src="/images/solar.svg" alt="Redirect" width={48} height={44} />
           </div>
         </Tooltip>
       </div>
