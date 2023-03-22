@@ -313,101 +313,56 @@
 
 /* different color for each category */
 
-#Solel {
-    background-color: #c2047c;
+#Bygg-och-anläggning {
+    background-color: #BF40BF;
 }
 
-#Energilagring {
-    background-color: #05f0b9;
-}
-
-#Hållbarhet {
-    background-color: #0e6905;
-}
-
-#Energi {
-    background-color: #f0d318;
-}
-
-#Stories {
-    background-color: #b65ed1;
-}
-
-#Videos {
-    background-color: #ff0000;
-}
-
-#Mätning {
-    background-color: #a208d1;
-}
-
-#Vatten {
-    background-color: #0080ff;
+#Grön-energi {
+    background-color: #008080;
 }
 
 #Social-hållbarhet {
-    background-color: #dd99f2;
+    background-color: #7F00FF;
+}   
+
+#Mobilitet {
+    background-color: #6495ED;
 }
 
-#Hälsa {
-    background-color: #ff82cd;
+#Elnät {
+    background-color: #2AAA8A;
 }
 
 #Bioteknik {
-    background-color: #16a88b;
+    background-color: #FF00FF;
 }
 
-#Öppna-data {
-    background-color: #c45d21;
+#Miljöteknik {
+    background-color: #9ACD32;
 }
 
-#Elbil {
-    background-color: #f52ff1;
+#Energilagring {
+    background-color: #FFC000;
 }
 
-#Transport {
-    background-color: #7a7979;
+#Agara-näringar {
+    background-color: #228B22;
 }
 
-#Byggnader {
-    background-color: #6aeb46;
+#Livsmedel {
+    background-color: #FF7518;
 }
 
-#Skolkök {
-    background-color: #590487;
+#Hälsa {
+    background-color: #FF0000;
 }
 
-#Renovering {
-    background-color: #050aa6;
-}
-
-#Klimat,
-#Cases {
-    background-color: #008000;
-}
-
-#Effekt {
-    background-color: #c2c934;
-}
-
-#Värme {
-    background-color: #a90808;
-}
-
-#Cleantech {
-    background-color: #b8b8b8;
-}
-
-#Vindkraft {
-    background-color: #8bbecf;
-}
-
-#Kyla {
-    background-color: #8fd8f2;
+#Vatten-och-avlopp {
+    background-color: #0047AB;
 }
 
 #Rivning {
-    background-color: rgb(255, 0, 0);
+    background-color: #FF0000;
 }
 
 #Rivning img {
@@ -416,7 +371,7 @@
 }
 
 #Nybyggnation {
-    background-color: rgb(0, 128, 255);
+    background-color: #6495ED;
 }
 
 #Nybyggnation img {
@@ -425,5 +380,5 @@
 }
 
 #Ombyggnation {
-    background-color: rgb(0, 128, 0);
+    background-color: #228B22;
 }

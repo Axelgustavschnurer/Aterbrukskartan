@@ -20,27 +20,18 @@ export function createCategoryFilter(
   setDisableReset: any
 ) {
   let categories = {
-    Solel: "solar",
-    Energilagring: "battery",
-    Hållbarhet: "leaf",
-    Energi: "lightbulb",
-    Mätning: "ruler",
-    Vatten: "water",
+    "Bygg-och-anläggning": "building",
+    "Grön-energi": "solar",
     "Social-hållbarhet": "social",
-    Hälsa: "heartbeat",
+    Mobilitet: "car",
+    Elnät: "powerline",
     Bioteknik: "dna",
-    "Öppna-data": "data",
-    Elbil: "car",
-    Transport: "truck",
-    Byggnader: "building",
-    Skolkök: "school",
-    Renovering: "tools",
-    Klimat: "tree",
-    Effekt: "lightning",
-    Värme: "fire",
-    Cleantech: "gears",
-    Vindkraft: "windmill",
-    Kyla: "snowflake",
+    Miljöteknik: "earth",
+    Energilagring: "battery",
+    "Agara-näringar": "leaf",
+    Livsmedel: "carrot",
+    Hälsa: "heartbeat",
+    "Vatten-och-avlopp": "water",
   };
   return (
     <>
@@ -88,7 +79,7 @@ export function createCategoryFilter(
               {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
 
             </Button>
-            <p>{category.replace("-", " ")}</p>
+            <p>{category.replaceAll("-", " ")}</p>
           </div>
         );
       })}
