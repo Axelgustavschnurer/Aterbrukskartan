@@ -32,19 +32,9 @@
     width: 100%;
     font-size: 15px;
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    position: relative;
 }
 
-.alignBtn {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-}
 
 .form {
     padding: 0 16px;
@@ -289,8 +279,24 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 33.33%;
+    width: 33%;
     margin-top: 3%;
+}
+
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: .5em 0 .5em .5em;
+    padding: .5em;
+    text-align: center;
+}
+
+.categoryContainer:hover {
+    background-color: #e6e6e6be;
+    border-radius: 10px;
 }
 
 .categoryBtn {
@@ -323,7 +329,7 @@
 
 #Social-hållbarhet {
     background-color: #7F00FF;
-}   
+}
 
 #Mobilitet {
     background-color: #6495ED;

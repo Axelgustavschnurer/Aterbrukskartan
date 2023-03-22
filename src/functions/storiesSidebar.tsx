@@ -28,58 +28,61 @@ export function createCategoryFilter(
     Bioteknik: "dna",
     Miljöteknik: "earth",
     Energilagring: "battery",
-    "Agara-näringar": "leaf",
+    "Agrara-näringar": "leaf",
     Livsmedel: "carrot",
     Hälsa: "heartbeat",
     "Vatten-och-avlopp": "water",
   };
+
   return (
     <>
       {/* Creates a button for each category in the `categories` object. */}
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
-            <Button
-              id={styles[category]}
-              className={styles.categoryBtn}
-              css={{ width: "50px", height: "50px" }}
-              rounded
-              auto
-              icon={<Image
-                src={
-                  "/images/categories/" +
-                  categories[category as keyof typeof categories] +
-                  ".svg"
-                }
-                alt={category}
-                width={40}
-                height={40}
-              />}
-              value={category.replace("-", " ")}
-              onPress={(e: any) => {
-                // If category is already in the storyCategory array, remove it
-                if (storyCategory.includes(e.target.value)) {
-                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                  if (storyCategory.length <= 1) {
-                    setDisableReset({ ...disableReset, storyCategory: true });
+            <div className={styles.categoryContainer}>
+              <Button
+                id={styles[category]}
+                className={styles.categoryBtn}
+                css={{ width: "50px", height: "50px" }}
+                rounded
+                auto
+                icon={<Image
+                  src={
+                    "/images/categories/" +
+                    categories[category as keyof typeof categories] +
+                    ".svg"
                   }
-                  setStoryCategory(
-                    storyCategory.filter(
-                      (item: any) => item !== e.target.value
-                    )
-                  );
-                }
-                // Otherwise, add it
-                else {
-                  setStoryCategory([...storyCategory, e.target.value]);
-                  setDisableReset({ ...disableReset, storyCategory: false });
-                }
-              }}
-            >
-              {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
+                  alt={category}
+                  width={40}
+                  height={40}
+                />}
+                value={category.replace("-", " ")}
+                onPress={(e: any) => {
+                  // If category is already in the storyCategory array, remove it
+                  if (storyCategory.includes(e.target.value)) {
+                    // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                    if (storyCategory.length <= 1) {
+                      setDisableReset({ ...disableReset, storyCategory: true });
+                    }
+                    setStoryCategory(
+                      storyCategory.filter(
+                        (item: any) => item !== e.target.value
+                      )
+                    );
+                  }
+                  // Otherwise, add it
+                  else {
+                    setStoryCategory([...storyCategory, e.target.value]);
+                    setDisableReset({ ...disableReset, storyCategory: false });
+                  }
+                }}
+              >
+                {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
 
-            </Button>
-            <p>{category.replaceAll("-", " ")}</p>
+              </Button>
+              <p>{category.replaceAll("-", " ")}</p>
+            </div>
           </div>
         );
       })}
