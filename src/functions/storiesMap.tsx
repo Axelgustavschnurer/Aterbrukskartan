@@ -58,15 +58,6 @@ export function storiesPopup(pin: any) {
               </div>
           }
           <div style={flexRow}>
-            {!pin.pdfCase ? null :
-              <div style={AlignLinks}>
-                <a href={pin.pdfCase} target="_blank" rel="noreferrer">
-                  <span style={PopupLinkPdf}>
-                    <Image width={30} height={30} src="/images/categories/case.svg" alt="Case" />
-                  </span>
-                </a>
-                Case
-              </div>}
             {!pin.reports ? null :
               <div style={AlignLinks}>
                 <a href={pin.reports} target="_blank" rel="noreferrer">
@@ -75,6 +66,15 @@ export function storiesPopup(pin: any) {
                   </span>
                 </a>
                 Rapport
+              </div>}
+            {!pin.pdfCase ? null :
+              <div style={AlignLinks}>
+                <a href={pin.pdfCase} target="_blank" rel="noreferrer">
+                  <span style={PopupLinkPdf}>
+                    <Image width={30} height={30} src="/images/categories/case.svg" alt="Case" />
+                  </span>
+                </a>
+                Case
               </div>}
           </div>
         </div>

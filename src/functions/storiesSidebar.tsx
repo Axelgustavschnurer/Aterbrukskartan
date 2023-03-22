@@ -57,7 +57,7 @@ export function createCategoryFilter(
                   width={40}
                   height={40}
                 />}
-                value={category.replace("-", " ")}
+                value={category.replaceAll("-", " ")}
                 onPress={(e: any) => {
                   // If category is already in the storyCategory array, remove it
                   if (storyCategory.includes(e.target.value)) {
