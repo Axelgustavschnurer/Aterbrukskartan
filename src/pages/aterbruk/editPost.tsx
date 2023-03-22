@@ -102,6 +102,7 @@ export default function EditPost() {
   useEffect(() => {
     setLat(selectedRecycleObject.mapItem?.latitude as any)
     setLon(selectedRecycleObject.mapItem?.longitude as any)
+    setOrganisation(selectedRecycleObject.mapItem?.organisation ? selectedRecycleObject.mapItem?.organisation : "")
     setStartYear(selectedRecycleObject.mapItem?.year ? selectedRecycleObject.mapItem?.year.toString() : undefined)
     setStartMonth(selectedRecycleObject.month ? selectedRecycleObject.month.toString() : "")
     setProjectType(selectedRecycleObject.projectType ? selectedRecycleObject.projectType : "")
@@ -195,6 +196,21 @@ export default function EditPost() {
     setModalState(!modalState)
   }
 
+  const organisationOptions = () => {
+    let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
+    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()
+    return (
+      <>
+        {filteredData.map((pin: any) => {
+          return (
+            <option key={pin} value={pin} label={pin} />
+          )
+        })}
+        <option value="" label="Välj organisation" />
+      </>
+    )
+  }
+
   /** Gets the project id from the database */
   const getProject = () => {
     let mappedData = recycleData.map((pin: any) => pin)
@@ -224,13 +240,11 @@ export default function EditPost() {
                 value={category}
                 checked={projectType === category}
                 onChange={(e) => setProjectType(e.target.value)}
-
               />
               <label htmlFor={category}>{category} </label>
             </div>
           )
-        }
-        )}
+        })}
       </>
     )
   }
@@ -239,7 +253,7 @@ export default function EditPost() {
   const offers = () => {
     return (
       <>
-        {categories.map((category: any, index: any) => {
+        {categories.map((category: any) => {
           return (
             <div className={styles.inputGroup} key={"_" + category}>
               <input
@@ -272,7 +286,7 @@ export default function EditPost() {
   const searchingFors = () => {
     return (
       <>
-        {categories.map((category: any, index: any) => {
+        {categories.map((category: any) => {
           return (
             <div className={styles.inputGroup} key={category}>
               <input
@@ -307,9 +321,11 @@ export default function EditPost() {
         <title>Redigera inlägg</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+
       <div className={styles.header} id={styles.header}>
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
+
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
@@ -342,10 +358,10 @@ export default function EditPost() {
                 <select
                   id="organization"
                   name="organization"
+                  value={organisation ?? ''}
                   onChange={(e) => setOrganisation(e.target.value)}
                 >
-                  <option defaultValue={selectedRecycleObject.mapItem?.organisation ? selectedRecycleObject.mapItem.organisation : undefined}>{selectedRecycleObject.mapItem?.organisation}</option>
-
+                  {organisationOptions()}
                 </select>
               </div>
 
@@ -367,12 +383,12 @@ export default function EditPost() {
                   id="startMonth"
                   name="startMonth"
                   value={monthOptionArray.find((option) => option.value === startMonth)?.value}
-                  // defaultValue={selectedRecycleObject.month ? { value: selectedRecycleObject.month } as any : undefined}
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
                   {monthOptions()}
                 </select>
               </div>
+
               <div className={styles.optionList}>
                 <div className={styles.form}>
                   <h3>Typ av projekt</h3>
@@ -399,8 +415,8 @@ export default function EditPost() {
                       <NewPostMap
                         setLat={setLat}
                         setLon={setLon}
-                        lat={lat}
-                        lon={lon}
+                        lat={lat ?? ''}
+                        lon={lon ?? ''}
                         defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
                         defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
                       />
@@ -409,11 +425,12 @@ export default function EditPost() {
                     <LeafletAddressLookup
                       setLat={setLat}
                       setLon={setLon}
-                      lat={lat}
-                      lon={lon}
+                      lat={lat ?? ''}
+                      lon={lon ?? ''}
                     />
                 }
               </div>
+
               <div className={styles.optionList}>
                 <div className={styles.form}>
                   <h3>Erbjuds</h3>
@@ -434,12 +451,13 @@ export default function EditPost() {
                   rows={10}
                   maxLength={3000}
                   placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-                  defaultValue={selectedRecycleObject.description ? selectedRecycleObject.description : undefined}
+                  value={description ?? ''}
                   onChange={(e) => {
                     setDescription(e.target.value)
                   }}
                 />
               </div >
+
               <div className={styles.addNewPostFormContact}>
                 <h3>Kontakt *</h3>
                 <textarea
@@ -447,10 +465,11 @@ export default function EditPost() {
                   name="contact"
                   rows={3}
                   cols={100}
-                  defaultValue={selectedRecycleObject.contact ? selectedRecycleObject.contact : undefined}
+                  value={contact ?? ''}
                   onChange={(e) => setContact(e.target.value)}
                 />
-              </div >
+              </div>
+
               <div className={styles.addNewPostFormExternalLinks}>
                 <h3>Länkar</h3>
                 <textarea
@@ -458,16 +477,18 @@ export default function EditPost() {
                   name="externalLinks"
                   rows={1}
                   cols={100}
-                  defaultValue={selectedRecycleObject.externalLinks ? selectedRecycleObject.externalLinks : undefined}
+                  value={externalLinks ?? ''}
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
               {/* <div className={styles.message}>{message ? <p>{message}</p> : null}</div> */}
             </form >
+
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
                 < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
               </div >
+
               <div className={styles.addNewPostFormSubmit}>
                 <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button >
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
@@ -477,6 +498,7 @@ export default function EditPost() {
           </div >
         </div >
       </div >
+
       <div className={styles.footer} id={styles.footer}>
         < div className={styles.footerContainer}>
           <div className={styles.footerRow}>
