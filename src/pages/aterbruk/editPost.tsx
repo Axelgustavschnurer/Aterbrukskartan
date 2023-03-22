@@ -124,23 +124,22 @@ export default function EditPost() {
 
   /** Handles the submit event */
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
     try {
       /** The data that is sent to the database */
       const data = {
-        projectType: projectType ? projectType : undefined,
-        description: description === selectedRecycleObject.description ? undefined : description ? description : null,
+        projectType: !!projectType ? projectType : null,
+        description: !!description ? description : null,
         lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
         availableMaterials: available.length ? available.join(", ") : null,
         month: !!startMonth ? parseInt(startMonth) : null,
-        contact: contact === selectedRecycleObject.contact ? undefined : contact ? contact : null,
-        externalLinks: externalLinks === selectedRecycleObject.externalLinks ? undefined : externalLinks ? externalLinks : null,
+        contact: !!contact ? contact : null,
+        externalLinks: !!externalLinks ? externalLinks : null,
         mapItem: {
           // TODO: Allow these to be null if the user removes them
-          organisation: organisation ? organisation : undefined,
+          organisation: !!organisation ? organisation : null,
           year: !!startYear ? parseInt(startYear) : null,
-          latitude: parseFloat(lat!) ? parseFloat(lat!) : undefined,
-          longitude: parseFloat(lon!) ? parseFloat(lon!) : undefined,
+          latitude: !!lat ? parseFloat(lat) : null,
+          longitude: !!lon ? parseFloat(lon) : null,
         }
       }
       console.log(data)
