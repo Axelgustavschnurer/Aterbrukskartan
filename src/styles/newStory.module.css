@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    min-width: 40%;
+    min-width: 0%;
     padding: 100px;
     background-color: #ebebeb;
     border-radius: 20px;
@@ -48,7 +48,8 @@
 .addNewPostFormDescription,
 .addNewPostFormContact,
 .energyStory,
-.addNewPostFormExternalLinks {
+.addNewPostFormExternalLinks,
+.addNewPostFormInput {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,6 +113,19 @@
 }
 
 .startYear input:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
+
+.addNewPostFormInput input {
+    height: 30px;
+    width: 30%;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+    margin-left: inherit;
+}
+
+.addNewPostFormInput input:focus {
     outline: none;
     border: 2px solid #ff7300;
 }

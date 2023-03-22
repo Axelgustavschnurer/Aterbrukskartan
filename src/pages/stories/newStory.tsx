@@ -44,6 +44,7 @@ export default function AddNewStory() {
   const [lon, setLon] = useState();
 
   const [organization, setOrganization] = useState("");
+  const [newOrganization, setNewOrganization] = useState("");
 
   const [program, setProgram] = useState("");
   const [programOrientation, setProgramOrientation] = useState("");
@@ -73,7 +74,7 @@ export default function AddNewStory() {
         address: "",
         postcode: parseInt(""),
         city: "",
-        organisation: organization,
+        organisation: organization ? organization : newOrganization ? newOrganization : null,
         year: parseInt(startYear),
         name: title,
       }
@@ -138,9 +139,10 @@ export default function AddNewStory() {
   ), [])
 
   // Gets all the organisations from the database and returns them as options in a select element
+  // TODO: BETTER NAMES!
   const getOrganisation = () => {
     let mappedData = storiesData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
+    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index && !!pin).sort()
     return (
       <>
         {filteredData.map((pin: any, index: any) => {
@@ -253,9 +255,23 @@ export default function AddNewStory() {
                 >
                   <option value="">Välj organisation</option>
                   {getOrganisation()}
-
+                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
+              {organization === "addOrganisation" && (
+                <div className={styles.addNewPostFormInput}>
+                  <h3>Ny organisation</h3>
+                  <input
+                    type="text"
+                    key="newOrganization"
+                    id="newOrganization"
+                    name="newOrganization"
+                    value={newOrganization}
+                    onChange={(e) => setNewOrganization(e.target.value)}
+                  />
+                </div>
+              )
+              }
               {/*Program section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Program *</h3>
