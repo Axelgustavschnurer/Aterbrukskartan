@@ -1,6 +1,6 @@
 import { Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { IconPinRed, IconPinGreen, IconPinBlue } from '../components/icons'
+import { IconPinRed, IconPinGreen, IconPinAzure, IconPinWhite } from '../components/icons'
 import React from 'react'
 import { PopupHead, PopupText } from "../components/popupStyles";
 import { DeepRecycle, RecycleFilter } from '@/types'
@@ -51,8 +51,9 @@ export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter
       return (
         <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
           pin.projectType === "Rivning" ? IconPinRed :
-            pin.projectType === "Nybyggnation" ? IconPinBlue :
-              IconPinGreen
+            pin.projectType === "Nybyggnation" ? IconPinAzure :
+              pin.projectType === "Ombyggnation" ? IconPinGreen :
+                IconPinWhite
         }>
 
           {pin ? recyclePopup(pin) : null}

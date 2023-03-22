@@ -83,24 +83,24 @@ export function storiesPopup(pin: any) {
   )
 }
 
-const iconArray = [pinIcons.IconPinPink, pinIcons.IconPinPaleGreen, pinIcons.IconPinDarkGreen, pinIcons.IconPinYellow, pinIcons.IconPinPurple, pinIcons.IconPinBlue, pinIcons.IconPinPalePurple, pinIcons.IconPinPalePink, pinIcons.IconPinTeal, pinIcons.IconPinOrange, pinIcons.IconPinHotPink, pinIcons.IconPinGray, pinIcons.IconPinLime, pinIcons.IconPinDarkPurple, pinIcons.IconPinNavy, pinIcons.IconPinGreen, pinIcons.IconPinGold, pinIcons.IconPinCrimson, pinIcons.IconPinPaleGray, pinIcons.IconPinPaleBlue, pinIcons.IconPinLightBlue];
-const categoryArray = ["solel", "energilagring", "hållbarhet", "energi", "mätning", "vatten", "social hållbarhet", "hälsa", "bioteknik", "öppna data", "elbil", "transport", "byggnader", "skolkök", "renovering", "klimat", "effekt", "värme", "cleantech", "vindkraft", "kyla"]
+const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPinViolet, pinIcons.IconPinAzure, pinIcons.IconPinGreenBlue, pinIcons.IconPinPink, pinIcons.IconPinYellowGreen, pinIcons.IconPinYellow, pinIcons.IconPinGreen, pinIcons.IconPinOrange, pinIcons.IconPinRed, pinIcons.IconPinBlue];
+const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarhet", "Mobilitet", "Elnät", "Bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Hälsa", "Vatten och avlopp"]
 
 function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFilter) {
   // TODO Make it so pins are colored based on the first category in the filter *that matches with the pin*
   for (let i in categoryArray) {
-    if (currentFilter.categories && currentFilter.categories[0]?.toLowerCase().includes(categoryArray[i])) {
+    if (currentFilter.categories && currentFilter.categories[0]?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
       return iconArray[i]
     }
   }
   for (let i in categoryArray) {
-    if (mapData[pinIndex].categorySwedish?.toLowerCase().includes(categoryArray[i])) {
+    if (mapData[pinIndex].categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
       return iconArray[i]
     }
   }
-  return iconArray[20]
+  return pinIcons.IconPinWhite
 }
-let test: Story;
+
 export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, searchInput: string | undefined) {
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }

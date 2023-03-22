@@ -4,140 +4,80 @@ import L from 'leaflet';
 // Map pin icons
 // NOTE Teal icon and below don't yet have svg files
 
-export const IconPinPink = new L.Icon({
-    iconUrl: ('/images/pins/pinkicon.svg'),
-    iconRetinaUrl: ('/images/pins/pinkicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinPaleGreen = new L.Icon({
-    iconUrl: ('/images/pins/palegreenicon.svg'),
-    iconRetinaUrl: ('/images/pins/palegreenicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinDarkGreen = new L.Icon({
-    iconUrl: ('/images/pins/darkgreenicon.svg'),
-    iconRetinaUrl: ('/images/pins/darkgreenicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinYellow = new L.Icon({
-    iconUrl: ('/images/pins/yellowicon.svg'),
-    iconRetinaUrl: ('/images/pins/yellowicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinMagenta = new L.Icon({
-    iconUrl: ('/images/pins/magentaicon.svg'),
-    iconRetinaUrl: ('/images/pins/magentaicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinRed = new L.Icon({
-    iconUrl: ('/images/pins/redicon.svg'),
-    iconRetinaUrl: ('/images/pins/redicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
 export const IconPinPurple = new L.Icon({
-    iconUrl: ('/images/pins/purpleicon.svg'),
-    iconRetinaUrl: ('/images/pins/purpleicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinBlue = new L.Icon({
-    iconUrl: ('/images/pins/blueicon.svg'),
-    iconRetinaUrl: ('/images/pins/blueicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinPalePurple = new L.Icon({
-    iconUrl: ('/images/pins/palepurpleicon.svg'),
-    iconRetinaUrl: ('/images/pins/palepurpleicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinPalePink = new L.Icon({
-    iconUrl: ('/images/pins/palepinkicon.svg'),
-    iconRetinaUrl: ('/images/pins/palepinkicon.svg'),
+    iconUrl: ('/images/pins/purplepin.svg'),
+    iconRetinaUrl: ('/images/pins/purplepin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
 export const IconPinTeal = new L.Icon({
-    iconUrl: ('/images/pins/tealicon.svg'),
-    iconRetinaUrl: ('/images/pins/tealicon.svg'),
+    iconUrl: ('/images/pins/tealpin.svg'),
+    iconRetinaUrl: ('/images/pins/tealpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinOrange = new L.Icon({
-    iconUrl: ('/images/pins/orangeicon.svg'),
-    iconRetinaUrl: ('/images/pins/orangeicon.svg'),
+export const IconPinViolet = new L.Icon({
+    iconUrl: ('/images/pins/violetpin.svg'),
+    iconRetinaUrl: ('/images/pins/violetpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinHotPink = new L.Icon({
-    iconUrl: ('/images/pins/hotpinkicon.svg'),
-    iconRetinaUrl: ('/images/pins/hotpinkicon.svg'),
+export const IconPinAzure = new L.Icon({
+    iconUrl: ('/images/pins/azurepin.svg'),
+    iconRetinaUrl: ('/images/pins/azurepin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinGray = new L.Icon({
-    iconUrl: ('/images/pins/grayicon.svg'),
-    iconRetinaUrl: ('/images/pins/grayicon.svg'),
+export const IconPinGreenBlue = new L.Icon({
+    iconUrl: ('/images/pins/greenbluepin.svg'),
+    iconRetinaUrl: ('/images/pins/greenbluepin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinLime = new L.Icon({
-    iconUrl: ('/images/pins/limeicon.svg'),
-    iconRetinaUrl: ('/images/pins/limeicon.svg'),
+export const IconPinPink = new L.Icon({
+    iconUrl: ('/images/pins/pinkpin.svg'),
+    iconRetinaUrl: ('/images/pins/pinkpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinDarkPurple = new L.Icon({
-    iconUrl: ('/images/pins/darkpurpleicon.svg'),
-    iconRetinaUrl: ('/images/pins/darkpurpleicon.svg'),
+export const IconPinYellowGreen = new L.Icon({
+    iconUrl: ('/images/pins/yellowgreenpin.svg'),
+    iconRetinaUrl: ('/images/pins/yellowgreenpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinNavy = new L.Icon({
-    iconUrl: ('/images/pins/navyicon.svg'),
-    iconRetinaUrl: ('/images/pins/navyicon.svg'),
+export const IconPinYellow = new L.Icon({
+    iconUrl: ('/images/pins/yellowpin.svg'),
+    iconRetinaUrl: ('/images/pins/yellowpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
 export const IconPinGreen = new L.Icon({
-    iconUrl: ('/images/pins/greenicon.svg'),
-    iconRetinaUrl: ('/images/pins/greenicon.svg'),
+    iconUrl: ('/images/pins/greenpin.svg'),
+    iconRetinaUrl: ('/images/pins/greenpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinGold = new L.Icon({
-    iconUrl: ('/images/pins/goldicon.svg'),
-    iconRetinaUrl: ('/images/pins/goldicon.svg'),
+export const IconPinOrange = new L.Icon({
+    iconUrl: ('/images/pins/orangepin.svg'),
+    iconRetinaUrl: ('/images/pins/orangepin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinCrimson = new L.Icon({
-    iconUrl: ('/images/pins/crimsonicon.svg'),
-    iconRetinaUrl: ('/images/pins/crimsonicon.svg'),
+export const IconPinRed = new L.Icon({
+    iconUrl: ('/images/pins/redpin.svg'),
+    iconRetinaUrl: ('/images/pins/redpin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinPaleGray = new L.Icon({
-    iconUrl: ('/images/pins/palegrayicon.svg'),
-    iconRetinaUrl: ('/images/pins/palegrayicon.svg'),
+export const IconPinBlue = new L.Icon({
+    iconUrl: ('/images/pins/bluepin.svg'),
+    iconRetinaUrl: ('/images/pins/bluepin.svg'),
     iconSize: new L.Point(25, 25),
 });
 
-export const IconPinPaleBlue = new L.Icon({
-    iconUrl: ('/images/pins/paleblueicon.svg'),
-    iconRetinaUrl: ('/images/pins/paleblueicon.svg'),
-    iconSize: new L.Point(25, 25),
-});
-
-export const IconPinLightBlue = new L.Icon({
-    iconUrl: ('/images/pins/lightblueicon.svg'),
-    iconRetinaUrl: ('/images/pins/lightblueicon.svg'),
+export const IconPinWhite = new L.Icon({
+    iconUrl: ('/images/pins/whitepin.svg'),
+    iconRetinaUrl: ('/images/pins/whitepin.svg'),
     iconSize: new L.Point(25, 25),
 });
