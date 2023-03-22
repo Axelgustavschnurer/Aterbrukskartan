@@ -40,7 +40,7 @@ export function createCategoryFilter(
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
-            <div className={styles.categoryContainer}>
+            <div className={styles.categoryContainer} >
               <Button
                 id={styles[category]}
                 className={styles.categoryBtn}

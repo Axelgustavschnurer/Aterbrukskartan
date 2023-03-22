@@ -185,7 +185,7 @@
 /* Media queries */
 @media screen and (min-width: 2000px) {
     .wrap {
-        width: 15.5vw;
+        width: 12.5vw;
     }
 }
 

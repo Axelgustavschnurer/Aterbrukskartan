@@ -244,16 +244,16 @@
 
 @media screen and (min-width: 2000px) {
     .sidebar {
-        width: 15%;
+        width: 12%;
     }
 
     .sidebarClose {
-        left: calc(15% + 10px);
+        left: calc(12% + 10px);
     }
 
     @keyframes moveHideButton {
         0% {
-            left: 15%;
+            left: 12%;
         }
 
         100% {
@@ -267,7 +267,7 @@
         }
 
         100% {
-            left: 15%;
+            left: 12%;
         }
     }
 }
@@ -292,11 +292,6 @@
     margin: .5em 0 .5em .5em;
     padding: .5em;
     text-align: center;
-}
-
-.categoryContainer:hover {
-    background-color: #e6e6e6be;
-    border-radius: 10px;
 }
 
 .categoryBtn {
