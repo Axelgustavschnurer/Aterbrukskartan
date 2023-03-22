@@ -336,7 +336,7 @@ export default function EditPost() {
                 <select
                   id="project"
                   name="project"
-                  defaultValue={selectedRecycleObject?.id}
+                  value={project ?? ''}
                   onChange={(e) => setProject(e.target.value)}
                 >
                   <option value="">Välj projekt</option>
@@ -371,7 +371,7 @@ export default function EditPost() {
                   type="number"
                   id="startYear"
                   name="startYear"
-                  value={startYear}
+                  value={startYear ?? ''}
                   min={yearLimitsRecycle.min}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
