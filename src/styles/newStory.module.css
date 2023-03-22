@@ -159,6 +159,12 @@
     font-weight: 500;
 }
 
+#save:hover {
+    background-color: #006b09;
+    color: #ffffff;
+    box-shadow: 5px 5px 5px 5px #00000015;
+}
+
 
 /* CSS for both type of project and searching for and offering checkboxes*/
 .optionList {
