@@ -59,14 +59,10 @@
 .addNewPostFormTitle input,
 .addNewPostFormName input,
 .addNewPostFormOrientation input {
-    border: 2px solid #8a8a8a;
-    border-radius: 5px;
-    padding: 10px 0;
-    display: block;
-    font-size: 12px;
-    font-family: 'Muli', sans-serif;
+    height: 30px;
     width: 50%;
-    transition: 0.1s ease-in;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
 }
 
 .addNewPostFormTitle input:focus,
@@ -101,14 +97,10 @@
 }
 
 .startYear input {
-    border: 2px solid #8a8a8a;
-    border-radius: 5px;
-    padding: 10px 0;
-    display: block;
-    font-size: 12px;
-    font-family: 'Muli', sans-serif;
+    height: 30px;
     width: 50%;
-    transition: 0.1s ease-in;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
 }
 
 .startYear input:focus {
