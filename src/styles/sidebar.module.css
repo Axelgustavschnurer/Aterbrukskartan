@@ -1,11 +1,11 @@
 /* sidebar container */
 .sidebar {
     width: 20%;
-    height: calc(90% - 120px);
+    height: calc(85% - 120px);
     background-color: #f1f1f1;
     position: fixed;
     z-index: 2;
-    top: calc(60px + 5%);
+    top: 100px;
     left: 10px;
     border: 2px solid #8a8a8a;
     border-radius: 10px;
@@ -126,7 +126,7 @@
     width: inherit;
     left: inherit;
     border-bottom-left-radius: 10px;
-    top: calc(95vh - 100px);
+    top: calc(90% - 100px);
     position: fixed;
     background-color: #f0f0f0;
     border: 2px solid #8a8a8a;
@@ -141,7 +141,7 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: 48%;
+    top: calc(100% / 2 - 47px);
     left: calc(20% + 10px);
     animation: moveOpenButton 0.2s;
 }
@@ -156,7 +156,7 @@
 
 .sidebarOpen {
     z-index: 4;
-    top: 48%;
+    top: calc(100% / 2 - 47px);
     position: fixed;
     height: 3%;
     left: 0;

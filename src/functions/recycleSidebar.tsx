@@ -17,42 +17,44 @@ export function createProjectTypeFilter(
     <>
       {categories.map((category: any) => {
         return (
-          <div className={styles.alignBtn} key={category}>
-            <Button
-              id={styles[category]}
-              className={styles.categoryBtn}
-              css={{ width: "50px", height: "50px" }}
-              rounded
-              auto
-              icon={<Image
-                src={"/images/" + category.toLowerCase() + ".svg"}
-                alt={category}
-                width={40}
-                height={40}
-              />}
-              value={category}
-              onPress={(e: any) => {
-                // If category is already in the projectType array, remove it
-                if (projectType.includes(e.target.value)) {
-                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                  if (projectType.length <= 1) {
-                    setDisableReset({ ...disableReset, projectType: true });
+          <div className={styles.alignCategories} key={category}>
+            <div className={styles.categoryContainer} >
+              <Button
+                id={styles[category]}
+                className={styles.categoryBtn}
+                css={{ width: "50px", height: "50px" }}
+                rounded
+                auto
+                icon={<Image
+                  src={"/images/" + category.toLowerCase() + ".svg"}
+                  alt={category}
+                  width={40}
+                  height={40}
+                />}
+                value={category}
+                onPress={(e: any) => {
+                  // If category is already in the projectType array, remove it
+                  if (projectType.includes(e.target.value)) {
+                    // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                    if (projectType.length <= 1) {
+                      setDisableReset({ ...disableReset, projectType: true });
+                    }
+                    setProjectType(
+                      projectType.filter(
+                        (item: any) => item !== e.target.value
+                      )
+                    );
                   }
-                  setProjectType(
-                    projectType.filter(
-                      (item: any) => item !== e.target.value
-                    )
-                  );
-                }
-                // Otherwise, add it
-                else {
-                  setProjectType([...projectType, e.target.value]);
-                  setDisableReset({ ...disableReset, projectType: false });
-                }
-              }}
-            >
-            </Button>
-            <p>{category}</p>
+                  // Otherwise, add it
+                  else {
+                    setProjectType([...projectType, e.target.value]);
+                    setDisableReset({ ...disableReset, projectType: false });
+                  }
+                }}
+              >
+              </Button>
+              <p>{category}</p>
+            </div>
           </div>
         );
       })}
@@ -92,8 +94,8 @@ function getAllMaterialCategories(mapData: any) {
 }
 
 /**
- * Creates checkboxes for all the different lookingForMaterials categories in the database
- */
+      * Creates checkboxes for all the different lookingForMaterials categories in the database
+      */
 export function createLookingForFilter(
   mapData: any,
   lookingForMaterials: any,
