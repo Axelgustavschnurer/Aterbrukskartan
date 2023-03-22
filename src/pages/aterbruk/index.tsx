@@ -8,6 +8,7 @@ import { RecycleFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import { Tooltip } from '@nextui-org/react'
+import { Badge } from '@nextui-org/react'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -40,7 +41,7 @@ export default function HomePage() {
   const Map = React.useMemo(() => dynamic(
     () => import('../../components/map'),
     {
-      loading: () => <p>A map is loading</p>,
+      loading: () => <Badge>A map is loading</Badge>,
       ssr: false
     }
   ), [/* list variables which should trigger a re-render here */])
@@ -61,12 +62,12 @@ export default function HomePage() {
     if (currentFilter.projectType?.length) {
       if (currentFilter.projectType.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.length} projekttyper</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.length} projekttyper</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.projectType.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.join(", ")}</Badge>
         )
       }
     }
@@ -82,12 +83,12 @@ export default function HomePage() {
       }
       else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {currentFilter.years[0]}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {currentFilter.years[0]}</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</Badge>
         )
       }
     }
@@ -103,12 +104,12 @@ export default function HomePage() {
       }
       else if (currentFilter.months[0] === currentFilter.months[1] && currentFilter.months[0] !== undefined) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månad: {monthArray[currentFilter.months[0] - 1]}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månad: {monthArray[currentFilter.months[0] - 1]}</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Månader: {monthArray[Math.min(...currentFilter.months) - 1]} - {monthArray[Math.max(...currentFilter.months) - 1]}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månader: {monthArray[Math.min(...currentFilter.months) - 1]} - {monthArray[Math.max(...currentFilter.months) - 1]}</Badge>
         )
       }
     }
@@ -122,12 +123,12 @@ export default function HomePage() {
     if (currentFilter.lookingForCategories?.length) {
       if (currentFilter.lookingForCategories.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</Badge>
         )
       }
     }
@@ -140,12 +141,12 @@ export default function HomePage() {
     if (currentFilter.availableCategories?.length) {
       if (currentFilter.availableCategories.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</Badge>
         )
       }
     }
@@ -158,12 +159,12 @@ export default function HomePage() {
     if (currentFilter.organisation?.length) {
       if (currentFilter.organisation.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.organisation.length} Organisationer</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>{currentFilter.organisation.length} Organisationer</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Organisationer: {currentFilter.organisation.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>Organisationer: {currentFilter.organisation.join(", ")}</Badge>
         )
       }
     }

@@ -8,7 +8,7 @@ import { StoryFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Footer from '@/components/footer'
-import { Tooltip } from '@nextui-org/react'
+import { Tooltip, Badge } from '@nextui-org/react'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -55,25 +55,25 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active category filters, if any
+   * Returns a badge element with the currently active category filters, if any
    */
   const categoryLabel = () => {
     if (currentFilter.categories?.length) {
       if (currentFilter.categories.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.categories.length} Kategorier</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.categories.length} Kategorier</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Kategorier: {currentFilter.categories.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>Kategorier: {currentFilter.categories.join(", ")}</Badge>
         )
       }
     }
   }
 
   /**
-   * Returns a p element with the currently active year filters, if any
+   * Returns a badge element with the currently active year filters, if any
    */
   const yearLabel = () => {
     if (currentFilter.years?.length) {
@@ -82,45 +82,77 @@ export default function HomePage() {
       }
       else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {currentFilter.years[0]}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {currentFilter.years[0]}</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</p>
-        )
-      }
-    }
-  }
-
-  const educationLabel = () => {
-    if (currentFilter.educationalProgram?.length) {
-      if (currentFilter.educationalProgram.length > maxCategoryAmount) {
-        return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.educationalProgram.length} Utbildningar</p>
-        )
-      }
-      else {
-        return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Utbildningar: {currentFilter.educationalProgram.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</Badge>
         )
       }
     }
   }
 
   /**
-   * Returns a p element with the currently active filters regarding organisations, if any
+   * Returns a badge element with the currently active filters regarding project contents, if any
+   */
+  const contentLabel = () => {
+    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.energyStory) {
+      let content = []
+      if (currentFilter.report) {
+        content.push("Rapport")
+      }
+      if (currentFilter.video) {
+        content.push("Video")
+      }
+      if (currentFilter.cases) {
+        content.push("Case")
+      }
+      if (currentFilter.energyStory) {
+        content.push("Story")
+      }
+      if (content.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>{content.length} innehåll</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Projekt innehåll: {content.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+
+  const educationLabel = () => {
+    if (currentFilter.educationalProgram?.length) {
+      if (currentFilter.educationalProgram.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>{currentFilter.educationalProgram.length} Utbildningar</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Utbildningar: {currentFilter.educationalProgram.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a badge element with the currently active filters regarding organisations, if any
    */
   const organisationLabel = () => {
     if (currentFilter.organisation?.length) {
       if (currentFilter.organisation.length > maxCategoryAmount) {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>{currentFilter.organisation.length} Organisationer</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>{currentFilter.organisation.length} Organisationer</Badge>
         )
       }
       else {
         return (
-          <p className={styles.filterText} style={{ backgroundColor: "#fd9800" }}>Organisationer: {currentFilter.organisation.join(", ")}</p>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>Organisationer: {currentFilter.organisation.join(", ")}</Badge>
         )
       }
     }
@@ -179,6 +211,7 @@ export default function HomePage() {
         <div className={styles.filterTextContainer}>
           {categoryLabel()}
           {yearLabel()}
+          {contentLabel()}
           {educationLabel()}
           {organisationLabel()}
         </div>
