@@ -46,7 +46,8 @@
 .addNewPostFormDescription,
 .addNewPostFormLocation,
 .addNewPostFormContact,
-.addNewPostFormExternalLinks {
+.addNewPostFormExternalLinks,
+.addNewPostFormInput {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,6 +79,18 @@
     transition: 0.2s ease-in-out;
 }
 
+.addNewPostFormInput input {
+    height: 30px;
+    width: 30%;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+    margin-left: inherit;
+}
+
+.addNewPostFormInput input:focus {
+    outline: none;
+    border: 2px solid #ff7300;
+}
 
 .startYear input {
     height: 30px;

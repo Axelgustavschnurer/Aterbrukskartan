@@ -41,6 +41,8 @@ export default function AddNewPost() {
 
   // Form data
   const [organization, setOrganization] = useState("");
+  const [newOrganization, setNewOrganization] = useState("");
+
   const [projectStartYear, setStartYear] = useState("");
   const [projectStartMonth, setStartMonth] = useState("");
   const [projectType, setProjectType] = useState("");
@@ -70,7 +72,7 @@ export default function AddNewPost() {
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,
         longitude: lon ? parseFloat(lon) : null,
-        organisation: organization,
+        organisation: !!organization ? organization : !!newOrganization ? newOrganization : null,
         year: parseInt(projectStartYear),
       }
 
@@ -123,7 +125,9 @@ export default function AddNewPost() {
       <>
         {filteredData.map((pin: any) => {
           return (
-            <option key={pin} value={pin}>{pin}</option>
+            <>
+              <option key={pin} value={pin}>{pin}</option>
+            </>
           )
         })}
       </>
@@ -252,8 +256,25 @@ export default function AddNewPost() {
                 >
                   <option value="">Välj organisation</option>
                   {getOrganisation()}
+                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
+
+              {organization === "addOrganisation" && (
+                <div className={styles.addNewPostFormInput}>
+                  <h3>Ny organisation</h3>
+                  <input
+                    type="text"
+                    key="newOrganization"
+                    id="newOrganization"
+                    name="newOrganization"
+                    value={newOrganization}
+                    onChange={(e) => setNewOrganization(e.target.value)}
+                  />
+                </div>
+              )
+              }
+
 
               {/* Year selection */}
               <div className={styles.startYear}>
