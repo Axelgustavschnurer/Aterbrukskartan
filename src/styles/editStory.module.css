@@ -173,6 +173,18 @@
     font-weight: 500;
 }
 
+#save:hover {
+    background-color: #006b09;
+    color: #ffffff;
+    box-shadow: 5px 5px 5px 5px #00000015;
+}
+
+#remove:hover {
+    background-color: #8b0000;
+    color: #ffffff;
+    box-shadow: 5px 5px 5px 5px #00000015;
+}
+
 .addNewPostFormSubmit button:hover {
     background-color: #d6d6d6;
 }
