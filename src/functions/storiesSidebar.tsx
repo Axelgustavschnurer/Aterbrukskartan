@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
 import { educationalPrograms } from "@/pages/stories/newStory";
+import { Button } from "@nextui-org/react";
 
 /**
  * Creates buttons for all the categories defined in the object `categories` in this function.
@@ -47,32 +48,13 @@ export function createCategoryFilter(
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
-            <button
+            <Button
               id={styles[category]}
               className={styles.categoryBtn}
-              value={category.replace("-", " ")}
-              onClick={(e: any) => {
-                // If category is already in the storyCategory array, remove it
-                if (storyCategory.includes(e.currentTarget.value)) {
-                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                  if (storyCategory.length <= 1) {
-                    setDisableReset({ ...disableReset, storyCategory: true });
-                  }
-                  setStoryCategory(
-                    storyCategory.filter(
-                      (item: any) => item !== e.currentTarget.value
-                    )
-                  );
-                }
-                // Otherwise, add it
-                else {
-                  setStoryCategory([...storyCategory, e.currentTarget.value]);
-                  setDisableReset({ ...disableReset, storyCategory: false });
-                }
-              }}
-            >
-              {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
-              <Image
+              css={{ width: "50px", height: "50px" }}
+              rounded
+              auto
+              icon={<Image
                 src={
                   "/images/categories/" +
                   categories[category as keyof typeof categories] +
@@ -81,8 +63,31 @@ export function createCategoryFilter(
                 alt={category}
                 width={40}
                 height={40}
-              />
-            </button>
+              />}
+              value={category.replace("-", " ")}
+              onPress={(e: any) => {
+                // If category is already in the storyCategory array, remove it
+                if (storyCategory.includes(e.target.value)) {
+                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                  if (storyCategory.length <= 1) {
+                    setDisableReset({ ...disableReset, storyCategory: true });
+                  }
+                  setStoryCategory(
+                    storyCategory.filter(
+                      (item: any) => item !== e.target.value
+                    )
+                  );
+                }
+                // Otherwise, add it
+                else {
+                  setStoryCategory([...storyCategory, e.target.value]);
+                  setDisableReset({ ...disableReset, storyCategory: false });
+                }
+              }}
+            >
+              {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
+
+            </Button>
             <p>{category.replace("-", " ")}</p>
           </div>
         );

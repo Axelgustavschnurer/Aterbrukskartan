@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
+import { Button } from "@nextui-org/react";
 
 /**
  * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -17,36 +18,40 @@ export function createProjectTypeFilter(
       {categories.map((category: any) => {
         return (
           <div className={styles.alignBtn} key={category}>
-            <button
+            <Button
               id={styles[category]}
+              className={styles.categoryBtn}
+              css={{ width: "50px", height: "50px" }}
+              rounded
+              auto
+              icon={<Image
+                src={"/images/" + category.toLowerCase() + ".svg"}
+                alt={category}
+                width={40}
+                height={40}
+              />}
               value={category}
-              onClick={(e: any) => {
+              onPress={(e: any) => {
                 // If category is already in the projectType array, remove it
-                if (projectType.includes(e.currentTarget.value)) {
+                if (projectType.includes(e.target.value)) {
                   // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
                   if (projectType.length <= 1) {
                     setDisableReset({ ...disableReset, projectType: true });
                   }
                   setProjectType(
                     projectType.filter(
-                      (item: any) => item !== e.currentTarget.value
+                      (item: any) => item !== e.target.value
                     )
                   );
                 }
                 // Otherwise, add it
                 else {
-                  setProjectType([...projectType, e.currentTarget.value]);
+                  setProjectType([...projectType, e.target.value]);
                   setDisableReset({ ...disableReset, projectType: false });
                 }
               }}
             >
-              <Image
-                src={"/images/" + category.toLowerCase() + ".svg"}
-                alt={category}
-                width={40}
-                height={40}
-              />
-            </button>
+            </Button>
             <p>{category}</p>
           </div>
         );
