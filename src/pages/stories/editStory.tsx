@@ -302,7 +302,7 @@ export default function EditStory() {
 
               {/* Organisation section */}
               <div className={styles.addNewPostFormSelect}>
-                <h3>Organisation *</h3>
+                <h3>Organisation</h3>
                 {/*
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
                                 <input
@@ -325,7 +325,7 @@ export default function EditStory() {
 
               {/* Program section */}
               <div className={styles.addNewPostFormSelect}>
-                <h3>Program *</h3>
+                <h3>Program</h3>
                 <select
                   id="program"
                   name="program"
@@ -341,7 +341,7 @@ export default function EditStory() {
               {
                 program === "Agronom" || program === "Civilingenjör" || program === "Högskoleingenjör" || program === "Kandidatprogram" ?
                   <div className={styles.addNewPostFormOrientation}>
-                    <h3>Programinriktning *</h3>
+                    <h3>Programinriktning</h3>
                     <input
                       type="text"
                       key={program}
@@ -358,7 +358,7 @@ export default function EditStory() {
 
               {/* Title section */}
               <div className={styles.addNewPostFormTitle}>
-                <h3>Titel</h3>
+                <h3>Casetitel</h3>
                 <input
                   type="text"
                   id="title"
@@ -371,7 +371,7 @@ export default function EditStory() {
 
               {/* Report section */}
               <div className={styles.addNewPostFormName}>
-                <h3>Rapportnamn</h3>
+                <h3>Rapporttitel</h3>
                 <input
                   type="text"
                   id="name"
@@ -397,7 +397,7 @@ export default function EditStory() {
 
               {/* Start year section */}
               <div className={styles.startYear}>
-                <h3>Startår</h3>
+                <h3>År</h3>
                 <input
                   type="number"
                   id="startYear"
@@ -456,7 +456,7 @@ export default function EditStory() {
 
               {/* Description section */}
               <div className={styles.addNewPostFormDescription}>
-                <h3 style={{ marginTop: "10px" }}>Beskrivning *</h3>
+                <h3 style={{ marginTop: "10px" }}>Sammanfatting</h3>
                 <textarea
                   id="description"
                   name="description"
@@ -470,7 +470,7 @@ export default function EditStory() {
 
               {/* Link to case section */}
               <div className={styles.addNewPostFormContact}>
-                <h3>Länk till case-beskrivning *</h3>
+                <h3>Länk till case-beskrivning</h3>
                 <textarea
                   id="caseDescription"
                   name="caseDescription"
@@ -496,7 +496,7 @@ export default function EditStory() {
 
               {/* isEnergystory section */}
               <div className={styles.energyStory}>
-                <h3>Är det en energy story?</h3>
+                <h3>Är det ett stories projekt?</h3>
                 <input
                   type="checkbox"
                   id="energyStory"

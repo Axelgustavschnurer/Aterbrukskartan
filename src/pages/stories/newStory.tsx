@@ -304,7 +304,7 @@ export default function AddNewStory() {
               }
               {/*Title section */}
               <div className={styles.addNewPostFormTitle}>
-                <h3>Titel</h3>
+                <h3>Casetitel</h3>
                 <input
                   type="text"
                   id="title"
@@ -316,7 +316,7 @@ export default function AddNewStory() {
 
               {/*Report section */}
               <div className={styles.addNewPostFormName}>
-                <h3>Rapportnamn</h3>
+                <h3>Rapporttitel</h3>
                 <input
                   type="text"
                   id="name"
@@ -340,7 +340,7 @@ export default function AddNewStory() {
 
               {/*Start year section */}
               <div className={styles.startYear}>
-                <h3>Startår</h3>
+                <h3>År</h3>
                 <input
                   type="number"
                   id="startYear"
@@ -395,7 +395,7 @@ export default function AddNewStory() {
               </div>
               {/*Description section */}
               <div className={styles.addNewPostFormDescription}>
-                <h3 style={{ marginTop: "10px" }}>Beskrivning *</h3>
+                <h3 style={{ marginTop: "10px" }}>Sammanfattning *</h3>
                 <textarea
                   id="description"
                   name="description"
@@ -434,7 +434,7 @@ export default function AddNewStory() {
 
               {/*isEnergystory section */}
               <div className={styles.energyStory}>
-                <h3>Är det en energy story?</h3>
+                <h3>Är det ett stories projekt?</h3>
                 <input
                   type="checkbox"
                   id="energyStory"
