@@ -90,7 +90,7 @@
 .wrap {
     width: 20.5vw;
     position: absolute;
-    top: 5%;
+    top: 40px;
     transform: translate(5px, -50%);
 }
 
@@ -125,7 +125,7 @@
 .filterTextContent {
     position: fixed;
     z-index: 2;
-    top: calc(20px + 5%);
+    top: 60px;
     left: 10px;
 }
 
