@@ -74,7 +74,7 @@ export default function AddNewStory() {
         address: "",
         postcode: parseInt(""),
         city: "",
-        organisation: organization ? organization : newOrganization ? newOrganization : null,
+        organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
         year: parseInt(startYear),
         name: title,
       }
@@ -147,7 +147,7 @@ export default function AddNewStory() {
       <>
         {filteredData.map((pin: any, index: any) => {
           return (
-            <option key={pin} value={pin}>{pin}</option>
+            <option key={pin} value={pin} >{pin}</option>
           )
         })}
       </>
