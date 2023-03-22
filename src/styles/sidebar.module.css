@@ -175,73 +175,6 @@
 
 /* IDs */
 
-/* Filter buttons */
-#Rivning {
-    background-color: rgb(255, 0, 0);
-    border: black;
-    border-radius: 100%;
-    padding: 5px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#Rivning:hover {
-    background-color: #ff0000ab;
-}
-
-#Rivning img {
-    width: 40px;
-    height: 40px;
-}
-
-#Nybyggnation {
-    background-color: rgb(0, 128, 255);
-    border: black;
-    border-radius: 100%;
-    padding: 5px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#Nybyggnation:hover {
-    background-color: #00a2ffab;
-}
-
-#Nybyggnation img {
-    width: 40px;
-    height: 40px;
-}
-
-#Ombyggnation {
-    background-color: rgb(0, 128, 0);
-    border: black;
-    border-radius: 100%;
-    padding: 5px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#Ombyggnation:hover {
-    background-color: rgba(0, 165, 0, 0.904);
-}
-
-#Ombyggnation img {
-    width: 30px;
-    height: 30px;
-}
-
 #clearBtn {
     background-color: #fd9800;
     border: 1px solid black;
@@ -367,9 +300,6 @@
     cursor: pointer;
     width: 50px;
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .categoryBtn:hover {
@@ -474,4 +404,26 @@
 
 #Kyla {
     background-color: #8fd8f2;
+}
+
+#Rivning {
+    background-color: rgb(255, 0, 0);
+}
+
+#Rivning img {
+    width: 40px;
+    height: 40px;
+}
+
+#Nybyggnation {
+    background-color: rgb(0, 128, 255);
+}
+
+#Nybyggnation img {
+    width: 40px;
+    height: 40px;
+}
+
+#Ombyggnation {
+    background-color: rgb(0, 128, 0);
 }
