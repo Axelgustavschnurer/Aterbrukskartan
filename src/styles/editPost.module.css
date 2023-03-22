@@ -131,12 +131,18 @@
     padding: 10px;
 }
 
-#save:hover {
-    background-color: #00910cab;
+#save {
+    background-color: #00cc11d7;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 500;
 }
 
-#remove:hover {
-    background-color: #ff0000b9;
+#remove {
+    background-color: #ff0000d7;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .addNewPostFormSubmit {

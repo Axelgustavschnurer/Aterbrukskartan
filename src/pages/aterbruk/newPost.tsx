@@ -8,6 +8,8 @@ import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
 import { yearLimitsRecycle } from ".";
+import { Button } from "@nextui-org/react";
+
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -390,7 +392,7 @@ export default function AddNewPost() {
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
-                < button type="submit" > Spara</button >
+                <Button id={styles.save} type="submit" > Spara</Button >
               </div >
 
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>

@@ -10,6 +10,7 @@ import { yearLimitsRecycle } from ".";
 import Image from "next/image";
 import Modal from '@/components/deleteModal';
 import { categories, projectTypes } from "./newPost";
+import { Button } from "@nextui-org/react";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -247,7 +248,7 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 checked={available.includes(category)}
-                onClick={(e: any) => {
+                onChange={(e: any) => {
                   if (available.includes(e.target.value) && !e.target.checked) {
                     setAvailableMaterials(available.filter((item: any) => item !== e.target.value))
                   }
@@ -280,7 +281,7 @@ export default function EditPost() {
                 name={category}
                 value={category}
                 checked={searchingFor.includes(category)}
-                onClick={(e: any) => {
+                onChange={(e: any) => {
                   if (searchingFor.includes(e.target.value) && !e.target.checked) {
                     setSearchingFor(searchingFor.filter((item: any) => item !== e.target.value))
                   }
@@ -465,10 +466,10 @@ export default function EditPost() {
             </form >
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                < button id={styles.save} type="submit" onClick={handleSubmit}> Spara </button >
+                < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
               </div >
               <div className={styles.addNewPostFormSubmit}>
-                < button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </button >
+                <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button >
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div >
             </div>

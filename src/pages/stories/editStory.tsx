@@ -10,6 +10,7 @@ import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
+import { Button } from "@nextui-org/react";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -516,10 +517,10 @@ export default function EditStory() {
             {/* Submit and delete button */}
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                <button id={styles.save} type="submit" onClick={handleSubmit}> Spara </button>
+                <Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button>
               </div>
               <div className={styles.addNewPostFormSubmit}>
-                <button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </button>
+                <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button>
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div>
             </div>
