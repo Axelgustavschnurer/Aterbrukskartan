@@ -9,6 +9,7 @@ import styles from '@/styles/newStory.module.css';
 import Image from "next/image";
 import { yearLimitsStories } from "./index";
 import { Button } from "@nextui-org/react";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
@@ -49,7 +50,7 @@ export default function AddNewStory() {
   const [program, setProgram] = useState("");
   const [programOrientation, setProgramOrientation] = useState("");
 
-  const [title, setTitle] = useState("");
+  const [projectTitle, setProjectTitle] = useState("");
   const [reportTitle, setReportTitle] = useState("");
   const [reportLink, setReportLink] = useState("");
   const [startYear, setStartYear] = useState("");
@@ -76,7 +77,7 @@ export default function AddNewStory() {
         city: "",
         organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
         year: parseInt(startYear),
-        name: title,
+        name: projectTitle,
       }
       // Gets the keys of the searchingFor object and returns them as a strin
       // Sends a post request to the api with the data from the form
@@ -165,8 +166,8 @@ export default function AddNewStory() {
 
     let splitCategories: string[] = [];
     unsplitCategories.map((category: any) => {
-      // Adds the splited categories to the splitCategories array and sets it to lowercase
-      splitCategories.push(...category.split(", ").map((item: any) => item.trim().toLowerCase()))
+      // Adds the splited categories to the splitCategories array and sets it to lowercase with the first letter capital
+      splitCategories.push(...category.split(", ").map((item: any) => setFirstLetterCapital(item.trim().toLowerCase())))
     })
 
     // Removes duplicates and sorts the array
@@ -232,7 +233,7 @@ export default function AddNewStory() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
+            <form method="post">
               {/*Oraganisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
@@ -309,8 +310,8 @@ export default function AddNewStory() {
                   type="text"
                   id="title"
                   name="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={projectTitle}
+                  onChange={(e) => setProjectTitle(e.target.value)}
                 />
               </div>
 
@@ -453,7 +454,7 @@ export default function AddNewStory() {
 
               {/*Submit button section */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" > Spara</Button >
+                <Button id={styles.save} type="submit" onClick={handleSubmit} > Spara</Button >
               </div >
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
