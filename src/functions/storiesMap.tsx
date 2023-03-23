@@ -3,10 +3,9 @@ import 'leaflet/dist/leaflet.css'
 import * as pinIcons from '../components/icons'
 import React from 'react'
 import Image from 'next/image'
-import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, PopupDesc } from "../components/popupStyles";
+import { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, PopupDesc } from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
-import { Story } from '@prisma/client';
 import { Collapse } from '@nextui-org/react'
 
 export function storiesPopup(pin: any) {
@@ -41,19 +40,28 @@ export function storiesPopup(pin: any) {
 
           {/*Divider for pdfCase */}
           {
-            !pin.pdfCase && pin.reports || !pin.pdfCase && !pin.reports || pin.pdfCase && pin.reports ? null :
+            !pin.pdfCase || pin.pdfCase && pin.reports ? null :
               <div style={Divider}>
                 <div style={DividerLineCase}></div>
-                <Image width={25} height={25} src="/images/dividers/case.svg" alt="Delare" />
+                <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
                 <div style={DividerLineCase}></div>
+              </div>
+          }
+          {/*Divider for open data */}
+          {
+            !pin.openData || pin.openData && pin.reports || pin.openData && pin.pdfCase || pin.openData && pin.reports ? null :
+              <div style={Divider}>
+                <div style={DividerLineOpen}></div>
+                <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
+                <div style={DividerLineOpen}></div>
               </div>
           }
           {/*Divider for reports */}
           {
-            !pin.reports && pin.pdfCase || !pin.pdfCase && !pin.reports ? null :
+            !pin.reports ? null :
               <div style={Divider}>
                 <div style={DividerLineReport}></div>
-                <Image width={25} height={25} src="/images/dividers/report.svg" alt="Delare" />
+                <Image width={25} height={25} src="/images/dividers/infopurple.svg" alt="Delare" />
                 <div style={DividerLineReport}></div>
               </div>
           }
@@ -75,6 +83,15 @@ export function storiesPopup(pin: any) {
                   </span>
                 </a>
                 Case
+              </div>}
+            {!pin.openData ? null :
+              <div style={AlignLinks}>
+                <a href={pin.openData} target="_blank" rel="noreferrer">
+                  <span style={PopupLinkOpenData}>
+                    <Image width={30} height={30} src="/images/categories/dataicon.svg" alt="Öppna data" />
+                  </span>
+                </a>
+                Öppna data
               </div>}
           </div>
         </div>
