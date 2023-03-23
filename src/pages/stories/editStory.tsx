@@ -21,7 +21,8 @@ export default function EditStory() {
 
   // State for the modal
   const [modalState, setModalState] = useState(false);
-  // State for the location toggle
+  // Controlls wheter to show the map or adress search
+  // false = adress search, true = map
   const [locationToggle, setLocationToggle] = useState(false);
 
   // All Story data from the database
