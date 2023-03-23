@@ -415,7 +415,6 @@ export default function AddNewStory() {
                 <textarea
                   id="caseDescription"
                   name="caseDescription"
-                  cols={100}
                   value={caseDescription}
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
@@ -427,7 +426,6 @@ export default function AddNewStory() {
                 <textarea
                   id="videos"
                   name="videos"
-                  cols={100}
                   value={videos}
                   onChange={(e) => setVideos(e.target.value)}
                 />
@@ -439,14 +437,13 @@ export default function AddNewStory() {
                 <textarea
                   id="openData"
                   name="openData"
-                  cols={100}
                   value={openData}
                   onChange={(e) => setOpenData(e.target.value)}
                 />
               </div >
 
               {/*isEnergystory section */}
-              <div className={styles.energyStory}>
+              <div style={{ marginTop: "10px" }}>
                 <h3>Är det ett stories projekt?</h3>
                 <input
                   type="checkbox"

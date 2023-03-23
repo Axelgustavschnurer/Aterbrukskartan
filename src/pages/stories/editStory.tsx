@@ -61,6 +61,9 @@ export default function EditStory() {
   const [caseDescription, setCaseDescription] = useState("");
   // Link to any videos
   const [videos, setVideos] = useState("");
+
+  const [openData, setOpenData] = useState("");
+
   // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
 
@@ -113,6 +116,7 @@ export default function EditStory() {
     setDescription(selectedStoryObject.descriptionSwedish as any)
     setCaseDescription(selectedStoryObject.pdfCase as any)
     setVideos(selectedStoryObject.videos as any)
+    setOpenData(selectedStoryObject.openData as any)
     setEnergyStory(selectedStoryObject.isEnergyStory as any)
   }, [selectedStoryObject])
 
@@ -148,6 +152,7 @@ export default function EditStory() {
           reports: !!reportLink ? reportLink : null,
           reportTitle: !!reportTitle ? reportTitle : null,
           videos: !!videos ? videos : null,
+          openData: !!openData ? openData : null,
           pdfCase: !!caseDescription ? caseDescription : null,
           isEnergyStory: energyStory,
         }),
@@ -496,7 +501,6 @@ export default function EditStory() {
                 <textarea
                   id="description"
                   name="description"
-                  rows={10}
                   maxLength={3000}
                   value={description ?? ""}
                   onChange={(e) => setDescription(e.target.value)}
@@ -509,8 +513,6 @@ export default function EditStory() {
                 <textarea
                   id="caseDescription"
                   name="caseDescription"
-                  rows={1}
-                  cols={100}
                   value={caseDescription ?? ""}
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
@@ -522,15 +524,24 @@ export default function EditStory() {
                 <textarea
                   id="videos"
                   name="videos"
-                  rows={1}
-                  cols={100}
                   value={videos ?? ""}
                   onChange={(e) => setVideos(e.target.value)}
                 />
               </div >
 
+              {/* OpenData section */}
+              <div className={styles.openData}>
+                <h3>Länk till eventuell öppen data?</h3>
+                <textarea
+                  id="openData"
+                  name="openData"
+                  value={openData ?? ""}
+                  onChange={(e) => setOpenData(e.target.value)}
+                />
+              </div>
+
               {/* isEnergystory section */}
-              <div className={styles.energyStory}>
+              <div style={{ marginTop: "10px" }}>
                 <h3>Är det ett stories projekt?</h3>
                 <input
                   type="checkbox"
