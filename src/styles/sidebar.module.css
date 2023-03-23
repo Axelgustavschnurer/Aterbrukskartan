@@ -75,6 +75,20 @@
     overflow: hidden;
 }
 
+#inputGroupOrg label {
+    padding: 8px 20px;
+    width: 100%;
+    display: block;
+    font-size: 13px;
+    text-align: left;
+    color: #000000;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
+}
+
 .inputGroup label:before {
     width: 10px;
     height: 10px;
