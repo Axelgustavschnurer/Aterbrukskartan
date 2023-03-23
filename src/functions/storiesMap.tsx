@@ -118,7 +118,9 @@ const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarh
 
 /**
  * Function that returns the correct icon for a pin based on the category of the pin
- * If the pin has multiple categories, it will return the first category in the filter *that matches with the pin*
+ * 
+ * If the pin has multiple categories, it will return the icon for its first category
+ * 
  * If the pin has no category, it will return the default white pin
  * @param pinIndex Used to keep track of which shared index the pin is in the iconArray and categoryArray
  * @param mapData Contains all the data for the pins
