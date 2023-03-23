@@ -1,8 +1,6 @@
-import exp from 'constants';
 import L from 'leaflet';
 
-// Map pin icons
-// NOTE Teal icon and below don't yet have svg files
+// Makes our svg icons work with leaflet
 
 export const IconPinPurple = new L.Icon({
     iconUrl: ('/images/pins/purplepin.svg'),

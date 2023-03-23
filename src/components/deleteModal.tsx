@@ -1,6 +1,8 @@
 import React from "react";
 import styles from '../styles/modal.module.css';
 
+
+// This is the modal component used to confirm deletion of a post
 export default function Modal(props: any) {
     const modalState = props.toggle;
     const action = props.action;
