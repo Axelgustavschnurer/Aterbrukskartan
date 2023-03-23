@@ -43,7 +43,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
   // List of all active filters for the field `educationalProgram`
   const [educationalProgram, setEducationalProgram] = useState([] as string[]);
 
-  const [isEnergy, setIsEnergy] = useState(false as boolean);
+  const [isRealStory, setIsRealStory] = useState(false as boolean);
 
   // List of all active filters for the field `Rapport`
   const [hasReport, setHasReport] = useState(false as boolean);
@@ -53,6 +53,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   // List of all active filters for the field `Case`
   const [hasCase, setHasCase] = useState(false as boolean);
+
+  // List of all active filters for the field `Open Data`
+  const [hasOpenData, setHasOpenData] = useState(false as boolean);
 
   // List of all active filters for the field `lookingForMaterials`
   const [lookingForMaterials, setLookingForMaterials] = useState(
@@ -130,7 +133,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         video: hasVideo,
         report: hasReport,
         cases: hasCase,
-        energyStory: isEnergy,
+        openData: hasOpenData,
+        energyStory: isRealStory
       } as StoryFilter);
     } else if (currentMap === "Recycle") {
       setFilter({
@@ -156,7 +160,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
     hasVideo,
     hasReport,
     hasCase,
-    isEnergy,
+    hasOpenData,
+    isRealStory,
   ]);
 
   /**
@@ -365,8 +370,10 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                   setHasVideo,
                   hasCase,
                   setHasCase,
-                  isEnergy,
-                  setIsEnergy
+                  hasOpenData,
+                  setHasOpenData,
+                  isRealStory,
+                  setIsRealStory
                 )}{" "}
                 <h3>Utbildningsprogram</h3>{" "}
                 {createEducationalFilter(
@@ -392,9 +399,10 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 disableReset.organisation &&
                 disableReset.storyCategory &&
                 disableReset.educationalProgram &&
-                !isEnergy &&
+                !isRealStory &&
                 !hasCase &&
                 !hasReport &&
+                !hasOpenData &&
                 !hasVideo &&
                 yearSliderDefault &&
                 monthSliderDefault
@@ -410,7 +418,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setHasVideo(false);
                 setHasReport(false);
                 setHasCase(false);
-                setIsEnergy(false);
+                setHasOpenData(false);
+                setIsRealStory(false);
                 setDisableReset({
                   projectType: true,
                   lookingForMaterials: true,

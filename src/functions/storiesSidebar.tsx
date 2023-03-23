@@ -40,23 +40,25 @@ export function createCategoryFilter(
       {Object.keys(categories).map((category: any) => {
         return (
           <div className={styles.alignCategories} key={category}>
-            <div className={styles.categoryContainer} >
+            <div className={styles.categoryContainer}>
               <Button
                 id={styles[category]}
                 className={styles.categoryBtn}
                 css={{ width: "50px", height: "50px" }}
                 rounded
                 auto
-                icon={<Image
-                  src={
-                    "/images/categories/" +
-                    categories[category as keyof typeof categories] +
-                    ".svg"
-                  }
-                  alt={category}
-                  width={40}
-                  height={40}
-                />}
+                icon={
+                  <Image
+                    src={
+                      "/images/categories/" +
+                      categories[category as keyof typeof categories] +
+                      ".svg"
+                    }
+                    alt={category}
+                    width={40}
+                    height={40}
+                  />
+                }
                 value={category.replaceAll("-", " ")}
                 onPress={(e: any) => {
                   // If category is already in the storyCategory array, remove it
@@ -79,7 +81,6 @@ export function createCategoryFilter(
                 }}
               >
                 {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
-
               </Button>
               <p>{category.replaceAll("-", " ")}</p>
             </div>
@@ -101,10 +102,12 @@ export function createMiscFilter(
   setHasVideo: any,
   hasCase: any,
   setHasCase: any,
-  isEnergy: any,
-  setIsEnergy: any
+  hasOpenData: any,
+  setHasOpenData: any,
+  isRealStory: any,
+  setIsRealStory: any
 ) {
-  let options = ["Rapport", "Videos", "Cases", "Energy Story"];
+  let options = ["Rapport", "Videos", "Cases", "Öppna data", "Story"];
   return (
     <>
       {/* Creates a checkbox for each item in the `options` array. */}
@@ -123,11 +126,10 @@ export function createMiscFilter(
                   setHasVideo(e.target.checked);
                 } else if (item === "Cases" && hasCase !== e.target.checked) {
                   setHasCase(e.target.checked);
-                } else if (
-                  item === "Energy Story" &&
-                  isEnergy !== e.target.checked
-                ) {
-                  setIsEnergy(e.target.checked);
+                } else if (item === "Öppna data" && hasOpenData !== e.target.checked) {
+                  setHasOpenData(e.target.checked);
+                } else if (item === "Story" && isRealStory !== e.target.checked) {
+                  setIsRealStory(e.target.checked);
                 }
               }}
             />
