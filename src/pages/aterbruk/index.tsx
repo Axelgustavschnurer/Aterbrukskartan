@@ -19,17 +19,17 @@ export const yearLimitsRecycle = {
   max: new Date().getFullYear() + 10,
 }
 
-/**
- * Array of all months in swedish.
- */
+// Array of all months in swedish.
 export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
+/**
+ * The main page for the recycle section of the website.
+ */
 export default function HomePage() {
   const router = useRouter()
 
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as RecycleFilter)
-
 
   // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
@@ -51,12 +51,16 @@ export default function HomePage() {
     router.push('/aterbruk/newPost')
   }
 
+  // Function for navigating to the stories map page
   const handleRedirect = () => {
     router.push('/stories')
   }
 
   /**
-   * Returns a p element with the currently active project type filters, if any
+   * Returns a Badge component from nextui with the currently active project type filters, if any
+   * 
+   * If the amount of selected categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected projecttypes
    */
   const projectTypeLabel = () => {
     if (currentFilter.projectType?.length) {
@@ -74,7 +78,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active year filters, if any
+   * Returns a Badge component from nextui with the currently active year filters, if any
+   * 
+   * If the year slider is at its default value, the label will not be displayed
+   * If the year slider is at a value where the min and max values are the same, the label will be compacted to only display the single year
    */
   const yearLabel = () => {
     if (currentFilter.years?.length) {
@@ -95,7 +102,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active month filters, if any
+   * Returns a Badge component from nextui with the currently active month filters, if any
+   * 
+   * If the month slider is at its default value, the label will not be displayed
+   * If the month slider is at a value where the min and max values are the same, the label will be compacted to only display the single month
    */
   const monthLabel = () => {
     if (currentFilter.months?.length) {
@@ -117,7 +127,10 @@ export default function HomePage() {
 
 
   /**
-   * Returns a p element with the currently active filters regarding materials that are being searched for by the projects on the map, if any
+   * Returns a Badge component from nextui with the currently active filters regarding materials that are being searched for by the projects on the map, if any
+   * 
+   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected material categories
    */
   const lookingForMaterialsLabel = () => {
     if (currentFilter.lookingForCategories?.length) {
@@ -135,7 +148,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active filters regarding available materials, if any
+   * Returns a Badge component from nextui with the currently active filters regarding available materials, if any
+   * 
+   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected material categories
    */
   const availableMaterialsLabel = () => {
     if (currentFilter.availableCategories?.length) {
@@ -153,7 +169,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a p element with the currently active filters regarding organisations, if any
+   * Returns a Badge component from nextui with the currently active filters regarding organisations, if any
+   * 
+   * If the amount of selected organisations is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected organisations
    */
   const organisationLabel = () => {
     if (currentFilter.organisation?.length) {
@@ -215,7 +234,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Labels showing currently avtive filters, if any */}
+      {/* Badges showing currently avtive filters, if any */}
       <div className={styles.filterTextContent}>
         <div className={styles.filterTextContainer}>
           {projectTypeLabel()}

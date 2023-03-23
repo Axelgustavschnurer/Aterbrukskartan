@@ -19,12 +19,14 @@ export const yearLimitsStories = {
   max: new Date().getFullYear(),
 }
 
+/**
+ * The main page for the stories section of the website.
+ */
 export default function HomePage() {
   const router = useRouter()
 
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as StoryFilter)
-
 
   // Content of the search bar
   const [searchInput, setSearchInput] = useState("")
@@ -46,16 +48,21 @@ export default function HomePage() {
     router.push('/stories/newStory')
   }
 
+  // Function for navigating to the recycle map page
   const handleRedirectAter = () => {
     router.push('/aterbruk')
   }
 
+  // Function for navigating to the solar map page
   const handleRedirectSolar = () => {
     router.push('/solar')
   }
 
   /**
-   * Returns a badge element with the currently active category filters, if any
+   * Returns a Badge component from nextui with the currently active category filters, if any
+   * 
+   * If the amount of selected categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected projecttypes
    */
   const categoryLabel = () => {
     if (currentFilter.categories?.length) {
@@ -73,7 +80,11 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a badge element with the currently active year filters, if any
+   * Returns a Badge component from nextui with the currently active year filters, if any
+   * 
+   * If the year slider is at its default values, the label will not be displayed
+   * 
+   * If the year slider is at a single value, the label will only display that value
    */
   const yearLabel = () => {
     if (currentFilter.years?.length) {
@@ -94,7 +105,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a badge element with the currently active filters regarding project contents, if any
+   * Returns a Badge component from nextui with the currently active filters regarding project contents, if any
+   * 
+   * If the amount of selected project contents is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected project contents
    */
   const contentLabel = () => {
     if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.energyStory) {
@@ -124,7 +138,12 @@ export default function HomePage() {
     }
   }
 
-
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding educational programs, if any
+   * 
+   * If the amount of selected educational programs is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected educational programs
+  */
   const educationLabel = () => {
     if (currentFilter.educationalProgram?.length) {
       if (currentFilter.educationalProgram.length > maxCategoryAmount) {
@@ -141,7 +160,10 @@ export default function HomePage() {
   }
 
   /**
-   * Returns a badge element with the currently active filters regarding organisations, if any
+   * Returns a Badge component from nextui with the currently active filters regarding organisations, if any
+   * 
+   * If the amount of selected organisations is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected organisations
    */
   const organisationLabel = () => {
     if (currentFilter.organisation?.length) {
