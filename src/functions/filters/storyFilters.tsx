@@ -242,6 +242,9 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   if (filters.cases) {
     returnData = filterHasCase(returnData);
   }
+  if (filters.openData) {
+    returnData = filterHasOpenData(returnData);
+  }
   if (filters.energyStory) {
     returnData = filterIsEnergyStory(returnData);
   }
