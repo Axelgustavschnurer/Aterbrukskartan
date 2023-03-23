@@ -12,8 +12,9 @@ import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+import { yearLimitsStories } from ".";
 
-// FIX: We have used both organisation and organization in the code. We should stick to one of them.
+// FIX: We have used both organisation and organisation in the code. We should stick to one of them.
 
 export default function EditStory() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function EditStory() {
   const [modalState, setModalState] = useState(false);
   // State for the location toggle
   const [locationToggle, setLocationToggle] = useState(false);
-  
+
   // All Story data from the database
   const [allStoryData, setAllStoryData] = useState([{}] as DeepStory[]);
   // ID of the selected project
@@ -61,7 +62,8 @@ export default function EditStory() {
   const [videos, setVideos] = useState("");
   // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
-  
+
+  // TODO: Show message from API if submission fails
   const [message, setMessage] = useState("");
 
   // Fetches all data from the database
@@ -75,7 +77,6 @@ export default function EditStory() {
   useEffect(() => {
     fetchData()
   }, [])
-
 
   // Fetches the story with a specific id from the database
   const fetchSelectedStoryObject = async (id: any) => {
@@ -151,28 +152,15 @@ export default function EditStory() {
         }),
       });
 
-      // TODO: Remove this console.log when editStory is refactored and working as intended.
-      console.log(JSON.stringify({
-        mapItem,
-        categorySwedish: categorys.length ? categorys.join(", ") : null,
-        educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
-        descriptionSwedish: description === selectedStoryObject.descriptionSwedish ? undefined : description ? description : null,
-        reports: reportLink === selectedStoryObject.reports ? undefined : reportLink ? reportLink : null,
-        reportTitle: reportTitle === selectedStoryObject.reportTitle ? undefined : reportTitle ? reportTitle : null,
-        videos: videos === selectedStoryObject.videos ? undefined : videos ? videos : null,
-        pdfCase: caseDescription === selectedStoryObject.pdfCase ? undefined : caseDescription ? caseDescription : null,
-        isEnergyStory: energyStory,
-      })
-      );
-
-
       let resJson = await res.json();
+      console.log(resJson)
+      // If the PUT request was successful, reset the form and redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        // If the PUT request was successful, reset the form and redirect to the home page
         router.push("/stories");
-
-        // If the PUT request was not successful, display the error message
-      } else {
+      }
+      // If the PUT request was not successful, display the error message
+      else {
+        // TODO: Actually display this
         setMessage(resJson.message);
       }
     } catch (error) {
@@ -192,12 +180,14 @@ export default function EditStory() {
 
       let resJson = await res.json();
       console.log(resJson)
+      // TODO: Make the modal disappear after the delete request is done, whether it was successful or not
       // If the DELETE requset was successful, reset the form and redirect to the home page
       if (res.status >= 200 && res.status < 300) {
         router.push("/stories");
       }
       // If the DELETE request was not successful, display the error message
       else {
+        // TODO: Actually display this
         setMessage(resJson.message);
       }
     } catch (error) {
@@ -295,8 +285,7 @@ export default function EditStory() {
               <label htmlFor={index}>{category}</label>
             </div>
           )
-        }
-        )}
+        })}
       </>
     )
   }
@@ -350,13 +339,13 @@ export default function EditStory() {
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation</h3>
                 <select
-                  id="organization"
-                  name="organization"
+                  id="organisation"
+                  name="organisation"
                   value={organisation ?? ""}
                   onChange={(e) => setOrganisation(e.target.value)}
                 >
                   {organisationOptions()}
-                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+                  <option value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
               {organisation === "addOrganisation" && (
@@ -367,7 +356,7 @@ export default function EditStory() {
                     key="newOrganization"
                     id="newOrganization"
                     name="newOrganization"
-                    value={newOrganization}
+                    value={newOrganization ?? ""}
                     onChange={(e) => setNewOrganization(e.target.value)}
                   />
                 </div>
@@ -396,7 +385,7 @@ export default function EditStory() {
                       key={program}
                       id={program}
                       name={program}
-                      defaultValue={programOrientation}
+                      value={programOrientation ?? ""}
                       onChange={(e) => setProgramOrientation(e.target.value)}
                     />
                   </div>
@@ -412,8 +401,7 @@ export default function EditStory() {
                   type="text"
                   id="title"
                   name="title"
-                  // value={title}
-                  defaultValue={selectedStoryObject.mapItem?.name ? selectedStoryObject.mapItem?.name : undefined}
+                  value={projectTitle ?? ""}
                   onChange={(e) => setProjectTitle(e.target.value)}
                 />
               </div>
@@ -425,8 +413,7 @@ export default function EditStory() {
                   type="text"
                   id="name"
                   name="name"
-                  // value={reportTitle}
-                  defaultValue={selectedStoryObject.reportTitle ? selectedStoryObject.reportTitle : undefined}
+                  value={reportTitle ?? ""}
                   onChange={(e) => setReportTitle(e.target.value)}
                 />
               </div>
@@ -438,8 +425,7 @@ export default function EditStory() {
                   type="text"
                   id="reportLink"
                   name="reportLink"
-                  // value={reportLink}
-                  defaultValue={selectedStoryObject.reports ? selectedStoryObject.reports : undefined}
+                  value={reportLink ?? ""}
                   onChange={(e) => setReportLink(e.target.value)}
                 />
               </div>
@@ -451,9 +437,8 @@ export default function EditStory() {
                   type="number"
                   id="startYear"
                   name="startYear"
-                  // value={startYear}
-                  defaultValue={selectedStoryObject.mapItem?.year ? selectedStoryObject.mapItem?.year : undefined}
-                  min={2014}
+                  value={projectYear ?? ""}
+                  min={yearLimitsStories.min}
                   onChange={(e) => setProjectYear(e.target.value)}
                 />
               </div>
@@ -471,34 +456,35 @@ export default function EditStory() {
               {/* Location section */}
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
-                <div className={styles.switch}>
-                  <input
-                    id="switch-1"
-                    type="checkbox"
-                    className={styles.switchInput}
-                    onChange={(e) => setLocationToggle(e.target.checked)}
-                  />
-                  {/* If you want to switch to map, uncomment this part*/}
-                  <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
-                </div>
+                { // The map switch is hidden if no project is selected (by checking if mapItem exists)
+                  !!selectedStoryObject.mapItem &&
+                  <div className={styles.switch}>
+                    <input
+                      id="switch-1"
+                      type="checkbox"
+                      className={styles.switchInput}
+                      onChange={(e) => setLocationToggle(e.target.checked)}
+                    />
+                    <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
+                  </div>}
                 {
                   locationToggle === true ?
                     <>
                       <NewPostMap
                         setLat={setLat}
                         setLon={setLon}
-                        lat={lat}
-                        lon={lon}
-                        defaultLat={selectedStoryObject.mapItem.latitude}
-                        defaultLon={selectedStoryObject.mapItem.longitude}
+                        lat={lat ?? ''}
+                        lon={lon ?? ''}
+                        defaultLat={selectedStoryObject.mapItem?.latitude || 59.8586}
+                        defaultLon={selectedStoryObject.mapItem?.longitude || 17.6389}
                       />
                     </>
                     :
                     <LeafletAddressLookup
                       setLat={setLat}
                       setLon={setLon}
-                      lat={lat}
-                      lon={lon}
+                      lat={lat ?? ''}
+                      lon={lon ?? ''}
                     />
                 }
               </div>
@@ -511,8 +497,7 @@ export default function EditStory() {
                   name="description"
                   rows={10}
                   maxLength={3000}
-                  // value={description}
-                  defaultValue={selectedStoryObject.descriptionSwedish ? selectedStoryObject.descriptionSwedish : undefined}
+                  value={description ?? ""}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div >
@@ -525,7 +510,7 @@ export default function EditStory() {
                   name="caseDescription"
                   rows={1}
                   cols={100}
-                  defaultValue={selectedStoryObject.pdfCase ? selectedStoryObject.pdfCase : undefined}
+                  value={caseDescription ?? ""}
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
               </div >
@@ -538,7 +523,7 @@ export default function EditStory() {
                   name="videos"
                   rows={1}
                   cols={100}
-                  defaultValue={selectedStoryObject.videos ? selectedStoryObject.videos : undefined}
+                  value={videos ?? ""}
                   onChange={(e) => setVideos(e.target.value)}
                 />
               </div >
@@ -551,7 +536,7 @@ export default function EditStory() {
                   id="energyStory"
                   name="energyStory"
                   value="energyStory"
-                  defaultChecked={selectedStoryObject.isEnergyStory ? selectedStoryObject.isEnergyStory : false}
+                  checked={energyStory ?? false}
                   onChange={(e) => setEnergyStory(e.target.checked)}
                 />
                 {
