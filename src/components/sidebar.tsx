@@ -379,6 +379,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           <div className={styles.clearFilter}>
             <Button
               id={styles.clearBtn}
+              css={{ width: "100%"}}
               disabled={
                 disableReset.projectType &&
                 disableReset.lookingForMaterials &&
