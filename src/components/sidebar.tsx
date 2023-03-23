@@ -17,7 +17,7 @@ import {
   createEducationalFilter,
   createMiscFilter,
 } from "@/functions/storiesSidebar";
-import { Button } from "@nextui-org/react";
+import { Button, Collapse } from "@nextui-org/react";
 
 // Sidebar component for filtering the map
 
@@ -172,42 +172,49 @@ export default function Sidebar({ setFilter, currentMap }: any) {
       .sort();
     return (
       <>
-        {filteredData.map((pin: any) => {
-          return (
-            <div className={styles.inputGroup} key={pin}>
-              <input
-                id={pin}
-                name={pin}
-                type="checkbox"
-                onChange={(e) => {
-                  // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
-                  if (
-                    organisation.includes(e.target.name) &&
-                    !e.target.checked
-                  ) {
-                    setOrganisation(
-                      organisation.filter((item: any) => item !== e.target.name)
-                    );
-                    // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                    if (organisation.length <= 1) {
-                      setDisableReset({ ...disableReset, organisation: true });
+        <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera">
+          {filteredData.map((pin: any) => {
+            return (
+              <div className={styles.inputGroup} key={pin}>
+                <input
+                  id={pin}
+                  name={pin}
+                  type="checkbox"
+                  onChange={(e) => {
+                    // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
+                    if (
+                      organisation.includes(e.target.name) &&
+                      !e.target.checked
+                    ) {
+                      setOrganisation(
+                        organisation.filter(
+                          (item: any) => item !== e.target.name
+                        )
+                      );
+                      // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                      if (organisation.length <= 1) {
+                        setDisableReset({
+                          ...disableReset,
+                          organisation: true,
+                        });
+                      }
                     }
-                  }
-                  // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
-                  else if (
-                    !organisation.includes(e.target.name) &&
-                    e.target.checked
-                  ) {
-                    setOrganisation([...organisation, e.target.name]);
-                    // Enable the reset button when a filter is active
-                    setDisableReset({ ...disableReset, organisation: false });
-                  }
-                }}
-              />
-              <label htmlFor={pin}>{pin}</label>
-            </div>
-          );
-        })}
+                    // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
+                    else if (
+                      !organisation.includes(e.target.name) &&
+                      e.target.checked
+                    ) {
+                      setOrganisation([...organisation, e.target.name]);
+                      // Enable the reset button when a filter is active
+                      setDisableReset({ ...disableReset, organisation: false });
+                    }
+                  }}
+                />
+                <label htmlFor={pin}>{pin}</label>
+              </div>
+            );
+          })}
+        </Collapse>
       </>
     );
   };
@@ -370,8 +377,6 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 )}
               </span>
             ) : null}
-
-            <h3>Organisation</h3>
             {createOrganisationFilter()}
           </form>
 
@@ -379,7 +384,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           <div className={styles.clearFilter}>
             <Button
               id={styles.clearBtn}
-              css={{ width: "100%"}}
+              css={{ width: "100%" }}
               disabled={
                 disableReset.projectType &&
                 disableReset.lookingForMaterials &&
