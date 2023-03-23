@@ -122,19 +122,30 @@
     border: 2px solid #ff7300;
 }
 
-.addNewPostFormDescription textarea,
-.addNewPostFormContact textarea,
-.addNewPostFormExternalLinks textarea {
+/*TODO: Implement openData*/
+.addNewPostFormDescription textarea {
     margin: auto;
     display: block;
+    height: 150px;
     width: 100%;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+}
+
+.addNewPostFormContact textarea,
+.addNewPostFormExternalLinks textarea,
+.openData textarea {
+    margin: auto;
+    display: block;
+    height: 30px;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
 }
 
 .addNewPostFormDescription textarea:focus,
 .addNewPostFormContact textarea:focus,
-.addNewPostFormExternalLinks textarea:focus {
+.addNewPostFormExternalLinks textarea:focus,
+.openData textarea:focus {
     outline: none;
     border: 2px solid #ff7300;
 }

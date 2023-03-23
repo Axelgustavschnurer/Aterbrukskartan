@@ -55,6 +55,7 @@ export default function AddNewStory() {
   const [description, setDescription] = useState("");
   const [caseDescription, setCaseDescription] = useState("");
   const [videos, setVideos] = useState("");
+  const [openData, setOpenData] = useState("");
   const [energyStory, setEnergyStory] = useState(true);
   const [message, setMessage] = useState("");
   const [locationToggle, setLocationToggle] = useState(false);
@@ -92,6 +93,7 @@ export default function AddNewStory() {
           reportTitle: !!reportTitle ? reportTitle : null,
           videos: !!videos ? videos : null,
           pdfCase: !!caseDescription ? caseDescription : null,
+          openData: !!openData ? openData : null,
           isEnergyStory: energyStory,
         }),
       });
@@ -383,7 +385,6 @@ export default function AddNewStory() {
                 <textarea
                   id="description"
                   name="description"
-                  rows={10}
                   maxLength={3000}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -396,7 +397,6 @@ export default function AddNewStory() {
                 <textarea
                   id="caseDescription"
                   name="caseDescription"
-                  rows={1}
                   cols={100}
                   value={caseDescription}
                   onChange={(e) => setCaseDescription(e.target.value)}
@@ -409,10 +409,21 @@ export default function AddNewStory() {
                 <textarea
                   id="videos"
                   name="videos"
-                  rows={1}
                   cols={100}
                   value={videos}
                   onChange={(e) => setVideos(e.target.value)}
+                />
+              </div >
+
+              {/*OpenData section */}
+              <div className={styles.openData}>
+                <h3>Länk till eventuell öppen data</h3>
+                <textarea
+                  id="openData"
+                  name="openData"
+                  cols={100}
+                  value={openData}
+                  onChange={(e) => setOpenData(e.target.value)}
                 />
               </div >
 
