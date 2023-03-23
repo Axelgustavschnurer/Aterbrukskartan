@@ -65,8 +65,6 @@ export default function AddNewStory() {
 
   // Handles the submit of the form
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
     // Checks if the form is filled out correctly
     try {
       let mapItem: Prisma.MapItemCreateInput = {
@@ -183,7 +181,7 @@ export default function AddNewStory() {
       <>
         {categories.map((category: any) => {
           return (
-            <div className={styles.typeInputGroup} key={category}>
+            <div className={styles.inputGroup} key={category}>
               <input
                 type="checkbox"
                 id={category}

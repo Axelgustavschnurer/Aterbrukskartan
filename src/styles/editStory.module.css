@@ -208,7 +208,7 @@
 
 .form {
     width: 100%;
-    max-height: 500px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -227,18 +227,7 @@
     border: 1px solid #b1b1b1;
 }
 
-.typeInputGroup {
-    background-color: #ffffff;
-    display: block;
-    margin: 3px 10px;
-    position: relative;
-    border-radius: 20px;
-    max-width: 30%;
-    border: 1px solid #b1b1b1;
-}
-
-.inputGroup label,
-.typeInputGroup label {
+.inputGroup label {
     padding: 1px 20px;
     width: 100%;
     display: block;
@@ -252,8 +241,7 @@
 }
 
 
-.inputGroup label:before,
-.inputypeInputGrouptGroup label::before {
+.inputGroup label::before {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -265,7 +253,7 @@
     z-index: -1;
 }
 
-.inputGroup label:after {
+.inputGroup label::after {
     width: 25px;
     height: 25px;
     content: '';
@@ -274,50 +262,30 @@
     background-repeat: no-repeat;
     z-index: 2;
     position: absolute;
-    right: 30px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     transition: all 200ms ease-in;
 }
 
-.typeInputGroup label::after {
-    width: 25px;
-    height: 25px;
-    content: '';
-    border: 2px solid #D1D7DC;
-    background-image: url("data:image/svg+xml,%3Csvg width='27' height='30' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    z-index: 2;
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    transition: all 200ms ease-in;
-}
-
-.inputGroup input:checked~label:before,
-.typeInputGroup input:checked~label::before {
+.inputGroup input:checked~label::before {
     transform: translate(-50%, -50%) scale3d(56, 56, 1);
     opacity: 1;
 }
 
-.inputGroup input:checked~label:after,
-.typeInputGroup input:checked~label::after {
+.inputGroup input:checked~label::after {
     background-color: #ff7300;
     border-color: #000000;
 }
 
-.inputGroup input,
-.typeInputGroup input {
+.inputGroup input {
     width: 32px;
     height: 32px;
     order: 1;
     z-index: 2;
     position: absolute;
-    right: 30px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

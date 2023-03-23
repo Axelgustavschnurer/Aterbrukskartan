@@ -11,6 +11,7 @@ import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
 import { Button } from "@nextui-org/react";
+import setFirestLetterCapital from "@/functions/setFirstLetterCapital";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -23,8 +24,8 @@ export default function EditStory() {
 
   const [modalState, setModalState] = useState(false);
 
-  const [newData, setNewData] = useState([{}] as DeepStory[]);
-  const [filterData, setFilterData] = useState({} as DeepStory);
+  const [allStoryData, setAllStoryData] = useState([{}] as DeepStory[]);
+  const [selectedStoryObject, setSelectedStoryObject] = useState({} as DeepStory);
 
   const [project, setProject] = useState("");
   const [organization, setOrganization] = useState("");
@@ -49,7 +50,7 @@ export default function EditStory() {
   const fetchData = async () => {
     const response = await fetch('http://localhost:3000/api/stories')
     const data = await response.json()
-    setNewData(data)
+    setAllStoryData(data)
   }
 
   // Runs fetchData function on component mount
@@ -59,33 +60,33 @@ export default function EditStory() {
 
 
   // Fetches the data with a specific id from the database
-  const fetchFilterData = async (id: any) => {
+  const fetchSelectedStoryObject = async (id: any) => {
     const response = await fetch('http://localhost:3000/api/stories?id=' + id)
     const data: DeepStory = await response.json()
     console.log(data)
-    setFilterData(data)
+    setSelectedStoryObject(data)
   }
 
-  // Runs fetchFilterData function when the project state changes
+  // Runs fetchselectedStoryObject function when the project state changes
   useEffect(() => {
-    fetchFilterData(project)
+    fetchSelectedStoryObject(project)
   }, [project])
 
   // Sets the default stats of the form to the data from the selected project from the database
   useEffect(() => {
-    setOrganization(filterData.mapItem?.organisation ? filterData.mapItem?.organisation : "")
-    setProgram(filterData.educationalProgram?.split(", ")[0] as any)
-    setProgramOrientation(filterData.educationalProgram?.split(", ")[1] as any)
+    setOrganization(selectedStoryObject.mapItem?.organisation ? selectedStoryObject.mapItem?.organisation : "")
+    setProgram(selectedStoryObject.educationalProgram?.split(", ")[0] as any)
+    setProgramOrientation(selectedStoryObject.educationalProgram?.split(", ")[1] as any)
 
-    setLat(filterData.mapItem?.latitude as any)
-    setLon(filterData.mapItem?.longitude as any)
-    setCategorys(filterData.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[])
-    setReportTitle(filterData.reportTitle as any)
-    setReportLink(filterData.reports as any)
-    setVideos(filterData.videos as any)
-    setCaseDescription(filterData.pdfCase as any)
-    setDescription(filterData.descriptionSwedish as any)
-  }, [filterData])
+    setLat(selectedStoryObject.mapItem?.latitude as any)
+    setLon(selectedStoryObject.mapItem?.longitude as any)
+    setCategorys(selectedStoryObject.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[])
+    setReportTitle(selectedStoryObject.reportTitle as any)
+    setReportLink(selectedStoryObject.reports as any)
+    setVideos(selectedStoryObject.videos as any)
+    setCaseDescription(selectedStoryObject.pdfCase as any)
+    setDescription(selectedStoryObject.descriptionSwedish as any)
+  }, [selectedStoryObject])
 
   const handleSubmit = async (e: any) => {
     // Checks if the form is filled out correctly
@@ -114,11 +115,11 @@ export default function EditStory() {
           mapItem,
           categorySwedish: categorys.length ? categorys.join(", ") : null,
           educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
-          descriptionSwedish: description === filterData.descriptionSwedish ? undefined : description ? description : null,
-          reports: reportLink === filterData.reports ? undefined : reportLink ? reportLink : null,
-          reportTitle: reportTitle === filterData.reportTitle ? undefined : reportTitle ? reportTitle : null,
-          videos: videos === filterData.videos ? undefined : videos ? videos : null,
-          pdfCase: caseDescription === filterData.pdfCase ? undefined : caseDescription ? caseDescription : null,
+          descriptionSwedish: description === selectedStoryObject.descriptionSwedish ? undefined : description ? description : null,
+          reports: reportLink === selectedStoryObject.reports ? undefined : reportLink ? reportLink : null,
+          reportTitle: reportTitle === selectedStoryObject.reportTitle ? undefined : reportTitle ? reportTitle : null,
+          videos: videos === selectedStoryObject.videos ? undefined : videos ? videos : null,
+          pdfCase: caseDescription === selectedStoryObject.pdfCase ? undefined : caseDescription ? caseDescription : null,
           isEnergyStory: energyStory,
         }),
       });
@@ -128,11 +129,11 @@ export default function EditStory() {
         mapItem,
         categorySwedish: categorys.length ? categorys.join(", ") : null,
         educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
-        descriptionSwedish: description === filterData.descriptionSwedish ? undefined : description ? description : null,
-        reports: reportLink === filterData.reports ? undefined : reportLink ? reportLink : null,
-        reportTitle: reportTitle === filterData.reportTitle ? undefined : reportTitle ? reportTitle : null,
-        videos: videos === filterData.videos ? undefined : videos ? videos : null,
-        pdfCase: caseDescription === filterData.pdfCase ? undefined : caseDescription ? caseDescription : null,
+        descriptionSwedish: description === selectedStoryObject.descriptionSwedish ? undefined : description ? description : null,
+        reports: reportLink === selectedStoryObject.reports ? undefined : reportLink ? reportLink : null,
+        reportTitle: reportTitle === selectedStoryObject.reportTitle ? undefined : reportTitle ? reportTitle : null,
+        videos: videos === selectedStoryObject.videos ? undefined : videos ? videos : null,
+        pdfCase: caseDescription === selectedStoryObject.pdfCase ? undefined : caseDescription ? caseDescription : null,
         isEnergyStory: energyStory,
       })
       );
@@ -153,7 +154,6 @@ export default function EditStory() {
   }
 
   const handleDelete = async (e: any) => {
-    e.preventDefault();
     try {
       // Sends a DELETE request to the api with the data from the form
       let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
@@ -193,8 +193,9 @@ export default function EditStory() {
     }
   ), [])
 
+  // Gets all the organisations from the database and returns them as options in a select element
   const organisationOptions = () => {
-    let mappedData = newData.map((pin: any) => pin.mapItem?.organisation)
+    let mappedData = allStoryData.map((pin: any) => pin.mapItem?.organisation)
     let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()
     return (
       <>
@@ -210,7 +211,7 @@ export default function EditStory() {
 
   // Gets all the projects from the database and returns them as options in a select element
   const getProject = () => {
-    let mappedData = newData.map((pin: any) => pin)
+    let mappedData = allStoryData.map((pin: any) => pin)
     return (
       <>
         {mappedData.map((pin: any, index: any) => {
@@ -225,7 +226,7 @@ export default function EditStory() {
   // Gets all the categories from the database and returns them as checkboxes
   const getAllCategories = () => {
     let unsplitMaterials: string[] = [];
-    newData.map((pin: any) => {
+    allStoryData.map((pin: any) => {
       if (pin.categorySwedish) {
         unsplitMaterials.push(pin.categorySwedish)
       }
@@ -233,7 +234,7 @@ export default function EditStory() {
 
     let splitMaterials: string[] = [];
     unsplitMaterials.map((category: any) => {
-      splitMaterials.push(...category.split(", ").map((item: any) => item.trim().toLowerCase()))
+      splitMaterials.push(...category.split(", ").map((item: any) => setFirestLetterCapital(item.trim().toLowerCase())))
     })
     let filteredCategories = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
 
@@ -247,7 +248,7 @@ export default function EditStory() {
       <>
         {categories.map((category: any, index: any) => {
           return (
-            <div className={styles.typeInputGroup} key={index}>
+            <div className={styles.inputGroup} key={index}>
               <input
                 type="checkbox"
                 id={index}
@@ -300,7 +301,7 @@ export default function EditStory() {
       </div>
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
+          <h1 className={styles.addNewPostTitle}>Redigera en story</h1>
           <div className={styles.addNewPostForm}>
             <form method="post">
 
@@ -310,7 +311,7 @@ export default function EditStory() {
                 <select
                   id="project"
                   name="project"
-                  defaultValue={filterData?.id}
+                  defaultValue={selectedStoryObject?.id}
                   onChange={(e) => setProject(e.target.value)}
                 >
                   <option value="">Välj projekt</option>
@@ -385,7 +386,7 @@ export default function EditStory() {
                   id="title"
                   name="title"
                   // value={title}
-                  defaultValue={filterData.mapItem?.name ? filterData.mapItem?.name : undefined}
+                  defaultValue={selectedStoryObject.mapItem?.name ? selectedStoryObject.mapItem?.name : undefined}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
@@ -398,7 +399,7 @@ export default function EditStory() {
                   id="name"
                   name="name"
                   // value={reportTitle}
-                  defaultValue={filterData.reportTitle ? filterData.reportTitle : undefined}
+                  defaultValue={selectedStoryObject.reportTitle ? selectedStoryObject.reportTitle : undefined}
                   onChange={(e) => setReportTitle(e.target.value)}
                 />
               </div>
@@ -411,7 +412,7 @@ export default function EditStory() {
                   id="reportLink"
                   name="reportLink"
                   // value={reportLink}
-                  defaultValue={filterData.reports ? filterData.reports : undefined}
+                  defaultValue={selectedStoryObject.reports ? selectedStoryObject.reports : undefined}
                   onChange={(e) => setReportLink(e.target.value)}
                 />
               </div>
@@ -424,7 +425,7 @@ export default function EditStory() {
                   id="startYear"
                   name="startYear"
                   // value={startYear}
-                  defaultValue={filterData.mapItem?.year ? filterData.mapItem?.year : undefined}
+                  defaultValue={selectedStoryObject.mapItem?.year ? selectedStoryObject.mapItem?.year : undefined}
                   min={2014}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
@@ -461,8 +462,8 @@ export default function EditStory() {
                         setLon={setLon}
                         lat={lat}
                         lon={lon}
-                        defaultLat={filterData.mapItem.latitude}
-                        defaultLon={filterData.mapItem.longitude}
+                        defaultLat={selectedStoryObject.mapItem.latitude}
+                        defaultLon={selectedStoryObject.mapItem.longitude}
                       />
                     </>
                     :
@@ -484,7 +485,7 @@ export default function EditStory() {
                   rows={10}
                   maxLength={3000}
                   // value={description}
-                  defaultValue={filterData.descriptionSwedish ? filterData.descriptionSwedish : undefined}
+                  defaultValue={selectedStoryObject.descriptionSwedish ? selectedStoryObject.descriptionSwedish : undefined}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div >
@@ -497,7 +498,7 @@ export default function EditStory() {
                   name="caseDescription"
                   rows={1}
                   cols={100}
-                  defaultValue={filterData.pdfCase ? filterData.pdfCase : undefined}
+                  defaultValue={selectedStoryObject.pdfCase ? selectedStoryObject.pdfCase : undefined}
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
               </div >
@@ -510,7 +511,7 @@ export default function EditStory() {
                   name="videos"
                   rows={1}
                   cols={100}
-                  defaultValue={filterData.videos ? filterData.videos : undefined}
+                  defaultValue={selectedStoryObject.videos ? selectedStoryObject.videos : undefined}
                   onChange={(e) => setVideos(e.target.value)}
                 />
               </div >
@@ -523,7 +524,7 @@ export default function EditStory() {
                   id="energyStory"
                   name="energyStory"
                   value="energyStory"
-                  defaultChecked={filterData.isEnergyStory ? filterData.isEnergyStory : false}
+                  defaultChecked={selectedStoryObject.isEnergyStory ? selectedStoryObject.isEnergyStory : false}
                   onChange={(e) => setEnergyStory(e.target.checked)}
                 />
                 {
