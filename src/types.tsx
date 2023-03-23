@@ -98,6 +98,8 @@ export type RecycleFilter = {
  * @param educationalProgram Array of strings containing educational programs to filter by
  * @param video Boolean to filter out stories that don't have a video
  * @param report Boolean to filter out stories that don't have a report
+ * @param cases Boolean to filter out stories that don't have a link to a case
+ * @param openData Boolean to filter out stories that don't have a link to open data
  * @param energyStory Boolean to filter out stories that aren't energy stories, whatever that means
  * @param searchInput String containing the search input
  */
@@ -116,6 +118,8 @@ export type StoryFilter = {
   report?: boolean,
   /** Boolean to filter out stories that don't have a link to a case */
   cases?: boolean,
+  /** Boolean to filter out stories that don't have a link to open data */
+  openData?: boolean,
   /** Boolean to filter out stories that aren't energy stories, whatever that means */
   energyStory?: boolean,
   /** String containing the search input */
