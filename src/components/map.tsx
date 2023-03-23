@@ -6,8 +6,14 @@ import MarkerClusterGroup from './markerCluster/index.js'
 import { recyclePins } from '@/functions/recycleMap'
 import { storiesPins } from '@/functions/storiesMap'
 
-// Map component for main page
 
+/**
+ * Function to render the map with all relevant pins
+ * @param currentFilter The current filter
+ * @param searchInput The current search input within the search bar
+ * @param currentMap The current map. Either "Stories" or "Recycle"
+ * @returns The map with all relevant pins
+ */
 export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
@@ -36,7 +42,6 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
     northEast = L.latLng(72, 60),
     bounds = L.latLngBounds(southWest, northEast);
 
-  // Returns map with all relevant pins
   return (
     <>
       <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "100vh", width: "100%" }} zoomControl={false}>
