@@ -19,8 +19,12 @@ import {
 } from "@/functions/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
 
-// Sidebar component for filtering the map
-
+/**
+ * Sidebar component
+ * @param setFilter Function to set the `filter` state
+ * @param currentMap String containing the current map for conditional rendering
+ * @returns JSX.Element
+ */
 export default function Sidebar({ setFilter, currentMap }: any) {
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);

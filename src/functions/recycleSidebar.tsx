@@ -5,6 +5,10 @@ import { Button } from "@nextui-org/react";
 
 /**
  * Creates buttons for all the project categories defined in the array `categories` in this function
+ * @param projectType Array of strings containing the currently active project type filters
+ * @param setProjectType Function to set the `projectType` state
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
  */
 export function createProjectTypeFilter(
   projectType: any,
@@ -64,6 +68,7 @@ export function createProjectTypeFilter(
 
 /**
  * Returns an array of all the different material categories in the database
+ * @param mapData Array of objects containing all the data from the database
  */
 function getAllMaterialCategories(mapData: any) {
   // List of all strings in the availableMaterials and lookingForMaterials fields
@@ -94,8 +99,14 @@ function getAllMaterialCategories(mapData: any) {
 }
 
 /**
-      * Creates checkboxes for all the different lookingForMaterials categories in the database
-      */
+  * Creates checkboxes for all the different lookingForMaterials categories in the database
+  * @param mapData Array of objects containing all the data from the database
+  * @param lookingForMaterials Array of strings containing the currently active lookingForMaterials filters
+  * @param setLookingForMaterials Function to set the `lookingForMaterials` state
+  * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+  * @param setDisableReset Function to set the `disableReset` state
+  * @returns JSX.Element
+*/
 export function createLookingForFilter(
   mapData: any,
   lookingForMaterials: any,
@@ -161,6 +172,12 @@ export function createLookingForFilter(
 
 /**
  * Creates checkboxes for all the different availableMaterials categories in the database
+ * @param mapData Array of objects containing all the data from the database
+ * @param availableMaterials Array of strings containing the currently active availableMaterials filters
+ * @param setAvailableMaterials Function to set the `availableMaterials` state
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
+ * @returns JSX.Element
  */
 export function createAvailableFilter(
   mapData: any,

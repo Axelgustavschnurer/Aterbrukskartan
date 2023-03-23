@@ -19,6 +19,7 @@ export function createCategoryFilter(
   disableReset: any,
   setDisableReset: any
 ) {
+  // Object containing all the categories and their corresponding image names
   let categories = {
     "Bygg-och-anläggning": "building",
     "Grön-energi": "solar",
@@ -59,6 +60,7 @@ export function createCategoryFilter(
                     height={40}
                   />
                 }
+                // Replace all dashes with spaces in the category name for database query
                 value={category.replaceAll("-", " ")}
                 onPress={(e: any) => {
                   // If category is already in the storyCategory array, remove it
@@ -82,6 +84,7 @@ export function createCategoryFilter(
               >
                 {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
               </Button>
+              {/* Replace all dashes with spaces in the category name for display */}
               <p>{category.replaceAll("-", " ")}</p>
             </div>
           </div>
