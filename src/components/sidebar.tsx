@@ -175,7 +175,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera">
           {filteredData.map((pin: any) => {
             return (
-              <div className={styles.inputGroup} key={pin}>
+              <div id={styles.inputGroupOrg} className={styles.inputGroup} key={pin}>
                 <input
                   id={pin}
                   name={pin}
