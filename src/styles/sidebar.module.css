@@ -35,6 +35,14 @@
     flex-wrap: wrap;
 }
 
+.filterBtnRecycle {
+    margin-top: 1%;
+    width: 100%;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 
 .form {
     padding: 0 16px;
@@ -273,6 +281,15 @@
     }
 }
 
+@media screen and (max-width: 1500px) {
+    .filterBtnRecycle {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+}
+
 
 /* Filter buttons for stories */
 .alignCategories {
@@ -284,7 +301,27 @@
     margin-top: 3%;
 }
 
+.alignCategoriesRecycle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 33%;
+    margin-top: 3%;
+}
+
 .categoryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: .5em 0 .5em .5em;
+    padding: .5em;
+    text-align: center;
+}
+
+.categoryContainerRecycle {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

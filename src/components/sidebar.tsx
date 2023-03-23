@@ -231,22 +231,22 @@ export default function Sidebar({ setFilter, currentMap }: any) {
             ) : null}
           </div>
           {/* Buttons for choosing project types to filter by */}
-          <div className={styles.filterBtn}>
+          <div className={currentMap === "Stoires" ? styles.filterBtn : styles.filterBtnRecycle}>
             {currentMap === "Stories"
               ? createCategoryFilter(
-                  storyCategory,
-                  setStoryCategory,
-                  disableReset,
-                  setDisableReset
-                )
+                storyCategory,
+                setStoryCategory,
+                disableReset,
+                setDisableReset
+              )
               : currentMap === "Recycle"
-              ? createProjectTypeFilter(
+                ? createProjectTypeFilter(
                   projectType,
                   setProjectType,
                   disableReset,
                   setDisableReset
                 )
-              : null}
+                : null}
           </div>
 
           <div className={styles.sidebarHeader}>
@@ -261,15 +261,15 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 currentMap === "Stories"
                   ? yearLimitsStories.min
                   : currentMap === "Recycle"
-                  ? yearLimitsRecycle.min
-                  : null
+                    ? yearLimitsRecycle.min
+                    : null
               }
               max={
                 currentMap === "Stories"
                   ? yearLimitsStories.max
                   : currentMap === "Recycle"
-                  ? yearLimitsRecycle.max
-                  : null
+                    ? yearLimitsRecycle.max
+                    : null
               }
               onChange={({ min, max }: any) => {
                 if (
@@ -277,15 +277,15 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                     currentMap === "Stories"
                       ? yearLimitsStories.min
                       : currentMap === "Recycle"
-                      ? yearLimitsRecycle.min
-                      : 0
+                        ? yearLimitsRecycle.min
+                        : 0
                   ) &&
                   years.includes(
                     currentMap === "Stories"
                       ? yearLimitsStories.max
                       : currentMap === "Recycle"
-                      ? yearLimitsRecycle.max
-                      : 0
+                        ? yearLimitsRecycle.max
+                        : 0
                   )
                 ) {
                   setYearSliderDefault(true);

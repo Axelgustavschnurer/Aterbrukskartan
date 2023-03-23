@@ -17,8 +17,8 @@ export function createProjectTypeFilter(
     <>
       {categories.map((category: any) => {
         return (
-          <div className={styles.alignCategories} key={category}>
-            <div className={styles.categoryContainer} >
+          <div className={styles.alignCategoriesRecycle} key={category}>
+            <div className={styles.categoryContainerRecycle} >
               <Button
                 id={styles[category]}
                 className={styles.categoryBtn}
