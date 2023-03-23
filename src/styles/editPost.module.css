@@ -106,11 +106,20 @@
     border: 2px solid #ff7300;
 }
 
-.addNewPostFormDescription textarea,
+.addNewPostFormDescription textarea {
+    margin: auto;
+    display: block;
+    height: 150px;
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid #8a8a8a;
+}
+
 .addNewPostFormContact textarea,
 .addNewPostFormExternalLinks textarea {
     margin: auto;
     display: block;
+    height: 30px;
     width: 100%;
     border-radius: 5px;
     border: 2px solid #8a8a8a;
@@ -277,7 +286,7 @@
     border-radius: 50%;
     z-index: 2;
     position: absolute;
-    right: 30px;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

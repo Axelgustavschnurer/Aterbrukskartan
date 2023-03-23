@@ -447,7 +447,6 @@ export default function EditPost() {
                 <textarea
                   id="description"
                   name="description"
-                  rows={10}
                   maxLength={3000}
                   placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
                   value={description ?? ''}
@@ -462,8 +461,6 @@ export default function EditPost() {
                 <textarea
                   id="contact"
                   name="contact"
-                  rows={3}
-                  cols={100}
                   value={contact ?? ''}
                   onChange={(e) => setContact(e.target.value)}
                 />
@@ -474,8 +471,6 @@ export default function EditPost() {
                 <textarea
                   id="externalLinks"
                   name="externalLinks"
-                  rows={1}
-                  cols={100}
                   value={externalLinks ?? ''}
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
