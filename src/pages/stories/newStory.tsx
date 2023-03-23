@@ -63,6 +63,7 @@ export default function AddNewStory() {
   // Handles the submit of the form
   const handleSubmit = async (e: any) => {
     try {
+      // TODO: implement address, postcode and city
       // Sets the content of the mapItem object
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: !!lat ? parseFloat(lat) : null,
@@ -375,7 +376,7 @@ export default function AddNewStory() {
                     />
                 }
               </div>
-              
+
               {/*Description section */}
               <div className={styles.addNewPostFormDescription}>
                 <h3 style={{ marginTop: "10px" }}>Sammanfattning *</h3>

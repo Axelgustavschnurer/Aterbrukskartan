@@ -11,40 +11,58 @@ import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
 import { Button } from "@nextui-org/react";
-import setFirestLetterCapital from "@/functions/setFirstLetterCapital";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
 export default function EditStory() {
   const router = useRouter();
 
-  // All the states used in the form, where the data is stored until the form is susccessfully submitted
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
-
+  // State for the modal
   const [modalState, setModalState] = useState(false);
-
+  // State for the location toggle
+  const [locationToggle, setLocationToggle] = useState(false);
+  
+  // All Story data from the database
   const [allStoryData, setAllStoryData] = useState([{}] as DeepStory[]);
+  // ID of the selected project
+  const [project, setProject] = useState("");
+  // Data for the currently selected story
   const [selectedStoryObject, setSelectedStoryObject] = useState({} as DeepStory);
 
-  const [project, setProject] = useState("");
-  const [organization, setOrganization] = useState("");
+
+  // All the states used in the form, where the data is stored until the form is susccessfully submitted
+  // Currently selected organisation
+  const [organisation, setOrganisation] = useState("");
+  // Text in the input field for adding a new organisation
   const [newOrganization, setNewOrganization] = useState("");
-
+  // Currently selected educational program
   const [program, setProgram] = useState("");
+  // Free text input for specifying the orientation of the educational program
   const [programOrientation, setProgramOrientation] = useState("");
-
-  const [title, setTitle] = useState("");
+  // Title of the project, is shown on the map
+  const [projectTitle, setProjectTitle] = useState("");
+  // Title of the report, used when searching for it in the linked website
   const [reportTitle, setReportTitle] = useState("");
+  // Link to the report, either directly or to the website where the report will be published
   const [reportLink, setReportLink] = useState("");
-  const [startYear, setStartYear] = useState("");
+  // Year the project was completed
+  const [projectYear, setProjectYear] = useState("");
+  // Categories of the project
   const [categorys, setCategorys] = useState([] as string[]);
+  // Coordinates
+  const [lat, setLat] = useState();
+  const [lon, setLon] = useState();
+  // Description, is shown on the website in a dropdown
   const [description, setDescription] = useState("");
+  // Link to case description
   const [caseDescription, setCaseDescription] = useState("");
+  // Link to any videos
   const [videos, setVideos] = useState("");
+  // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
+  
   const [message, setMessage] = useState("");
-  const [locationToggle, setLocationToggle] = useState(false);
 
   // Fetches all data from the database
   const fetchData = async () => {
@@ -59,7 +77,7 @@ export default function EditStory() {
   }, [])
 
 
-  // Fetches the data with a specific id from the database
+  // Fetches the story with a specific id from the database
   const fetchSelectedStoryObject = async (id: any) => {
     const response = await fetch('http://localhost:3000/api/stories?id=' + id)
     const data: DeepStory = await response.json()
@@ -72,35 +90,44 @@ export default function EditStory() {
     fetchSelectedStoryObject(project)
   }, [project])
 
-  // Sets the default stats of the form to the data from the selected project from the database
+  // Sets the states of the form to be the data from the selected project from the database
   useEffect(() => {
-    setOrganization(selectedStoryObject.mapItem?.organisation ? selectedStoryObject.mapItem?.organisation : "")
-    setProgram(selectedStoryObject.educationalProgram?.split(", ")[0] as any)
-    setProgramOrientation(selectedStoryObject.educationalProgram?.split(", ")[1] as any)
+    setOrganisation(selectedStoryObject.mapItem?.organisation ? selectedStoryObject.mapItem?.organisation : "")
+    setProgram(selectedStoryObject.educationalProgram?.split(", ")[0] as any || "")
+    setProgramOrientation(selectedStoryObject.educationalProgram?.split(", ")[1] as any || "")
+    setProjectTitle(selectedStoryObject.mapItem?.name as any || "")
+    setReportTitle(selectedStoryObject.reportTitle as any)
+    setReportLink(selectedStoryObject.reports as any)
+    setProjectYear(selectedStoryObject.mapItem?.year as any || "")
+
+    let tempCategories = selectedStoryObject.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[]
+    for (let i = 0; i < tempCategories.length; i++) {
+      tempCategories[i] = setFirstLetterCapital(tempCategories[i])
+    }
+    setCategorys(tempCategories)
 
     setLat(selectedStoryObject.mapItem?.latitude as any)
     setLon(selectedStoryObject.mapItem?.longitude as any)
-    setCategorys(selectedStoryObject.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[])
-    setReportTitle(selectedStoryObject.reportTitle as any)
-    setReportLink(selectedStoryObject.reports as any)
-    setVideos(selectedStoryObject.videos as any)
-    setCaseDescription(selectedStoryObject.pdfCase as any)
     setDescription(selectedStoryObject.descriptionSwedish as any)
+    setCaseDescription(selectedStoryObject.pdfCase as any)
+    setVideos(selectedStoryObject.videos as any)
+    setEnergyStory(selectedStoryObject.isEnergyStory as any)
   }, [selectedStoryObject])
 
   const handleSubmit = async (e: any) => {
     // Checks if the form is filled out correctly
     try {
       // TODO: implement address, postcode and city
+      // Sets the content of the mapItem object
       let mapItem: Prisma.MapItemCreateInput = {
-        latitude: lat ? parseFloat(lat) : undefined,
-        longitude: lon ? parseFloat(lon) : undefined,
-        address: "" ? "" : undefined,
-        postcode: parseInt("") ? parseInt("") : undefined,
-        city: "" ? "" : undefined,
-        organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
-        year: parseInt(startYear) ? parseInt(startYear) : undefined,
-        name: title ? title : undefined,
+        latitude: !!lat ? parseFloat(lat) : null,
+        longitude: !!lon ? parseFloat(lon) : null,
+        address: !!"" ? "" : null,
+        postcode: !!parseInt("") ? parseInt("") : null,
+        city: !!"" ? "" : null,
+        organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganization ? newOrganization : null,
+        year: !!parseInt(projectYear) ? parseInt(projectYear) : null,
+        name: !!projectTitle ? projectTitle : null,
       }
       // Gets the keys of the searchingFor object and returns them as a strin
       // Sends a post request to the api with the data from the form
@@ -113,13 +140,13 @@ export default function EditStory() {
         // What is being sent to the api on susccessful PUT request
         body: JSON.stringify({
           mapItem,
-          categorySwedish: categorys.length ? categorys.join(", ") : null,
-          educationalProgram: programOrientation ? (program + ", " + programOrientation) : program ? program : null,
-          descriptionSwedish: description === selectedStoryObject.descriptionSwedish ? undefined : description ? description : null,
-          reports: reportLink === selectedStoryObject.reports ? undefined : reportLink ? reportLink : null,
-          reportTitle: reportTitle === selectedStoryObject.reportTitle ? undefined : reportTitle ? reportTitle : null,
-          videos: videos === selectedStoryObject.videos ? undefined : videos ? videos : null,
-          pdfCase: caseDescription === selectedStoryObject.pdfCase ? undefined : caseDescription ? caseDescription : null,
+          categorySwedish: !!categorys.join(", ") ? categorys.join(", ") : null,
+          educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
+          descriptionSwedish: !!description ? description : null,
+          reports: !!reportLink ? reportLink : null,
+          reportTitle: !!reportTitle ? reportTitle : null,
+          videos: !!videos ? videos : null,
+          pdfCase: !!caseDescription ? caseDescription : null,
           isEnergyStory: energyStory,
         }),
       });
@@ -165,12 +192,12 @@ export default function EditStory() {
 
       let resJson = await res.json();
       console.log(resJson)
+      // If the DELETE requset was successful, reset the form and redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        // If the DELETE requset was successful, reset the form and redirect to the home page
         router.push("/stories");
-
-        // If the DELETE request was not successful, display the error message
-      } else {
+      }
+      // If the DELETE request was not successful, display the error message
+      else {
         setMessage(resJson.message);
       }
     } catch (error) {
@@ -216,7 +243,7 @@ export default function EditStory() {
       <>
         {mappedData.map((pin: any, index: any) => {
           return (
-            <option key={index} value={pin.id}>{pin.id}: {pin.mapItem?.organisation}: {pin.mapItem?.name}, {pin.mapItem?.year} </option>
+            <option key={index} value={pin.id?.toString() ?? ""}>{pin.id}: {pin.mapItem?.organisation}: {pin.mapItem?.name}, {pin.mapItem?.year} </option>
           )
         })}
       </>
@@ -234,7 +261,7 @@ export default function EditStory() {
 
     let splitMaterials: string[] = [];
     unsplitMaterials.map((category: any) => {
-      splitMaterials.push(...category.split(", ").map((item: any) => setFirestLetterCapital(item.trim().toLowerCase())))
+      splitMaterials.push(...category.split(", ").map((item: any) => setFirstLetterCapital(item.trim().toLowerCase())))
     })
     let filteredCategories = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
 
@@ -311,7 +338,7 @@ export default function EditStory() {
                 <select
                   id="project"
                   name="project"
-                  defaultValue={selectedStoryObject?.id}
+                  value={project ?? ""}
                   onChange={(e) => setProject(e.target.value)}
                 >
                   <option value="">Välj projekt</option>
@@ -325,14 +352,14 @@ export default function EditStory() {
                 <select
                   id="organization"
                   name="organization"
-                  value={organization ?? ""}
-                  onChange={(e) => setOrganization(e.target.value)}
+                  value={organisation ?? ""}
+                  onChange={(e) => setOrganisation(e.target.value)}
                 >
                   {organisationOptions()}
                   <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
-              {organization === "addOrganisation" && (
+              {organisation === "addOrganisation" && (
                 <div className={styles.addNewPostFormInput}>
                   <h3>Ny organisation</h3>
                   <input
@@ -387,7 +414,7 @@ export default function EditStory() {
                   name="title"
                   // value={title}
                   defaultValue={selectedStoryObject.mapItem?.name ? selectedStoryObject.mapItem?.name : undefined}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => setProjectTitle(e.target.value)}
                 />
               </div>
 
@@ -427,7 +454,7 @@ export default function EditStory() {
                   // value={startYear}
                   defaultValue={selectedStoryObject.mapItem?.year ? selectedStoryObject.mapItem?.year : undefined}
                   min={2014}
-                  onChange={(e) => setStartYear(e.target.value)}
+                  onChange={(e) => setProjectYear(e.target.value)}
                 />
               </div>
 
