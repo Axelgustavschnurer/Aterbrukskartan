@@ -11,7 +11,7 @@ import { yearLimitsStories } from "./index";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
-//Array containing all the allowed educational programs
+/** Array containing all the allowed educational programs */
 export const educationalPrograms: string[] = [
   "Agronom",
   "Civilingenjör",
@@ -34,31 +34,47 @@ export default function AddNewStory() {
     fetchData()
   }, [])
 
+  // Controlls wheter to show the map or adress search
+  // false = adress search, true = map
+  const [locationToggle, setLocationToggle] = useState(false);
+
   // Data from the database is stored in this state
   const [storiesData, setStoriesData] = useState([]);
 
   // All the states used in the form, where the data is stored until the form is susccessfully submitted
+  // Currently selected organisation
+  const [organisation, setOrganisation] = useState("");
+  // Text in the input field for adding a new organisation
+  const [newOrganization, setNewOrganization] = useState("");
+  // Currently selected educational program
+  const [program, setProgram] = useState("");
+  // Free text input for specifying the orientation of the educational program
+  const [programOrientation, setProgramOrientation] = useState("");
+  // Title of the project, is shown on the map
+  const [projectTitle, setProjectTitle] = useState("");
+  // Title of the report, used when searching for it in the linked website
+  const [reportTitle, setReportTitle] = useState("");
+  // Link to the report, either directly or to the website where the report will be published
+  const [reportLink, setReportLink] = useState("");
+  // Year the project was completed
+  const [projectYear, setProjectYear] = useState("");
+  // Categories of the project
+  const [categorys, setCategorys] = useState([] as string[]);
+  // Coordinates
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
-
-  const [organisation, setOrganisation] = useState("");
-  const [newOrganization, setNewOrganization] = useState("");
-
-  const [program, setProgram] = useState("");
-  const [programOrientation, setProgramOrientation] = useState("");
-
-  const [projectTitle, setProjectTitle] = useState("");
-  const [reportTitle, setReportTitle] = useState("");
-  const [reportLink, setReportLink] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [categorys, setCategorys] = useState([] as string[]);
+  // Description, is shown on the website in a dropdown
   const [description, setDescription] = useState("");
+  // Link to case description
   const [caseDescription, setCaseDescription] = useState("");
-  const [videos, setVideos] = useState("");
+  // Link to open data
   const [openData, setOpenData] = useState("");
+  // Link to any videos
+  const [videos, setVideos] = useState("");
+  // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
+
   const [message, setMessage] = useState("");
-  const [locationToggle, setLocationToggle] = useState(false);
 
 
   // Handles the submit of the form
@@ -73,9 +89,10 @@ export default function AddNewStory() {
         postcode: !!parseInt("") ? parseInt("") : null,
         city: !!"" ? "" : null,
         organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganization ? newOrganization : null,
-        year: !!parseInt(startYear) ? parseInt(startYear) : null,
+        year: !!parseInt(projectYear) ? parseInt(projectYear) : null,
         name: !!projectTitle ? projectTitle : null,
-      }
+      };
+
       // Sends a post request to the api with the data from the form
       let res = await fetch("http://localhost:3000/api/stories", {
         method: "POST",
@@ -108,7 +125,8 @@ export default function AddNewStory() {
       else {
         setMessage(resJson.message);
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error)
     }
   }
@@ -188,11 +206,11 @@ export default function AddNewStory() {
     )
   }
 
+  /** Gets all the educational programs from the `educationalPrograms` list and returns them as options in a select element */
   const getEducationalPrograms = () => {
-    let programs = educationalPrograms;
     return (
       <>
-        {programs.map((program: any) => {
+        {educationalPrograms.map((program: any) => {
           return (
             <option key={program} value={program} label={program} />
           )
@@ -330,9 +348,9 @@ export default function AddNewStory() {
                   type="number"
                   id="startYear"
                   name="startYear"
-                  value={startYear}
+                  value={projectYear}
                   min={yearLimitsStories.min}
-                  onChange={(e) => setStartYear(e.target.value)}
+                  onChange={(e) => setProjectYear(e.target.value)}
                 />
               </div>
 
