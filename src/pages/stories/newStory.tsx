@@ -11,9 +11,6 @@ import { yearLimitsStories } from "./index";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
-
-// FIX: We have used both organisation and organization in the code. We should stick to one of them.
-
 //Array containing all the allowed educational programs
 export const educationalPrograms: string[] = [
   "Agronom",
@@ -44,7 +41,7 @@ export default function AddNewStory() {
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
 
-  const [organization, setOrganization] = useState("");
+  const [organisation, setOrganisation] = useState("");
   const [newOrganization, setNewOrganization] = useState("");
 
   const [program, setProgram] = useState("");
@@ -65,19 +62,18 @@ export default function AddNewStory() {
 
   // Handles the submit of the form
   const handleSubmit = async (e: any) => {
-    // Checks if the form is filled out correctly
     try {
+      // Sets the content of the mapItem object
       let mapItem: Prisma.MapItemCreateInput = {
-        latitude: lat ? parseFloat(lat) : null,
-        longitude: lon ? parseFloat(lon) : null,
-        address: "",
-        postcode: parseInt(""),
-        city: "",
-        organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
-        year: parseInt(startYear),
-        name: projectTitle,
+        latitude: !!lat ? parseFloat(lat) : null,
+        longitude: !!lon ? parseFloat(lon) : null,
+        address: !!"" ? "" : null,
+        postcode: !!parseInt("") ? parseInt("") : null,
+        city: !!"" ? "" : null,
+        organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganization ? newOrganization : null,
+        year: !!parseInt(startYear) ? parseInt(startYear) : null,
+        name: !!projectTitle ? projectTitle : null,
       }
-      // Gets the keys of the searchingFor object and returns them as a strin
       // Sends a post request to the api with the data from the form
       let res = await fetch("http://localhost:3000/api/stories", {
         method: "POST",
@@ -88,39 +84,25 @@ export default function AddNewStory() {
         // What is being sent to the api
         body: JSON.stringify({
           mapItem,
-          categorySwedish: categorys.join(", "),
-          educationalProgram: program,
-          descriptionSwedish: description,
-          reports: reportLink,
-          reportTitle,
-          videos,
-          pdfCase: caseDescription,
+          categorySwedish: !!categorys.join(", ") ? categorys.join(", ") : null,
+          educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
+          descriptionSwedish: !!description ? description : null,
+          reports: !!reportLink ? reportLink : null,
+          reportTitle: !!reportTitle ? reportTitle : null,
+          videos: !!videos ? videos : null,
+          pdfCase: !!caseDescription ? caseDescription : null,
           isEnergyStory: energyStory,
         }),
       });
 
-      //TODO: Remove this console.log when the form is working properly and we don't need to see the data anymore
-      console.log(JSON.stringify({
-        mapItem,
-        categorySwedish: categorys.join(", "),
-        educationalProgram: programOrientation ? (program + ", " + programOrientation) : program,
-        descriptionSwedish: description,
-        reports: reportLink,
-        reportTitle,
-        videos,
-        pdfCase: caseDescription,
-        isEnergyStory: energyStory,
-      })
-      );
-
-
       let resJson = await res.json();
-      if (res.status >= 200 && res.status < 300) {
-        // If the post was successful, reset the form and redirect to the home page
-        router.push("/stories");
 
-        // If the post was not successful, display the error message
-      } else {
+      // If the post was successful, redirect to the home page
+      if (res.status >= 200 && res.status < 300) {
+        router.push("/stories");
+      }
+      // If the post was not successful, display the error message
+      else {
         setMessage(resJson.message);
       }
     } catch (error) {
@@ -138,15 +120,14 @@ export default function AddNewStory() {
   ), [])
 
   // Gets all the organisations from the database and returns them as options in a select element
-  // TODO: BETTER NAMES!
   const getOrganisation = () => {
-    let mappedData = storiesData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index && !!pin).sort()
+    let organisations = storiesData.map((pin: any) => pin.mapItem.organisation)
+    let filteredOrganisations = organisations.filter((org: any, index: any) => organisations.indexOf(org) === index && !!org).sort()
     return (
       <>
-        {filteredData.map((pin: any, index: any) => {
+        {filteredOrganisations.map((org: any, index: any) => {
           return (
-            <option key={pin} value={pin} >{pin}</option>
+            <option key={org} value={org} label={org} />
           )
         })}
       </>
@@ -199,8 +180,7 @@ export default function AddNewStory() {
               <label htmlFor={category}>{category}</label>
             </div>
           )
-        }
-        )}
+        })}
       </>
     )
   }
@@ -211,7 +191,7 @@ export default function AddNewStory() {
       <>
         {programs.map((program: any) => {
           return (
-            <option key={program} value={program}>{program}</option>
+            <option key={program} value={program} label={program} />
           )
         })}
       </>
@@ -224,9 +204,11 @@ export default function AddNewStory() {
         <title>Lägg till story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+
       <div className={styles.header} id={styles.header}>
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
+
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
@@ -240,24 +222,25 @@ export default function AddNewStory() {
                                 if you want to use the text input instead of the select, comment out the select and uncomment the text input 
                                 <input
                                     type="text"
-                                    id="organization"
-                                    name="organization"
-                                    value={organization}
+                                    id="organisation"
+                                    name="organisation"
+                                    value={organisation}
                                     onChange={(e) => setOrganization(e.target.value)}
                                     required
                                 /> */}
                 <select
-                  id="organization"
-                  name="organization"
-                  value={organization}
-                  onChange={(e) => setOrganization(e.target.value)}
+                  id="organisation"
+                  name="organisation"
+                  value={organisation}
+                  onChange={(e) => setOrganisation(e.target.value)}
                 >
-                  <option value="">Välj organisation</option>
+                  <option value="" label="Välj organisation" />
                   {getOrganisation()}
-                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+                  <option value="addOrganisation" label="Lägg till ny organisation" />
                 </select>
               </div>
-              {organization === "addOrganisation" && (
+
+              {organisation === "addOrganisation" && (
                 <div className={styles.addNewPostFormInput}>
                   <h3>Ny organisation</h3>
                   <input
@@ -269,8 +252,8 @@ export default function AddNewStory() {
                     onChange={(e) => setNewOrganization(e.target.value)}
                   />
                 </div>
-              )
-              }
+              )}
+
               {/*Program section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Program *</h3>
@@ -299,8 +282,8 @@ export default function AddNewStory() {
                   </div>
                   :
                   null
-
               }
+
               {/*Title section */}
               <div className={styles.addNewPostFormTitle}>
                 <h3>Casetitel</h3>
@@ -392,6 +375,7 @@ export default function AddNewStory() {
                     />
                 }
               </div>
+              
               {/*Description section */}
               <div className={styles.addNewPostFormDescription}>
                 <h3 style={{ marginTop: "10px" }}>Sammanfattning *</h3>
