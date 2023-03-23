@@ -28,7 +28,7 @@ export function storiesPopup(pin: any) {
               <Image width={25} height={25} src="/images/dividers/description.svg" alt="Delare" />
               <div style={DividerLineDesc}></div>
             </div>}
-          {!pin.descriptionSwedish ? null : <Collapse title="Beskrivning" subtitle="Tryck för att visa / gömma beskrivning" divider={false}><div style={PopupDesc}><p>{pin.descriptionSwedish}</p></div></Collapse>}
+          {!pin.descriptionSwedish ? null : <Collapse title="Sammanfattning" subtitle="Tryck för att visa / gömma sammanfattning" divider={false}><div style={PopupDesc}><p>{pin.descriptionSwedish}</p></div></Collapse>}
           {
             !pin.videos ? null :
               <div style={Divider}>
