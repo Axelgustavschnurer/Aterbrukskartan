@@ -158,12 +158,35 @@ export function filterHasReport(data: DeepStory[]) {
   return returnData;
 }
 
+/**
+ * Filters out `Story` objects that do not have any case.
+ * @param data Array of `DeepStory` objects to filter.
+ * @returns `Story` objects that have at least one case.
+ */
 export function filterHasCase(data: DeepStory[]) {
   let returnData: DeepStory[] = [];
 
   for (let i in data) {
     // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
     if (!!data[i].pdfCase) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
+ * Filters out `Story` objects that do not have any open data.
+ * @param data Array of `DeepStory` objects to filter.
+ * @returns `Story` objects that have at least one open data link.
+ */
+export function filterHasOpenData(data: DeepStory[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
+    if (!!data[i].openData) {
       returnData.push(data[i]);
     }
   }
