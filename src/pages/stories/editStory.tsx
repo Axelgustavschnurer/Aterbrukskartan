@@ -28,6 +28,7 @@ export default function EditStory() {
 
   const [project, setProject] = useState("");
   const [organization, setOrganization] = useState("");
+  const [newOrganization, setNewOrganization] = useState("");
 
   const [program, setProgram] = useState("");
   const [programOrientation, setProgramOrientation] = useState("");
@@ -72,10 +73,12 @@ export default function EditStory() {
 
   // Sets the default stats of the form to the data from the selected project from the database
   useEffect(() => {
-    setLat(filterData.mapItem?.latitude as any)
-    setLon(filterData.mapItem?.longitude as any)
+    setOrganization(filterData.mapItem?.organisation ? filterData.mapItem?.organisation : "")
     setProgram(filterData.educationalProgram?.split(", ")[0] as any)
     setProgramOrientation(filterData.educationalProgram?.split(", ")[1] as any)
+
+    setLat(filterData.mapItem?.latitude as any)
+    setLon(filterData.mapItem?.longitude as any)
     setCategorys(filterData.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[])
     setReportTitle(filterData.reportTitle as any)
     setReportLink(filterData.reports as any)
@@ -85,8 +88,6 @@ export default function EditStory() {
   }, [filterData])
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
     // Checks if the form is filled out correctly
     try {
       // TODO: implement address, postcode and city
@@ -96,7 +97,7 @@ export default function EditStory() {
         address: "" ? "" : undefined,
         postcode: parseInt("") ? parseInt("") : undefined,
         city: "" ? "" : undefined,
-        organisation: organization ? organization : undefined,
+        organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
         year: parseInt(startYear) ? parseInt(startYear) : undefined,
         name: title ? title : undefined,
       }
@@ -192,6 +193,21 @@ export default function EditStory() {
     }
   ), [])
 
+  const organisationOptions = () => {
+    let mappedData = newData.map((pin: any) => pin.mapItem?.organisation)
+    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()
+    return (
+      <>
+        <option value="" label="Välj organisation" />
+        {filteredData.map((pin: any) => {
+          return (
+            <option key={pin} value={pin} label={pin} />
+          )
+        })}
+      </>
+    )
+  }
+
   // Gets all the projects from the database and returns them as options in a select element
   const getProject = () => {
     let mappedData = newData.map((pin: any) => pin)
@@ -262,6 +278,8 @@ export default function EditStory() {
     let programs = educationalPrograms;
     return (
       <>
+        <option value="" label="Välj program" />
+
         {programs.map((program: any, index: any) => {
           return (
             <option key={index} value={program}>{program}</option>
@@ -284,7 +302,7 @@ export default function EditStory() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
+            <form method="post">
 
               {/* Choose project section */}
               <div className={styles.addNewPostFormSelect}>
@@ -303,25 +321,29 @@ export default function EditStory() {
               {/* Organisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation</h3>
-                {/*
-                                if you want to use the text input instead of the select, comment out the select and uncomment the text input 
-                                <input
-                                    type="text"
-                                    id="organization"
-                                    name="organization"
-                                    value={organization}
-                                    onChange={(e) => setOrganization(e.target.value)}
-                                    required
-                                /> */}
                 <select
                   id="organization"
                   name="organization"
-                  value={organization}
+                  value={organization ?? ""}
                   onChange={(e) => setOrganization(e.target.value)}
                 >
-                  <option defaultValue={filterData.mapItem?.organisation ? filterData.mapItem?.organisation : undefined}>{filterData.mapItem?.organisation}</option>
+                  {organisationOptions()}
+                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
+              {organization === "addOrganisation" && (
+                <div className={styles.addNewPostFormInput}>
+                  <h3>Ny organisation</h3>
+                  <input
+                    type="text"
+                    key="newOrganization"
+                    id="newOrganization"
+                    name="newOrganization"
+                    value={newOrganization}
+                    onChange={(e) => setNewOrganization(e.target.value)}
+                  />
+                </div>
+              )}
 
               {/* Program section */}
               <div className={styles.addNewPostFormSelect}>
@@ -329,10 +351,9 @@ export default function EditStory() {
                 <select
                   id="program"
                   name="program"
-                  // value={program}
+                  value={program ?? ""}
                   onChange={(e: any) => setProgram(e.target.value)}
                 >
-                  <option defaultValue={program}>{!program ? "Välj program" : program}</option>
                   {getEducationalPrograms()}
                 </select>
               </div>
