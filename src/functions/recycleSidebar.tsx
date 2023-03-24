@@ -57,7 +57,7 @@ export function createProjectTypeFilter(
                 }}
               >
               </Button>
-              <p>{category}</p>
+              <p>{category === "Nybyggnation" ? "Nybygge" : category === "Ombyggnation" ? "Ombygge" : category}</p>
             </div>
           </div>
         );
