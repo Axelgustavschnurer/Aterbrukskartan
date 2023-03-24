@@ -28,6 +28,8 @@ export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug
 export default function HomePage() {
   const router = useRouter()
 
+  const [admin, setAdmin] = useState(false)
+
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as RecycleFilter)
 
@@ -193,6 +195,11 @@ export default function HomePage() {
     }
   }
 
+  // Checks url for admin and sets admin state accordingly
+  useEffect(() => {
+    window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
+  }, [])
+
   return (
     <>
       <Head>
@@ -251,20 +258,24 @@ export default function HomePage() {
       </div>
 
       {/* Button leading to another page where one can add projects to the database */}
-      <div className={styles.addNewPost}>
-        <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
-          <button className={styles.addNewPostButton} onClick={goToNewPost}>
-            <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
-          </button>
-        </Tooltip>
-      </div>
-      <div className={styles.editPost}>
-        <Tooltip content={"Redigera\xa0inlägg"} placement="left">
-          <button className={styles.editPostButton} onClick={goToEditPost}>
-            <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
-          </button>
-        </Tooltip>
-      </div>
+      {admin && (
+        <>
+          <div className={styles.addNewPost}>
+            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+              <button className={styles.addNewPostButton} onClick={goToNewPost}>
+                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+          <div className={styles.editPost}>
+            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+              <button className={styles.editPostButton} onClick={goToEditPost}>
+                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+        </>
+      )}
     </>
   )
 }

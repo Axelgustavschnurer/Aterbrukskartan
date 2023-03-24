@@ -25,6 +25,8 @@ export const yearLimitsStories = {
 export default function HomePage() {
   const router = useRouter()
 
+  const [admin, setAdmin] = useState(false)
+
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as StoryFilter)
 
@@ -46,6 +48,10 @@ export default function HomePage() {
   // Function for navigating to the new post page
   const goToNewStory = () => {
     router.push('/stories/newStory')
+  }
+
+  const goToEditStory = () => {
+    router.push('/stories/editStory')
   }
 
   // Function for navigating to the recycle map page
@@ -180,6 +186,11 @@ export default function HomePage() {
     }
   }
 
+  // Checks url for admin and sets admin state accordingly
+  useEffect(() => {
+    window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
+  }, [])
+
   return (
     <>
       <Head>
@@ -240,13 +251,23 @@ export default function HomePage() {
       </div>
 
       {/* Button leading to another page where one can add projects to the database */}
-      <div className={`${styles.addNewPost}`}>
-        <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
-          <button className={styles.addNewPostButton} onClick={goToNewStory}>
-            <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
-          </button>
-        </Tooltip>
-      </div>
+
+      {admin && (
+        <div className={`${styles.addNewPost}`}>
+          <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
+            <button className={styles.addNewPostButton} onClick={goToNewStory}>
+              <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
+            </button>
+          </Tooltip>
+          <div className={styles.editPost}>
+            <Tooltip content={"Redigera\xa0en\xa0story"} placement="left">
+              <button className={styles.editPostButton} onClick={goToEditStory}>
+                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+        </div>
+      )}
       <Footer />
     </>
   )
