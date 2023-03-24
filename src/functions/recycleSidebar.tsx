@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
 import { Button } from "@nextui-org/react";
+import { DeepRecycle } from "@/types";
 
 /**
  * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -11,7 +12,7 @@ import { Button } from "@nextui-org/react";
  * @param setDisableReset Function to set the `disableReset` state
  */
 export function createProjectTypeFilter(
-  projectType: any,
+  projectType: string[],
   setProjectType: any,
   disableReset: any,
   setDisableReset: any
@@ -108,8 +109,8 @@ function getAllMaterialCategories(mapData: any) {
   * @returns JSX.Element
 */
 export function createLookingForFilter(
-  mapData: any,
-  lookingForMaterials: any,
+  mapData: DeepRecycle[],
+  lookingForMaterials: string[],
   setLookingForMaterials: any,
   disableReset: any,
   setDisableReset: any
@@ -180,8 +181,8 @@ export function createLookingForFilter(
  * @returns JSX.Element
  */
 export function createAvailableFilter(
-  mapData: any,
-  availableMaterials: any,
+  mapData: DeepRecycle[],
+  availableMaterials: string[],
   setAvailableMaterials: any,
   disableReset: any,
   setDisableReset: any

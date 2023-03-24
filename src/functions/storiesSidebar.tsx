@@ -12,9 +12,11 @@ import { Button } from "@nextui-org/react";
  * TODO: Should maybe import an array of categories from somewhere, but that would mess upp the image linking used here
  * @param storyCategory Array of strings containing the currently active category filters
  * @param setStoryCategory Function to set the `storyCategory` state
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
  */
 export function createCategoryFilter(
-  storyCategory: any,
+  storyCategory: string[],
   setStoryCategory: any,
   disableReset: any,
   setDisableReset: any
@@ -99,15 +101,15 @@ export function createCategoryFilter(
  * All parameters are state booleans that are used to filter the stories based on conrresponding contents.
  */
 export function createMiscFilter(
-  hasReport: any,
+  hasReport: boolean,
   setHasReport: any,
-  hasVideo: any,
+  hasVideo: boolean,
   setHasVideo: any,
-  hasCase: any,
+  hasCase: boolean,
   setHasCase: any,
-  hasOpenData: any,
+  hasOpenData: boolean,
   setHasOpenData: any,
-  isRealStory: any,
+  isRealStory: boolean,
   setIsRealStory: any
 ) {
   let options = ["Rapport", "Videos", "Cases", "Öppna data", "Story"];
@@ -148,9 +150,11 @@ export function createMiscFilter(
  * Creates checkboxes for all the educational programs defined in the array `educationalPrograms` defined in the file `newStory.tsx`.
  * @param educationalProgram Array of strings containing the currently active educational program filters.
  * @param setEducationalProgram Function to set the `educationalProgram` state.
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
  */
 export function createEducationalFilter(
-  educationalProgram: any,
+  educationalProgram: string[],
   setEducationalProgram: any,
   disableReset: any,
   setDisableReset: any
