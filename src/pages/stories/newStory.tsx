@@ -238,17 +238,6 @@ export default function AddNewStory() {
               {/*Oraganisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
-                {/*
-                // TODO: Add text input if the user chooses a specific option in the select, to allow adding a new organisation
-                                if you want to use the text input instead of the select, comment out the select and uncomment the text input 
-                                <input
-                                    type="text"
-                                    id="organisation"
-                                    name="organisation"
-                                    value={organisation}
-                                    onChange={(e) => setOrganization(e.target.value)}
-                                    required
-                                /> */}
                 <select
                   id="organisation"
                   name="organisation"
