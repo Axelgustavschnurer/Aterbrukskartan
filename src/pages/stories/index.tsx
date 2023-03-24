@@ -253,12 +253,14 @@ export default function HomePage() {
       {/* Button leading to another page where one can add projects to the database */}
 
       {admin && (
-        <div className={`${styles.addNewPost}`}>
-          <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
-            <button className={styles.addNewPostButton} onClick={goToNewStory}>
-              <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
-            </button>
-          </Tooltip>
+        <>
+          <div className={`${styles.addNewPost}`}>
+            <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
+              <button className={styles.addNewPostButton} onClick={goToNewStory}>
+                <Image src="./add.svg" alt='Lägg till ny story' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
           <div className={styles.editPost}>
             <Tooltip content={"Redigera\xa0en\xa0story"} placement="left">
               <button className={styles.editPostButton} onClick={goToEditStory}>
@@ -266,7 +268,7 @@ export default function HomePage() {
               </button>
             </Tooltip>
           </div>
-        </div>
+        </>
       )}
       <Footer />
     </>
