@@ -9,11 +9,11 @@ import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Collapse } from '@nextui-org/react'
 
 /**
- * 
- * @param pin Check if the pin is in the current filter
- * @returns Generates relevant popup for the pin
+ * Creates a popup for the passed pin
+ * @param pin DeepStory object containing all the information about the pin
+ * @returns JSX.Element 
  */
-export function storiesPopup(pin: any) {
+export function storiesPopup(pin: DeepStory) {
   return (
     <Popup className='request-popup'>
       <div>
@@ -117,17 +117,16 @@ const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPi
 const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarhet", "Mobilitet", "Elnät", "Bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Hälsa", "Vatten och avlopp"]
 
 /**
- * Function that returns the correct icon for a pin based on the category of the pin
+ * Function that returns an icon for a pin based on the category of the pin
  * 
  * If the pin has multiple categories, it will return the icon for its first category
  * 
  * If the pin has no category, it will return the default white pin
- * @param pinIndex Used to keep track of which shared index the pin is in the iconArray and categoryArray
- * @param mapData Contains all the data for the pins
+ * @param pin The pin to get the icon for
  * @param currentFilter Used to check if the pin has a category that matches with the first category in the filter
  * @returns Matching color icon for the pin's category or the default white pin
  */
-function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFilter) {
+function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
   // TODO Make it so pins are colored based on the first category in the filter *that matches with the pin*
   // Changes color of all displayed pins to match with the first category in the current filter, if any
   for (let i in categoryArray) {
@@ -137,7 +136,7 @@ function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFil
   }
   // Loop through all categories in the pin and return the first matching category
   for (let i in categoryArray) {
-    if (mapData[pinIndex].categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
+    if (pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
       return iconArray[i]
     }
   }
@@ -146,11 +145,12 @@ function getIcon(pinIndex: number, mapData: DeepStory[], currentFilter: StoryFil
 }
 
 /**
- * Function that returns all the pins that should be displayed on the map
- * @param mapData Contains all the data for the pins
- * @param currentFilter Used to check if the pin should be displayed based on the current filter
- * @returns All pins that should be displayed on the map
- */ 
+ * Creates markers for all pins that pass the active filters
+ * @param mapData Array of DeepStory objects, containing all the data for the pins
+ * @param currentFilter Currently active filters
+ * @param searchInput The current text in the search bar
+ * @returns JSX.Element
+ */
 export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, searchInput: string | undefined) {
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }
@@ -162,7 +162,7 @@ export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, se
       return null
     } else {
       return (
-        <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={getIcon(pinIndex, filteredData, currentFilter)}>
+        <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={getIcon(pin, currentFilter)}>
           {pin ? storiesPopup(pin) : null}
         </Marker>
       )
