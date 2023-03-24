@@ -59,11 +59,5 @@ function createMarkerClusterGroup(props, context) {
     });
     return (0, core_1.createElementObject)(markerClusterGroup, (0, core_1.extendContext)(context, { layerContainer: markerClusterGroup }));
 }
-var updateMarkerCluster = function (instance, props, prevProps) {
-    //TODO when prop change update instance
-    //   if (props. !== prevProps.center || props.size !== prevProps.size) {
-    //   instance.setBounds(getBounds(props))
-    // }
-};
-var MarkerClusterGroup = (0, core_1.createPathComponent)(createMarkerClusterGroup, updateMarkerCluster);
+var MarkerClusterGroup = (0, core_1.createPathComponent)(createMarkerClusterGroup);
 exports.default = MarkerClusterGroup;

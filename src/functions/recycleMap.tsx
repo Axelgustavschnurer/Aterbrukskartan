@@ -9,11 +9,11 @@ import { monthArray } from '@/pages/aterbruk'
 
 
 /**
- * Function to generate a popup for a pin
- * @param pin Check if the pin is in the current filter
- * @returns Generates relevant popup for the pin
+ * Creates a popup for the passed pin
+ * @param pin DeepStory object containing all the information about the pin
+ * @returns JSX.Element 
  */
-export function recyclePopup(pin: any) {
+export function recyclePopup(pin: DeepRecycle) {
   return (
     <Popup className='request-popup'>
       <div>
@@ -22,7 +22,7 @@ export function recyclePopup(pin: any) {
         </div>
         <div style={PopupText}>
           <b>{pin.projectType}</b> <br />
-          {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year && !pin.month ? "Projektet påbörjas år: " + pin.mapItem.year : "Projektet påbörjas: " + monthArray[pin.month - 1] + " " + pin.mapItem.year} <br />
+          {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year && !pin.month ? "Projektet påbörjas år: " + pin.mapItem.year : "Projektet påbörjas: " + monthArray[pin.month! - 1] + " " + pin.mapItem.year} <br />
           <>
             {/* This abomination checks multiple factors of materials being offered or requested and then displays the results */}
             {pin.projectType === "Rivning" && pin.availableMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
@@ -46,11 +46,11 @@ export function recyclePopup(pin: any) {
 }
 
 /**
- * Function to generate pins for the recycle map
- * @param mapData Data to be used for the pins
- * @param currentFilter Current filter to check if the pin is in the current filter
- * @param searchInput Search input to check if the pin is in the current filter
- * @returns Generates relevant pins for the map
+ * Creates markers for all pins that pass the active filters
+ * @param mapData Array of DeepRecycle objects, containing all the data for the pins
+ * @param currentFilter Currently active filters
+ * @param searchInput The current text in the search bar
+ * @returns JSX.Element
  */
 export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter, searchInput: string | undefined) {
   if (searchInput) {
