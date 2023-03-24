@@ -16,6 +16,7 @@ export default function Footer() {
         setOpen(!isOpen);
     };
 
+    // Closes the footer if the user clicks the close button
     useEffect(() => {
         const closeMenu = () => isOpen && setOpen(false);
         router.events.on("routeChangeStart", closeMenu);

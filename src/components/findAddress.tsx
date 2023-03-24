@@ -3,9 +3,12 @@ import dynamic from 'next/dynamic';
 import styles from '../styles/findAddress.module.css';
 
 function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
+
+    // State for the address search and the results
     const [location, setLocation] = useState('');
     const [results, setResults] = useState([]);
 
+    // Gets the coordinates from the address search and sets them in the state imported from the parent component
     const handleAddressClick = (lat: any, lon: any) => {
         let latitude: any = parseFloat(lat).toFixed(6);
         setLat(latitude);
@@ -13,14 +16,21 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
         setLon(longitude);
     };
 
+    // Fetches the address search results from the Nominatim API
     const handleSearch = () => {
         const addrInput = document.getElementById('addr') as HTMLInputElement;
         const url = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${addrInput.value}`;
+
         fetch(url)
+            // Makes the response into json
             .then((response) => response.json())
+
+            // Sets the results in the state setResults
             .then((data) => {
                 setResults(data);
             })
+
+            // If there is an error, it is logged in the console
             .catch((error) => {
                 console.error('Error fetching search results:', error);
             });
@@ -33,10 +43,10 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
                 <div id={styles.search}>
                     <div id={styles.searchDir}>
                         <input type="text" name="addr" value={location} id="addr" onChange={(e) => setLocation(e.target.value)} />
-                        <button id={styles.addressBtn} type="button" onClick={handleSearch}>
-                            Sök
-                        </button>
+                        <button id={styles.addressBtn} type="button" onClick={handleSearch}> Sök </button>
                     </div>
+
+                    {/*Result of the search */}
                     <div id={styles.results}>
                         {results.length > 0 ? (
                             results.map((result) => (
@@ -55,6 +65,8 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
                     </div>
                 </div>
             </div>
+
+            {/* Coordinates */}
             <b>Koordinater</b>
             <div className={styles.container}>
                 <div className={styles.latLon}>
