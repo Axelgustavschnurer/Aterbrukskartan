@@ -70,6 +70,7 @@ export default function EditPost() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
+  const [message, setMessage] = useState("");
 
   const router = useRouter();
 
@@ -159,7 +160,9 @@ export default function EditPost() {
       if (response.status >= 200 && response.status < 300) {
         router.push('/aterbruk')
       }
-      // TODO: Show message from the API if the request fails
+      else {
+        setMessage(result.message);
+      }
     }
     catch (error) {
       console.log(error)
@@ -345,15 +348,6 @@ export default function EditPost() {
 
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
-
-                {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
-                <input
-                  type="text"
-                  id="organization"
-                  name="organization"
-                  value={organisation}
-                  onChange={(e) => setOrganisation(e.target.value)}
-                /> */}
                 <select
                   id="organization"
                   name="organization"
@@ -475,7 +469,7 @@ export default function EditPost() {
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
-              {/* <div className={styles.message}>{message ? <p>{message}</p> : null}</div> */}
+              <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
 
             <div className={styles.btnAlignContainer}>
@@ -488,7 +482,6 @@ export default function EditPost() {
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div >
             </div>
-
           </div >
         </div >
       </div >

@@ -558,6 +558,7 @@ export default function EditStory() {
                     <p>Nej</p>
                 }
               </div>
+              <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form>
 
             {/* Submit and delete button */}

@@ -237,16 +237,6 @@ export default function AddNewPost() {
               {/* Organisation selection */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
-                {/* if you want to use the text input instead of the select, comment out the select and uncomment the text input
-                <input
-                  type="text"
-                  id="organization"
-                  name="organization"
-                  value={organization}
-                  onChange={(e) => setOrganization(e.target.value)}
-                  required
-                /> */}
-
                 <select
                   id="organization"
                   name="organization"

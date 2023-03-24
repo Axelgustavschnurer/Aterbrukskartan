@@ -175,6 +175,13 @@
     box-shadow: 5px 5px 5px 5px #00000015;
 }
 
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 
 /* CSS for both type of project and searching for and offering checkboxes*/
 .optionList {

@@ -165,6 +165,13 @@
     box-shadow: 5px 5px 5px 5px #00000015;
 }
 
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 .addNewPostFormSubmit {
     display: flex;
     flex-direction: column;
