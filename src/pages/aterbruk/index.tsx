@@ -51,6 +51,10 @@ export default function HomePage() {
     router.push('/aterbruk/newPost')
   }
 
+  const goToEditPost = () => {
+    router.push('/aterbruk/editPost')
+  }
+
   // Function for navigating to the stories map page
   const handleRedirect = () => {
     router.push('/stories')
@@ -251,6 +255,13 @@ export default function HomePage() {
         <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
           <button className={styles.addNewPostButton} onClick={goToNewPost}>
             <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+          </button>
+        </Tooltip>
+      </div>
+      <div className={styles.editPost}>
+        <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+          <button className={styles.editPostButton} onClick={goToEditPost}>
+            <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
           </button>
         </Tooltip>
       </div>
