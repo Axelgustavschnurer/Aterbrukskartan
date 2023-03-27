@@ -110,9 +110,11 @@ export function createMiscFilter(
   hasOpenData: boolean,
   setHasOpenData: any,
   isRealStory: boolean,
-  setIsRealStory: any
+  setIsRealStory: any,
+  hasSolarData: boolean,
+  setHasSolarData: any,
 ) {
-  let options = ["Rapport", "Videos", "Cases", "Öppna data", "Story"];
+  let options = ["Rapport", "Videos", "Cases", "Öppna data", "Story", "Energiportalen"];
   return (
     <>
       {/* Creates a checkbox for each item in the `options` array. */}
@@ -135,6 +137,9 @@ export function createMiscFilter(
                   setHasOpenData(e.target.checked);
                 } else if (item === "Story" && isRealStory !== e.target.checked) {
                   setIsRealStory(e.target.checked);
+                }
+                else if (item === "Energiportalen" && hasSolarData !== e.target.checked) {
+                  setHasSolarData(e.target.checked);
                 }
               }}
             />

@@ -117,7 +117,7 @@ export default function HomePage() {
    * to only display the amount of selected project contents
    */
   const contentLabel = () => {
-    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory) {
+    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory || currentFilter.solarData) {
       let content = []
       if (currentFilter.report) {
         content.push("Rapport")
@@ -133,6 +133,9 @@ export default function HomePage() {
       }
       if (currentFilter.energyStory) {
         content.push("Story")
+      }
+      if (currentFilter.solarData) {
+        content.push("Energiportalen")
       }
       if (content.length > maxCategoryAmount) {
         return (

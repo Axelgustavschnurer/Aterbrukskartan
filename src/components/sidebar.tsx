@@ -49,6 +49,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   const [isRealStory, setIsRealStory] = useState(false as boolean);
 
+  const [hasSolarData, setHasSolarData] = useState(false as boolean);
+
   // List of all active filters for the field `Rapport`
   const [hasReport, setHasReport] = useState(false as boolean);
 
@@ -138,7 +140,8 @@ export default function Sidebar({ setFilter, currentMap }: any) {
         report: hasReport,
         cases: hasCase,
         openData: hasOpenData,
-        energyStory: isRealStory
+        energyStory: isRealStory,
+        solarData: hasSolarData
       } as StoryFilter);
     } else if (currentMap === "Recycle") {
       setFilter({
@@ -166,6 +169,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
     hasCase,
     hasOpenData,
     isRealStory,
+    hasSolarData,
   ]);
 
   /**
@@ -377,7 +381,9 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                   hasOpenData,
                   setHasOpenData,
                   isRealStory,
-                  setIsRealStory
+                  setIsRealStory,
+                  hasSolarData,
+                  setHasSolarData,
                 )}{" "}
                 <h3>Utbildningsprogram</h3>{" "}
                 {createEducationalFilter(
