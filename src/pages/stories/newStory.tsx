@@ -415,6 +415,7 @@ export default function AddNewStory() {
                 <textarea
                   id="videos"
                   name="videos"
+                  placeholder="Ex: https://www.youtube.com/embed/dQw4w9WgXcQ"
                   value={videos}
                   onChange={(e) => setVideos(e.target.value)}
                 />
