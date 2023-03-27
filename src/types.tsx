@@ -122,6 +122,8 @@ export type StoryFilter = {
   openData?: boolean,
   /** Boolean to filter out stories that aren't energy stories, whatever that means */
   energyStory?: boolean,
+  /** Boolean to filter out stories that don't have a link to solar data */
+  solarData?: boolean,
   /** String containing the search input */
   searchInput?: string,
 }
