@@ -117,7 +117,7 @@ export default function HomePage() {
    * to only display the amount of selected project contents
    */
   const contentLabel = () => {
-    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.energyStory) {
+    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory) {
       let content = []
       if (currentFilter.report) {
         content.push("Rapport")
@@ -127,6 +127,9 @@ export default function HomePage() {
       }
       if (currentFilter.cases) {
         content.push("Case")
+      }
+      if (currentFilter.openData) {
+        content.push("Öppna data")
       }
       if (currentFilter.energyStory) {
         content.push("Story")

@@ -240,7 +240,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
             ) : null}
           </div>
           {/* Buttons for choosing project types to filter by */}
-          <div className={currentMap === "Stoires" ? styles.filterBtn : styles.filterBtnRecycle}>
+          <div className={currentMap === "Stories" ? styles.filterBtn : styles.filterBtnRecycle}>
             {currentMap === "Stories"
               ? createCategoryFilter(
                 storyCategory,
