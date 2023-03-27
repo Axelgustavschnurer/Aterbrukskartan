@@ -517,3 +517,56 @@
 .footerLink a:visited {
     color: #e47b1e;
 }
+
+@media only screen and (orientation: portrait) {
+    .addNewPostContainer {
+        width: 100vw;
+        padding: 40px;
+    }
+
+    .addPostContainer {
+        padding: 50px;
+    }
+
+    .addNewPostFormSelect select {
+        width: 100%;
+    }
+
+    .addNewPostFormTitle input,
+    .addNewPostFormName input,
+    .addNewPostFormOrientation input {
+        width: 100%;
+    }
+
+    .startYear input {
+        width: 50%;
+    }
+
+    .startMonth select {
+        width: 50%;
+    }
+
+    .typeInputGroup {
+        max-width: 80%;
+    }
+
+    .form {
+        height: 100%;
+    }
+
+    .addNewPostFormExternalLinks textarea {
+        height: 40px;
+    }
+
+    .inputGroup label:after {
+        right: 10px;
+    }
+
+    .addNewPostFormSubmit {
+        margin-top: 20px;
+    }
+
+    .btnAlignContainer {
+        flex-direction: column;
+    }
+}

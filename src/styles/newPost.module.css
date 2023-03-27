@@ -445,32 +445,3 @@
         margin-top: 20px;
     }
 }
-
-@media only screen and (orientation: landscape) {
-    .addNewPostContainer {
-        width: 100vw;
-        padding: 40px;
-    }
-
-    .addPostContainer {
-        padding: 50px;
-    }
-
-    .addNewPostFormSelect select {
-        width: 100%;
-    }
-
-    .startYear input {
-        width: 50%;
-    }
-
-    .startMonth select {
-        width: 50%;
-    }
-
-
-    .btnAlignContainer {
-        display: flex;
-        flex-direction: column;
-    }
-}
