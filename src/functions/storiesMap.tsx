@@ -38,7 +38,7 @@ export function storiesPopup(pin: DeepStory) {
               <div style={popup.DividerLineDesc}></div>
             </div>}
           {!pin.descriptionSwedish ? null : <Collapse title="Sammanfattning" subtitle="Tryck för att visa / gömma sammanfattning" divider={false}><div style={popup.PopupDesc}><p>{pin.descriptionSwedish}</p></div></Collapse>}
-          
+
           {/* If the pin has a video link, make a divider and an iframe to display it in */}
           {!pin.videos ? null :
             <div style={popup.Divider}>
@@ -151,7 +151,7 @@ function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
  * @param searchInput The current text in the search bar
  * @returns JSX.Element
  */
-export function storiesPins(mapData: DeepStory[], currentFilter: StoryFilter, searchInput: string | undefined) {
+export function storiesPins(mapData: DeepStory[], solarData: any[], currentFilter: StoryFilter, searchInput: string | undefined) {
   if (searchInput) {
     currentFilter = { ...currentFilter, searchInput: searchInput }
   }

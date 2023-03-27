@@ -17,14 +17,18 @@ import { storiesPins } from '@/functions/storiesMap'
 export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Declares array for map items and function to set the array
   const [mapData, setMapData] = useState([])
+  const [solarData, setSolarData] = useState([])
 
   // Fetches all relevant data from API
   const fetchData = async () => {
     if (currentMap === "Stories") {
       const response = await fetch('http://localhost:3000/api/stories')
+      const solarResponse = await fetch('https://stunssolar.azurewebsites.net/api/devices')
       const data = await response.json()
+      const solarData = await solarResponse.json()
       setMapData(data)
-    } 
+      setSolarData(solarData)
+    }
     else if (currentMap === "Recycle") {
       const response = await fetch('http://localhost:3000/api/recycle')
       const data = await response.json()
@@ -35,6 +39,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Runs fetchData function on component mount
   useEffect(() => {
     fetchData()
+    console.log(solarData)
   }, [])
 
   // Declares map bounds
@@ -50,26 +55,28 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {currentMap === "Stories" ? 
-        <MarkerClusterGroup 
-          showCoverageOnHover={false} 
-          maxClusterRadius={((zoom: number) => 
-            {if (zoom > 6 && zoom < 13) {return 40}
-             else if (zoom >= 13) {return 30}
-             else { return 80 }})}> 
-            {storiesPins(mapData, currentFilter, searchInput)} 
-        </MarkerClusterGroup> 
-        : currentMap === "Recycle" ? 
-        <MarkerClusterGroup 
-          disableClusteringAtZoom={13} 
-          showCoverageOnHover={false} 
-          spiderfyOnMaxZoom={false} 
-          maxClusterRadius={((zoom: number) => 
-          {if (zoom > 6 && zoom < 13) {return 40} 
-           else { return 80 }})}>
-          {recyclePins(mapData, currentFilter, searchInput)}
-        </MarkerClusterGroup>
-        : null}
+        {currentMap === "Stories" ?
+          <MarkerClusterGroup
+            showCoverageOnHover={false}
+            maxClusterRadius={((zoom: number) => {
+              if (zoom > 6 && zoom < 13) { return 40 }
+              else if (zoom >= 13) { return 30 }
+              else { return 80 }
+            })}>
+            {storiesPins(mapData, solarData, currentFilter, searchInput)}
+          </MarkerClusterGroup>
+          : currentMap === "Recycle" ?
+            <MarkerClusterGroup
+              disableClusteringAtZoom={13}
+              showCoverageOnHover={false}
+              spiderfyOnMaxZoom={false}
+              maxClusterRadius={((zoom: number) => {
+                if (zoom > 6 && zoom < 13) { return 40 }
+                else { return 80 }
+              })}>
+              {recyclePins(mapData, currentFilter, searchInput)}
+            </MarkerClusterGroup>
+            : null}
       </MapContainer>
     </>
   )
