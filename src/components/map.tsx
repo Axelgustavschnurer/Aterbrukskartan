@@ -22,15 +22,15 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Fetches all relevant data from API
   const fetchData = async () => {
     if (currentMap === "Stories") {
-      const response = await fetch('http://localhost:3000/api/stories')
-      const solarResponse = await fetch('https://stunssolar.azurewebsites.net/api/devices')
+      const response = await fetch('/api/stories')
+      // const solarResponse = await fetch('/api/createStoryFromSolar')
       const data = await response.json()
-      const solarData = await solarResponse.json()
+      // const solarData = await solarResponse.json()
       setMapData(data)
       setSolarData(solarData)
     }
     else if (currentMap === "Recycle") {
-      const response = await fetch('http://localhost:3000/api/recycle')
+      const response = await fetch('/api/recycle')
       const data = await response.json()
       setMapData(data)
     }

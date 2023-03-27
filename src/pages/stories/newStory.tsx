@@ -24,7 +24,7 @@ export default function AddNewStory() {
 
   // Fetches all the data from the database
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/stories')
+    const response = await fetch('/api/stories')
     const data = await response.json()
     setStoriesData(data)
   }
@@ -94,7 +94,7 @@ export default function AddNewStory() {
       };
 
       // Sends a post request to the api with the data from the form
-      let res = await fetch("http://localhost:3000/api/stories", {
+      let res = await fetch("/api/stories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

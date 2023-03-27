@@ -98,11 +98,11 @@ export default function Sidebar({ setFilter, currentMap }: any) {
    */
   const fetchData = async () => {
     if (currentMap === "Stories") {
-      const response = await fetch("http://localhost:3000/api/stories");
+      const response = await fetch("/api/stories");
       const data = await response.json();
       setMapData(data);
     } else if (currentMap === "Recycle") {
-      const response = await fetch("http://localhost:3000/api/recycle");
+      const response = await fetch("/api/recycle");
       const data = await response.json();
       setMapData(data);
     }

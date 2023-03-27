@@ -72,7 +72,7 @@ export default function EditStory() {
 
   // Fetches all data from the database
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/stories')
+    const response = await fetch('/api/stories')
     const data = await response.json()
     setAllStoryData(data)
   }
@@ -84,7 +84,7 @@ export default function EditStory() {
 
   // Fetches the story with a specific id from the database
   const fetchSelectedStoryObject = async (id: any) => {
-    const response = await fetch('http://localhost:3000/api/stories?id=' + id)
+    const response = await fetch('/api/stories?id=' + id)
     const data: DeepStory = await response.json()
     console.log(data)
     setSelectedStoryObject(data)
@@ -137,7 +137,7 @@ export default function EditStory() {
       }
       // Gets the keys of the searchingFor object and returns them as a strin
       // Sends a post request to the api with the data from the form
-      let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
+      let res = await fetch("/api/stories?id=" + project, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -177,7 +177,7 @@ export default function EditStory() {
   const handleDelete = async (e: any) => {
     try {
       // Sends a DELETE request to the api with the data from the form
-      let res = await fetch("http://localhost:3000/api/stories?id=" + project, {
+      let res = await fetch("/api/stories?id=" + project, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

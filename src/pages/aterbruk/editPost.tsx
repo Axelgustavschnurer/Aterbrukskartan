@@ -76,7 +76,7 @@ export default function EditPost() {
 
   /** Fetches all recycle data from the database */
   const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/recycle')
+    const response = await fetch('/api/recycle')
     const data = await response.json()
     setRecycleData(data)
   }
@@ -88,7 +88,7 @@ export default function EditPost() {
 
   /** Fetches the recycle object with a specific id from the database */
   const fetchRecycleObject = async (id: any) => {
-    const response = await fetch('http://localhost:3000/api/recycle?id=' + id)
+    const response = await fetch('/api/recycle?id=' + id)
     const data: DeepRecycle = await response.json()
     console.log(data)
     setSelectedRecycleObject(data)
@@ -146,7 +146,7 @@ export default function EditPost() {
       console.log(data)
 
       // Update the data in the database with a PUT request
-      const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
+      const response = await fetch(('/api/recycle?id=' + project), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -173,7 +173,7 @@ export default function EditPost() {
     e.preventDefault();
     try {
       // Sends a DELETE request to the database to mark the selected project as deleted
-      const response = await fetch(('http://localhost:3000/api/recycle?id=' + project), {
+      const response = await fetch(('/api/recycle?id=' + project), {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
