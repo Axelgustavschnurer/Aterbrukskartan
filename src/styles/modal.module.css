@@ -45,3 +45,9 @@
     margin-top: 40px;
     cursor: pointer;
 }
+
+@media only screen and (orientation: portrait) {
+    .btnContainer {
+        margin: 0 10px 0 10px;
+    }
+}
