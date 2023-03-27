@@ -226,3 +226,9 @@
     }
 
 }
+
+@media only screen and (orientation: portrait) {
+    .search {
+        visibility: hidden;
+    }
+}

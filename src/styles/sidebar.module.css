@@ -435,3 +435,9 @@
 #Ombyggnation {
     background-color: #228B22;
 }
+
+@media only screen and (orientation: portrait) {
+    .sidebar {
+        visibility: hidden;
+    }
+}
