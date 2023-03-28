@@ -7,7 +7,7 @@ import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/newStory.module.css';
 import Image from "next/image";
-import { yearLimitsStories } from "./index";
+import { yearLimitsStories } from "../index";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 

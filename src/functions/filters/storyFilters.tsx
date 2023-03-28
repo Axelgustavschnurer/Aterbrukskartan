@@ -1,5 +1,5 @@
 import { DeepStory, StoryFilter } from "@/types";
-import { yearLimitsStories } from "@/pages/stories";
+import { yearLimitsStories } from "@/pages";
 import { MapItem } from "@prisma/client";
 import { filterByYear, filterByOrganisation } from "./commonFilters";
 

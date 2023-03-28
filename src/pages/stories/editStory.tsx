@@ -12,7 +12,7 @@ import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import { yearLimitsStories } from ".";
+import { yearLimitsStories } from "..";
 
 // FIX: We have used both organisation and organisation in the code. We should stick to one of them.
 

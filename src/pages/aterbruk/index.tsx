@@ -30,6 +30,9 @@ export default function HomePage() {
   const router = useRouter()
 
   const [admin, setAdmin] = useState(false)
+  const [recycle, setRecycle] = useState(false)
+
+  const [isMobile, setIsMobile] = useState(false as boolean)
 
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as RecycleFilter)
@@ -194,79 +197,112 @@ export default function HomePage() {
   // Checks url for admin and sets admin state accordingly
   useEffect(() => {
     window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
+    window.location.toString().includes("demo/supersecreturlmaybechangeinthefuture") ? setRecycle(true) : setRecycle(false)
+  }, [])
+
+  const checkMobile = (setIsMobile: any) => {
+    if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
+      return setIsMobile(true);
+    }
+    else {
+      return setIsMobile(false);
+    }
+  }
+
+  useEffect(() => {
+    checkMobile(setIsMobile);
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener("resize", () => checkMobile(setIsMobile));
+    return () => window.removeEventListener("resize", () => checkMobile(setIsMobile));
   }, [])
 
   return (
     <>
-      <Head>
-        <title>Återbrukskartan</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
-      </Head>
+      {
+        recycle ?
+          <>
+            <Head>
+              <title>Återbrukskartan</title>
+              <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+            </Head>
 
-      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+            <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
 
-      <div className={styles.smallRightContainerOpacity} />
-      <div className={styles.smallRightContainer}>
-        <Tooltip content={"Till\xa0Stuns"} placement="left">
-          <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
-            <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
-          </a>
-        </Tooltip>
-      </div>
+            <div className={styles.smallRightContainerOpacity} />
+            <div className={styles.smallRightContainer}>
+              <Tooltip content={"Till\xa0Stuns"} placement="left">
+                <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
+                  <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+                </a>
+              </Tooltip>
+            </div>
 
-      <div className={styles.totalPProjects}>
-      </div>
+            <div className={styles.totalPProjects}>
+            </div>
 
-      <Sidebar setFilter={setFilter} currentMap="Recycle" />
-      <MobileSidebar setFilter={setFilter} currentMap="Recycle" />
+            {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" />}
 
-      {/* Searchbar */}
-      <div className={styles.wrap}>
-        <div className={styles.search}>
-          <input
-            type="search"
-            className={styles.searchTerm}
-            placeholder="Sök efter projekt..."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-          <div className={styles.searchIcon}>
-            <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
-          </div>
-        </div>
-      </div>
+            {/* Searchbar */}
+            <div className={styles.wrap}>
+              <div className={styles.search}>
+                <input
+                  type="search"
+                  className={styles.searchTerm}
+                  placeholder="Sök efter projekt..."
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+                <div className={styles.searchIcon}>
+                  <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
+                </div>
+              </div>
+            </div>
 
-      {/* Badges showing currently avtive filters, if any */}
-      <div className={styles.filterTextContent}>
-        <div className={styles.filterTextContainer}>
-          {projectTypeLabel()}
-          {yearLabel()}
-          {monthLabel()}
-          {lookingForMaterialsLabel()}
-          {availableMaterialsLabel()}
-          {organisationLabel()}
-        </div>
-      </div>
+            {/* Badges showing currently avtive filters, if any */}
+            <div className={styles.filterTextContent}>
+              <div className={styles.filterTextContainer}>
+                {projectTypeLabel()}
+                {yearLabel()}
+                {monthLabel()}
+                {lookingForMaterialsLabel()}
+                {availableMaterialsLabel()}
+                {organisationLabel()}
+              </div>
+            </div>
 
-      {/* Button leading to another page where one can add projects to the database */}
-      {admin && (
-        <>
-          <div className={styles.addNewPost}>
-            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
-              <button className={styles.addNewPostButton} onClick={goToNewPost}>
-                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
-              </button>
-            </Tooltip>
-          </div>
-          <div className={styles.editPost}>
-            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
-              <button className={styles.editPostButton} onClick={goToEditPost}>
-                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
-              </button>
-            </Tooltip>
-          </div>
-        </>
-      )}
+            {/* Button leading to another page where one can add projects to the database */}
+            {admin && (
+              <>
+                <div className={styles.addNewPost}>
+                  <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+                    <button className={styles.addNewPostButton} onClick={goToNewPost}>
+                      <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+                    </button>
+                  </Tooltip>
+                </div>
+                <div className={styles.editPost}>
+                  <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+                    <button className={styles.editPostButton} onClick={goToEditPost}>
+                      <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+                    </button>
+                  </Tooltip>
+                </div>
+              </>
+            )}
+          </>
+          :
+          <>
+            <Head>
+              <title>404: This page could not be found</title>
+            </Head>
+
+
+          </>
+
+      }
+
     </>
   )
 }
