@@ -35,6 +35,7 @@ export function createCategoryFilter(
     Livsmedel: "carrot",
     Hälsa: "heartbeat",
     "Vatten-och-avlopp": "water",
+    Övrigt: "other",
   };
 
   return (
