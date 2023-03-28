@@ -212,6 +212,24 @@ export function filterIsEnergyStory(data: DeepStory[]) {
 }
 
 /**
+ * Filters out `Story` objects that do not have any associated solar data.
+ * @param data Array of `DeepStory` objects to filter (taken as `any` to avoid type errors as we check for a field that is not normally present in the `Story` object)
+ * @returns `Story` objects that have associated solar data.
+ */
+export function filterIsSolarData(data: any) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    // identity is a field that is only present on solar data stories, created by createStoryFromSolar.ts and used for linking to the solar data.
+    if (!!data[i].identity) {
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
  * Filters through the data parameter using the filters parameter.
  * @param data Array of `DeepStory` objects to run through the filters.
  * @param filters Object containing the filters to apply.
@@ -247,6 +265,9 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   }
   if (filters.energyStory) {
     returnData = filterIsEnergyStory(returnData);
+  }
+  if (filters.solarData) {
+    returnData = filterIsSolarData(returnData);
   }
   if (filters.searchInput) {
     returnData = filterStoriesBySearchInput(returnData, filters.searchInput);

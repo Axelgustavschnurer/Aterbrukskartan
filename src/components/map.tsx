@@ -25,9 +25,9 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
       const response = await fetch('/api/stories')
       const solarResponse = await fetch('/api/createStoryFromSolar')
       const data = await response.json()
-      // const solarData = await solarResponse.json()
+      const solarJSON = await solarResponse.json()
       setMapData(data)
-      // setSolarData(solarResponse)
+      setSolarData(solarJSON)
     }
     else if (currentMap === "Recycle") {
       const response = await fetch('/api/recycle')
@@ -39,7 +39,6 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   // Runs fetchData function on component mount
   useEffect(() => {
     fetchData()
-    // console.log(solarData)
   }, [])
 
   // Declares map bounds
