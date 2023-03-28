@@ -207,7 +207,7 @@
 /* Media queries */
 @media screen and (min-width: 2000px) {
     .wrap {
-        width: 12.5vw;
+        width: 15.5vw;
     }
 }
 
@@ -225,10 +225,4 @@
         transform: rotate(0deg);
     }
 
-}
-
-@media only screen and (orientation: portrait) {
-    .search {
-        visibility: hidden;
-    }
 }

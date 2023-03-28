@@ -226,23 +226,26 @@ export default function HomePage() {
           </a>
         </Tooltip>
       </div>
+
+      {/* Sidebar */}
       {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Stories" /> : <MobileSidebar setFilter={setFilter} currentMap="Stories" />}
 
       {/* Searchbar */}
-      <div className={styles.wrap}>
-        <div className={styles.search}>
-          <input
-            type="search"
-            className={styles.searchTerm}
-            placeholder="Sök efter projekt..."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-          <div className={styles.searchIcon}>
-            <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
+      {!isMobile ?
+        <div className={styles.wrap}>
+          <div className={styles.search}>
+            <input
+              type="search"
+              className={styles.searchTerm}
+              placeholder="Sök efter projekt..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <div className={styles.searchIcon}>
+              <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
+            </div>
           </div>
-        </div>
-      </div>
+        </div> : null}
 
       {/* Labels showing currently avtive filters, if any */}
       <div className={styles.filterTextContent}>

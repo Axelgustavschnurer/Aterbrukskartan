@@ -74,6 +74,12 @@ export const IconPinBlue = new L.Icon({
     iconSize: new L.Point(25, 25),
 });
 
+export const IconPinGray = new L.Icon({
+    iconUrl: ('/images/pins/graypin.svg'),
+    iconRetinaUrl: ('/images/pins/graypin.svg'),
+    iconSize: new L.Point(25, 25),
+});
+
 export const IconPinWhite = new L.Icon({
     iconUrl: ('/images/pins/whitepin.svg'),
     iconRetinaUrl: ('/images/pins/whitepin.svg'),
