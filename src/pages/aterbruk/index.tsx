@@ -197,7 +197,7 @@ export default function HomePage() {
   // Checks url for admin and sets admin state accordingly
   useEffect(() => {
     window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
-    window.location.toString().includes("demo/supersecreturlmaybechangeinthefuture") ? setRecycle(true) : setRecycle(false)
+    window.location.toString().includes("demo&supersecreturlmaybechangeinthefuture") ? setRecycle(true) : setRecycle(false)
   }, [])
 
   const checkMobile = (setIsMobile: any) => {
