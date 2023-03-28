@@ -114,7 +114,7 @@ export function storiesPopup(pin: DeepStory) {
 
 // Arrays of all different color pins and categories in matching order. Used to color pins based on category
 const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPinViolet, pinIcons.IconPinAzure, pinIcons.IconPinGreenBlue, pinIcons.IconPinRed, pinIcons.IconPinYellowGreen, pinIcons.IconPinYellow, pinIcons.IconPinGreen, pinIcons.IconPinOrange, pinIcons.IconPinBlue, pinIcons.IconPinGray];
-const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarhet", "Mobilitet", "Elnät", "Bioteknik och hälsa", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Vatten och avlopp", "Övrigt"]
+const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarhet", "Mobilitet", "Elnät", "Hälsa och bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Vatten och avlopp", "Övrigt"]
 
 /**
  * Function that returns an icon for a pin based on the category of the pin
