@@ -28,7 +28,7 @@ export function createCategoryFilter(
     "Social-hållbarhet": "social",
     Mobilitet: "car",
     Elnät: "powerline",
-    "Bioteknik-och-hälsa": "dna",
+    "Bioteknik-och-hälsa": "heartbeat",
     Miljöteknik: "earth",
     Energilagring: "battery",
     "Agrara-näringar": "leaf",

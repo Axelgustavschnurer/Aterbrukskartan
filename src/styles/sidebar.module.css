@@ -388,6 +388,12 @@
     background-color: #FF0000;
 }
 
+#Bioteknik-och-hälsa img {
+    padding-top: 3px;
+    width: 35px;
+    height: 35px;
+}
+
 #Miljöteknik {
     background-color: #9ACD32;
 }
