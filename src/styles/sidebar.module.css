@@ -267,11 +267,11 @@
 
 @media screen and (min-width: 2000px) {
     .sidebar {
-        width: 12%;
+        width: 15%;
     }
 
     .sidebarClose {
-        left: calc(12% + 10px);
+        left: calc(15% + 10px);
     }
 
     @keyframes moveHideButton {
@@ -331,7 +331,6 @@
     align-items: center;
     width: 80%;
     margin: .5em 0 .5em .5em;
-    padding: .5em;
     text-align: center;
 }
 
@@ -342,7 +341,6 @@
     align-items: center;
     width: 80%;
     margin: .5em 0 .5em .5em;
-    padding: .5em;
     text-align: center;
 }
 
@@ -386,8 +384,8 @@
     background-color: #2AAA8A;
 }
 
-#Bioteknik {
-    background-color: #FF00FF;
+#Bioteknik-och-hälsa {
+    background-color: #FF0000;
 }
 
 #Miljöteknik {
@@ -406,12 +404,12 @@
     background-color: #FF7518;
 }
 
-#Hälsa {
-    background-color: #FF0000;
-}
-
 #Vatten-och-avlopp {
     background-color: #0047AB;
+}
+
+#Övrigt {
+    background-color: #808080;
 }
 
 #Rivning {
@@ -434,10 +432,4 @@
 
 #Ombyggnation {
     background-color: #228B22;
-}
-
-@media only screen and (orientation: portrait) {
-    .sidebar {
-        visibility: hidden;
-    }
 }

@@ -28,13 +28,13 @@ export function createCategoryFilter(
     "Social-hållbarhet": "social",
     Mobilitet: "car",
     Elnät: "powerline",
-    Bioteknik: "dna",
+    "Bioteknik-och-hälsa": "dna",
     Miljöteknik: "earth",
     Energilagring: "battery",
     "Agrara-näringar": "leaf",
     Livsmedel: "carrot",
-    Hälsa: "heartbeat",
     "Vatten-och-avlopp": "water",
+    Övrigt: "other",
   };
 
   return (
