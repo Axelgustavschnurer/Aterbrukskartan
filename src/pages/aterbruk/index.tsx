@@ -58,11 +58,6 @@ export default function HomePage() {
     router.push('/aterbruk/editPost')
   }
 
-  // Function for navigating to the stories map page
-  const handleRedirect = () => {
-    router.push('/stories')
-  }
-
   /**
    * Returns a Badge component from nextui with the currently active project type filters, if any
    * 
@@ -216,12 +211,6 @@ export default function HomePage() {
           <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
             <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
           </a>
-        </Tooltip>
-
-        <Tooltip content={"Till\xa0Huvudsidan"} placement="left">
-          <div className={styles.iconContainer} onClick={handleRedirect}>
-            <Image src="/images/story.svg" alt="Redirect" width={48} height={44} />
-          </div>
         </Tooltip>
       </div>
 

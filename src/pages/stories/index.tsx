@@ -55,16 +55,6 @@ export default function HomePage() {
     router.push('/stories/editStory')
   }
 
-  // Function for navigating to the recycle map page
-  const handleRedirectAter = () => {
-    router.push('/aterbruk')
-  }
-
-  // Function for navigating to the solar map page
-  const handleRedirectSolar = () => {
-    router.push('/solar')
-  }
-
   /**
    * Returns a Badge component from nextui with the currently active category filters, if any
    * 
@@ -213,18 +203,6 @@ export default function HomePage() {
           <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
             <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
           </a>
-        </Tooltip>
-
-        <Tooltip content={"Till\xa0Återbruk"} placement="left">
-          <div className={styles.iconContainerStory} onClick={handleRedirectAter}>
-            <Image src="/images/aterbruk.svg" alt="Redirect" width={48} height={44} />
-          </div>
-        </Tooltip>
-
-        <Tooltip content={"Till\xa0Solpaneler"} placement="left">
-          <div className={styles.iconContainerStory} onClick={handleRedirectSolar}>
-            <Image src="/images/solar.svg" alt="Redirect" width={48} height={44} />
-          </div>
         </Tooltip>
       </div>
 

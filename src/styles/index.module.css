@@ -1,7 +1,7 @@
 /* redirects to different pages */
 .smallRightContainerOpacityStory {
     background-color: #f2f2f2;
-    height: 190px;
+    height: 70px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
 }
 
 .smallRightContainerStory {
-    height: 190px;
+    height: 70px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 
 .smallRightContainerOpacity {
     background-color: #f2f2f2;
-    height: 130px;
+    height: 70px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@
 }
 
 .smallRightContainer {
-    height: 130px;
+    height: 70px;
     width: 70px;
     display: flex;
     flex-direction: column;
