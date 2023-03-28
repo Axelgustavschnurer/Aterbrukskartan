@@ -166,3 +166,13 @@
         left: 15%;
     }
 }
+
+@media only screen and (orientation: portrait) {
+    #hideBtn {
+        visibility: hidden;
+    }
+
+    #openBtn {
+        visibility: hidden;
+    }
+}

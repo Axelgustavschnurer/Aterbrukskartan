@@ -1,6 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/sidebar'
+import MobileSidebar from '@/components/mobileSidebar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
@@ -228,6 +229,7 @@ export default function HomePage() {
       </div>
 
       <Sidebar setFilter={setFilter} currentMap="Stories" />
+      <MobileSidebar setFilter={setFilter} currentMap="Stories" />
 
       {/* Searchbar */}
       <div className={styles.wrap}>
