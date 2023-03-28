@@ -70,7 +70,9 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 }
 
 /**
- * Filters out `Story` objects without any of the selected categories.
+ * Filters away `Story` objects without any of the selected categories.
+ * 
+ * If the category "Övrigt" is included in the `categories` parameter, all `Story` objects without a category will also be returned.
  * @param data Array of `DeepStory` objects to filter.
  * @param categories Array of strings containing categories to filter by.
  * @returns `Story` objects that have at least one of the selected categories.
@@ -85,7 +87,12 @@ export function filterByCategories(data: DeepStory[], categories: string[]) {
   }
 
   for (let i in data) {
-    if (!data[i].categorySwedish) continue;
+    if (!data[i].categorySwedish) {
+      if (lowerCaseCategories.includes("övrigt")) {
+        returnData.push(data[i]);
+      }
+      continue;
+    }
     for (let j = 0; j < data[i].categorySwedish!?.split(",").length; j++) {
       if (lowerCaseCategories.includes(data[i].categorySwedish!?.split(",")[j].trim().toLowerCase())) {
         returnData.push(data[i]);
