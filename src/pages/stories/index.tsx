@@ -37,6 +37,9 @@ export default function HomePage() {
   // State for configuring the max amount of items in a category that can be selected before the label is compacted
   const maxCategoryAmount = React.useMemo(() => 2, [])
 
+  // State for keeping track of the current window width
+  const [isMobile, setIsMobile] = useState(false as boolean)
+
   // Dynamically imports the map component
   const Map = React.useMemo(() => dynamic(
     () => import('../../components/map'),
@@ -188,6 +191,24 @@ export default function HomePage() {
     window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
   }, [])
 
+  const checkMobile = (setIsMobile: any) => {
+    if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
+      return setIsMobile(true);
+    }
+    else {
+      return setIsMobile(false);
+    }
+  }
+
+  useEffect(() => {
+    checkMobile(setIsMobile);
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener("resize", () => checkMobile(setIsMobile));
+    return () => window.removeEventListener("resize", () => checkMobile(setIsMobile));
+  }, [])
+
   return (
     <>
       <Head>
@@ -205,9 +226,7 @@ export default function HomePage() {
           </a>
         </Tooltip>
       </div>
-
-      <Sidebar setFilter={setFilter} currentMap="Stories" />
-      <MobileSidebar setFilter={setFilter} currentMap="Stories" />
+      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Stories" /> : <MobileSidebar setFilter={setFilter} currentMap="Stories" />}
 
       {/* Searchbar */}
       <div className={styles.wrap}>
