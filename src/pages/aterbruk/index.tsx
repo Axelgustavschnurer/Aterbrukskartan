@@ -10,6 +10,7 @@ import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import { Tooltip } from '@nextui-org/react'
 import { Badge } from '@nextui-org/react'
+import NotFound from '@/errors/404'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -297,8 +298,7 @@ export default function HomePage() {
             <Head>
               <title>404: This page could not be found</title>
             </Head>
-
-
+            <NotFound />
           </>
 
       }
