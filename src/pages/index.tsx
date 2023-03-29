@@ -186,10 +186,17 @@ export default function HomePage() {
     }
   }
 
-  // Checks url for admin and sets admin state accordingly
+  // Checks the URL for queries and sets access accordingly
   useEffect(() => {
-    window.location.toString().includes("admin") ? setAdmin(true) : setAdmin(false)
-  }, [])
+    // The query is the part of the url after the question mark. It is case sensitive.
+    // For example, if the url is "www.example.com?test=abc", the query is "test=abc", with the key being "test" and the value being "abc".
+    // In order to have multiple queries, they are separated by an ampersand (&).
+    // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
+    let query = router.query
+
+    // A URL passing this check looks like "www.example.com?admin=yesforreal"
+    query["admin"] === "yesforreal" ? setAdmin(true) : setAdmin(false)
+  }, [router.query])
 
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
