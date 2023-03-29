@@ -90,7 +90,7 @@ export default function HomePage() {
       path += `${key}=${value}&`
     }
 
-    router.push('/aterbruk/editPost')
+    router.push(path)
   }
 
   /**

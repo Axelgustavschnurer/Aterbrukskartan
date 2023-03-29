@@ -51,11 +51,37 @@ export default function HomePage() {
 
   // Function for navigating to the new post page
   const goToNewStory = () => {
-    router.push('/stories/newStory')
+    // Base path for the new story page
+    let path = '/stories/newStory'
+
+    // Adds a ? to the path if there are any queries
+    if (Object.entries(router.query).length) {
+      path += '?'
+    }
+
+    // Adds all queries to the path, if any
+    for (const [key, value] of Object.entries(router.query)) {
+      path += `${key}=${value}&`
+    }
+
+    router.push(path)
   }
 
   const goToEditStory = () => {
-    router.push('/stories/editStory')
+    // Base path for the edit story page
+    let path = '/stories/editStory'
+
+    // Adds a ? to the path if there are any queries
+    if (Object.entries(router.query).length) {
+      path += '?'
+    }
+
+    // Adds all queries to the path, if any
+    for (const [key, value] of Object.entries(router.query)) {
+      path += `${key}=${value}&`
+    }
+
+    router.push(path)
   }
 
   /**
