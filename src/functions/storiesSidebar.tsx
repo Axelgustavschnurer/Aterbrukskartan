@@ -232,9 +232,9 @@ export function createMobileCategories(
   setDisableReset: any
 ) {
   let categories = [
-    "Bygg-och-anläggning",
-    "Grön-energi",
-    "Social-hållbarhet",
+    "Bygg och anläggning",
+    "Grön energi",
+    "Social hållbarhet",
     "Mobilitet",
     "Elnät",
     "Hälsa-och-bioteknik",
@@ -242,7 +242,7 @@ export function createMobileCategories(
     "Energilagring",
     "Agrara-näringar",
     "Livsmedel",
-    "Vatten-och-avlopp",
+    "Vatten och avlopp",
     "Övrigt",
   ];
   return (
@@ -274,7 +274,7 @@ export function createMobileCategories(
                 }
               }}
             />
-            <label htmlFor={category}>{category.replaceAll("-", " ")}</label>
+            <label htmlFor={category}>{category}</label>
           </div>
         );
       })}
