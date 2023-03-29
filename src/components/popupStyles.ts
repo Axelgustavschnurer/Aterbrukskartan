@@ -119,9 +119,15 @@ const DividerLineOpen = {
     backgroundColor: "crimson"
 }
 
+const DividerLineEP = {
+    width: "45%",
+    height: "3px",
+    backgroundColor: "#F18C00"
+}
+
 const PopupDesc = {
     maxHeight: "200px",
     overflowY: "auto" as any,
 }
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, PopupDesc };
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, DividerLineEP, PopupDesc };

@@ -50,7 +50,7 @@ export function storiesPopup(pin: DeepStory | any) {
           {!pin.videos ? null : <iframe style={{ borderRadius: "10px" }} width="100%" height="auto" src={pin.videos} allowFullScreen />}
 
           {/* If there is a PDF case link but no report link, make a green divider */}
-          {!pin.pdfCase || pin.pdfCase && pin.reports ? null :
+          {!pin.pdfCase || pin.pdfCase || pin.reports ? null :
             <div style={popup.Divider}>
               <div style={popup.DividerLineCase}></div>
               <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
@@ -59,7 +59,7 @@ export function storiesPopup(pin: DeepStory | any) {
           }
 
           {/* If there is an open data link but no PDF case nor report link, make a red divider */}
-          {!pin.openData || pin.openData && pin.reports || pin.openData && pin.pdfCase || pin.openData && pin.reports ? null :
+          {!pin.openData || pin.reports || pin.pdfCase ? null :
             <div style={popup.Divider}>
               <div style={popup.DividerLineOpen}></div>
               <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
@@ -73,6 +73,15 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.DividerLineReport}></div>
               <Image width={25} height={25} src="/images/dividers/infopurple.svg" alt="Delare" />
               <div style={popup.DividerLineReport}></div>
+            </div>
+          }
+
+          {/* If there is an Energiportalen link, make an orange divider */}
+          {!pin.identity ? null :
+            <div style={popup.Divider}>
+              <div style={popup.DividerLineEP}></div>
+              <Image width={25} height={25} src="/images/dividers/sun.svg" alt="Delare" />
+              <div style={popup.DividerLineEP}></div>
             </div>
           }
 
