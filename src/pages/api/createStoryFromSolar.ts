@@ -45,7 +45,7 @@ export default async function handler(
       mapId: parseInt(item.deviceId) + 100000000,
       identity: item.identity,
       categorySwedish: "Grön energi",
-      descriptionSwedish: solarKeyValues["description"],
+      descriptionSwedish: solarKeyValues["description"].replace(/<\/?[^>]+(>|$)/g, " "),
     }
 
     solarStories.push(story)

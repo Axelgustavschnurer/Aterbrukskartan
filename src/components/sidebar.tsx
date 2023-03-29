@@ -91,6 +91,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
     organisation: true,
     storyCategory: true,
     educationalProgram: true,
+    hasSolarData: true,
   } as any);
 
   /**
@@ -414,6 +415,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 !hasReport &&
                 !hasOpenData &&
                 !hasVideo &&
+                !hasSolarData &&
                 yearSliderDefault &&
                 monthSliderDefault
               }
@@ -430,6 +432,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
                 setHasCase(false);
                 setHasOpenData(false);
                 setIsRealStory(false);
+                setHasSolarData(false);
                 setDisableReset({
                   projectType: true,
                   lookingForMaterials: true,
