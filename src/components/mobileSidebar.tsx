@@ -439,7 +439,7 @@ export default function MobileSidebar({ setFilter, currentMap }: any) {
                                 });
 
                                 let checkboxes = document.querySelectorAll(
-                                    "input[type=checkbox]"
+                                    "input[type=checkbox]:not([id=navi-toggle])"
                                 );
                                 checkboxes.forEach((checkbox: any) => {
                                     checkbox.checked = false;
