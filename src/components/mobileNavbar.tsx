@@ -7,12 +7,12 @@ import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { yearLimitsStories } from "@/pages";
 import {
-    createProjectTypeFilter,
+    createMobileProjectTypes,
     createLookingForFilter,
     createAvailableFilter,
 } from "@/functions/recycleSidebar";
 import {
-    createCategoryFilter,
+    createMobileCategories,
     createEducationalFilter,
     createMiscFilter,
 } from "@/functions/storiesSidebar";
@@ -243,16 +243,16 @@ export default function MobileSidebar({ setFilter, currentMap }: any) {
                         ) : null}
                     </div>
                     {/* Buttons for choosing project types to filter by */}
-                    <div className={currentMap === "Stories" ? mobileStyles.filterBtn : mobileStyles.filterBtnRecycle}>
+                    <div className={mobileStyles.form}>
                         {currentMap === "Stories"
-                            ? createCategoryFilter(
+                            ? createMobileCategories(
                                 storyCategory,
                                 setStoryCategory,
                                 disableReset,
                                 setDisableReset
                             )
                             : currentMap === "Recycle"
-                                ? createProjectTypeFilter(
+                                ? createMobileProjectTypes(
                                     projectType,
                                     setProjectType,
                                     disableReset,

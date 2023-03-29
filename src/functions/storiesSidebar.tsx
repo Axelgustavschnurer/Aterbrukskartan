@@ -112,9 +112,16 @@ export function createMiscFilter(
   isRealStory: boolean,
   setIsRealStory: any,
   hasSolarData: boolean,
-  setHasSolarData: any,
+  setHasSolarData: any
 ) {
-  let options = ["Rapport", "Videos", "Cases", "Öppna data", "Story", "Energiportalen"];
+  let options = [
+    "Rapport",
+    "Videos",
+    "Cases",
+    "Öppna data",
+    "Story",
+    "Energiportalen",
+  ];
   return (
     <>
       {/* Creates a checkbox for each item in the `options` array. */}
@@ -137,8 +144,7 @@ export function createMiscFilter(
                   setHasOpenData(e.target.checked);
                 } else if (item === "Story" && isRealStory !== e.target.checked) {
                   setIsRealStory(e.target.checked);
-                }
-                else if (item === "Energiportalen" && hasSolarData !== e.target.checked) {
+                } else if (item === "Energiportalen" &&hasSolarData !== e.target.checked) {
                   setHasSolarData(e.target.checked);
                 }
               }}
@@ -204,6 +210,71 @@ export function createEducationalFilter(
               }}
             />
             <label htmlFor={program}>{program}</label>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+/**
+ * Creates checkboxes for all the categories defined in the array `categories` in this function.
+ * @param storyCategory Array of strings containing the currently active category filters.
+ * @param setStoryCategory Function to set the `storyCategory` state.
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
+ * @returns JSX.Element
+ */ 
+export function createMobileCategories(
+  storyCategory: string[],
+  setStoryCategory: any,
+  disableReset: any,
+  setDisableReset: any
+) {
+  let categories = [
+    "Bygg-och-anläggning",
+    "Grön-energi",
+    "Social-hållbarhet",
+    "Mobilitet",
+    "Elnät",
+    "Hälsa-och-bioteknik",
+    "Miljöteknik",
+    "Energilagring",
+    "Agrara-näringar",
+    "Livsmedel",
+    "Vatten-och-avlopp",
+    "Övrigt",
+  ];
+  return (
+    <>
+      {categories.map((category: any) => {
+        return (
+          <div className={styles.inputGroup} key={category}>
+            <input
+              id={category}
+              name={category}
+              type="checkbox"
+              onChange={(e) => {
+                // If the checkbox is now unchecked and the category is in the storyCategory array, remove it
+                if (storyCategory.includes(e.target.name) && !e.target.checked) {
+                  setStoryCategory(
+                    storyCategory.filter(
+                      (item: any) => item !== e.target.name
+                    )
+                  );
+                  setDisableReset({ ...disableReset, storyCategory: true });
+                }
+                // If the checkbox is now checked and the category is not in the storyCategory array, add it
+                else if (
+                  !storyCategory.includes(e.target.name) &&
+                  e.target.checked
+                ) {
+                  setStoryCategory([...storyCategory, e.target.name]);
+                  setDisableReset({ ...disableReset, storyCategory: false });
+                }
+              }}
+            />
+            <label htmlFor={category}>{category.replaceAll("-", " ")}</label>
           </div>
         );
       })}

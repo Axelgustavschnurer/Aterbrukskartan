@@ -243,3 +243,54 @@ export function createAvailableFilter(
     </>
   );
 }
+
+/**
+ * Creates checkboxes for all the project categories defined in the array `categories` in this function
+ * @param projectType Array of strings containing the currently active project type filters
+ * @param setProjectType Function to set the `projectType` state
+ * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
+ * @param setDisableReset Function to set the `disableReset` state
+ */
+export function createMobileProjectTypes(
+  projectType: string[],
+  setProjectType: any,
+  disableReset: any,
+  setDisableReset: any
+) {
+  let categories = ["Rivning", "Nybyggnation", "Ombyggnation"];
+  return (
+    <>
+    {categories.map((category: any) => {
+      return (
+        <div className={styles.inputGroup} key={category}>
+          <input
+            id={category}
+            name={category}
+            type="checkbox"
+            onChange={(e) => {
+              // If the checkbox is now unchecked and the category is in the projectType array, remove it
+              if (projectType.includes(e.target.name) && !e.target.checked) {
+                setProjectType(
+                  projectType.filter(
+                    (item: any) => item !== e.target.name
+                  )
+                );
+                setDisableReset({ ...disableReset, projectType: true });
+              }
+              // If the checkbox is now checked and the category is not in the projectType array, add it
+              else if (
+                !projectType.includes(e.target.name) &&
+                e.target.checked
+              ) {
+                setProjectType([...projectType, e.target.name]);
+                setDisableReset({ ...disableReset, projectType: false });
+              }
+            }}
+          />
+          <label htmlFor={category}>{category}</label>
+        </div>
+      );
+    })}
+  </>
+  );
+}

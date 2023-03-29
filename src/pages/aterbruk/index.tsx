@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/sidebar'
-import MobileSidebar from '@/components/mobileSidebar'
+import MobileSidebar from '@/components/mobileNavbar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
@@ -303,6 +303,7 @@ export default function HomePage() {
               </div> : null}
 
             {/* Badges showing currently avtive filters, if any */}
+            {!isMobile ?
             <div className={styles.filterTextContent}>
               <div className={styles.filterTextContainer}>
                 {projectTypeLabel()}
@@ -313,6 +314,7 @@ export default function HomePage() {
                 {organisationLabel()}
               </div>
             </div>
+            : null}
 
             {/* Button leading to another page where one can add projects to the database */}
             {admin && (
