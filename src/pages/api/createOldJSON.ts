@@ -50,7 +50,7 @@ export default async function handler(
     const { mapItem, ...story } = item
 
     // Postcodes are stored as numbers (12345) in the database, but they are usually formatted as "123 45" in practice
-    const postcodeString = mapItem.postcode?.toString().substring(0, 3) + " " + mapItem.postcode?.toString().substring(3)
+    const postcodeString = mapItem.postcode ? mapItem.postcode.toString().substring(0, 3) + " " + mapItem.postcode.toString().substring(3) : null
 
     const formattedString = {
       id: mapItem.id.toString(),
@@ -58,7 +58,7 @@ export default async function handler(
       organisation: mapItem.organisation,
       // If the year is null, set it to "Ongoing", as the old format expects a string whereas the new format expects a number or null
       year: mapItem.year?.toString() || "Ongoing",
-      coordinates: `${mapItem.latitude}, ${mapItem.longitude}`,
+      coordinates: mapItem.latitude && mapItem.longitude ? `${mapItem.latitude}, ${mapItem.longitude}` : null,
       address: mapItem.address,
       "postal code": postcodeString,
       city: mapItem.city,

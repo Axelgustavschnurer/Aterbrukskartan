@@ -40,10 +40,10 @@ export function createCsv(data: oldDataFormat[]) {
 
   const csvHeaders = Object.keys(data[0]);
 
-  let csv: string = csvHeaders.join("\u001F") + "\u001E";
+  let csv: string = csvHeaders.join("|") + "\n";
 
   data.forEach((item) => {
-    csv += csvHeaders.map((header) => item[header as keyof oldDataFormat]).join("\u001F") + "\u001E";
+    csv += csvHeaders.map((header) => item[header as keyof oldDataFormat]?.replaceAll("\n", "\\n")).join("|") + "\n";
   });
 
   return csv;
