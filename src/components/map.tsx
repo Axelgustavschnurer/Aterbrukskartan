@@ -59,7 +59,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
             showCoverageOnHover={false}
             maxClusterRadius={((zoom: number) => {
               if (zoom > 6 && zoom < 13) { return 40 }
-              else if (zoom >= 13) { return 30 }
+              else if (zoom >= 13) { return 35 }
               else { return 80 }
             })}>
             {storiesPins(mapData, solarData, currentFilter, searchInput)}
