@@ -24,9 +24,7 @@ export const yearLimitsRecycle = {
 // Array of all months in swedish.
 export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
-/**
- * The main page for the recycle section of the website.
- */
+/** The main page for the recycle section of the website. */
 export default function HomePage() {
   const router = useRouter()
 
