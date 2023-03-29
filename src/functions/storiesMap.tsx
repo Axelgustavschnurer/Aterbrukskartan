@@ -13,7 +13,7 @@ import { Collapse } from '@nextui-org/react'
  * @param pin DeepStory object containing all the information about the pin
  * @returns JSX.Element 
  */
-export function storiesPopup(pin: DeepStory) {
+export function storiesPopup(pin: DeepStory | any) {
   return (
     <Popup className='request-popup'>
       <div>
@@ -104,6 +104,15 @@ export function storiesPopup(pin: DeepStory) {
                   </span>
                 </a>
                 Öppna data
+              </div>}
+            {!pin.identity ? null :
+              <div style={popup.AlignLinks}>
+                <a href={"https://energiportalregionuppsala.se/about?device=" + pin.identity} target="_blank" rel="noreferrer">
+                  <span style={popup.PopupLinkEP}>
+                    <Image width={30} height={30} src="/images/categories/lightbulb.svg" alt="Energiportalen" />
+                  </span>
+                </a>
+                Energiportalen
               </div>}
           </div>
         </div>

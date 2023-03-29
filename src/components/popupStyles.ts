@@ -67,6 +67,19 @@ const PopupLinkOpenData = {
     justifyContent: "center"
 };
 
+const PopupLinkEP = {
+    backgroundColor: "#F18C00",
+    border: "black",
+    borderRadius: "25px",
+    padding: "5px",
+    cursor: "pointer",
+    width: "50px",
+    height: "50px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+};
+
 const Divider = {
     display: "flex",
     flexDirection: "row" as any,
@@ -111,4 +124,4 @@ const PopupDesc = {
     overflowY: "auto" as any,
 }
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, PopupDesc };
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, PopupDesc };
