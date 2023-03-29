@@ -237,7 +237,7 @@ export function createMobileCategories(
     "Social hållbarhet",
     "Mobilitet",
     "Elnät",
-    "Hälsa-och-bioteknik",
+    "Hälsa och bioteknik",
     "Miljöteknik",
     "Energilagring",
     "Agrara näringar",
