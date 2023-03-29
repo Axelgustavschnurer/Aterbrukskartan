@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
  * 
  * It is derived from the structure of the data it currently (as of 2023-03-02) fetches from [here](https://stuns.entryscape.net/rowstore/dataset/6dc2b750-8fd5-4717-9d4e-e92f547c2b38/json).
  */
-type oldDataFormat = {
+export type oldDataFormat = {
   id: string,
   name: string | null,
   organisation: string | null,
@@ -36,9 +36,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{ results: oldDataFormat[] }>
 ) {
-  /**
-   * Returns a list of all the `Story` objects in the database, with the mapItem object included
-   */
+  /** Returns a list of all the `Story` objects in the database, with the mapItem object included */
   const getData = await prisma.story.findMany({
     include: {
       mapItem: true
