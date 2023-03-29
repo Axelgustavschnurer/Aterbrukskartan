@@ -57,12 +57,39 @@ export default function HomePage() {
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  // Function for navigating to the new post page
+  /** Function for navigating to the new post page */
   const goToNewPost = () => {
-    router.push('/aterbruk/newPost')
+    // Base path for the new post page
+    let path = '/aterbruk/newPost'
+
+    // Adds a ? to the path if there are any queries
+    if (Object.entries(router.query).length) {
+      path += '?'
+    }
+
+    // Adds all queries to the path, if any
+    for (const [key, value] of Object.entries(router.query)) {
+      path += `${key}=${value}&`
+    }
+
+    router.push(path)
   }
 
+  /** Function for navigating to the edit post page */
   const goToEditPost = () => {
+    // Base path for the edit post page
+    let path = '/aterbruk/editPost'
+
+    // Adds a ? to the path if there are any queries
+    if (Object.entries(router.query).length) {
+      path += '?'
+    }
+
+    // Adds all queries to the path, if any
+    for (const [key, value] of Object.entries(router.query)) {
+      path += `${key}=${value}&`
+    }
+
     router.push('/aterbruk/editPost')
   }
 
