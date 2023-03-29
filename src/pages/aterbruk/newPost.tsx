@@ -233,7 +233,7 @@ export default function AddNewPost() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
+            <form method="post">
               {/* Organisation selection */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
@@ -398,7 +398,7 @@ export default function AddNewPost() {
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" > Spara</Button >
+                <Button id={styles.save} type="submit" onSubmit={handleSubmit}> Spara</Button >
               </div >
 
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>

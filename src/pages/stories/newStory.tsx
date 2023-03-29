@@ -453,7 +453,7 @@ export default function AddNewStory() {
 
               {/*Submit button section */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onClick={handleSubmit} > Spara</Button >
+                <Button id={styles.save} type="submit" onSubmit={handleSubmit} > Spara</Button >
               </div >
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
