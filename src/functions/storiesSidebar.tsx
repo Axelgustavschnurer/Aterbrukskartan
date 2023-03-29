@@ -240,7 +240,7 @@ export function createMobileCategories(
     "Hälsa-och-bioteknik",
     "Miljöteknik",
     "Energilagring",
-    "Agrara-näringar",
+    "Agrara näringar",
     "Livsmedel",
     "Vatten och avlopp",
     "Övrigt",
