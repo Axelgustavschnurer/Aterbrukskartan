@@ -315,7 +315,7 @@ export default function EditStory() {
   return (
     <>
       <Head>
-        <title>Lägg till story</title>
+        <title>Ändra en story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <div className={styles.header} id={styles.header}>
