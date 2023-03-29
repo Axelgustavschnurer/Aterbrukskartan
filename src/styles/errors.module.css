@@ -4,26 +4,15 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: #000000;
-    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Fira Sans", Avenir, "Helvetica Neue", "Lucida Grande", sans-serif
 }
 
 .darkMode {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
     background-color: #000000;
     color: white;
 }
 
 .lightMode {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
     background-color: #ffffff;
     color: black;
 }
