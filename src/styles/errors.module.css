@@ -8,7 +8,27 @@
     color: white;
 }
 
-.container h1 {
+.darkMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000;
+    color: white;
+}
+
+.lightMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #ffffff;
+    color: black;
+}
+
+.darkMode h1 {
     display: inline-block;
     margin: 0;
     margin-right: 20px;
@@ -20,7 +40,27 @@
     border-right: 1px solid rgba(255, 255, 255, .3);
 }
 
-.container h2 {
+.darkMode h2 {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 49px;
+    margin: 0;
+    padding: 0
+}
+
+.lightMode h1 {
+    display: inline-block;
+    margin: 0;
+    margin-right: 20px;
+    padding: 0 23px 0 0;
+    font-size: 24px;
+    font-weight: 500;
+    vertical-align: top;
+    line-height: 49px;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.lightMode h2 {
     font-size: 14px;
     font-weight: normal;
     line-height: 49px;
