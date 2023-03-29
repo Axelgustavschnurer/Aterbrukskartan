@@ -3,13 +3,13 @@
 }
 
 .button {
-    position: relative;
-    background-color: white;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
+    background-color: #ffffff;
+    height: 70px;
+    width: 70px;
     position: fixed;
-    top: 5px;
+    border-bottom-right-radius: 20px;
+    top: 0;
+    left: 0;
     z-index: 2000;
     text-align: center;
     cursor: pointer;
@@ -18,14 +18,13 @@
 .background {
     height: 4rem;
     width: 4rem;
-    border-radius: 50%;
     position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: #f1f1f1f1;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1dc;
     z-index: 1000;
-
     transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    border-radius: 50%;
 }
 
 .nav {
@@ -40,10 +39,6 @@
     overflow-x: auto;
 }
 
-.item {
-    margin: 1rem;
-    font-size: 36px;
-}
 
 /* functionality */
 .checkbox:checked~.background {
