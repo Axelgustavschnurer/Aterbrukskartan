@@ -158,7 +158,7 @@ export default function EditPost() {
 
       // If the response is successful, the user is redirected to the aterbruk page, else an error is logged
       if (response.status >= 200 && response.status < 300) {
-        router.push('/aterbruk')
+        router.push('/aterbruk' + window.location.search)
       }
       else {
         setMessage(result.message);
@@ -184,7 +184,7 @@ export default function EditPost() {
 
       // If the response is successful, the user is redirected to the aterbruk page else an error is logged
       if (response.status >= 200 && response.status < 300) {
-        router.push('/aterbruk')
+        router.push('/aterbruk' + window.location.search)
       }
       // TODO: Show message from the API if the request fails
     }

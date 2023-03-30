@@ -119,7 +119,7 @@ export default function AddNewStory() {
 
       // If the post was successful, redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        router.push("/stories");
+        router.push("/stories" + window.location.search);
       }
       // If the post was not successful, display the error message
       else {

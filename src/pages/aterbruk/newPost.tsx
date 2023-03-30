@@ -99,7 +99,7 @@ export default function AddNewPost() {
       if (res.status >= 200 && res.status < 300) {
         // If the post was successful, reset the form and redirect to the home page
         console.log(resJson)
-        router.push("/aterbruk");
+        router.push("/aterbruk" + window.location.search);
       } else {
         setMessage(resJson.message);
       }
