@@ -164,7 +164,7 @@ export default function EditStory() {
       console.log(resJson)
       // If the PUT request was successful, reset the form and redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        router.push("/stories" + window.location.search);
+        router.push("/" + window.location.search);
       }
       // If the PUT request was not successful, display the error message
       else {
@@ -192,7 +192,7 @@ export default function EditStory() {
       // TODO: Make the modal disappear after the delete request is done, whether it was successful or not
       // If the DELETE requset was successful, reset the form and redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        router.push("/stories" + window.location.search);
+        router.push("/" + window.location.search);
       }
       // If the DELETE request was not successful, display the error message
       else {
@@ -560,7 +560,7 @@ export default function EditStory() {
             {/* Submit and delete button */}
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onSubmit={handleSubmit}> Spara </Button>
+                <Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button>
               </div>
               <div className={styles.addNewPostFormSubmit}>
                 <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button>
