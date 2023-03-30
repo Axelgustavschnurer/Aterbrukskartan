@@ -119,7 +119,7 @@ export default function AddNewStory() {
 
       // If the post was successful, redirect to the home page
       if (res.status >= 200 && res.status < 300) {
-        router.push("/stories" + window.location.search);
+        router.push("/" + window.location.search);
       }
       // If the post was not successful, display the error message
       else {
@@ -133,7 +133,7 @@ export default function AddNewStory() {
 
   // Redner the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
   const NewPostMap = React.useMemo(() => dynamic(
-    () => import('../../components/newPostMap'),
+    () => import('@/components/newPostMap'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
@@ -453,7 +453,7 @@ export default function AddNewStory() {
 
               {/*Submit button section */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onSubmit={handleSubmit} > Spara</Button >
+                <Button id={styles.save} type="submit" onClick={handleSubmit} > Spara</Button >
               </div >
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
