@@ -11,6 +11,7 @@ import styles from '@/styles/index.module.css'
 import { Tooltip } from '@nextui-org/react'
 import { Badge } from '@nextui-org/react'
 import NotFound from '@/errors/404'
+import { websiteKeys } from '@/keys'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -57,38 +58,14 @@ export default function HomePage() {
 
   /** Function for navigating to the new post page */
   const goToNewPost = () => {
-    // Base path for the new post page
-    let path = '/aterbruk/newPost'
-
-    // Adds a ? to the path if there are any queries
-    if (Object.entries(router.query).length) {
-      path += '?'
-    }
-
-    // Adds all queries to the path, if any
-    for (const [key, value] of Object.entries(router.query)) {
-      path += `${key}=${value}&`
-    }
-
-    router.push(path)
+    router.push("/aterbruk/newPost" + window.location.search)
+    // useRouteHandler("/aterbruk/newPost")
   }
 
   /** Function for navigating to the edit post page */
   const goToEditPost = () => {
-    // Base path for the edit post page
-    let path = '/aterbruk/editPost'
-
-    // Adds a ? to the path if there are any queries
-    if (Object.entries(router.query).length) {
-      path += '?'
-    }
-
-    // Adds all queries to the path, if any
-    for (const [key, value] of Object.entries(router.query)) {
-      path += `${key}=${value}&`
-    }
-
-    router.push(path)
+    router.push("/aterbruk/editPost" + window.location.search)
+    // useRouteHandler("/aterbruk/editPost")
   }
 
   /**
@@ -233,10 +210,10 @@ export default function HomePage() {
     let query = router.query
 
     // A URL passing this check looks like "www.example.com?admin=yesforreal"
-    query["admin"] === "yesforreal" ? setAdmin(true) : setAdmin(false)
+    query["admin"] === websiteKeys["admin"] ? setAdmin(true) : setAdmin(false)
 
     // A URL passing this check looks like "www.example.com?demoKey=supersecreturlmaybechangeinthefuture"
-    query["demoKey"] === "supersecreturlmaybechangeinthefuture" ? setRecycle(true) : setRecycle(false)
+    query["demoKey"] === websiteKeys["demoKey"] ? setRecycle(true) : setRecycle(false)
   }, [router.query])
 
   const checkMobile = (setIsMobile: any) => {
