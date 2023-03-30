@@ -10,6 +10,7 @@ import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Footer from '@/components/footer'
 import { Tooltip, Badge } from '@nextui-org/react'
+import { websiteKeys } from '@/keys'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -195,7 +196,7 @@ export default function HomePage() {
     let query = router.query
 
     // A URL passing this check looks like "www.example.com?admin=yesforreal"
-    query["admin"] === "yesforreal" ? setAdmin(true) : setAdmin(false)
+    query["admin"] === websiteKeys["admin"] ? setAdmin(true) : setAdmin(false)
   }, [router.query])
 
   const checkMobile = (setIsMobile: any) => {
