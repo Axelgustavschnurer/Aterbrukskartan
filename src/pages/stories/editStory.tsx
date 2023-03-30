@@ -13,6 +13,7 @@ import { educationalPrograms } from "./newStory";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
+import { storyCategories } from "@/functions/storiesSidebar";
 
 // FIX: We have used both organisation and organisation in the code. We should stick to one of them.
 
@@ -82,7 +83,7 @@ export default function EditStory() {
     fetchData()
   }, [])
 
-  // Fetches the story with a specific id from the database
+  /** Fetches the story with a specific id from the database */
   const fetchSelectedStoryObject = async (id: any) => {
     const response = await fetch('/api/stories?id=' + id)
     const data: DeepStory = await response.json()
@@ -120,6 +121,7 @@ export default function EditStory() {
     setEnergyStory(selectedStoryObject.isEnergyStory as any)
   }, [selectedStoryObject])
 
+  /** Handles the submission of the form */
   const handleSubmit = async (e: any) => {
     // Checks if the form is filled out correctly
     try {
@@ -174,6 +176,7 @@ export default function EditStory() {
     }
   }
 
+  /** Handles delete requests */
   const handleDelete = async (e: any) => {
     try {
       // Sends a DELETE request to the api with the data from the form
@@ -201,13 +204,13 @@ export default function EditStory() {
     }
   }
 
-  // Make the modal visible or invisible depening on the previous state
+  /** Make the modal visible or invisible depening on the previous state */
   const handleDeleteModalOnclick = () => {
     setModalState(!modalState)
   }
 
 
-  // Redner the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
+  // Render the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
@@ -216,7 +219,7 @@ export default function EditStory() {
     }
   ), [])
 
-  // Gets all the organisations from the database and returns them as options in a select element
+  /** Gets all the organisations from the database and returns them as options in a select element */
   const organisationOptions = () => {
     let mappedData = allStoryData.map((pin: any) => pin.mapItem?.organisation)
     let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()
@@ -232,7 +235,7 @@ export default function EditStory() {
     )
   }
 
-  // Gets all the projects from the database and returns them as options in a select element
+  /** Gets all the projects from the database and returns them as options in a select element */
   const getProject = () => {
     let mappedData = allStoryData.map((pin: any) => pin)
     return (
@@ -246,25 +249,17 @@ export default function EditStory() {
     )
   }
 
-  // Gets all the categories from the database and returns them as checkboxes
+  /** Gets all the categories from the list in storiesSidebar and returns them as an array */
   const getAllCategories = () => {
-    let unsplitMaterials: string[] = [];
-    allStoryData.map((pin: any) => {
-      if (pin.categorySwedish) {
-        unsplitMaterials.push(pin.categorySwedish)
-      }
-    })
+    let categories = Object.keys(storyCategories)
 
-    let splitMaterials: string[] = [];
-    unsplitMaterials.map((category: any) => {
-      splitMaterials.push(...category.split(", ").map((item: any) => setFirstLetterCapital(item.trim().toLowerCase())))
-    })
-    let filteredCategories = splitMaterials.filter((data: any, index: any) => splitMaterials.indexOf(data) === index && data).sort()
+    // Sets the first letter of each category to uppercase and all other letters to lowercase, and replaces all dashes with spaces
+    categories = categories.map((category: any) => setFirstLetterCapital(category.trim().toLowerCase().replaceAll("-", " ")))
 
-    return filteredCategories
+    return categories
   }
 
-  // Gets all the categories from the 'getAllCategories' and returns them as checkboxes
+  /** Gets categories from 'getAllCategories' and returns them as checkboxes */
   const getFilterdCategories = () => {
     let categories = getAllCategories();
     return (
@@ -296,7 +291,7 @@ export default function EditStory() {
     )
   }
 
-  // Gets all the educational programs from 'educationalPrograms' imported from newStory and returns them as options in a select element
+  /** Gets all the educational programs from 'educationalPrograms' imported from newStory and returns them as options in a select element */
   const getEducationalPrograms = () => {
     let programs = educationalPrograms;
     return (

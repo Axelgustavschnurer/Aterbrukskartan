@@ -10,6 +10,7 @@ import Image from "next/image";
 import { yearLimitsStories } from "../index";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+import { storyCategories } from "@/functions/storiesSidebar";
 
 /** Array containing all the allowed educational programs */
 export const educationalPrograms: string[] = [
@@ -77,7 +78,7 @@ export default function AddNewStory() {
   const [message, setMessage] = useState("");
 
 
-  // Handles the submit of the form
+  /** Handles the submit of the form */
   const handleSubmit = async (e: any) => {
     try {
       // TODO: implement address, postcode and city
@@ -131,7 +132,7 @@ export default function AddNewStory() {
     }
   }
 
-  // Redner the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
+  // Render the newPostMap component, but only on the client side. Otherwise the website gets an hydration error
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('@/components/newPostMap'),
     {
@@ -140,7 +141,7 @@ export default function AddNewStory() {
     }
   ), [])
 
-  // Gets all the organisations from the database and returns them as options in a select element
+  /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {
     let organisations = storiesData.map((pin: any) => pin.mapItem.organisation)
     let filteredOrganisations = organisations.filter((org: any, index: any) => organisations.indexOf(org) === index && !!org).sort()
@@ -155,28 +156,17 @@ export default function AddNewStory() {
     )
   }
 
-  // Gets all the categories from the database and returns them as checkboxes
+  /** Gets all the categories from the list in storiesSidebar and returns them as an array */
   const getAllCategories = () => {
-    let unsplitCategories: string[] = [];
-    storiesData.map((pin: any) => {
-      if (pin.categorySwedish) {
-        unsplitCategories.push(pin.categorySwedish)
-      }
-    })
+    let categories = Object.keys(storyCategories)
 
-    let splitCategories: string[] = [];
-    unsplitCategories.map((category: any) => {
-      // Adds the splited categories to the splitCategories array and sets it to lowercase with the first letter capital
-      splitCategories.push(...category.split(", ").map((item: any) => setFirstLetterCapital(item.trim().toLowerCase())))
-    })
+    // Sets the first letter of each category to uppercase and all other letters to lowercase, and replaces all dashes with spaces
+    categories = categories.map((category: any) => setFirstLetterCapital(category.trim().toLowerCase().replaceAll("-", " ")))
 
-    // Removes duplicates and sorts the array
-    let filteredCategories = splitCategories.filter((data: any, index: any) => splitCategories.indexOf(data) === index && data).sort()
-
-    return filteredCategories
+    return categories
   }
 
-  // Gets all the categories from the 'getAllCatagories' function and returns them as checkboxes
+  /** Gets all the categories from the 'getAllCatagories' function and returns them as checkboxes */
   const getFilterdCategories = () => {
     let categories = getAllCategories();
     return (

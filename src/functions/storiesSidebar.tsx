@@ -5,6 +5,24 @@ import { educationalPrograms } from "@/pages/stories/newStory";
 import { Button } from "@nextui-org/react";
 
 /**
+ * Contains all the allowed categories for stories (not including "Övrigt", as it's not a real category),
+ * and the names of the corresponding images in the /images/categories folder.
+ */
+export const storyCategories = {
+  "Bygg-och-anläggning": "building",
+  "Grön-energi": "solar",
+  "Social-hållbarhet": "social",
+  Mobilitet: "car",
+  Elnät: "powerline",
+  "Hälsa-och-bioteknik": "heartbeat",
+  Miljöteknik: "earth",
+  Energilagring: "battery",
+  "Agrara-näringar": "leaf",
+  Livsmedel: "carrot",
+  "Vatten-och-avlopp": "water",
+};
+
+/**
  * Creates buttons for all the categories defined in the object `categories` in this function.
  *
  * The `categories` object also contains a mapping from category name to image name.
@@ -22,20 +40,7 @@ export function createCategoryFilter(
   setDisableReset: any
 ) {
   // Object containing all the categories and their corresponding image names
-  let categories = {
-    "Bygg-och-anläggning": "building",
-    "Grön-energi": "solar",
-    "Social-hållbarhet": "social",
-    Mobilitet: "car",
-    Elnät: "powerline",
-    "Hälsa-och-bioteknik": "heartbeat",
-    Miljöteknik: "earth",
-    Energilagring: "battery",
-    "Agrara-näringar": "leaf",
-    Livsmedel: "carrot",
-    "Vatten-och-avlopp": "water",
-    Övrigt: "other",
-  };
+  let categories = {...storyCategories, Övrigt: "other"};
 
   return (
     <>
@@ -144,7 +149,7 @@ export function createMiscFilter(
                   setHasOpenData(e.target.checked);
                 } else if (item === "Story" && isRealStory !== e.target.checked) {
                   setIsRealStory(e.target.checked);
-                } else if (item === "Energiportalen" &&hasSolarData !== e.target.checked) {
+                } else if (item === "Energiportalen" && hasSolarData !== e.target.checked) {
                   setHasSolarData(e.target.checked);
                 }
               }}
@@ -224,27 +229,15 @@ export function createEducationalFilter(
  * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
  * @param setDisableReset Function to set the `disableReset` state
  * @returns JSX.Element
- */ 
+ */
 export function createMobileCategories(
   storyCategory: string[],
   setStoryCategory: any,
   disableReset: any,
   setDisableReset: any
 ) {
-  let categories = [
-    "Bygg och anläggning",
-    "Grön energi",
-    "Social hållbarhet",
-    "Mobilitet",
-    "Elnät",
-    "Hälsa och bioteknik",
-    "Miljöteknik",
-    "Energilagring",
-    "Agrara näringar",
-    "Livsmedel",
-    "Vatten och avlopp",
-    "Övrigt",
-  ];
+  let categories = [...Object.keys(storyCategories), "Övrigt"];
+
   return (
     <>
       {categories.map((category: any) => {
@@ -252,7 +245,7 @@ export function createMobileCategories(
           <div className={styles.inputGroup} key={category}>
             <input
               id={category}
-              name={category}
+              name={category.replaceAll("-", " ")}
               type="checkbox"
               onChange={(e) => {
                 // If the checkbox is now unchecked and the category is in the storyCategory array, remove it
@@ -274,7 +267,7 @@ export function createMobileCategories(
                 }
               }}
             />
-            <label htmlFor={category}>{category}</label>
+            <label htmlFor={category}>{category.replaceAll("-", " ")}</label>
           </div>
         );
       })}
