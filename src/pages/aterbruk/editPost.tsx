@@ -60,6 +60,7 @@ export default function EditPost() {
 
   // Form data
   const [organisation, setOrganisation] = useState("");
+  const [newOrganisation, setNewOrganisation] = useState("");
   const [startYear, setStartYear] = useState(undefined as string | undefined);
   const [startMonth, setStartMonth] = useState("");
   const [projectType, setProjectType] = useState("");
@@ -332,7 +333,7 @@ export default function EditPost() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
           <div className={styles.addNewPostForm}>
-            <form method="put" onSubmit={handleSubmit}>
+            <form method="put">
               <div className={styles.addNewPostFormSelect}>
                 <h3>Välj projekt</h3>
                 <select
@@ -355,8 +356,24 @@ export default function EditPost() {
                   onChange={(e) => setOrganisation(e.target.value)}
                 >
                   {organisationOptions()}
+                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
+
+              {organisation === "addOrganisation" && (
+                <div className={styles.addNewPostFormInput}>
+                  <h3>Ny organisation</h3>
+                  <input
+                    type="text"
+                    key="newOrganisation"
+                    id="newOrganisation"
+                    name="newOrganisation"
+                    value={newOrganisation}
+                    onChange={(e) => setNewOrganisation(e.target.value)}
+                  />
+                </div>
+              )
+              }
 
               <div className={styles.startYear}>
                 <h3>Startår</h3>
