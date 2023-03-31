@@ -66,7 +66,6 @@ export default function AddNewPost() {
   }, [])
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
     try {
       // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
@@ -398,7 +397,7 @@ export default function AddNewPost() {
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onSubmit={handleSubmit}> Spara</Button >
+                <Button id={styles.save} type="submit" onPress={handleSubmit}> Spara</Button >
               </div >
 
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
