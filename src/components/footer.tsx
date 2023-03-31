@@ -37,6 +37,11 @@ export default function Footer() {
                                     Dataportalen - Stories
                                 </a>
                             </div >
+                            <div className={styles.footerLink}>
+                                <a href="https://www.dataportal.se/en/datasets/763_1492/solar-power-production-region-uppsala-solar-power-plants-1-minute-resolution#ref=?p=1&q=stuns%20&s=2&t=20&f=&rt=dataset%24esterms_IndependentDataService%24esterms_ServedByDataService" target="_blank" rel="noreferrer">
+                                    Dataportalen - Solceller
+                                </a>
+                            </div >
                         </div >
                         <div className={styles.footerRow}>
                             <div className={styles.footerHeader}>STUNS</div>
@@ -46,8 +51,13 @@ export default function Footer() {
                                 </a>
                             </div >
                             <div className={styles.footerLink}>
+                                <a href="https://energi.stuns.se/" target="_blank" rel="noreferrer">
+                                    Stuns Energi
+                                </a>
+                            </div >
+                            <div className={styles.footerLink}>
                                 <a href="https://learning.stuns.se/" target="_blank" rel="noreferrer">
-                                    Stuns - Stories
+                                    Stuns Stories
                                 </a>
                             </div >
                         </div >

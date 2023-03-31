@@ -6,7 +6,7 @@
     justify-content: center;
     position: fixed;
     left: 0;
-    bottom: 100px;
+    bottom: 140px;
     animation: moveOpenButton 0.2s;
     z-index: 100;
 }
@@ -75,7 +75,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 140px;
     background-color: #f1f1f1;
     color: black;
     text-align: center;
