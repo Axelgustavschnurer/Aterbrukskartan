@@ -157,6 +157,7 @@ function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
   // Loop through all categories in the pin and return the first matching category
   for (let i in categoryArray) {
     if (pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
+      return iconArray[i]
     }
   }
   // If the pin has no matching category, return the default white pin
