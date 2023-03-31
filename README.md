@@ -7,6 +7,7 @@ The idea is that companies enter some project information, like when and where t
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+___
 ## Getting Started
 
 First, install dependencies:
@@ -45,7 +46,7 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the aterbrukskartan site.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the site.
 
 To view the database, run the following command:
 
@@ -53,14 +54,25 @@ To view the database, run the following command:
 npx prisma studio
 ```
 
-Then open [http://localhost:5555](http://localhost:5555) with your browser to see the database.
+Then open [http://localhost:5555](http://localhost:5555) with your browser to see the database. 
 
+___
+## Important links
+- [http://localhost:3000](http://localhost:3000) - Story website.
+- [http://localhost:3000/?admin=yesforreal](http://localhost:3000http://localhost:3000/?admin=yesforreal) - Admin page for stories
+- [http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan 
+- [http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
+
+### Good to know
+To change the keys in the url if necessary, change the values in `src/keys.ts`. 
+___
 ## API Routes
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+___
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -69,9 +81,12 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
+___
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+___
+## Whats next?
+- 
