@@ -138,7 +138,7 @@ export default function EditPost() {
         externalLinks: !!externalLinks ? externalLinks : null,
         mapItem: {
           // TODO: Allow these to be null if the user removes them
-          organisation: !!organisation ? organisation : null,
+          organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganisation ? newOrganisation : null,
           year: !!startYear ? parseInt(startYear) : null,
           latitude: !!lat ? parseFloat(lat) : null,
           longitude: !!lon ? parseFloat(lon) : null,
