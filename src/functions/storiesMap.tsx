@@ -7,6 +7,7 @@ import * as popup from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Collapse } from '@nextui-org/react'
+import { log } from 'console'
 
 /**
  * Creates a popup for the passed pin
@@ -145,17 +146,17 @@ const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarh
  * @returns Matching color icon for the pin's category or the default white pin
  */
 function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
-  // TODO Make it so pins are colored based on the first category in the filter *that matches with the pin*
-  // Changes color of all displayed pins to match with the first category in the current filter, if any
+  // Changes color of all displayed pins to match with the first matching category in the current filter, if any
   for (let i in categoryArray) {
-    if (currentFilter.categories && currentFilter.categories[0]?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
-      return iconArray[i]
+    for (let j in currentFilter.categories) {
+      if (currentFilter.categories && String(currentFilter.categories[j as keyof typeof currentFilter.categories])?.toLowerCase().includes(categoryArray[i].toLowerCase()) && pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
+        return iconArray[i]
+      }
     }
   }
   // Loop through all categories in the pin and return the first matching category
   for (let i in categoryArray) {
     if (pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
-      return iconArray[i]
     }
   }
   // If the pin has no matching category, return the default white pin
