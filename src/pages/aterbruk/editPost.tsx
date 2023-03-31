@@ -349,8 +349,8 @@ export default function EditPost() {
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
                 <select
-                  id="organization"
-                  name="organization"
+                  id="organisation"
+                  name="organisation"
                   value={organisation ?? ''}
                   onChange={(e) => setOrganisation(e.target.value)}
                 >

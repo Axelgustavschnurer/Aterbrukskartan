@@ -21,17 +21,17 @@ export function downloadCsv(csv: string, filename: string) {
 }
 
 /**
- * Creates a csv string from the given data
+ * Creates a csv string from the given data, with the same format as the old one
  * @param data Array of objects to convert to csv
  * @returns A csv-format string
  */
 export function createCsv(data: oldDataFormat[]) {
   const csvHeaders = Object.keys(data[0]);
 
-  let csv: string = csvHeaders.join("|") + "\n";
+  let csv: string = csvHeaders.join(",") + "\n";
 
   data.forEach((item) => {
-    csv += csvHeaders.map((header) => item[header as keyof oldDataFormat]?.replaceAll("\n", "\\n")).join("|") + "\n";
+    csv += csvHeaders.map((header) => !!item[header as keyof oldDataFormat] ? '"' + item[header as keyof oldDataFormat]?.replaceAll('"', '""') + '"' : null).join(",") + "\n";
   });
 
   return csv;
