@@ -68,13 +68,13 @@ export default function AddNewPost() {
   const handleSubmit = async (e: any) => {
     try{e.preventDefault();}
     catch{}
-    
+
     try {
       // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,
         longitude: lon ? parseFloat(lon) : null,
-        organisation: !!organization ? organization : !!newOrganization ? newOrganization : null,
+        organisation: !!organization && organization != "addOrganisation" ? organization : !!newOrganization ? newOrganization : null,
         year: parseInt(projectStartYear),
       }
 
