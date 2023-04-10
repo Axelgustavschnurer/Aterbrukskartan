@@ -49,7 +49,7 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
                     {/*Result of the search */}
                     <div id={styles.results}>
                         {results.length > 0 ? (
-                            results.map((result) => (
+                            results.map((result: any) => (
                                 <div
                                     key={result.place_id}
                                     className="address"

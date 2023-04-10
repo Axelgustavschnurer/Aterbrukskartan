@@ -66,6 +66,9 @@ export default function AddNewPost() {
   }, [])
 
   const handleSubmit = async (e: any) => {
+    try{e.preventDefault();}
+    catch{}
+    
     try {
       // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
@@ -75,13 +78,15 @@ export default function AddNewPost() {
         year: parseInt(projectStartYear),
       }
 
-      // Sends a post request to the api with the data from the form
-      let res = await fetch("/api/recycle", {
-        method: "POST",
+      let res = {status: 0};
+      let resJson = {message: "No message"};
+
+      await fetch(window.location.origin + '/api/recycle', {
+        method: 'POST',
+        mode: 'same-origin',
         headers: {
           "Content-Type": "application/json",
         },
-        // What is being sent to the api, which is then saved to the database
         body: JSON.stringify({
           projectType,
           mapItem,
@@ -92,9 +97,19 @@ export default function AddNewPost() {
           contact,
           externalLinks
         }),
-      });
+      }).then(
+        async (response) => {
+          res = response
+          resJson = await response.json()
+        }
+      ).catch((error) => {
+        console.log(res)
+        console.log(resJson)
+        console.log(error)
+      })
 
-      let resJson = await res.json();
+      console.log(res);
+
       if (res.status >= 200 && res.status < 300) {
         // If the post was successful, reset the form and redirect to the home page
         console.log(resJson)
@@ -232,7 +247,7 @@ export default function AddNewPost() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post">
+            <form method="post" onSubmit={handleSubmit}>
               {/* Organisation selection */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
