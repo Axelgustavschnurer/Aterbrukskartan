@@ -175,7 +175,10 @@ export default function EditPost() {
   }
 
   const handleDelete = async (e: any) => {
-    e.preventDefault();
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
+    try{e.preventDefault()}
+    catch{}
+    
     try {
       // Sends a DELETE request to the database to mark the selected project as deleted
       const response = await fetch(('/api/recycle?id=' + project), {

@@ -182,6 +182,10 @@ export default function EditStory() {
 
   /** Handles delete requests */
   const handleDelete = async (e: any) => {
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
+    try{e.preventDefault()}
+    catch{}
+
     try {
       // Sends a DELETE request to the api with the data from the form
       let res = await fetch("/api/stories?id=" + project, {
