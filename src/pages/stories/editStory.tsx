@@ -123,6 +123,10 @@ export default function EditStory() {
 
   /** Handles the submission of the form */
   const handleSubmit = async (e: any) => {
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
+    try{e.preventDefault()}
+    catch{}
+
     // Checks if the form is filled out correctly
     try {
       // TODO: implement address, postcode and city
@@ -320,7 +324,7 @@ export default function EditStory() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Redigera en story</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post">
+            <form method="post" onSubmit={handleSubmit}>
 
               {/* Choose project section */}
               <div className={styles.addNewPostFormSelect}>

@@ -126,6 +126,10 @@ export default function EditPost() {
 
   /** Handles the submit event */
   const handleSubmit = async (e: any) => {
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
+    try{e.preventDefault()}
+    catch{}
+
     try {
       /** The data that is sent to the database */
       const data = {
@@ -333,7 +337,7 @@ export default function EditPost() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Redigera ett inlägg</h1>
           <div className={styles.addNewPostForm}>
-            <form method="put">
+            <form method="put" onSubmit={handleSubmit}>
               <div className={styles.addNewPostFormSelect}>
                 <h3>Välj projekt</h3>
                 <select

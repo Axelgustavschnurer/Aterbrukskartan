@@ -80,6 +80,7 @@ export default function AddNewStory() {
 
   /** Handles the submit of the form */
   const handleSubmit = async (e: any) => {
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
     try{e.preventDefault()}
     catch{}
 
@@ -123,6 +124,7 @@ export default function AddNewStory() {
 
       // If the post was successful, redirect to the home page
       if (res.status >= 200 && res.status < 300) {
+        console.log(resJson)
         router.push("/" + window.location.search);
       }
       // If the post was not successful, display the error message

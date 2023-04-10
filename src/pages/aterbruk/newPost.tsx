@@ -66,6 +66,7 @@ export default function AddNewPost() {
   }, [])
 
   const handleSubmit = async (e: any) => {
+    // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
     try{e.preventDefault();}
     catch{}
 
