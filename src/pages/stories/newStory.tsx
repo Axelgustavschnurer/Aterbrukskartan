@@ -80,6 +80,9 @@ export default function AddNewStory() {
 
   /** Handles the submit of the form */
   const handleSubmit = async (e: any) => {
+    try{e.preventDefault()}
+    catch{}
+
     try {
       // TODO: implement address, postcode and city
       // Sets the content of the mapItem object
@@ -224,7 +227,7 @@ export default function AddNewStory() {
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Lägg till en ny story</h1>
           <div className={styles.addNewPostForm}>
-            <form method="post">
+            <form method="post" onSubmit={handleSubmit}>
               {/*Oraganisation section */}
               <div className={styles.addNewPostFormSelect}>
                 <h3>Organisation *</h3>
