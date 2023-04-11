@@ -165,6 +165,7 @@ export default function EditStory() {
           educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
+          reportSite: !!dataPortal ? dataPortal : null,
           reportTitle: !!reportTitle ? reportTitle : null,
           videos: !!videos ? videos : null,
           openData: !!openData ? openData : null,
