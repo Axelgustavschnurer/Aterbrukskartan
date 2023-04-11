@@ -411,6 +411,7 @@ export default function AddNewPost() {
                 <textarea
                   id="externalLinks"
                   name="externalLinks"
+                  placeholder="https://www.example.com"
                   value={externalLinks}
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
