@@ -67,7 +67,7 @@ export function storiesPopup(pin: DeepStory | any) {
                     <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
                   </span>
                 </a>
-                <span style={popup.PopUpReportInfo}>Rapportsida</span>
+                {!!pin.reportLink ? <span style={popup.PopUpReportInfo}>Rapport</span> : <span style={popup.PopUpReportInfo}>Rapportsida</span>}
               </div>
               {!pin.reportAuthor ? null : <div style={popup.PopUpReportAuthor}>Skriven av {pin.reportAuthor}</div>}
               {!pin.reportContact ? null : <div style={popup.PopUpReportContact}>{pin.reportContact}</div>}
