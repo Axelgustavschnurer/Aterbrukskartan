@@ -70,6 +70,7 @@ export function storiesPopup(pin: DeepStory | any) {
                 <span style={popup.PopUpReportInfo}>Rapportsida</span>
               </div>
               {!pin.reportAuthor ? null : <div style={popup.PopUpReportAuthor}>Skriven av {pin.reportAuthor}</div>}
+              {!pin.reportContact ? null : <div style={popup.PopUpReportContact}>{pin.reportContact}</div>}
             </>
           }
 

@@ -133,7 +133,6 @@ const PopupDesc = {
 const PopUpReportHeader = {
     fontWeight: "bold",
     marginBottom: "5px",
-    textDecoration: "underline" as any,
 }
 
 const PopUpReportInfo = {
@@ -147,4 +146,9 @@ const PopUpReportAuthor = {
     fontWeight: "bold" as any,
 }
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, DividerLineEP, PopupDesc, PopUpReportHeader, PopUpReportInfo, PopUpReportAuthor};
+const PopUpReportContact = {
+    marginTop: "5px",
+    fontSize: "12px",
+}
+
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, DividerLineEP, PopupDesc, PopUpReportHeader, PopUpReportInfo, PopUpReportAuthor, PopUpReportContact};
