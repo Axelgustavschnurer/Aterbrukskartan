@@ -51,51 +51,53 @@ export function storiesPopup(pin: DeepStory | any) {
           {!pin.videos ? null : <iframe style={{ borderRadius: "10px" }} width="100%" height="auto" src={pin.videos} allowFullScreen />}
 
           {/* If there is a report link, make a purple divider */}
-          {!pin.reports ? null :
+          {!pin.reportLink && !pin.reportSite ? null :
             <div style={popup.Divider}>
               <div style={popup.DividerLineReport}></div>
               <Image width={25} height={25} src="/images/dividers/infopurple.svg" alt="Delare" />
               <div style={popup.DividerLineReport}></div>
             </div>
           }
-          {/* If there is a report link, PDF case link or open data link, make a button of corresponding color with said link */}
+          {/* If there is a report link, display it */}
+          {!pin.reportLink && !pin.reportSite ? null :
+            <div style={popup.AlignLinks}>
+              <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
+                <span style={popup.PopupLinkReport}>
+                  <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
+                </span>
+              </a>
+              Rapport
+            </div>
+          }
+
+          {/* If there is a PDF case link but no report link, make a green divider */}
+          {!pin.pdfCase ? null :
+            <div style={popup.Divider}>
+              <div style={popup.DividerLineCase}></div>
+              <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
+              <div style={popup.DividerLineCase}></div>
+            </div>
+          }
+
+          {/* If there is an open data link but no PDF case nor report link, make a red divider */}
+          {!pin.openData || pin.pdfCase ? null :
+            <div style={popup.Divider}>
+              <div style={popup.DividerLineOpen}></div>
+              <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
+              <div style={popup.DividerLineOpen}></div>
+            </div>
+          }
+
+          {/* If there is an Energiportalen link, make an orange divider */}
+          {!pin.identity ? null :
+            <div style={popup.Divider}>
+              <div style={popup.DividerLineEP}></div>
+              <Image width={25} height={25} src="/images/dividers/sun.svg" alt="Delare" />
+              <div style={popup.DividerLineEP}></div>
+            </div>
+          }
+
           <div style={popup.flexRow}>
-            {!pin.reports ? null :
-              <div style={popup.AlignLinks}>
-                <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
-                  <span style={popup.PopupLinkReport}>
-                    <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
-                  </span>
-                </a>
-                Rapport
-              </div>}
-
-            {/* If there is a PDF case link but no report link, make a green divider */}
-            {!pin.pdfCase ? null :
-              <div style={popup.Divider}>
-                <div style={popup.DividerLineCase}></div>
-                <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
-                <div style={popup.DividerLineCase}></div>
-              </div>
-            }
-
-            {/* If there is an open data link but no PDF case nor report link, make a red divider */}
-            {!pin.openData || pin.pdfCase ? null :
-              <div style={popup.Divider}>
-                <div style={popup.DividerLineOpen}></div>
-                <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
-                <div style={popup.DividerLineOpen}></div>
-              </div>
-            }
-
-            {/* If there is an Energiportalen link, make an orange divider */}
-            {!pin.identity ? null :
-              <div style={popup.Divider}>
-                <div style={popup.DividerLineEP}></div>
-                <Image width={25} height={25} src="/images/dividers/sun.svg" alt="Delare" />
-                <div style={popup.DividerLineEP}></div>
-              </div>
-            }
             {!pin.pdfCase ? null :
               <div style={popup.AlignLinks}>
                 <a href={pin.pdfCase} target="_blank" rel="noreferrer">
@@ -126,6 +128,7 @@ export function storiesPopup(pin: DeepStory | any) {
                 Energiportalen
               </div>}
           </div>
+
         </div>
       </div>
     </Popup>
