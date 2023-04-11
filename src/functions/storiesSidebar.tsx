@@ -11,6 +11,7 @@ import { Button } from "@nextui-org/react";
 export const storyCategories = {
   "Bygg-och-anläggning": "building",
   "Grön-energi": "solar",
+  Hållbarhet: "sustain",
   "Social-hållbarhet": "social",
   Mobilitet: "car",
   Elnät: "powerline",
@@ -40,7 +41,7 @@ export function createCategoryFilter(
   setDisableReset: any
 ) {
   // Object containing all the categories and their corresponding image names
-  let categories = {...storyCategories, Övrigt: "other"};
+  let categories = { ...storyCategories, Övrigt: "other" };
 
   return (
     <>
@@ -124,7 +125,7 @@ export function createMiscFilter(
     "Videos",
     "Cases",
     "Öppna data",
-    "Story",
+    "Stories",
     "Energiportalen",
   ];
   return (
@@ -147,7 +148,7 @@ export function createMiscFilter(
                   setHasCase(e.target.checked);
                 } else if (item === "Öppna data" && hasOpenData !== e.target.checked) {
                   setHasOpenData(e.target.checked);
-                } else if (item === "Story" && isRealStory !== e.target.checked) {
+                } else if (item === "Stories" && isRealStory !== e.target.checked) {
                   setIsRealStory(e.target.checked);
                 } else if (item === "Energiportalen" && hasSolarData !== e.target.checked) {
                   setHasSolarData(e.target.checked);
