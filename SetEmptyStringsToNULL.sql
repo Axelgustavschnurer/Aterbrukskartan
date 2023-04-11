@@ -13,8 +13,11 @@ SET [category_swedish] = NULLIF([category_swedish], ''),
     [description_english] = NULLIF([description_english], ''),
     [description_english_short] = NULLIF([description_english_short], ''),
     [open_data] = NULLIF([open_data], ''),
-    [reports] = NULLIF([reports], ''),
+    [report_link] = NULLIF([report_link], ''),
+    [report_site] = NULLIF([report_site], ''),
     [report_title] = NULLIF([report_title], ''),
+    [report_author] = NULLIF([report_author], ''),
+    [report_contact] = NULLIF([report_contact], ''),
     [videos] = NULLIF([videos], ''),
     [pdf_case] = NULLIF([pdf_case], '')
 

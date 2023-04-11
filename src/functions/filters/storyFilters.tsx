@@ -23,7 +23,7 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
     "descriptionSwedishShort",
     "descriptionEnglishShort",
     "openData",
-    "reports",
+    "reportSite",
     "reportTitle",
     "videos",
     "pdfCase",
@@ -157,7 +157,7 @@ export function filterHasReport(data: DeepStory[]) {
 
   for (let i in data) {
     // Double negation is used to convert the string to a boolean, without it an empty string could evaluate to true.
-    if (!!data[i].reports) {
+    if (!!data[i].reportSite || !!data[i].reportLink) {
       returnData.push(data[i]);
     }
   }
