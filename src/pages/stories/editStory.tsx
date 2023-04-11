@@ -109,7 +109,8 @@ export default function EditStory() {
     setProgramOrientation(selectedStoryObject.educationalProgram?.split(", ")[1] as any || "")
     setProjectTitle(selectedStoryObject.mapItem?.name as any || "")
     setReportTitle(selectedStoryObject.reportTitle as any)
-    setReportLink(selectedStoryObject.reports as any)
+    setDataPortal(selectedStoryObject.reportSite as any)
+    setReportLink(selectedStoryObject.reportLink as any)
     setProjectYear(selectedStoryObject.mapItem?.year as any || "")
 
     let tempCategories = selectedStoryObject.categorySwedish?.toLowerCase().split(", ") as string[] || [] as string[]
@@ -124,6 +125,8 @@ export default function EditStory() {
     setCaseDescription(selectedStoryObject.pdfCase as any)
     setVideos(selectedStoryObject.videos as any)
     setOpenData(selectedStoryObject.openData as any)
+    setAuthorName(selectedStoryObject.reportAuthor as any)
+    setAuthorContact(selectedStoryObject.reportContact as any)
     setEnergyStory(selectedStoryObject.isEnergyStory as any)
   }, [selectedStoryObject])
 
@@ -161,11 +164,14 @@ export default function EditStory() {
           categorySwedish: !!categorys.join(", ") ? categorys.join(", ") : null,
           educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
-          reports: !!reportLink ? reportLink : null,
+          reportLink: !!reportLink ? reportLink : null,
+          reportSite: !!dataPortal ? dataPortal : null,
           reportTitle: !!reportTitle ? reportTitle : null,
           videos: !!videos ? videos : null,
           openData: !!openData ? openData : null,
           pdfCase: !!caseDescription ? caseDescription : null,
+          reportAuthor: !!authorName ? authorName : null,
+          reportContact: !!authorContact ? authorContact : null,
           isEnergyStory: energyStory,
         }),
       });
@@ -316,6 +322,7 @@ export default function EditStory() {
                 id={portal}
                 name="dataPortal"
                 value={portal}
+                checked={dataPortal === portal}
                 onChange={(e) => setDataPortal(e.target.value)}
               />
               <label htmlFor={portal}>{portal} </label>
