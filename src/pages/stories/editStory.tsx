@@ -10,6 +10,7 @@ import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { educationalPrograms } from "./newStory";
+import { dataPortals } from "./newStory";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
@@ -65,11 +66,16 @@ export default function EditStory() {
 
   const [openData, setOpenData] = useState("");
 
+  const [authorName, setAuthorName] = useState("");
+  const [authorContact, setAuthorContact] = useState("");
+
   // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
 
   // TODO: Show message from API if submission fails
   const [message, setMessage] = useState("");
+
+  const [dataPortal, setDataPortal] = useState("");
 
   // Fetches all data from the database
   const fetchData = async () => {
@@ -124,8 +130,8 @@ export default function EditStory() {
   /** Handles the submission of the form */
   const handleSubmit = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault()}
-    catch{}
+    try { e.preventDefault() }
+    catch { }
 
     // Checks if the form is filled out correctly
     try {
@@ -183,8 +189,8 @@ export default function EditStory() {
   /** Handles delete requests */
   const handleDelete = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault()}
-    catch{}
+    try { e.preventDefault() }
+    catch { }
 
     try {
       // Sends a DELETE request to the api with the data from the form
@@ -292,6 +298,27 @@ export default function EditStory() {
                 }}
               />
               <label htmlFor={index}>{category}</label>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
+  const getDataPortals = () => {
+    return (
+      <>
+        {dataPortals.map((portal: any) => {
+          return (
+            <div className={styles.typeInputGroup} key={portal}>
+              <input
+                type="radio"
+                id={portal}
+                name="dataPortal"
+                value={portal}
+                onChange={(e) => setDataPortal(e.target.value)}
+              />
+              <label htmlFor={portal}>{portal} </label>
             </div>
           )
         })}
@@ -427,6 +454,15 @@ export default function EditStory() {
                 />
               </div>
 
+              <div className={styles.addNewPostForm}>
+                <h3>Vilken dataportal ligger caset på?</h3>
+                <div className={styles.optionList}>
+                  <div className={styles.formData}>
+                    {getDataPortals()}
+                  </div>
+                </div>
+              </div>
+
               {/* Report link section */}
               <div className={styles.addNewPostFormName}>
                 <h3>Länk till rapport</h3>
@@ -543,6 +579,28 @@ export default function EditStory() {
                   onChange={(e) => setOpenData(e.target.value)}
                 />
               </div>
+
+              {/*Name section */}
+              <div className={styles.authorName}>
+                <h3>Namn på författare</h3>
+                <textarea
+                  id="authorName"
+                  name="authorName"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                />
+              </div >
+
+              {/*Contact section */}
+              <div className={styles.authorContact}>
+                <h3>Kontaktuppgifter</h3>
+                <textarea
+                  id="authorContact"
+                  name="authorContact"
+                  value={authorContact}
+                  onChange={(e) => setAuthorContact(e.target.value)}
+                />
+              </div >
 
               {/* isEnergystory section */}
               <div style={{ marginTop: "10px" }}>

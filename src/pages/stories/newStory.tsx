@@ -20,6 +20,11 @@ export const educationalPrograms: string[] = [
   "Kandidatprogram",
 ];
 
+export const dataPortals: string[] = [
+  "DiVA",
+  "Epsilon"
+];
+
 export default function AddNewStory() {
   const router = useRouter();
 
@@ -78,7 +83,13 @@ export default function AddNewStory() {
   // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
 
+  const [authorName, setAuthorName] = useState("");
+
+  const [authorContact, setAuthorContact] = useState("");
+
   const [message, setMessage] = useState("");
+
+  const [dataPortal, setDataPortal] = useState("");
 
 
   /** Handles the submit of the form */
@@ -209,6 +220,27 @@ export default function AddNewStory() {
     )
   }
 
+  const getDataPortals = () => {
+    return (
+      <>
+        {dataPortals.map((portal: any) => {
+          return (
+            <div className={styles.typeInputGroup} key={portal}>
+              <input
+                type="radio"
+                id={portal}
+                name="dataPortal"
+                value={portal}
+                onChange={(e) => setDataPortal(e.target.value)}
+              />
+              <label htmlFor={portal}>{portal} </label>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
   /** Gets all the educational programs from the `educationalPrograms` list and returns them as options in a select element */
   const getEducationalPrograms = () => {
     return (
@@ -225,7 +257,7 @@ export default function AddNewStory() {
   // Checks if all the required fields are filled in, and if they are, enables the submit button
   useEffect(() => {
     (!organisation || !projectTitle || !projectYear || !categorys.length || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
-  }, [organisation, projectTitle, projectYear, categorys, lat, lon, setDisableSubmit])
+  }, [organisation, projectTitle, projectYear, categorys, lat, lon])
 
   return (
     <>
@@ -324,6 +356,15 @@ export default function AddNewStory() {
                   value={reportTitle}
                   onChange={(e) => setReportTitle(e.target.value)}
                 />
+              </div>
+
+              <div className={styles.addNewPostForm}>
+                <h3>Vilken dataportal ligger caset på?</h3>
+                <div className={styles.optionList}>
+                  <div className={styles.formData}>
+                    {getDataPortals()}
+                  </div>
+                </div>
               </div>
 
               {/*Report link section */}
@@ -437,6 +478,28 @@ export default function AddNewStory() {
                   name="openData"
                   value={openData}
                   onChange={(e) => setOpenData(e.target.value)}
+                />
+              </div >
+
+              {/*Name section */}
+              <div className={styles.authorName}>
+                <h3>Namn på författare</h3>
+                <textarea
+                  id="authorName"
+                  name="authorName"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                />
+              </div >
+
+              {/*Contact section */}
+              <div className={styles.authorContact}>
+                <h3>Kontaktuppgifter</h3>
+                <textarea
+                  id="authorContact"
+                  name="authorContact"
+                  value={authorContact}
+                  onChange={(e) => setAuthorContact(e.target.value)}
                 />
               </div >
 

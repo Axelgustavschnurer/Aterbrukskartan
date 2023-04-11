@@ -49,6 +49,8 @@
 .addNewPostFormContact,
 .addNewPostFormExternalLinks,
 .openData,
+.authorName,
+.authorContact,
 .addNewPostFormInput {
     display: flex;
     flex-direction: column;
@@ -133,7 +135,9 @@
 
 .addNewPostFormContact textarea,
 .addNewPostFormExternalLinks textarea,
-.openData textarea {
+.openData textarea,
+.authorName textarea,
+.authorContact textarea {
     margin: auto;
     display: block;
     height: 30px;
@@ -145,7 +149,9 @@
 .addNewPostFormDescription textarea:focus,
 .addNewPostFormContact textarea:focus,
 .addNewPostFormExternalLinks textarea:focus,
-.openData textarea:focus {
+.openData textarea:focus,
+.authorName textarea:focus,
+.authorContact textarea:focus {
     outline: none;
     border: 2px solid #ff7300;
 }
@@ -235,6 +241,19 @@
     font-weight: 600;
     line-height: 36px;
 }
+
+.formData {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 36px;
+}
+
 
 .inputGroup {
     background-color: #ffffff;
