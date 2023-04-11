@@ -18,6 +18,7 @@ export const educationalPrograms: string[] = [
   "Civilingenjör",
   "Högskoleingenjör",
   "Kandidatprogram",
+  "Masterprogram",
 ];
 
 export const dataPortals: string[] = [
