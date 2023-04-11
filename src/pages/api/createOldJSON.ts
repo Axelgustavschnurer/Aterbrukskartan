@@ -73,7 +73,7 @@ export default async function handler(
       // Energy stories is a confusing field, the old data sets it to "x" for all entries except 4, which are null.
       // The new data sets it to true or false, but the non-energy stories should probably be moved to another table instead?
       "energy stories": story.isEnergyStory ? "x" : null,
-      reports: story.reports,
+      reports: story.reportLink ? story.reportLink : story.reportSite ? story.reportSite : null,
       videos: story.videos,
       pdfcase: story.pdfCase,
     }
