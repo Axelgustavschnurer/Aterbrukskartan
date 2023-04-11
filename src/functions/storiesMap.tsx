@@ -7,7 +7,6 @@ import * as popup from "../components/popupStyles";
 import { DeepStory, StoryFilter } from '@/types'
 import { runActiveFilters } from '@/functions/filters/storyFilters'
 import { Collapse } from '@nextui-org/react'
-import { log } from 'console'
 
 /**
  * Creates a popup for the passed pin
@@ -60,14 +59,18 @@ export function storiesPopup(pin: DeepStory | any) {
           }
           {/* If there is a report link, display it */}
           {!pin.reportLink && !pin.reportSite ? null :
-            <div style={popup.AlignLinks}>
-              <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
-                <span style={popup.PopupLinkReport}>
-                  <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
-                </span>
-              </a>
-              Rapport
-            </div>
+            <>
+              {!pin.reportTitle ? null : <h3 style={popup.PopUpReportHeader}>{pin.reportTitle}</h3>}
+              <div style={popup.AlignLinks}>
+                <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
+                  <span style={popup.PopupLinkReport}>
+                    <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
+                  </span>
+                </a>
+                <span style={popup.PopUpReportInfo}>Rapportsida</span>
+              </div>
+              {!pin.reportAuthor ? null : <div style={popup.PopUpReportAuthor}>Skriven av {pin.reportAuthor}</div>}
+            </>
           }
 
           {/* If there is a PDF case link but no report link, make a green divider */}
