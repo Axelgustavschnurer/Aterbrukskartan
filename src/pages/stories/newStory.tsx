@@ -223,13 +223,8 @@ export default function AddNewStory() {
   }
 
   // Checks if all the required fields are filled in, and if they are, enables the submit button
-  const checkRequiredFields = () => {
-    return (
-      (!organisation || !projectTitle || !projectYear || !categorys.length || !lat || !lon ? setDisableSubmit(true) : setDisableSubmit(false)))
-  }
-
   useEffect(() => {
-    checkRequiredFields()
+    (!organisation || !projectTitle || !projectYear || !categorys.length || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
   }, [organisation, projectTitle, projectYear, categorys, lat, lon])
 
   return (

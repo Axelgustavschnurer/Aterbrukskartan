@@ -229,13 +229,8 @@ export default function AddNewPost() {
   }
 
   // Checks if all the required fields are filled in, and if they are, enables the submit button
-  const checkRequiredFields = () => {
-    return (
-      (!organization || !projectType || !contact || !lat || !lon ? setDisableSubmit(true) : setDisableSubmit(false)))
-  }
-
   useEffect(() => {
-    checkRequiredFields()
+    (!organization || !projectType || !contact || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
   }, [organization, projectType, contact, lat, lon])
 
   return (
@@ -300,6 +295,7 @@ export default function AddNewPost() {
               </div>
 
               {/* Month selection */}
+              {/* TODO: Import monthOptionArray from editPost and do this like how it's done there */}
               <div className={styles.startMonth}>
                 <h3>Startmånad</h3>
                 <select
