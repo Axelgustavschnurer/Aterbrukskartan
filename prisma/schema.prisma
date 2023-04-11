@@ -40,13 +40,18 @@ model Story {
   descriptionSwedishShort String? @map("description_swedish_short")
   descriptionEnglishShort String? @map("description_english_short")
   openData                String? @map("open_data") @db.NVarChar(4000)
-  // Link to a report OR the site the report is/will be hosted on
-  reports                 String? @db.NVarChar(4000)
+  // Direct link to a report
+  reportLink              String? @map("report_link") @db.NVarChar(4000)
+  // The site the report is/will be hosted on
+  reportSite              String? @map("report_site") @db.NVarChar(4000)
   // Title of the report, used to search for the report if it is not directly linked
   reportTitle             String? @map("report_title")
+  reportAuthor            String? @map("report_author")
+  reportContact           String? @map("report_contact")
   videos                  String? @db.NVarChar(4000)
   pdfCase                 String? @map("pdf_case") @db.NVarChar(4000)
-  // What is an energy story? What is the difference between an energy story and a regular story? Nobody knows, so we'll just keep it here for now.
+  // This field is used to differentiate between stories (previously known as energy stories) and non-stories (such as solar panel data),
+  // some of which is imported at runtime from an external source.
   // Some (4 in total as of 2023-03-17) stories have this set to false, or rather, empty strings "" rather than "x" in the old database.
   // TODO: Possibly move the entries with is_energy_story = false to a separate table.
   isEnergyStory           Boolean @default(true) @map("is_energy_story")
