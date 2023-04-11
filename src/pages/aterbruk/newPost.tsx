@@ -84,10 +84,7 @@ export default function AddNewPost() {
         year: parseInt(projectStartYear),
       }
 
-      let res = { status: 0 };
-      let resJson = { message: "No message" };
-
-      await fetch(window.location.origin + '/api/recycle', {
+      let res = await fetch(window.location.origin + '/api/recycle', {
         method: 'POST',
         mode: 'same-origin',
         headers: {
@@ -103,18 +100,9 @@ export default function AddNewPost() {
           contact,
           externalLinks
         }),
-      }).then(
-        async (response) => {
-          res = response
-          resJson = await response.json()
-        }
-      ).catch((error) => {
-        console.log(res)
-        console.log(resJson)
-        console.log(error)
       })
 
-      console.log(res);
+      let resJson = await res.json()
 
       if (res.status >= 200 && res.status < 300) {
         // If the post was successful, reset the form and redirect to the home page
