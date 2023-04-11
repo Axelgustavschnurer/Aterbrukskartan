@@ -130,4 +130,21 @@ const PopupDesc = {
     overflowY: "auto" as any,
 }
 
-export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, DividerLineEP, PopupDesc };
+const PopUpReportHeader = {
+    fontWeight: "bold",
+    marginBottom: "5px",
+    textDecoration: "underline" as any,
+}
+
+const PopUpReportInfo = {
+    marginTop: "5px",
+    fontWeight: "bold" as any,
+}
+
+const PopUpReportAuthor = {
+    marginTop: "20px",
+    fontSize: "12px",
+    fontWeight: "bold" as any,
+}
+
+export { PopupHead, PopupText, flexRow, AlignLinks, PopupLinkPdf, PopupLinkReport, PopupLinkOpenData, PopupLinkEP, Divider, DividerLineDesc, DividerLineVideo, DividerLineCase, DividerLineReport, DividerLineOpen, DividerLineEP, PopupDesc, PopUpReportHeader, PopUpReportInfo, PopUpReportAuthor};
