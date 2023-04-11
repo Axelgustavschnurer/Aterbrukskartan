@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { oldDataFormat } from "@/pages/api/createOldJSON";
 import { createCsv, downloadCsv } from "@/functions/createOldCsv";
 import styles from "@/styles/downloads.module.css";
+import Image from "next/image";
 
 export default function DownloadCSV() {
   const [oldStories, setOldStories] = useState({} as { results: oldDataFormat[] })
@@ -23,7 +24,7 @@ export default function DownloadCSV() {
     <div className={styles.container}>
       <h1>Ladda ner CSV</h1>
       <div id={styles.downloadCsv} onClick={handleDownload}>
-        <img src="https://cdn.pixabay.com/photo/2016/09/16/18/20/download-button-1674764_960_720.png" alt="test" />
+        <Image src="/images/download-button.webp" alt="test" width={1000} height={100} />
       </div>
     </div>
   );

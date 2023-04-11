@@ -94,25 +94,21 @@ export default function Sidebar({ setFilter, currentMap }: any) {
     hasSolarData: true,
   } as any);
 
-  /**
-   * Fetches data from the database
-   */
-  const fetchData = async () => {
-    if (currentMap === "Stories") {
-      const response = await fetch("/api/stories");
-      const data = await response.json();
-      setMapData(data);
-    } else if (currentMap === "Recycle") {
-      const response = await fetch("/api/recycle");
-      const data = await response.json();
-      setMapData(data);
-    }
-  };
-
-  // Runs fetchData function on component mount
+  /** Fetches data from the database on component mount and if currentMap prop somehow changes */
   useEffect(() => {
+    async function fetchData() {
+      if (currentMap === "Stories") {
+        const response = await fetch("/api/stories");
+        const data = await response.json();
+        setMapData(data);
+      } else if (currentMap === "Recycle") {
+        const response = await fetch("/api/recycle");
+        const data = await response.json();
+        setMapData(data);
+      }
+    }
     fetchData();
-  }, []);
+  }, [currentMap]);
 
   // Toggles the sidebar's visibility when called
   const toggleMenu = () => {

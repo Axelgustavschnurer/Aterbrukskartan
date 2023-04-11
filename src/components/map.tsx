@@ -19,27 +19,28 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   const [mapData, setMapData] = useState([])
   const [solarData, setSolarData] = useState([])
 
-  // Fetches all relevant data from API
-  const fetchData = async () => {
-    if (currentMap === "Stories") {
-      const response = await fetch('/api/stories')
-      const solarResponse = await fetch('/api/createStoryFromSolar')
-      const data = await response.json()
-      const solarJSON = await solarResponse.json()
-      setMapData(data)
-      setSolarData(solarJSON)
-    }
-    else if (currentMap === "Recycle") {
-      const response = await fetch('/api/recycle')
-      const data = await response.json()
-      setMapData(data)
-    }
-  }
+
 
   // Runs fetchData function on component mount
   useEffect(() => {
+    // Fetches all relevant data from API
+    const fetchData = async () => {
+      if (currentMap === "Stories") {
+        const response = await fetch('/api/stories')
+        const solarResponse = await fetch('/api/createStoryFromSolar')
+        const data = await response.json()
+        const solarJSON = await solarResponse.json()
+        setMapData(data)
+        setSolarData(solarJSON)
+      }
+      else if (currentMap === "Recycle") {
+        const response = await fetch('/api/recycle')
+        const data = await response.json()
+        setMapData(data)
+      }
+    }
     fetchData()
-  }, [])
+  }, [currentMap])
 
   // Declares map bounds
   var southWest = L.latLng(50, -20),

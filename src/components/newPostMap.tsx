@@ -25,11 +25,8 @@ export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.8
                 }
             },
         }),
-        [],
+        [setLat, setLon],
     )
-    useEffect(() => {
-        console.log("markerRef.current", markerRef.current)
-    }, [markerRef.current])
 
     // Returns map with red marker pin
     return (

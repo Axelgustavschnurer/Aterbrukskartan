@@ -231,7 +231,7 @@ export default function AddNewPost() {
   // Checks if all the required fields are filled in, and if they are, enables the submit button
   useEffect(() => {
     (!organization || !projectType || !contact || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
-  }, [organization, projectType, contact, lat, lon])
+  }, [organization, projectType, contact, lat, lon, setDisableSubmit])
 
   return (
     <>
