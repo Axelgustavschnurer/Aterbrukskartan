@@ -50,24 +50,6 @@ export function storiesPopup(pin: DeepStory | any) {
           }
           {!pin.videos ? null : <iframe style={{ borderRadius: "10px" }} width="100%" height="auto" src={pin.videos} allowFullScreen />}
 
-          {/* If there is a PDF case link but no report link, make a green divider */}
-          {!pin.pdfCase || pin.pdfCase || pin.reports ? null :
-            <div style={popup.Divider}>
-              <div style={popup.DividerLineCase}></div>
-              <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
-              <div style={popup.DividerLineCase}></div>
-            </div>
-          }
-
-          {/* If there is an open data link but no PDF case nor report link, make a red divider */}
-          {!pin.openData || pin.reports || pin.pdfCase ? null :
-            <div style={popup.Divider}>
-              <div style={popup.DividerLineOpen}></div>
-              <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
-              <div style={popup.DividerLineOpen}></div>
-            </div>
-          }
-
           {/* If there is a report link, make a purple divider */}
           {!pin.reports ? null :
             <div style={popup.Divider}>
@@ -76,27 +58,44 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.DividerLineReport}></div>
             </div>
           }
-
-          {/* If there is an Energiportalen link, make an orange divider */}
-          {!pin.identity ? null :
-            <div style={popup.Divider}>
-              <div style={popup.DividerLineEP}></div>
-              <Image width={25} height={25} src="/images/dividers/sun.svg" alt="Delare" />
-              <div style={popup.DividerLineEP}></div>
-            </div>
-          }
-
           {/* If there is a report link, PDF case link or open data link, make a button of corresponding color with said link */}
           <div style={popup.flexRow}>
             {!pin.reports ? null :
               <div style={popup.AlignLinks}>
-                <a href={pin.reports} target="_blank" rel="noreferrer">
+                <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkReport}>
                     <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
                   </span>
                 </a>
                 Rapport
               </div>}
+
+            {/* If there is a PDF case link but no report link, make a green divider */}
+            {!pin.pdfCase ? null :
+              <div style={popup.Divider}>
+                <div style={popup.DividerLineCase}></div>
+                <Image width={25} height={25} src="/images/dividers/infogreen.svg" alt="Delare" />
+                <div style={popup.DividerLineCase}></div>
+              </div>
+            }
+
+            {/* If there is an open data link but no PDF case nor report link, make a red divider */}
+            {!pin.openData || pin.pdfCase ? null :
+              <div style={popup.Divider}>
+                <div style={popup.DividerLineOpen}></div>
+                <Image width={25} height={25} src="/images/dividers/infored.svg" alt="Delare" />
+                <div style={popup.DividerLineOpen}></div>
+              </div>
+            }
+
+            {/* If there is an Energiportalen link, make an orange divider */}
+            {!pin.identity ? null :
+              <div style={popup.Divider}>
+                <div style={popup.DividerLineEP}></div>
+                <Image width={25} height={25} src="/images/dividers/sun.svg" alt="Delare" />
+                <div style={popup.DividerLineEP}></div>
+              </div>
+            }
             {!pin.pdfCase ? null :
               <div style={popup.AlignLinks}>
                 <a href={pin.pdfCase} target="_blank" rel="noreferrer">
@@ -106,6 +105,7 @@ export function storiesPopup(pin: DeepStory | any) {
                 </a>
                 Case
               </div>}
+
             {!pin.openData ? null :
               <div style={popup.AlignLinks}>
                 <a href={pin.openData} target="_blank" rel="noreferrer">
@@ -115,6 +115,7 @@ export function storiesPopup(pin: DeepStory | any) {
                 </a>
                 Öppna data
               </div>}
+
             {!pin.identity ? null :
               <div style={popup.AlignLinks}>
                 <a href={"https://energiportalregionuppsala.se/about?device=" + pin.identity} target="_blank" rel="noreferrer">
@@ -132,8 +133,8 @@ export function storiesPopup(pin: DeepStory | any) {
 }
 
 // Arrays of all different color pins and categories in matching order. Used to color pins based on category
-const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPinViolet, pinIcons.IconPinAzure, pinIcons.IconPinGreenBlue, pinIcons.IconPinRed, pinIcons.IconPinYellowGreen, pinIcons.IconPinYellow, pinIcons.IconPinGreen, pinIcons.IconPinOrange, pinIcons.IconPinBlue, pinIcons.IconPinGray];
-const categoryArray = ["Bygg och anläggning", "Grön energi", "Social hållbarhet", "Mobilitet", "Elnät", "Hälsa och bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Vatten och avlopp", "Övrigt"]
+const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPinPink, pinIcons.IconPinViolet, pinIcons.IconPinAzure, pinIcons.IconPinGreenBlue, pinIcons.IconPinRed, pinIcons.IconPinYellowGreen, pinIcons.IconPinYellow, pinIcons.IconPinGreen, pinIcons.IconPinOrange, pinIcons.IconPinBlue, pinIcons.IconPinGray];
+const categoryArray = ["Bygg och anläggning", "Grön energi", "Hållbarhet", "Social hållbarhet", "Mobilitet", "Elnät", "Hälsa och bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Vatten och avlopp", "Övrigt"]
 
 /**
  * Function that returns an icon for a pin based on the category of the pin
