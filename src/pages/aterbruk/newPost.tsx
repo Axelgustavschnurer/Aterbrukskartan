@@ -29,6 +29,9 @@ export const projectTypes = [
 export default function AddNewPost() {
   const router = useRouter();
 
+  // Controlls wheter the submit button is disabled or not
+  const [disableSubmit, setDisableSubmit] = useState(true as boolean);
+
   // Toggles the location input between a map and a text input with address lookup
   const [locationToggle, setLocationToggle] = useState(false);
 
@@ -67,10 +70,12 @@ export default function AddNewPost() {
 
   const handleSubmit = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault();}
-    catch{}
+    try { e.preventDefault(); }
+    catch { }
 
     try {
+      if (disableSubmit) throw new Error("Information saknas");
+      setDisableSubmit(true);
       // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,
@@ -79,8 +84,8 @@ export default function AddNewPost() {
         year: parseInt(projectStartYear),
       }
 
-      let res = {status: 0};
-      let resJson = {message: "No message"};
+      let res = { status: 0 };
+      let resJson = { message: "No message" };
 
       await fetch(window.location.origin + '/api/recycle', {
         method: 'POST',
@@ -116,9 +121,11 @@ export default function AddNewPost() {
         console.log(resJson)
         router.push("/aterbruk" + window.location.search);
       } else {
+        setDisableSubmit(false);
         setMessage(resJson.message);
       }
     } catch (error) {
+      setDisableSubmit(false);
       console.log(error)
     }
   }
@@ -232,6 +239,16 @@ export default function AddNewPost() {
       </>
     )
   }
+
+  // Checks if all the required fields are filled in, and if they are, enables the submit button
+  const checkRequiredFields = () => {
+    return (
+      (!organization || !projectType || !contact || !lat || !lon ? setDisableSubmit(true) : setDisableSubmit(false)))
+  }
+
+  useEffect(() => {
+    checkRequiredFields()
+  }, [organization, projectType, contact, lat, lon])
 
   return (
     <>
@@ -413,7 +430,7 @@ export default function AddNewPost() {
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onPress={handleSubmit}> Spara</Button >
+                <Button disabled={disableSubmit} id={!disableSubmit ? styles.save : styles.disabled} type="submit" onPress={handleSubmit}> Spara</Button >
               </div >
 
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>

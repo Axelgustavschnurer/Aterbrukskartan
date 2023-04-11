@@ -35,6 +35,9 @@ export default function AddNewStory() {
     fetchData()
   }, [])
 
+  // Controlls wheter the submit button is disabled or not
+  const [disableSubmit, setDisableSubmit] = useState(true as boolean);
+
   // Controlls wheter to show the map or adress search
   // false = adress search, true = map
   const [locationToggle, setLocationToggle] = useState(false);
@@ -81,10 +84,13 @@ export default function AddNewStory() {
   /** Handles the submit of the form */
   const handleSubmit = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault()}
-    catch{}
+    try { e.preventDefault() }
+    catch { }
 
     try {
+      if (disableSubmit) { throw new Error("Information saknas") }
+      // Disables the submit button to prevent multiple submits
+      setDisableSubmit(true);
       // TODO: implement address, postcode and city
       // Sets the content of the mapItem object
       let mapItem: Prisma.MapItemCreateInput = {
@@ -129,10 +135,12 @@ export default function AddNewStory() {
       }
       // If the post was not successful, display the error message
       else {
+        setDisableSubmit(false);
         setMessage(resJson.message);
       }
     }
     catch (error) {
+      setDisableSubmit(false);
       console.log(error)
     }
   }
@@ -213,6 +221,16 @@ export default function AddNewStory() {
       </>
     )
   }
+
+  // Checks if all the required fields are filled in, and if they are, enables the submit button
+  const checkRequiredFields = () => {
+    return (
+      (!organisation || !projectTitle || !projectYear || !categorys.length || !lat || !lon ? setDisableSubmit(true) : setDisableSubmit(false)))
+  }
+
+  useEffect(() => {
+    checkRequiredFields()
+  }, [organisation, projectTitle, projectYear, categorys, lat, lon])
 
   return (
     <>
@@ -448,7 +466,7 @@ export default function AddNewStory() {
 
               {/*Submit button section */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onClick={handleSubmit} > Spara</Button >
+                <Button type="submit" onClick={handleSubmit} disabled={disableSubmit} id={!disableSubmit ? styles.save : styles.disabled}> Spara</Button >
               </div >
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >

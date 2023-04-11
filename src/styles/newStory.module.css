@@ -170,7 +170,7 @@
 
 #save {
     background-color: #00cc11d7;
-    color: #000000;
+    color: #000000; 
     font-size: 20px;
     font-weight: 500;
 }
@@ -179,6 +179,12 @@
     background-color: #006b09;
     color: #ffffff;
     box-shadow: 5px 5px 5px 5px #00000015;
+}
+
+#disabled {
+    background-color: #f1f1f1;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .message {
