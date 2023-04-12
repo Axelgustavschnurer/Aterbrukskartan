@@ -16,9 +16,7 @@ export default async function handler(
     case 'HEAD':
       if (!parseInt(req.query.id as string)) {
         try {
-          /**
-           * Returns all `Story` objects, with `mapItem` objects included.
-           */
+          /** Returns all `Story` objects, with `mapItem` objects included. */
           const getData: DeepStory[] = await prisma.story.findMany({
             where: {
               isActive: true,
@@ -44,9 +42,7 @@ export default async function handler(
       }
       else {
         try {
-          /**
-           * Returns the `Story` object with the given ID, with the `mapItem` object included, or throws an error if no `Story` object with the given ID exists.
-           */
+          /** Returns the `Story` object with the given ID, with the `mapItem` object included, or throws an error if no `Story` object with the given ID exists. */
           const getData: DeepStory = await prisma.story.findFirstOrThrow({
             where: {
               id: parseInt(req.query.id as string)
@@ -79,9 +75,7 @@ export default async function handler(
     case 'POST':
       try {
         const newPost: DeepStoryInput = req.body;
-        /**
-         * Creates a new `Story` object with the given data, and returns it with the `mapItem` object included.
-         */
+        /** Creates a new `Story` object with the given data, and returns it with the `mapItem` object included. */
         const savedPost = await prisma.story.create({
           data: {
             ...newPost,
@@ -120,9 +114,7 @@ export default async function handler(
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
         const updateData: DeepStoryInput = req.body;
-        /**
-         * Updates the `Story` object with the given ID with the given data, and returns it with the `mapItem` object included.
-         */
+        /** Updates the `Story` object with the given ID with the given data, and returns it with the `mapItem` object included. */
         const updatedData = await prisma.story.update({
           where: {
             id: parseInt(req.query.id as string)
@@ -170,9 +162,7 @@ export default async function handler(
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
         const updateData: DeepStoryInput = req.body;
-        /**
-         * Updates the `Story` object with the given ID to be inactive, and returns it with the `mapItem` object included.
-         */
+        /** Updates the `Story` object with the given ID to be inactive, and returns it with the `mapItem` object included. */
         const updatedData = await prisma.story.update({
           where: {
             id: parseInt(req.query.id as string)

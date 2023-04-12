@@ -45,6 +45,7 @@ export default async function handler(
       mapId: parseInt(item.deviceId) + 100000000,
       identity: item.identity,
       categorySwedish: "Grön energi",
+      // Removes HTML tags from the description using regex
       descriptionSwedish: solarKeyValues["description"].replace(/<\/?[^>]+(>|$)/g, " "),
     }
 

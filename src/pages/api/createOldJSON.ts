@@ -5,9 +5,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 /**
- * This is an old data format, used at https://maps.stuns.se/. Data is fetched from the database and formatted to this format in order to be compatible with said website without a major rewrite.
+ * This is an old data format, currently used at https://maps.stuns.se/. Data is fetched from the database and formatted to this format in order to be compatible with said website without a major rewrite.
+ * If all goes well, the previous React app used there will be replaced with this Next.js app,
+ * but this file will still be used for generating csv files in the old format to upload to [dataportal.se](https://www.dataportal.se/datasets/763_1927/forteckning-over-stuns-samverkansprojekt-i-energy-stories-samt-installationer)
  * 
- * It is derived from the structure of the data it currently (as of 2023-03-02) fetches from [here](https://stuns.entryscape.net/rowstore/dataset/6dc2b750-8fd5-4717-9d4e-e92f547c2b38/json).
+ * It is derived from the structure of the data it currently (2023-03-02) fetches from [here](https://stuns.entryscape.net/rowstore/dataset/6dc2b750-8fd5-4717-9d4e-e92f547c2b38/json).
  */
 export type oldDataFormat = {
   id: string,
