@@ -80,14 +80,15 @@ export function filterStoriesBySearchInput(data: DeepStory[], search: string) {
 export function filterByCategories(data: DeepStory[], categories: string[]) {
   let returnData: DeepStory[] = [];
 
-  // Convert all categories to lowercase to make the comparison actually fucking work with the messed up data from users
+  // Convert all categories to lowercase
   let lowerCaseCategories: string[] = [];
   for (let i in categories) {
     lowerCaseCategories.push(categories[i].toLowerCase());
   }
 
   for (let i in data) {
-    if (!data[i].categorySwedish) {
+    // If the category is empty or only contains non-alphanumeric characters, it is considered to be "Övrigt".
+    if (!data[i].categorySwedish || !/[a-zA-Z0-9]/.test(String(data[i].categorySwedish))) {
       if (lowerCaseCategories.includes("övrigt")) {
         returnData.push(data[i]);
       }
