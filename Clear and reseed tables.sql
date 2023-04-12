@@ -1,0 +1,7 @@
+DELETE FROM [story]
+DBCC CHECKIDENT (story, RESEED, 0)
+DELETE FROM [map_item]
+DBCC CHECKIDENT (map_item, RESEED, 0)
+DELETE FROM [recycle]
+DBCC CHECKIDENT (recycle, RESEED, 0)
+GO

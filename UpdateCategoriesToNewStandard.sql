@@ -50,6 +50,13 @@ SET [category_swedish] = REPLACE(
 UPDATE story
 SET [category_swedish] = REPLACE(
     [category_swedish],
+    'hållbarhet',
+    'Hållbarhet'
+    )
+
+UPDATE story
+SET [category_swedish] = REPLACE(
+    [category_swedish],
     'social hållbarhet',
     'Social hållbarhet'
     )
@@ -122,13 +129,6 @@ SET [category_swedish] = REPLACE(
     [category_swedish],
     'hälsa och bioteknik, hälsa och bioteknik',
     'Hälsa och bioteknik'
-    )
-
-UPDATE story
-SET [category_swedish] = REPLACE(
-    [category_swedish],
-    'hållbarhet',
-    ''
     )
 
 UPDATE story
