@@ -9,6 +9,20 @@ pool:
 steps:
   - checkout: self
     submodules: true
+
+# Download .env file from secure files
+  - task: DownloadSecureFile@1
+    inputs:
+      secureFile: '.env'
+
+# Copy .env file to artifacts folder
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: '$(Agent.TempDirectory)'
+      contents: '.env'
+      targetFolder: '$(System.DefaultWorkingDirectory)'
+
+# Do Azure Web App stuff
   - task: AzureStaticWebApp@0
     inputs:
       app_location: '/'
