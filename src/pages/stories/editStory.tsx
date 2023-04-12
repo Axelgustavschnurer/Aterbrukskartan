@@ -314,15 +314,15 @@ export default function EditStory() {
   const getDataPortals = () => {
     return (
       <>
-        {dataPortals.map((portal: any) => {
+        {Object.keys(dataPortals).map((portal: any) => {
           return (
             <div className={styles.typeInputGroup} key={portal}>
               <input
                 type="radio"
                 id={portal}
                 name="dataPortal"
-                value={portal}
-                checked={dataPortal === portal}
+                value={dataPortals[portal]}
+                checked={dataPortal === dataPortals[portal]}
                 onChange={(e) => setDataPortal(e.target.value)}
               />
               <label htmlFor={portal}>{portal} </label>

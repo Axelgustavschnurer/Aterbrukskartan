@@ -21,10 +21,10 @@ export const educationalPrograms: string[] = [
   "Masterprogram",
 ];
 
-export const dataPortals: string[] = [
-  "DiVA",
-  "Epsilon"
-];
+export const dataPortals: any = {
+  "DiVA": "https://uu.diva-portal.org/smash/search.jsf?dswid=-701",
+  "Epsilon": "https://stud.epsilon.slu.se/"
+};
 
 export default function AddNewStory() {
   const router = useRouter();
@@ -227,14 +227,14 @@ export default function AddNewStory() {
   const getDataPortals = () => {
     return (
       <>
-        {dataPortals.map((portal: any) => {
+        {Object.keys(dataPortals).map((portal: any) => {
           return (
             <div className={styles.typeInputGroup} key={portal}>
               <input
                 type="radio"
                 id={portal}
                 name="dataPortal"
-                value={portal}
+                value={dataPortal[portal]}
                 onChange={(e) => setDataPortal(e.target.value)}
               />
               <label htmlFor={portal}>{portal} </label>
