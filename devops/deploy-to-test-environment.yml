@@ -1,0 +1,16 @@
+# see https://medium.com/bb-tutorials-and-thoughts/building-ci-cd-for-react-static-web-apps-service-using-azure-devops-efef72e3772
+
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    submodules: true
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: '/'
+      output_location: 'build'
+      azure_static_web_apps_api_token: $(deployment_token)
