@@ -10,7 +10,8 @@ The idea is that companies enter some project information, like when and where t
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 [React](https://reactjs.org/) is used for the frontend and [Prisma](https://www.prisma.io/) is used for the database.
 
-___
+---
+
 ## Getting Started
 
 All commands are to be run in your terminal of choice, in the root directory of the project.
@@ -37,11 +38,13 @@ If you don't know the database url, try asking a project admin.
 If they don't know or can't be reached, you could try contacting leon.loov@outlook.com.
 
 If you still can't get the database url, you could theoretically get the deployment pipeline to print it out, but that's extremely bad practice and absolutely not recommended.
+
 - Do note that the database url is a secret and should not be shared with anyone.
   - Making the pipeline print it out is a very bad idea because it will be visible to others in the logs.
 - If you still want to do it, you should google how to print environment variables in Azure Pipelines. It's not hard, but it's not something I'm going to write here.
 
-The shadow database url doesn't *need* to be on localhost, however it shouldn't match the actual database url.
+The shadow database url doesn't _need_ to be on localhost, however it shouldn't match the actual database url.
+
 - The shadow database is used as an intermediary step when changing the database schema, and data should not be stored there.
 - To create a local database, you can use [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms) (SSMS).
 
@@ -66,8 +69,11 @@ npx prisma studio
 ```
 
 Then open [http://localhost:5555](http://localhost:5555) to see the data.
-___
+
+---
+
 ## Changing the database schema
+
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
 Edit the file at `prisma/schema.prisma` to change the database schema.
@@ -88,22 +94,29 @@ and follow the instructions.
 
 Otherwise, figure out a way to fix the database.
 
-___
+---
+
 ## Important links
+
 The query parameters change according to the values in `src/keys.ts`. If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
+
 - [http://maps.stuns.se](http://maps.stuns.se) - Story website.
-- [http://maps.stuns.se/?admin=yesforreal](http://maps.stuns.se/?admin=yesforreal) - Admin page for stories.
+- [https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd](https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd) - Admin page for stories.
 - [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
 - [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
 
 ### Good to know
+
 To change the keys/values in the url, change the values in `src/keys.ts`. If you do, please update the links above for easy access.
-___
+
+---
+
 ## API Routes
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-___
+---
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -111,6 +124,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-___
+---
+
 ## Whats next?
-- 
+
+-
