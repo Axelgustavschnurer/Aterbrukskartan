@@ -60,7 +60,7 @@ export function storiesPopup(pin: DeepStory | any) {
           {/* If there is a report link, display it */}
           {!pin.reportLink && !pin.reportSite ? null :
             <>
-              {!pin.reportTitle ? null : <h3 style={popup.PopUpReportHeader}>{pin.reportTitle}</h3>}
+              {!pin.reportTitle ? null : <span style={popup.PopUpReportHeader}>{pin.reportTitle}</span>}
               <div style={popup.AlignLinks}>
                 <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkReport}>
