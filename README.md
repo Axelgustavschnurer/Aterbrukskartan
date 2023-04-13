@@ -1,6 +1,8 @@
-# Återbrukskartan
+# STUNS maps
 
-This project aims to facilitate recycling of construction materials by displaying planned projects on a map.
+This project is a rewrite of a previous map project (available in the `archived` branch) aiming to display stories where STUNS has been involved with students from Uppsala's universities regarding their projects.
+
+This project also contains a secondary hidden map as a demo for a project that aims to facilitate recycling of construction materials by displaying planned projects.
 The idea is that companies enter some project information, like when and where they will do what, and what kinds of materials they will need or have available.
 
 # Dev stuff
@@ -28,7 +30,9 @@ DATABASE_URL = "sqlserver://<url>:<port>;database=<database>;user=<user>;pwd=<pa
 SHADOW_DATABASE_URL="sqlserver://localhost:1433;database=shadow;trustServerCertificate=true;integratedSecurity=true"
 ```
 
-The shadow database url doesn't need to be on localhost, however it shouldn't match the actual database url.
+The current database url is already set up in a .env file among the secure files on azure, so if you change database you need to update the file there as well.
+
+The shadow database url doesn't *need* to be on localhost, however it shouldn't match the actual database url.
 
 Run prisma generate to generate the prisma client:
 
@@ -46,7 +50,7 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the site.
+Open [http://localhost:3000](http://localhost:3000) (by default) to see the site.
 
 To view the database, run the following command:
 
@@ -54,17 +58,18 @@ To view the database, run the following command:
 npx prisma studio
 ```
 
-Then open [http://localhost:5555](http://localhost:5555) with your browser to see the database. 
+Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ___
 ## Important links
-- [http://localhost:3000](http://localhost:3000) - Story website.
-- [http://localhost:3000/?admin=yesforreal](http://localhost:3000http://localhost:3000/?admin=yesforreal) - Admin page for stories
-- [http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan 
-- [http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://localhost:3000/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
+The query parameters change according to the values in `src/keys.ts`. If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
+- [http://maps.stuns.se](http://maps.stuns.se) - Story website.
+- [http://http://maps.stuns.se/?admin=yesforreal](http://http://maps.stuns.se/?admin=yesforreal) - Admin page for stories.
+- [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
+- [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
 
 ### Good to know
-To change the keys in the url if necessary, change the values in `src/keys.ts`. 
+To change the keys/values in the url if necessary, change the values in `src/keys.ts`. If you do, please update the links above for easy access.
 ___
 ## API Routes
 
