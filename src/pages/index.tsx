@@ -196,7 +196,7 @@ export default function HomePage() {
     let query = router.query
 
     // A URL passing this check looks like "www.example.com?admin=yesforreal"
-    query["admin"] === websiteKeys["admin"] ? setAdmin(true) : setAdmin(false)
+    query["stunsStoriesAdmin"] === websiteKeys["stunsStoriesAdmin"] ? setAdmin(true) : setAdmin(false)
   }, [router.query])
 
   const checkMobile = (setIsMobile: any) => {
@@ -258,15 +258,15 @@ export default function HomePage() {
       {/* Labels showing currently avtive filters, if any */}
       {!isMobile ?
         <div className={styles.filterTextContent}>
-        <div className={styles.filterTextContainer}>
-          {categoryLabel()}
-          {yearLabel()}
-          {contentLabel()}
-          {educationLabel()}
-          {organisationLabel()}
+          <div className={styles.filterTextContainer}>
+            {categoryLabel()}
+            {yearLabel()}
+            {contentLabel()}
+            {educationLabel()}
+            {organisationLabel()}
+          </div>
         </div>
-      </div>
-      : null}
+        : null}
 
       {/* Button leading to another page where one can add projects to the database */}
 
