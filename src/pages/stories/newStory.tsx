@@ -69,7 +69,7 @@ export default function AddNewStory() {
   // Year the project was completed
   const [projectYear, setProjectYear] = useState("");
   // Categories of the project
-  const [categorys, setCategorys] = useState([] as string[]);
+  const [categoryArray, setCategoryArray] = useState([] as string[]);
   // Coordinates
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
@@ -126,7 +126,7 @@ export default function AddNewStory() {
         // What is being sent to the api
         body: JSON.stringify({
           mapItem,
-          categorySwedish: !!categorys.join(", ") ? categorys.join(", ") : null,
+          categorySwedish: !!categoryArray.join(", ") ? categoryArray.join(", ") : null,
           educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
@@ -208,11 +208,11 @@ export default function AddNewStory() {
                 name={category}
                 value={category}
                 onClick={(e: any) => {
-                  if (categorys.includes(e.target.value) && !e.target.checked) {
-                    setCategorys(categorys.filter((item: any) => item !== e.target.value))
+                  if (categoryArray.includes(e.target.value) && !e.target.checked) {
+                    setCategoryArray(categoryArray.filter((item: any) => item !== e.target.value))
                   }
-                  else if (!categorys.includes(e.target.value) && e.target.checked) {
-                    setCategorys([...categorys, e.target.value])
+                  else if (!categoryArray.includes(e.target.value) && e.target.checked) {
+                    setCategoryArray([...categoryArray, e.target.value])
                   }
                 }}
               />
@@ -260,8 +260,8 @@ export default function AddNewStory() {
 
   // Checks if all the required fields are filled in, and if they are, enables the submit button
   useEffect(() => {
-    (!organisation || !projectTitle || !projectYear || !categorys.length || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
-  }, [organisation, projectTitle, projectYear, categorys, lat, lon])
+    (!organisation || !projectTitle || !projectYear || !categoryArray.length || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
+  }, [organisation, projectTitle, projectYear, categoryArray, lat, lon])
 
   return (
     <>

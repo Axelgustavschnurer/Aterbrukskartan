@@ -53,7 +53,7 @@ export default function EditStory() {
   // Year the project was completed
   const [projectYear, setProjectYear] = useState("");
   // Categories of the project
-  const [categorys, setCategorys] = useState([] as string[]);
+  const [categorArray, setCategorArray] = useState([] as string[]);
   // Coordinates
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
@@ -117,7 +117,7 @@ export default function EditStory() {
     for (let i = 0; i < tempCategories.length; i++) {
       tempCategories[i] = setFirstLetterCapital(tempCategories[i])
     }
-    setCategorys(tempCategories)
+    setCategorArray(tempCategories)
 
     setLat(selectedStoryObject.mapItem?.latitude as any)
     setLon(selectedStoryObject.mapItem?.longitude as any)
@@ -161,7 +161,7 @@ export default function EditStory() {
         // What is being sent to the api on susccessful PUT request
         body: JSON.stringify({
           mapItem,
-          categorySwedish: !!categorys.join(", ") ? categorys.join(", ") : null,
+          categorySwedish: !!categorArray.join(", ") ? categorArray.join(", ") : null,
           educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
@@ -293,13 +293,13 @@ export default function EditStory() {
                 key={index}
                 name={category}
                 value={category}
-                checked={categorys.includes(category)}
+                checked={categorArray.includes(category)}
                 onChange={(e: any) => {
-                  if (categorys.includes(e.target.value) && !e.target.checked) {
-                    setCategorys(categorys.filter((item: any) => item !== e.target.value))
+                  if (categorArray.includes(e.target.value) && !e.target.checked) {
+                    setCategorArray(categorArray.filter((item: any) => item !== e.target.value))
                   }
-                  else if (!categorys.includes(e.target.value) && e.target.checked) {
-                    setCategorys([...categorys, e.target.value])
+                  else if (!categorArray.includes(e.target.value) && e.target.checked) {
+                    setCategorArray([...categorArray, e.target.value])
                   }
                 }}
               />
