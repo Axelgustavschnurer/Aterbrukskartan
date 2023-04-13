@@ -1,3 +1,4 @@
+// This file has been imported from external library, DO NOT EDIT IT
 import React from 'react';
 import L, { LeafletMouseEventHandlerFn } from 'leaflet';
 import 'leaflet.markercluster';
