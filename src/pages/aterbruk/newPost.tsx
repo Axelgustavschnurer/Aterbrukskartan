@@ -45,7 +45,6 @@ export default function AddNewPost() {
   // Form data
   const [organization, setOrganization] = useState("");
   const [newOrganization, setNewOrganization] = useState("");
-
   const [projectStartYear, setStartYear] = useState("");
   const [projectStartMonth, setStartMonth] = useState("");
   const [projectType, setProjectType] = useState("");
@@ -54,6 +53,8 @@ export default function AddNewPost() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
+
+  // Error message
   const [message, setMessage] = useState("");
 
   /** Fetches data from the api */
@@ -230,7 +231,7 @@ export default function AddNewPost() {
 
   // Checks if all the required fields are filled in, and if they are, enables the submit button
   useEffect(() => {
-    (!organization || !projectType || !contact || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
+    (!organization || !projectType || !contact || !description || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
   }, [organization, projectType, contact, lat, lon, setDisableSubmit])
 
   return (
@@ -323,7 +324,7 @@ export default function AddNewPost() {
               {/* Project type selection */}
               <div className={styles.optionList}>
                 <div className={styles.form}>
-                  <h3>Typ av projekt</h3>
+                  <h3>Typ av projekt *</h3>
                   {projectTypeSelector()}
                 </div>
               </div>

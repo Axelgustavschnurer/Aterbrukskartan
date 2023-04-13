@@ -507,7 +507,7 @@ export default function EditStory() {
 
               {/* Location section */}
               <div className={styles.addNewPostFormLocation}>
-                <h3>Plats *</h3>
+                <h3>Plats</h3>
                 { // The map switch is hidden if no project is selected (by checking if mapItem exists)
                   !!selectedStoryObject.mapItem &&
                   <div className={styles.switch}>

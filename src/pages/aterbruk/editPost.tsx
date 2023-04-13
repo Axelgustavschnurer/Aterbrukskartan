@@ -127,8 +127,8 @@ export default function EditPost() {
   /** Handles the submit event */
   const handleSubmit = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault()}
-    catch{}
+    try { e.preventDefault() }
+    catch { }
 
     try {
       /** The data that is sent to the database */
@@ -176,9 +176,9 @@ export default function EditPost() {
 
   const handleDelete = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
-    try{e.preventDefault()}
-    catch{}
-    
+    try { e.preventDefault() }
+    catch { }
+
     try {
       // Sends a DELETE request to the database to mark the selected project as deleted
       const response = await fetch(('/api/recycle?id=' + project), {
@@ -355,7 +355,7 @@ export default function EditPost() {
               </div>
 
               <div className={styles.addNewPostFormSelect}>
-                <h3>Organisation *</h3>
+                <h3>Organisation</h3>
                 <select
                   id="organisation"
                   name="organisation"
@@ -414,7 +414,7 @@ export default function EditPost() {
               </div>
 
               <div className={styles.addNewPostFormLocation}>
-                <h3>Plats *</h3>
+                <h3>Plats</h3>
                 { // The map switch is hidden if no project is selected (by checking if mapItem exists)
                   !!selectedRecycleObject.mapItem &&
                   <div className={styles.switch}>
@@ -461,7 +461,7 @@ export default function EditPost() {
               </div>
 
               <div className={styles.addNewPostFormDescription}>
-                <h3>Beskrivning *</h3>
+                <h3>Beskrivning</h3>
                 <textarea
                   id="description"
                   name="description"
@@ -475,7 +475,7 @@ export default function EditPost() {
               </div >
 
               <div className={styles.addNewPostFormContact}>
-                <h3>Kontakt *</h3>
+                <h3>Kontakt</h3>
                 <textarea
                   id="contact"
                   name="contact"

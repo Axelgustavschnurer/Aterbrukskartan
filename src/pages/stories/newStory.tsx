@@ -83,14 +83,15 @@ export default function AddNewStory() {
   const [videos, setVideos] = useState("");
   // Whether the project is a proper story or not
   const [energyStory, setEnergyStory] = useState(true);
-
+  // Name of the author of the report
   const [authorName, setAuthorName] = useState("");
-
+  // Contact information for the author of the report
   const [authorContact, setAuthorContact] = useState("");
-
+  // The data portal where the report will be published
+  const [dataPortal, setDataPortal] = useState("");
+  // Message to the user if something goes wrong within the API. Yet to be fully implemented.
   const [message, setMessage] = useState("");
 
-  const [dataPortal, setDataPortal] = useState("");
 
 
   /** Handles the submit of the form */
@@ -310,7 +311,7 @@ export default function AddNewStory() {
 
               {/*Program section */}
               <div className={styles.addNewPostFormSelect}>
-                <h3>Program *</h3>
+                <h3>Program</h3>
                 <select
                   id="program"
                   name="program"
@@ -325,7 +326,7 @@ export default function AddNewStory() {
               {
                 program ?
                   <div className={styles.addNewPostFormOrientation}>
-                    <h3>Programinriktning *</h3>
+                    <h3>Programinriktning</h3>
                     <input
                       type="text"
                       id={program}
@@ -340,7 +341,7 @@ export default function AddNewStory() {
 
               {/*Title section */}
               <div className={styles.addNewPostFormTitle}>
-                <h3>Casetitel</h3>
+                <h3>Casetitel *</h3>
                 <input
                   type="text"
                   id="title"
@@ -385,7 +386,7 @@ export default function AddNewStory() {
 
               {/*Start year section */}
               <div className={styles.startYear}>
-                <h3>År</h3>
+                <h3>År *</h3>
                 <input
                   type="number"
                   id="startYear"
@@ -398,7 +399,7 @@ export default function AddNewStory() {
 
               {/*Category section */}
               <div className={styles.addNewPostForm}>
-                <h3>Kategorier</h3>
+                <h3>Kategorier *</h3>
                 <div className={styles.optionList}>
                   <div className={styles.form}>
                     {getFilterdCategories()}
@@ -441,7 +442,7 @@ export default function AddNewStory() {
 
               {/*Description section */}
               <div className={styles.addNewPostFormDescription}>
-                <h3 style={{ marginTop: "10px" }}>Sammanfattning *</h3>
+                <h3 style={{ marginTop: "10px" }}>Sammanfattning</h3>
                 <textarea
                   id="description"
                   name="description"
@@ -453,7 +454,7 @@ export default function AddNewStory() {
 
               {/*Link to case section */}
               <div className={styles.addNewPostFormContact}>
-                <h3>Länk till case-beskrivning *</h3>
+                <h3>Länk till case-beskrivning</h3>
                 <textarea
                   id="caseDescription"
                   name="caseDescription"
