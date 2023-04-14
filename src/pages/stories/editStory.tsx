@@ -633,10 +633,10 @@ export default function EditStory() {
             {/* Submit and delete button */}
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onPress={handleSubmit}> Spara </Button>
+                <Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button>
               </div>
               <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.remove} onPress={handleDeleteModalOnclick}> Ta bort </Button>
+                <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button>
                 <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
               </div>
             </div>

@@ -232,7 +232,7 @@ export default function AddNewPost() {
   // Checks if all the required fields are filled in, and if they are, enables the submit button
   useEffect(() => {
     (!organization || !projectType || !contact || !description || !lat || !lon) ? setDisableSubmit(true) : setDisableSubmit(false)
-  }, [organization, projectType, contact, lat, lon, setDisableSubmit])
+  }, [organization, projectType, contact, description, lat, lon, setDisableSubmit])
 
   return (
     <>
@@ -416,7 +416,7 @@ export default function AddNewPost() {
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
-                <Button disabled={disableSubmit} id={!disableSubmit ? styles.save : styles.disabled} type="submit" onPress={handleSubmit}> Spara</Button >
+                <Button disabled={disableSubmit} id={!disableSubmit ? styles.save : styles.disabled} type="submit" onClick={handleSubmit}> Spara</Button >
               </div >
 
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>

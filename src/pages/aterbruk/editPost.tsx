@@ -498,7 +498,7 @@ export default function EditPost() {
 
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
-                < Button id={styles.save} type="submit" onPress={handleSubmit}> Spara </Button >
+                < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
               </div >
 
               <div className={styles.addNewPostFormSubmit}>
