@@ -4,10 +4,12 @@ import { createOldCsv, downloadCsv, createGenericCsv, createMapItemCsv } from "@
 import styles from "@/styles/downloads.module.css";
 import Image from "next/image";
 import { DeepRecycle, DeepStory } from "@/types";
-import router from "next/router";
+import { useRouter } from "next/router";
 import { websiteKeys } from "@/keys";
+import { Button } from "@nextui-org/react";
 
 export default function DownloadCSV() {
+  const router = useRouter()
   // Data from the database
   // The data is stored in a different format for the old CSV to keep the same format as the one available on the dataportal.
   const [oldStories, setOldStories] = useState({} as { results: oldDataFormat[] })
@@ -55,7 +57,7 @@ export default function DownloadCSV() {
     let query = router.query
 
     query["demoKey"] === websiteKeys["demoKey"] ? setRecycleAccess(true) : setRecycleAccess(false)
-  }, [])
+  }, [router.query])
 
   /** Handles the download of the old CSV */
   const handleOldDownload = () => {
@@ -79,27 +81,24 @@ export default function DownloadCSV() {
 
   return (
     <div className={styles.container}>
-      <h1>Ladda ner gammal stil av CSV för uppladdning till dataportal</h1>
-      <div id={styles.downloadCsv} onClick={handleOldDownload}>
-        <Image src="/images/download-button.webp" alt="test" width={1000} height={100} />
+      <div className={styles.content}>
+        <Button onPress={handleOldDownload} color={"gradient"}>Ladda ner gammal stil av CSV för uppladdning till dataportal</Button>
       </div>
-      <h1>Ladda ner Stories-data</h1>
-      <div id={styles.downloadCsv} onClick={handleStoryDownload}>
-        <Image src="/images/download-button.webp" alt="test" width={500} height={200} />
+      <div className={styles.content}>
+        <Button onPress={handleStoryDownload} color={"gradient"}>Ladda ner Stories-data</Button>
       </div>
-      <h1>Ladda ner mapItem-data (platser, organisationer och år kopplat till annan data)</h1>
-      <div id={styles.downloadCsv} onClick={handleMapItemDownload}>
-        <Image src="/images/download-button.webp" alt="test" width={750} height={150} />
+      <div className={styles.content}>
+        <Button onPress={handleMapItemDownload} color={"gradient"}>Ladda ner mapItem-data (platser, organisationer och år kopplat till annan data)</Button>
       </div>
-      {recycleAccess ?
-        <>
-          <h1>Ladda ner Recycle-data</h1>
-          <div id={styles.downloadCsv} onClick={handleRecycleDownload}>
-            <Image src="/images/download-button.webp" alt="test" width={800} height={75} />
-          </div>
-        </>
-        : null
+      {
+        recycleAccess ?
+          <>
+            <div className={styles.content}>
+              <Button onPress={handleRecycleDownload} color={"gradient"}>Ladda ner Recycle-data</Button>
+            </div>
+          </>
+          : null
       }
-    </div>
+    </div >
   );
 }
