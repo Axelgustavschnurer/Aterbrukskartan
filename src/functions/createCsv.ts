@@ -89,7 +89,7 @@ export function createMapItemCsv(data: (DeepRecycle | DeepStory)[]) {
   // Extract the mapItem field from each item in the array
   let mapItems = data.map((item) => {
     return item.mapItem;
-  })
+  }).sort((a, b) => a.id - b.id);
 
   // Get the headers from the first mapItem
   const csvHeaders = Object.keys(mapItems[0]);
