@@ -20,7 +20,7 @@ import { Button, Collapse } from "@nextui-org/react";
 
 import mobileStyles from "../styles/mobileSidebar.module.css";
 
-export default function MobileSidebar({ setFilter, currentMap }: any) {
+export default function MobileSidebar({ setFilter, currentMap, energiportalen }: any) {
   const [isOpen, setOpen] = useState(true);
 
   // List of all pins in the database
@@ -226,230 +226,234 @@ export default function MobileSidebar({ setFilter, currentMap }: any) {
   };
   return (
     <>
-      <input type="checkbox" id="navi-toggle" className={mobileStyles.checkbox} />
-      <label htmlFor="navi-toggle" className={mobileStyles.button}>
-        <span className={mobileStyles.icon}>&nbsp;</span>
-      </label>
-      <div className={mobileStyles.background}>&nbsp;</div>
+      {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : (
+        <>
+          <input type="checkbox" id="navi-toggle" className={mobileStyles.checkbox} />
+          <label htmlFor="navi-toggle" className={mobileStyles.button}>
+            <span className={mobileStyles.icon}>&nbsp;</span>
+          </label>
+          <div className={mobileStyles.background}>&nbsp;</div>
 
-      <nav className={mobileStyles.nav}>
-        <div className={mobileStyles.sidebar}>
-          <div className={mobileStyles.topHeader}>
-            {currentMap === "Stories" ? (
-              <h3>Kategorier</h3>
-            ) : currentMap === "Recycle" ? (
-              <h3>Projekttyper</h3>
-            ) : null}
-          </div>
-          {/* Buttons for choosing project types to filter by */}
-          <div className={mobileStyles.form}>
-            {currentMap === "Stories"
-              ? createMobileCategories(
-                storyCategory,
-                setStoryCategory,
-                disableReset,
-                setDisableReset
-              )
-              : currentMap === "Recycle"
-                ? createMobileProjectTypes(
-                  projectType,
-                  setProjectType,
-                  disableReset,
-                  setDisableReset
-                )
-                : null}
-          </div>
+          <nav className={mobileStyles.nav}>
+            <div className={mobileStyles.sidebar}>
+              <div className={mobileStyles.topHeader}>
+                {currentMap === "Stories" ? (
+                  <h3>Kategorier</h3>
+                ) : currentMap === "Recycle" ? (
+                  <h3>Projekttyper</h3>
+                ) : null}
+              </div>
+              {/* Buttons for choosing project types to filter by */}
+              <div className={mobileStyles.form}>
+                {currentMap === "Stories"
+                  ? createMobileCategories(
+                    storyCategory,
+                    setStoryCategory,
+                    disableReset,
+                    setDisableReset
+                  )
+                  : currentMap === "Recycle"
+                    ? createMobileProjectTypes(
+                      projectType,
+                      setProjectType,
+                      disableReset,
+                      setDisableReset
+                    )
+                    : null}
+              </div>
 
-          <div className={mobileStyles.sidebarHeader}>
-            <div className={mobileStyles.sidebarTitle}>
-              <h3>År</h3>
-            </div>
-          </div>
-          {/* Range slider for year filter */}
-          <div className={mobileStyles.rSliderContainer}>
-            <DualRangeSlider
-              min={
-                currentMap === "Stories"
-                  ? yearLimitsStories.min
-                  : currentMap === "Recycle"
-                    ? yearLimitsRecycle.min
-                    : null
-              }
-              max={
-                currentMap === "Stories"
-                  ? yearLimitsStories.max
-                  : currentMap === "Recycle"
-                    ? yearLimitsRecycle.max
-                    : null
-              }
-              onChange={({ min, max }: any) => {
-                if (
-                  years.includes(
+              <div className={mobileStyles.sidebarHeader}>
+                <div className={mobileStyles.sidebarTitle}>
+                  <h3>År</h3>
+                </div>
+              </div>
+              {/* Range slider for year filter */}
+              <div className={mobileStyles.rSliderContainer}>
+                <DualRangeSlider
+                  min={
                     currentMap === "Stories"
                       ? yearLimitsStories.min
                       : currentMap === "Recycle"
                         ? yearLimitsRecycle.min
-                        : 0
-                  ) &&
-                  years.includes(
+                        : null
+                  }
+                  max={
                     currentMap === "Stories"
                       ? yearLimitsStories.max
                       : currentMap === "Recycle"
                         ? yearLimitsRecycle.max
-                        : 0
-                  )
-                ) {
-                  setYearSliderDefault(true);
-                } else {
-                  setYearSliderDefault(false);
-                }
-                if (
-                  !(years.includes(min) && years.includes(max)) ||
-                  (min === max && !(years[0] === min && years[1] === max))
-                ) {
-                  setYears([min, max]), setSliderReset(false);
-                }
-              }}
-              reset={sliderReset}
-            />
-          </div>
-
-          {/*This is a range slider for months filter. Recycle map only */}
-          {currentMap === "Recycle" ? (
-            <>
-              <div className={mobileStyles.sidebarHeader}>
-                <div className={mobileStyles.sidebarTitle}>
-                  <h3>Månad</h3>
-                </div>
-              </div>
-              <div className={mobileStyles.rSliderContainer}>
-                <DualRangeSlider
-                  min={1}
-                  max={12}
+                        : null
+                  }
                   onChange={({ min, max }: any) => {
-                    if (months.includes(1) && months.includes(12)) {
-                      setMonthSliderDefault(true);
+                    if (
+                      years.includes(
+                        currentMap === "Stories"
+                          ? yearLimitsStories.min
+                          : currentMap === "Recycle"
+                            ? yearLimitsRecycle.min
+                            : 0
+                      ) &&
+                      years.includes(
+                        currentMap === "Stories"
+                          ? yearLimitsStories.max
+                          : currentMap === "Recycle"
+                            ? yearLimitsRecycle.max
+                            : 0
+                      )
+                    ) {
+                      setYearSliderDefault(true);
                     } else {
-                      setMonthSliderDefault(false);
+                      setYearSliderDefault(false);
                     }
                     if (
-                      !(months.includes(min) && months.includes(max)) ||
-                      (min === max && !(months[0] === min && months[1] === max))
+                      !(years.includes(min) && years.includes(max)) ||
+                      (min === max && !(years[0] === min && years[1] === max))
                     ) {
-                      setMonths([min, max]), setSliderReset(false);
+                      setYears([min, max]), setSliderReset(false);
                     }
                   }}
                   reset={sliderReset}
                 />
               </div>
-            </>
-          ) : null}
 
-          {/* Checkboxes for filtering materials and organisations */}
-          <form className={mobileStyles.form}>
-            {currentMap === "Recycle" ? (
-              <span>
-                <h3>Erbjuds</h3>{" "}
-                {createAvailableFilter(
-                  mapData,
-                  availableMaterials,
-                  setAvailableMaterials,
-                  disableReset,
-                  setDisableReset
-                )}{" "}
-                <h3>Sökes</h3>{" "}
-                {createLookingForFilter(
-                  mapData,
-                  lookingForMaterials,
-                  setLookingForMaterials,
-                  disableReset,
-                  setDisableReset
-                )}
-              </span>
-            ) : currentMap === "Stories" ? (
-              <span>
-                <h3>Projekt innehåll</h3>{" "}
-                {createMiscFilter(
-                  hasReport,
-                  setHasReport,
-                  hasVideo,
-                  setHasVideo,
-                  hasCase,
-                  setHasCase,
-                  hasOpenData,
-                  setHasOpenData,
-                  isRealStory,
-                  setIsRealStory,
-                  hasSolarData,
-                  setHasSolarData,
-                )}{" "}
-                <h3>Utbildningsprogram</h3>{" "}
-                {createEducationalFilter(
-                  educationalProgram,
-                  setEducationalProgram,
-                  disableReset,
-                  setDisableReset
-                )}
-              </span>
-            ) : null}
-            {createOrganisationFilter()}
-          </form>
+              {/*This is a range slider for months filter. Recycle map only */}
+              {currentMap === "Recycle" ? (
+                <>
+                  <div className={mobileStyles.sidebarHeader}>
+                    <div className={mobileStyles.sidebarTitle}>
+                      <h3>Månad</h3>
+                    </div>
+                  </div>
+                  <div className={mobileStyles.rSliderContainer}>
+                    <DualRangeSlider
+                      min={1}
+                      max={12}
+                      onChange={({ min, max }: any) => {
+                        if (months.includes(1) && months.includes(12)) {
+                          setMonthSliderDefault(true);
+                        } else {
+                          setMonthSliderDefault(false);
+                        }
+                        if (
+                          !(months.includes(min) && months.includes(max)) ||
+                          (min === max && !(months[0] === min && months[1] === max))
+                        ) {
+                          setMonths([min, max]), setSliderReset(false);
+                        }
+                      }}
+                      reset={sliderReset}
+                    />
+                  </div>
+                </>
+              ) : null}
 
-          {/* Button for clearing the current filter. Disabled when no filter is active */}
-          <div className={mobileStyles.clearFilter}>
-            <Button
-              id={mobileStyles.clearBtn}
-              css={{ width: "100%" }}
-              disabled={
-                disableReset.projectType &&
-                disableReset.lookingForMaterials &&
-                disableReset.availableMaterials &&
-                disableReset.organisation &&
-                disableReset.storyCategory &&
-                disableReset.educationalProgram &&
-                !isRealStory &&
-                !hasCase &&
-                !hasReport &&
-                !hasOpenData &&
-                !hasVideo &&
-                yearSliderDefault &&
-                monthSliderDefault
-              }
-              onPress={() => {
-                setProjectType([]);
-                setSliderReset(true);
-                setLookingForMaterials([]);
-                setAvailableMaterials([]);
-                setOrganisation([]);
-                setStoryCategory([]);
-                setEducationalProgram([]);
-                setHasVideo(false);
-                setHasReport(false);
-                setHasCase(false);
-                setHasOpenData(false);
-                setIsRealStory(false);
-                setDisableReset({
-                  projectType: true,
-                  lookingForMaterials: true,
-                  availableMaterials: true,
-                  organisation: true,
-                  storyCategory: true,
-                  educationalProgram: true,
-                });
+              {/* Checkboxes for filtering materials and organisations */}
+              <form className={mobileStyles.form}>
+                {currentMap === "Recycle" ? (
+                  <span>
+                    <h3>Erbjuds</h3>{" "}
+                    {createAvailableFilter(
+                      mapData,
+                      availableMaterials,
+                      setAvailableMaterials,
+                      disableReset,
+                      setDisableReset
+                    )}{" "}
+                    <h3>Sökes</h3>{" "}
+                    {createLookingForFilter(
+                      mapData,
+                      lookingForMaterials,
+                      setLookingForMaterials,
+                      disableReset,
+                      setDisableReset
+                    )}
+                  </span>
+                ) : currentMap === "Stories" ? (
+                  <span>
+                    <h3>Projekt innehåll</h3>{" "}
+                    {createMiscFilter(
+                      hasReport,
+                      setHasReport,
+                      hasVideo,
+                      setHasVideo,
+                      hasCase,
+                      setHasCase,
+                      hasOpenData,
+                      setHasOpenData,
+                      isRealStory,
+                      setIsRealStory,
+                      hasSolarData,
+                      setHasSolarData,
+                    )}{" "}
+                    <h3>Utbildningsprogram</h3>{" "}
+                    {createEducationalFilter(
+                      educationalProgram,
+                      setEducationalProgram,
+                      disableReset,
+                      setDisableReset
+                    )}
+                  </span>
+                ) : null}
+                {createOrganisationFilter()}
+              </form>
 
-                let checkboxes = document.querySelectorAll(
-                  "input[type=checkbox]:not([id=navi-toggle])"
-                );
-                checkboxes.forEach((checkbox: any) => {
-                  checkbox.checked = false;
-                });
-              }}
-            >
-              Rensa filter
-            </Button>
-          </div>
-        </div>
-      </nav>
+              {/* Button for clearing the current filter. Disabled when no filter is active */}
+              <div className={mobileStyles.clearFilter}>
+                <Button
+                  id={mobileStyles.clearBtn}
+                  css={{ width: "100%" }}
+                  disabled={
+                    disableReset.projectType &&
+                    disableReset.lookingForMaterials &&
+                    disableReset.availableMaterials &&
+                    disableReset.organisation &&
+                    disableReset.storyCategory &&
+                    disableReset.educationalProgram &&
+                    !isRealStory &&
+                    !hasCase &&
+                    !hasReport &&
+                    !hasOpenData &&
+                    !hasVideo &&
+                    yearSliderDefault &&
+                    monthSliderDefault
+                  }
+                  onPress={() => {
+                    setProjectType([]);
+                    setSliderReset(true);
+                    setLookingForMaterials([]);
+                    setAvailableMaterials([]);
+                    setOrganisation([]);
+                    setStoryCategory([]);
+                    setEducationalProgram([]);
+                    setHasVideo(false);
+                    setHasReport(false);
+                    setHasCase(false);
+                    setHasOpenData(false);
+                    setIsRealStory(false);
+                    setDisableReset({
+                      projectType: true,
+                      lookingForMaterials: true,
+                      availableMaterials: true,
+                      organisation: true,
+                      storyCategory: true,
+                      educationalProgram: true,
+                    });
+
+                    let checkboxes = document.querySelectorAll(
+                      "input[type=checkbox]:not([id=navi-toggle])"
+                    );
+                    checkboxes.forEach((checkbox: any) => {
+                      checkbox.checked = false;
+                    });
+                  }}
+                >
+                  Rensa filter
+                </Button>
+              </div>
+            </div>
+          </nav>
+        </>
+      )}
     </>
   )
 }

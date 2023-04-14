@@ -29,6 +29,9 @@ export default function HomePage() {
 
   const [admin, setAdmin] = useState(false)
 
+  // Controls whether the content should be tailored to "energiportalen" or not
+  const [energiportalen, setEnergiportalen] = useState(false)
+
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as StoryFilter)
 
@@ -112,7 +115,7 @@ export default function HomePage() {
    * to only display the amount of selected project contents
    */
   const contentLabel = () => {
-    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory || currentFilter.solarData) {
+    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory || currentFilter.solarData && !energiportalen) {
       let content = []
       if (currentFilter.report) {
         content.push("Rapport")
@@ -129,7 +132,7 @@ export default function HomePage() {
       if (currentFilter.energyStory) {
         content.push("Story")
       }
-      if (currentFilter.solarData) {
+      if (currentFilter.solarData && energiportalen) {
         content.push("Energiportalen")
       }
       if (content.length > maxCategoryAmount) {
@@ -195,8 +198,9 @@ export default function HomePage() {
     // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
     let query = router.query
 
-    // A URL passing this check looks like "www.example.com?admin=yesforreal"
+    // A URL passing this check looks like "www.example.com?stunsStoriesAdmin=hVg1JHJV787gFGftrd"
     query["stunsStoriesAdmin"] === websiteKeys["stunsStoriesAdmin"] ? setAdmin(true) : setAdmin(false)
+    query["energiportalen"] === websiteKeys["energiportalen"] ? setEnergiportalen(true) : setEnergiportalen(false)
   }, [router.query])
 
   const checkMobile = (setIsMobile: any) => {
@@ -236,7 +240,7 @@ export default function HomePage() {
       </div>
 
       {/* Sidebar */}
-      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Stories" /> : <MobileSidebar setFilter={setFilter} currentMap="Stories" />}
+      {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" />}
 
       {/* Searchbar */}
       {!isMobile ?

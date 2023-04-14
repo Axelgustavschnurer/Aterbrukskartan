@@ -25,7 +25,7 @@ import { Button, Collapse } from "@nextui-org/react";
  * @param currentMap String containing the current map for conditional rendering
  * @returns JSX.Element
  */
-export default function Sidebar({ setFilter, currentMap }: any) {
+export default function Sidebar({ setFilter, currentMap, energiportalen }: any) {
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);
 
@@ -231,7 +231,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
 
   return (
     <>
-      {isOpen && (
+      {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
         <div className={styles.sidebar}>
           <div className={styles.sidebarHeader}>
             {currentMap === "Stories" ? (
@@ -465,7 +465,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
       )}
 
       {/* Button for opening the sidebar when it's closed */}
-      {!isOpen && (
+      {energiportalen ? null : !isOpen && (
         <div className={styles.hiddenSidebar}>
           <div className={styles.sidebarOpen}>
             <button id={styles.openBtn} onClick={toggleMenu}>
@@ -479,6 +479,7 @@ export default function Sidebar({ setFilter, currentMap }: any) {
           </div>
         </div>
       )}
+
     </>
   );
 }

@@ -3,4 +3,5 @@ export const websiteKeys = {
   "stunsStoriesAdmin": "hVg1JHJV787gFGftrd",
   "admin": "yesforreal",
   "demoKey": "supersecreturlmaybechangeinthefuture",
+  "energiportalen": "true",
 }
