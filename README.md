@@ -10,13 +10,16 @@ The idea is that companies enter some project information, like when and where t
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 [React](https://reactjs.org/) is used for the frontend and [Prisma](https://www.prisma.io/) is used for the database.
 
+
+To view our plans for possible future improvements, see [this document](https://stuns.sharepoint.com/:w:/s/terbrukskartan/ET3yGNnQiTNPra6jFuFIEygB-gpCZnkSEF_R-C6VWvCt6w?e=htn8uE).
+
 ---
 
 ## Getting Started
 
 All commands are to be run in your terminal of choice, in the root directory of the project.
 
-First, download and install [Node.js](https://nodejs.org/en/download/) and clone the repository here on Azure (you'll need [git](https://git-scm.com/downloads) for that).
+First, download and install [Node.js](https://nodejs.org/en/download/) and clone the repository here on Azure (preferably to [VS Code](https://code.visualstudio.com/download), but you'll need [git](https://git-scm.com/downloads) regardless of what you use).
 
 Thereafter, install dependencies by running:
 
@@ -124,9 +127,3 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
----
-
-## Whats next?
-
--
