@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { oldDataFormat } from "@/pages/api/createOldJSON";
 import { createOldCsv, downloadCsv, createGenericCsv, createMapItemCsv } from "@/functions/createCsv";
 import styles from "@/styles/downloads.module.css";
-import Image from "next/image";
+import Head from "next/head";
 import { DeepRecycle, DeepStory } from "@/types";
 import { useRouter } from "next/router";
 import { websiteKeys } from "@/keys";
@@ -80,25 +80,31 @@ export default function DownloadCSV() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <Button onPress={handleOldDownload} color={"gradient"}>Ladda ner gammal stil av CSV för uppladdning till dataportal</Button>
-      </div>
-      <div className={styles.content}>
-        <Button onPress={handleStoryDownload} color={"gradient"}>Ladda ner Stories-data</Button>
-      </div>
-      <div className={styles.content}>
-        <Button onPress={handleMapItemDownload} color={"gradient"}>Ladda ner mapItem-data (platser, organisationer och år kopplat till annan data)</Button>
-      </div>
-      {
-        recycleAccess ?
-          <>
-            <div className={styles.content}>
-              <Button onPress={handleRecycleDownload} color={"gradient"}>Ladda ner Recycle-data</Button>
-            </div>
-          </>
-          : null
-      }
-    </div >
+    <>
+      <Head>
+        <title>Ladda ner</title>
+        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <Button onPress={handleOldDownload} color={"gradient"}>Ladda ner gammal stil av CSV för uppladdning till dataportal</Button>
+        </div>
+        <div className={styles.content}>
+          <Button onPress={handleStoryDownload} color={"gradient"}>Ladda ner Stories-data</Button>
+        </div>
+        <div className={styles.content}>
+          <Button onPress={handleMapItemDownload} color={"gradient"}>Ladda ner mapItem-data (platser, organisationer och år kopplat till annan data)</Button>
+        </div>
+        {
+          recycleAccess ?
+            <>
+              <div className={styles.content}>
+                <Button onPress={handleRecycleDownload} color={"gradient"}>Ladda ner Recycle-data</Button>
+              </div>
+            </>
+            : null
+        }
+      </div >
+    </>
   );
 }
