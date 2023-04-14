@@ -104,6 +104,7 @@ The query parameters change according to the values in `src/keys.ts`. If running
 - [https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd](https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd) - Admin page for stories.
 - [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
 - [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
+- [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the map to be viewed within the iframes of Energiportalen.
 
 ### Good to know
 
