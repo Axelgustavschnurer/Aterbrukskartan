@@ -4,6 +4,9 @@ import { DeepStory, DeepStoryInput } from '@/types'
 
 const prisma = new PrismaClient()
 
+/**
+ * This API handles requests regarding Stories data, such as creating new Story objects, or fetching existing ones.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -4,6 +4,9 @@ import { DeepRecycle, DeepRecycleInput } from '@/types'
 
 const prisma = new PrismaClient()
 
+/**
+ * This API handles requests regarding recycle data, such as creating new Recycle objects, or fetching existing ones.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -89,10 +89,9 @@ export default function AddNewStory() {
   const [authorContact, setAuthorContact] = useState("");
   // The data portal where the report will be published
   const [dataPortal, setDataPortal] = useState("");
+
   // Message to the user if something goes wrong within the API. Yet to be fully implemented.
   const [message, setMessage] = useState("");
-
-
 
   /** Handles the submit of the form */
   const handleSubmit = async (e: any) => {
@@ -225,6 +224,7 @@ export default function AddNewStory() {
     )
   }
 
+  /** Gets all the data portals from 'dataPortals' and returns them as radio buttons */
   const getDataPortals = () => {
     return (
       <>
@@ -295,6 +295,7 @@ export default function AddNewStory() {
                 </select>
               </div>
 
+              {/* Input field for adding a new organisation if addOrganisation is selected */}
               {organisation === "addOrganisation" && (
                 <div className={styles.addNewPostFormInput}>
                   <h3>Ny organisation</h3>
@@ -363,8 +364,9 @@ export default function AddNewStory() {
                 />
               </div>
 
+              {/* Selection of which data portal the report is/will be published on */}
               <div className={styles.addNewPostForm}>
-                <h3>Vilken dataportal ligger caset på?</h3>
+                <h3>Dataportal där rapporten är/kommer vara:</h3>
                 <div className={styles.optionList}>
                   <div className={styles.formData}>
                     {getDataPortals()}
@@ -417,7 +419,6 @@ export default function AddNewStory() {
                     className={styles.switchInput}
                     onChange={(e) => setLocationToggle(e.target.checked)}
                   />
-                  {/* If you want to switch to map, uncomment this part*/}
                   <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
                 </div>
                 {
@@ -486,7 +487,7 @@ export default function AddNewStory() {
                 />
               </div >
 
-              {/*Name section */}
+              {/*Author section */}
               <div className={styles.authorName}>
                 <h3>Namn på författare</h3>
                 <textarea
@@ -508,7 +509,7 @@ export default function AddNewStory() {
                 />
               </div >
 
-              {/*isEnergystory section */}
+              {/*isEnergyStory section */}
               <div style={{ marginTop: "10px" }}>
                 <h3>Är det ett stories projekt?</h3>
                 <input

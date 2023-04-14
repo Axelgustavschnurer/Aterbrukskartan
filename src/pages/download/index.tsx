@@ -9,7 +9,9 @@ import { websiteKeys } from "@/keys";
 import { Button } from "@nextui-org/react";
 
 export default function DownloadCSV() {
+  // The router is used to get the URL queries
   const router = useRouter()
+
   // Data from the database
   // The data is stored in a different format for the old CSV to keep the same format as the one available on the dataportal.
   const [oldStories, setOldStories] = useState({} as { results: oldDataFormat[] })

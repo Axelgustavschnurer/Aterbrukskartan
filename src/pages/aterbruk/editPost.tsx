@@ -174,6 +174,7 @@ export default function EditPost() {
     }
   }
 
+  /** Handles the delete event */
   const handleDelete = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
     try { e.preventDefault() }
@@ -206,6 +207,7 @@ export default function EditPost() {
     setModalState(!modalState)
   }
 
+  /** Dropdown menu for organisation selection */
   const organisationOptions = () => {
     let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
     let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()

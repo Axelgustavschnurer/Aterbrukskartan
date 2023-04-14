@@ -209,13 +209,14 @@ export default function HomePage() {
     // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
     let query = router.query
 
-    // A URL passing this check looks like "www.example.com?admin=yesforreal"
+    // A URL passing this check could look like "www.example.com?admin=yesforreal"
     query["admin"] === websiteKeys["admin"] ? setAdmin(true) : setAdmin(false)
 
-    // A URL passing this check looks like "www.example.com?demoKey=supersecreturlmaybechangeinthefuture"
+    // A URL passing this check could look like "www.example.com?demoKey=supersecreturlmaybechangeinthefuture"
     query["demoKey"] === websiteKeys["demoKey"] ? setRecycle(true) : setRecycle(false)
   }, [router.query])
 
+  /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
       return setIsMobile(true);
@@ -225,10 +226,12 @@ export default function HomePage() {
     }
   }
 
+  // Checks if the user is on a mobile device on first render
   useEffect(() => {
     checkMobile(setIsMobile);
   }, [])
 
+  // Adds an event listener to check if the window is resized to a size where the interface should change
   useEffect(() => {
     window.addEventListener("resize", () => checkMobile(setIsMobile));
     return () => window.removeEventListener("resize", () => checkMobile(setIsMobile));
@@ -279,17 +282,17 @@ export default function HomePage() {
 
             {/* Badges showing currently avtive filters, if any */}
             {!isMobile ?
-            <div className={styles.filterTextContent}>
-              <div className={styles.filterTextContainer}>
-                {projectTypeLabel()}
-                {yearLabel()}
-                {monthLabel()}
-                {lookingForMaterialsLabel()}
-                {availableMaterialsLabel()}
-                {organisationLabel()}
+              <div className={styles.filterTextContent}>
+                <div className={styles.filterTextContainer}>
+                  {projectTypeLabel()}
+                  {yearLabel()}
+                  {monthLabel()}
+                  {lookingForMaterialsLabel()}
+                  {availableMaterialsLabel()}
+                  {organisationLabel()}
+                </div>
               </div>
-            </div>
-            : null}
+              : null}
 
             {/* Button leading to another page where one can add projects to the database */}
             {admin && (

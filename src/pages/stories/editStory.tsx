@@ -63,19 +63,20 @@ export default function EditStory() {
   const [caseDescription, setCaseDescription] = useState("");
   // Link to any videos
   const [videos, setVideos] = useState("");
-
+  // Link to any open data site
   const [openData, setOpenData] = useState("");
-
+  // Name of the author/-s of the report
   const [authorName, setAuthorName] = useState("");
+  // Contact information for the author/-s of the report
   const [authorContact, setAuthorContact] = useState("");
-
   // Whether the project is a proper story or not
+  // Non-stories are mostly the solar data from energiportalen
   const [energyStory, setEnergyStory] = useState(true);
+  // State for the data portal
+  const [dataPortal, setDataPortal] = useState("");
 
   // TODO: Show message from API if submission fails
   const [message, setMessage] = useState("");
-
-  const [dataPortal, setDataPortal] = useState("");
 
   // Fetches all data from the database
   const fetchData = async () => {
@@ -311,6 +312,7 @@ export default function EditStory() {
     )
   }
 
+  /** Gets all the data portals from 'dataPortals' imported from newStory and returns them as radio buttons */
   const getDataPortals = () => {
     return (
       <>
@@ -391,6 +393,8 @@ export default function EditStory() {
                   <option value="addOrganisation">Lägg till en organisation</option>
                 </select>
               </div>
+
+              {/* Input field for adding a new organisation if addOrganisation is selected */}
               {organisation === "addOrganisation" && (
                 <div className={styles.addNewPostFormInput}>
                   <h3>Ny organisation</h3>
@@ -461,8 +465,9 @@ export default function EditStory() {
                 />
               </div>
 
+              {/* Selection of which data portal the report is/will be published on */}
               <div className={styles.addNewPostForm}>
-                <h3>Vilken dataportal ligger caset på?</h3>
+                <h3>Dataportal där rapporten är/kommer vara:</h3>
                 <div className={styles.optionList}>
                   <div className={styles.formData}>
                     {getDataPortals()}
@@ -587,7 +592,7 @@ export default function EditStory() {
                 />
               </div>
 
-              {/*Name section */}
+              {/* Author section */}
               <div className={styles.authorName}>
                 <h3>Namn på författare</h3>
                 <textarea

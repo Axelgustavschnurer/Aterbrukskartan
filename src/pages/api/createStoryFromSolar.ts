@@ -10,6 +10,10 @@ export type SolarStory = {
   descriptionSwedish: string;
 }
 
+/**
+ * This API fetches data from the Stuns Solar API and creates a mock stories entry for each solar panel system.
+ * The fake story objects are then used to display this data on the map.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<SolarStory[]>

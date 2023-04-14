@@ -203,6 +203,7 @@ export default function HomePage() {
     query["energiportalen"] === websiteKeys["energiportalen"] ? setEnergiportalen(true) : setEnergiportalen(false)
   }, [router.query])
 
+  /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
       return setIsMobile(true);
@@ -212,10 +213,12 @@ export default function HomePage() {
     }
   }
 
+  // Checks if the user is on a mobile device on first render
   useEffect(() => {
     checkMobile(setIsMobile);
   }, [])
 
+  // Adds an event listener to check if the window is resized to a size where the interface should change
   useEffect(() => {
     window.addEventListener("resize", () => checkMobile(setIsMobile));
     return () => window.removeEventListener("resize", () => checkMobile(setIsMobile));
