@@ -132,7 +132,7 @@ export default function HomePage() {
       if (currentFilter.energyStory) {
         content.push("Story")
       }
-      if (currentFilter.solarData && energiportalen) {
+      if (currentFilter.solarData) {
         content.push("Energiportalen")
       }
       if (content.length > maxCategoryAmount) {
