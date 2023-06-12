@@ -21,8 +21,9 @@ export const educationalPrograms: string[] = [
   "Masterprogram",
 ];
 
+// Names and links to the different data portals
 export const dataPortals: any = {
-  "DiVA": "https://uu.diva-portal.org/smash/search.jsf?dswid=-701",
+  "DiVA": "https://uu.diva-portal.org/",
   "Epsilon": "https://stud.epsilon.slu.se/"
 };
 
@@ -235,7 +236,7 @@ export default function AddNewStory() {
                 type="radio"
                 id={portal}
                 name="dataPortal"
-                value={dataPortal[portal]}
+                value={dataPortals[portal]}
                 onChange={(e) => setDataPortal(e.target.value)}
               />
               <label htmlFor={portal}>{portal} </label>
