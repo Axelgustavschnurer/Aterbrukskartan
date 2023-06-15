@@ -47,6 +47,11 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
   // List of all active filters for the field `educationalProgram`
   const [educationalProgram, setEducationalProgram] = useState([] as string[]);
 
+  // List of all active filters for the field `educationalSpecialisation`
+  const [educationalSpecialisation, setEducationalSpecialisation] = useState(
+    [] as string[]
+  );
+
   const [isRealStory, setIsRealStory] = useState(false as boolean);
 
   const [hasSolarData, setHasSolarData] = useState(false as boolean);
@@ -133,6 +138,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
         organisation: organisation,
         categories: storyCategory,
         educationalProgram: educationalProgram,
+        educationalSpecialisation: educationalSpecialisation,
         video: hasVideo,
         report: hasReport,
         cases: hasCase,
@@ -161,6 +167,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
     storyCategory,
     currentMap,
     educationalProgram,
+    educationalSpecialisation,
     hasVideo,
     hasReport,
     hasCase,
@@ -168,6 +175,76 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
     isRealStory,
     hasSolarData,
   ]);
+
+  /**
+   * Creates checkboxes for all education specialisations in the database
+   */
+  const createSpecialisationFilter = () => {
+    let mappedData = mapData.map((pin: any) => pin.educationalProgram);
+    // Matches all characters before the first comma, the comma itself, and all immediately following whitespace
+    // Used to separate the specialisation from the combined program name by removing the program name
+    // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
+    const programRegex = /^[^,]*?,\s*/
+    let specialisations = mappedData.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let filteredData = specialisations
+      .filter(
+        (specialisation: any, index: any) =>
+          specialisations.indexOf(specialisation) === index && !!specialisations[index]
+      )
+      .sort();
+    return (
+      <>
+        <Collapse title="Specialisering" divider={false} subtitle="Tryck för att expandera / minimera">
+          {filteredData.map((specialisation: any) => {
+            return (
+              <div id={styles.inputGroupOrg} className={styles.inputGroup} key={specialisation}>
+                <input
+                  id={specialisation}
+                  name={specialisation}
+                  type="checkbox"
+                  onChange={(e) => {
+                    // If the checkbox is now unchecked and the specialisation is in the specialisation array, remove it from the array
+                    if (
+                      educationalSpecialisation.includes(e.target.name) &&
+                      !e.target.checked
+                    ) {
+                      setEducationalSpecialisation(
+                        educationalSpecialisation.filter(
+                          (specialisation: any) => specialisation !== e.target.name
+                        )
+                      );
+                      if (educationalSpecialisation.length <= 1) {
+                        setDisableReset({
+                          ...disableReset,
+                          educationalSpecialisation: true,
+                        });
+                      }
+                    }
+                    // If the checkbox is now checked and the specialisation is not in the specialisation array, add it to the array
+                    else if (
+                      !educationalSpecialisation.includes(e.target.name) &&
+                      e.target.checked
+                    ) {
+                      setEducationalSpecialisation([
+                        ...educationalSpecialisation,
+                        e.target.name,
+                      ]);
+                      // Enable the reset button since there is now a filter active
+                      setDisableReset({
+                        ...disableReset,
+                        educationalSpecialisation: false,
+                      });
+                    }
+                  }}
+                />
+                <label htmlFor={specialisation}>{specialisation}</label>
+              </div>
+            );
+          })}
+        </Collapse>
+      </>
+    );
+  };
 
   /**
    * Creates checkboxes for all the different organisations in the database
@@ -367,7 +444,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
               </span>
             ) : currentMap === "Stories" ? (
               <span>
-                <h3>Projekt innehåll</h3>{" "}
+                <h3>Projektinnehåll</h3>{" "}
                 {createMiscFilter(
                   hasReport,
                   setHasReport,
@@ -389,6 +466,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
                   disableReset,
                   setDisableReset
                 )}
+                {createSpecialisationFilter()}
               </span>
             ) : null}
             {createOrganisationFilter()}
@@ -406,6 +484,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
                 disableReset.organisation &&
                 disableReset.storyCategory &&
                 disableReset.educationalProgram &&
+                disableReset.educationalSpecialisation &&
                 !isRealStory &&
                 !hasCase &&
                 !hasReport &&
@@ -423,6 +502,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
                 setOrganisation([]);
                 setStoryCategory([]);
                 setEducationalProgram([]);
+                setEducationalSpecialisation([]);
                 setHasVideo(false);
                 setHasReport(false);
                 setHasCase(false);
@@ -436,6 +516,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
                   organisation: true,
                   storyCategory: true,
                   educationalProgram: true,
+                  educationalSpecialisation: true,
                 });
 
                 let checkboxes = document.querySelectorAll(
