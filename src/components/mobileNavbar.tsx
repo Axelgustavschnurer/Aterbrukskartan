@@ -134,6 +134,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
         organisation: organisation,
         categories: storyCategory,
         educationalProgram: educationalProgram,
+        educationalSpecialisation: educationalSpecialisation,
         video: hasVideo,
         report: hasReport,
         cases: hasCase,
@@ -162,6 +163,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
     storyCategory,
     currentMap,
     educationalProgram,
+    educationalSpecialisation,
     hasVideo,
     hasReport,
     hasCase,
@@ -191,7 +193,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
         <Collapse title="Specialisering" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((specialisation: any) => {
             return (
-              <div id={mobileStyles.inputGroupSpec} className={mobileStyles.inputGroup} key={specialisation}>
+              <div id={mobileStyles.inputGroupOrg} className={mobileStyles.inputGroup} key={specialisation}>
                 <input
                   id={specialisation}
                   name={specialisation}
@@ -446,7 +448,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
                   </span>
                 ) : currentMap === "Stories" ? (
                   <span>
-                    <h3>Projekt innehåll</h3>{" "}
+                    <h3>Projektinnehåll</h3>{" "}
                     {createMiscFilter(
                       hasReport,
                       setHasReport,
@@ -503,6 +505,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
                     setOrganisation([]);
                     setStoryCategory([]);
                     setEducationalProgram([]);
+                    setEducationalSpecialisation([]);
                     setHasVideo(false);
                     setHasReport(false);
                     setHasCase(false);
@@ -515,6 +518,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
                       organisation: true,
                       storyCategory: true,
                       educationalProgram: true,
+                      educationalSpecialisation: true,
                     });
 
                     let checkboxes = document.querySelectorAll(
