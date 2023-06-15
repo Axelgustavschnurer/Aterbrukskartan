@@ -112,6 +112,8 @@ export type StoryFilter = {
   categories?: string[],
   /** Array of strings containing educational programs to filter by */
   educationalProgram?: string[],
+  /** Array of strings containing educational specialisations to filter by */
+  educationalSpecialisation?: string[],
   /** Boolean to filter out stories that don't have a video */
   video?: boolean,
   /** Boolean to filter out stories that don't have a report */

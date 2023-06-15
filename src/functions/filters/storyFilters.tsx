@@ -108,7 +108,7 @@ export function filterByCategories(data: DeepStory[], categories: string[]) {
 /**
  * Filters out `Story` objects that do not have an educational program that matches with at least one of the educational programs in the `educationalProgram` parameter.
  * 
- * Intended to be used specifically to check if the educational program contains "Civilingenjör", "Högskoleingenjör", "Agronom" or "Kandidatexamen",
+ * Intended to be used specifically to check if the educational program contains "Civilingenjör", "Högskoleingenjör", "Agronom", "Kandidatprogram", or "Masterprogram",
  * but could also be used to check if the educationalProgram field contains any other string.
  * @param data Array of `DeepStory` objects to filter.
  * @param educationalProgram Array of strings containing educational programs to filter by.
@@ -121,6 +121,34 @@ export function filterByEducationalProgram(data: DeepStory[], educationalProgram
     if (!data[i].educationalProgram) continue;
     for (let j in educationalProgram) {
       if (data[i].educationalProgram?.toLowerCase().includes(educationalProgram[j].toLowerCase())) {
+        returnData.push(data[i]);
+        break;
+      }
+    }
+  }
+
+  return returnData;
+}
+
+/**
+ * Filters out `Story` objects that do not have an educational specialisation that matches with at least one of the educational specialisations in the `educationalSpecialisation` parameter.
+ * 
+ * Currently the string "Teknisk fysik med materialvetenskap" will match with both "Teknisk fysik" and "Teknisk fysik med materialvetenskap", but this might not be intended behaviour.
+ * TODO: Ask PO about what they would prefer, strict matches or partial matches. If changed, remember to update/remove the comments below.
+ * 
+ * Is technically the same as `filterByEducationalProgram`, but I think it's better to have two separate functions for clarity.
+ * This version is intended for filtering by specialisations (the part after the comma) while `filterByEducationalProgram` is intended for filtering by programs (the part before the comma).
+ * @param data Array of `DeepStory` objects to filter.
+ * @param educationalSpecialisation Array of strings containing educational specialisations to filter by.
+ * @returns `Story` objects that have at least one of the selected educational specialisations (matches at least one of the strings in `educationalSpecialisation`).
+ */
+export function filterByEducationalSpecialisation(data: DeepStory[], educationalSpecialisation: string[]) {
+  let returnData: DeepStory[] = [];
+
+  for (let i in data) {
+    if (!data[i].educationalProgram) continue;
+    for (let j in educationalSpecialisation) {
+      if (data[i].educationalProgram?.toLowerCase().includes(educationalSpecialisation[j].toLowerCase())) {
         returnData.push(data[i]);
         break;
       }
@@ -258,6 +286,9 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   }
   if (filters.educationalProgram?.length) {
     returnData = filterByEducationalProgram(returnData, filters.educationalProgram);
+  }
+  if (filters.educationalSpecialisation?.length) {
+    returnData = filterByEducationalSpecialisation(returnData, filters.educationalSpecialisation);
   }
   if (filters.video) {
     returnData = filterHasVideo(returnData);
