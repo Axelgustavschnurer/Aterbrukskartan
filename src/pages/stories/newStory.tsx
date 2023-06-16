@@ -130,7 +130,7 @@ export default function AddNewStory() {
         body: JSON.stringify({
           mapItem,
           categorySwedish: !!categoryArray.join(", ") ? categoryArray.join(", ") : null,
-          educationalProgram: !!programOrientation ? programOrientation == "addOrientation" ? (program + ", " + newOrientation) : (program + ", " + programOrientation) : !!program ? program : null,
+          educationalProgram: !!programOrientation ? programOrientation == "addOrientation" ? (program + ", " + setFirstLetterCapital(newOrientation)) : (program + ", " + setFirstLetterCapital(programOrientation)) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
           reportSite: !!dataPortal ? dataPortal : null,
@@ -179,7 +179,7 @@ export default function AddNewStory() {
     // Used to separate the specialisation from the combined program name by removing the program name
     // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
     const programRegex = /^[^,]*?,\s*/
-    let specialisations = programs.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let specialisations = programs.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
     let filteredData = specialisations
       .filter(
         (specialisation: any, index: any) =>

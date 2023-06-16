@@ -19,6 +19,7 @@ import {
 import { Button, Collapse } from "@nextui-org/react";
 
 import mobileStyles from "../styles/mobileSidebar.module.css";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
 export default function MobileSidebar({ setFilter, currentMap, energiportalen }: any) {
   const [isOpen, setOpen] = useState(true);
@@ -181,7 +182,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
     // Used to separate the specialisation from the combined program name by removing the program name
     // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
     const programRegex = /^[^,]*?,\s*/
-    let specialisations = mappedData.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let specialisations = mappedData.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
     let filteredData = specialisations
       .filter(
         (specialisation: any, index: any) =>

@@ -120,7 +120,7 @@ export default function EditStory() {
       setProgramOrientation("")
     }
     else {
-      setProgramOrientation(selectedStoryObject.educationalProgram?.replace(programRegex, ""))
+      setProgramOrientation(setFirstLetterCapital(selectedStoryObject.educationalProgram?.replace(programRegex, "")))
     }
 
     setProjectTitle(selectedStoryObject.mapItem?.name as any || "")
@@ -178,7 +178,7 @@ export default function EditStory() {
         body: JSON.stringify({
           mapItem,
           categorySwedish: !!categorArray.join(", ") ? categorArray.join(", ") : null,
-          educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
+          educationalProgram: !!programOrientation ? programOrientation == "addOrientation" ? (program + ", " + setFirstLetterCapital(newOrientation)) : (program + ", " + setFirstLetterCapital(programOrientation)) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
           reportSite: !!dataPortal ? dataPortal : null,
@@ -262,7 +262,7 @@ export default function EditStory() {
     // Used to separate the specialisation from the combined program name by removing the program name
     // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
     const programRegex = /^[^,]*?,\s*/
-    let specialisations = programs.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let specialisations = programs.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
     let filteredData = specialisations
       .filter(
         (specialisation: any, index: any) =>

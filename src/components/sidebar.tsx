@@ -18,6 +18,7 @@ import {
   createMiscFilter,
 } from "@/functions/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 
 /**
  * Sidebar component
@@ -185,7 +186,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen }: any) 
     // Used to separate the specialisation from the combined program name by removing the program name
     // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
     const programRegex = /^[^,]*?,\s*/
-    let specialisations = mappedData.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let specialisations = mappedData.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
     let filteredData = specialisations
       .filter(
         (specialisation: any, index: any) =>
