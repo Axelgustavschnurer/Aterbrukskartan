@@ -59,8 +59,10 @@ export default function AddNewStory() {
   const [newOrganization, setNewOrganization] = useState("");
   // Currently selected educational program
   const [program, setProgram] = useState("");
-  // Free text input for specifying the orientation of the educational program
+  // Currently selected orientation of the educational program
   const [programOrientation, setProgramOrientation] = useState("");
+  // Free text input for specifying the orientation of the educational program
+  const [newOrientation, setNewOrientation] = useState("");
   // Title of the project, is shown on the map
   const [projectTitle, setProjectTitle] = useState("");
   // Title of the report, used when searching for it in the linked website
@@ -128,7 +130,7 @@ export default function AddNewStory() {
         body: JSON.stringify({
           mapItem,
           categorySwedish: !!categoryArray.join(", ") ? categoryArray.join(", ") : null,
-          educationalProgram: !!programOrientation ? (program + ", " + programOrientation) : !!program ? program : null,
+          educationalProgram: !!programOrientation ? programOrientation == "addOrientation" ? (program + ", " + newOrientation) : (program + ", " + programOrientation) : !!program ? program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
           reportSite: !!dataPortal ? dataPortal : null,
@@ -169,6 +171,31 @@ export default function AddNewStory() {
       ssr: false
     }
   ), [])
+
+  /** Gets all programs + orientations from the database and return the orientations as options in a dropdown */
+  const getOrientation = () => {
+    let programs = storiesData.map((pin: any) => pin.educationalProgram);
+    // Matches all characters before the first comma, the comma itself, and all immediately following whitespace
+    // Used to separate the specialisation from the combined program name by removing the program name
+    // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
+    const programRegex = /^[^,]*?,\s*/
+    let specialisations = programs.map((program: any) => !!program ? program.replace(programRegex, "") : "");
+    let filteredData = specialisations
+      .filter(
+        (specialisation: any, index: any) =>
+          specialisations.indexOf(specialisation) === index && !!specialisations[index]
+      )
+      .sort();
+    return (
+      <>
+        {filteredData.map((specialisation: any, index: any) => {
+          return (
+            <option key={specialisation} value={specialisation} label={specialisation} />
+          );
+        })}
+      </>
+    );
+  }
 
   /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {
@@ -327,14 +354,32 @@ export default function AddNewStory() {
               {/*Program orientation section */}
               {
                 program ?
+                  <div className={styles.addNewPostFormSelect}>
+                    <h3>Programinriktning</h3>
+                    <select
+                      id={program}
+                      name={program}
+                      value={programOrientation}
+                      onChange={(e) => setProgramOrientation(e.target.value)}
+                    >
+                      <option value="" label="Välj programinriktning" />
+                      {getOrientation()}
+                      <option value="addOrientation" label="Lägg till ny programinriktning" />
+                    </select>
+                  </div>
+                  :
+                  null
+              }
+              {
+                programOrientation === "addOrientation" ?
                   <div className={styles.addNewPostFormOrientation}>
                     <h3>Programinriktning</h3>
                     <input
                       type="text"
                       id={program}
                       name={program}
-                      value={programOrientation}
-                      onChange={(e) => setProgramOrientation(e.target.value)}
+                      value={newOrientation}
+                      onChange={(e) => setNewOrientation(e.target.value)}
                     />
                   </div>
                   :
