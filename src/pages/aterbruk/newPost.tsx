@@ -13,10 +13,17 @@ import { Button } from "@nextui-org/react";
 
 // FIX: We have used both organisation and organization in the code. We should stick to one of them.
 
+/**
+ * These are the categories listed in a "Miljöinventering" document in Uppsala, plus "Övrigt".
+ * "Golv" is actually called "Invändig golvbeläggning" in the document, but we shortened it to "Golv"
+ */
 export const categories = [
-  "Stomme",
-  "Inredning",
-  "Småsaker",
+  "Grundläggning",
+  "Bjälklag",
+  "Fasad",
+  "Fönster",
+  "Tak",
+  "Golv",
   "Övrigt",
 ];
 
