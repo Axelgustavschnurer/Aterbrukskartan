@@ -20,6 +20,8 @@ export default function DownloadCSV() {
 
   // Whether or not the user has access to the recycle data
   const [recycleAccess, setRecycleAccess] = useState(false)
+  // Whether or not the user has access to the admin actions
+  const [recycleAdmin, setRecycleAdmin] = useState(false)
 
   /** Fetches data from the database */
   const fetchOldData = async () => {
@@ -59,6 +61,7 @@ export default function DownloadCSV() {
     let query = router.query
 
     query["demoKey"] === websiteKeys["demoKey"] ? setRecycleAccess(true) : setRecycleAccess(false)
+    query["admin"] === websiteKeys["admin"] ? setRecycleAdmin(true) : setRecycleAdmin(false)
   }, [router.query])
 
   /** Handles the download of the old CSV */
@@ -79,6 +82,12 @@ export default function DownloadCSV() {
   /** Downloads the recycle table as a CSV */
   const handleRecycleDownload = () => {
     recycleData?.length ? downloadCsv(createGenericCsv(recycleData), "recycle.csv") : null;
+  }
+
+  const funkyFunction = async () => {
+    const res = await fetch('/api/addRecycleFromExternal')
+    const data = await res.json()
+    console.log(data)
   }
 
   return (
@@ -103,6 +112,13 @@ export default function DownloadCSV() {
               <div className={styles.content}>
                 <Button onPress={handleRecycleDownload} color={"gradient"}>Ladda ner Recycle-data</Button>
               </div>
+              {
+                recycleAdmin ?
+                  <div className={styles.content}>
+                    <Button onPress={funkyFunction} color={"gradient"}>Importera Recycle-data från csv</Button>
+                  </div>
+                  : null
+              }
             </>
             : null
         }

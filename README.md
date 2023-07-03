@@ -77,6 +77,8 @@ Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ## Changing the database schema
 
+NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) and download Stories-data, mapItem-data, and Recycle-data or get a proper backup somehow.
+
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
 Edit the file at `prisma/schema.prisma` to change the database schema.
@@ -103,11 +105,22 @@ Otherwise, figure out a way to fix the database.
 
 The query parameters change according to the values in `src/keys.ts`. If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
 
-- [http://maps.stuns.se](http://maps.stuns.se) - Story website.
+- [https://maps.stuns.se](https://maps.stuns.se) - Story website.
 - [https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd](https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd) - Admin page for stories.
-- [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
-- [http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
+- [https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
+- [https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
 - [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the map to be viewed within the iframes of Energiportalen.
+- [https://maps.stuns.se/download](https://maps.stuns.se/download) - Page where you can download data from the database, both in current format and the old format used at dataportalen.
+- [https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) - Adding the demo key will allow you to download data for Återbrukskartan.
+- [https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Allows you to upload data for Återbrukskartan, but only if run on localhost.
+
+### Uploading data to the database
+
+If you want to upload recycle data to the database, you should run the project locally and use the button that shows up on the download page when both the demo key and the admin key are present in the query parameters.  
+Current local link there: [http://localhost:3000/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://localhost:3000/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal)  
+There is a folder called externalData in the root directory of the project wherein you can find some example files from the first upload.  
+The file called `ByggaBo.geojson` is used to convert from "Fastighetsbeteckning" to coordinates, and should not be changed unless you know what you're doing and are feeling up to the task of changing the code that uses it.  
+The file called `skolfastigheter.csv` contains an example of data that can be uploaded to the database. Any file you wish to upload should be in the same format (converted from the xlsx file provided by the municipality to a csv file with utf-8 encoding). You can change the file name, but make sure to change the name in the code as well. The file name is currently set to `skolfastigheter.csv` in `src\pages\api\addRecycleFromExternal.ts` on line 64 (in the declaration of the variable `csvFile`). If you feel up for it, feel free to update the code to accept any file name or drag and drop functionality in the browser or whatever else to make it easier to upload data.
 
 ### Good to know
 
