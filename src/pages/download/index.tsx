@@ -115,7 +115,7 @@ export default function DownloadCSV() {
               {
                 recycleAdmin ?
                   <div className={styles.content}>
-                    <Button onPress={funkyFunction} color={"gradient"}>Importera Recycle-data från csv</Button>
+                    <Button onPress={funkyFunction} color={"gradient"}>Importera Recycle-data från csv [Enbart på localhost]</Button>
                   </div>
                   : null
               }
