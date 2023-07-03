@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { DeepStory, DeepStoryInput } from '@/types'
-
-const prisma = new PrismaClient()
+import prisma from '@/prismaClient'
 
 /**
  * This API handles requests regarding Stories data, such as creating new Story objects, or fetching existing ones.

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { Prisma, PrismaClient, Recycle, MapItem } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
