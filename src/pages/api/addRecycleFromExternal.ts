@@ -44,6 +44,11 @@ export type geoJson = {
 const fastighetRegex = /[\wÅÄÖåäö\-]+\s[\wÅÄÖåäö\-]*\s?\d+:\d+/
 
 /**
+ * This regex is used to remove the word "för" as well as any extra spaces from the projectType
+ */
+const projectTypeRegex = /\s+för(?:\s+|$)/
+
+/**
  * This API is intended to be run manually and locally, and is used to add data to the database from an external source.
  * The implementation of this API is very specific to the data sources we are currently using
  * (construction permits (bygglov) from the municipality of Uppsala (converted from xlsx to csv utf8), and a geoJSON file called "ByggaBo.geojson")
@@ -76,13 +81,36 @@ export default async function handler(
    * 9. Gives some information about the building ("skola/förskola", "sophus/miljöhus" etc.)  
    */
   let csvArray: string[][] = csvLines.map((line) => line.split(";"))
-  // Removes any part of row[3] that is not part of the property designation
+  // Refine the data
   for (let row of csvArray) {
+    // Removes any part of property designation column that is not part of the property designation
     if (fastighetRegex.test(row[3])) {
       row[3] = row[3].match(fastighetRegex)![0]
     }
     else {
       row[3] = ""
+    }
+    // Remove the word "för" from the projectType
+    if (projectTypeRegex.test(row[7])) {
+      row[7] = row[7].replace(projectTypeRegex, "")
+    }
+    // Change the projectType to match the format used in the database
+    switch (row[7]) {
+      case "Bygglov":
+        row[7] = "Ombyggnation"
+        break;
+      case "Rivningslov":
+        row[7] = "Rivning"
+        break;
+      case "Nybyggnadskarta":
+        row[7] = "Nybyggnation"
+        break;
+      case "Nybyggnadskarta, förenklad":
+        row[7] = "Nybyggnation"
+        break;
+      default:
+        // If the projectType is not one of the above, we leave it as it is
+        break;
     }
   }
   // Remove any rows that do not have a proper property designation, such as the header row(-s) and empty rows
@@ -131,6 +159,7 @@ export default async function handler(
               longitude: coordinates[0],
               latitude: coordinates[1],
               year: parseInt(row[4].split("-")[0]),
+              // We could add the company name here, but it is not included in the data we have, so we'll have to add it manually later
             }
           }
         }
