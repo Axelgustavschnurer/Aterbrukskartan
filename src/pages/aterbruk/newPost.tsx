@@ -15,15 +15,16 @@ import { Button } from "@nextui-org/react";
 
 /**
  * These are the categories listed in a "Miljöinventering" document in Uppsala, plus "Övrigt".
- * "Golv" is actually called "Invändig golvbeläggning" in the document, but we shortened it to "Golv"
+ * "Golv" is actually called "Invändig golvbeläggning" in the document, but we shortened it to "Golv".
+ * We also changed "Grundläggning" to "Fyllnadsmaterial".
  */
 export const categories = [
-  "Grundläggning",
   "Bjälklag",
   "Fasad",
+  "Fyllnadsmaterial",
   "Fönster",
-  "Tak",
   "Golv",
+  "Tak",
   "Övrigt",
 ];
 

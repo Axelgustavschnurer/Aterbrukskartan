@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
 import { Button } from "@nextui-org/react";
 import { DeepRecycle } from "@/types";
+import { categories } from "@/pages/aterbruk/newPost";
 
 /**
  * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -58,7 +59,7 @@ export function createProjectTypeFilter(
                 }}
               >
               </Button>
-              <p>{category === "Nybyggnation" ? "Nybygge" : category === "Ombyggnation" ? "Ombygge" : category}</p>
+              <p>{category}</p>
             </div>
           </div>
         );
@@ -115,10 +116,10 @@ export function createLookingForFilter(
   disableReset: any,
   setDisableReset: any
 ) {
-  let categories = getAllMaterialCategories(mapData);
+  let cat = categories;
   return (
     <>
-      {categories.map((category: any) => {
+      {cat.map((category: any) => {
         return (
           <div className={styles.inputGroup} key={category + "Sökes"}>
             <input
@@ -187,10 +188,10 @@ export function createAvailableFilter(
   disableReset: any,
   setDisableReset: any
 ) {
-  let categories = getAllMaterialCategories(mapData);
+  let cat = categories;
   return (
     <>
-      {categories.map((category: any) => {
+      {cat.map((category: any) => {
         return (
           <div className={styles.inputGroup} key={category + "Erbjuds"}>
             <input
