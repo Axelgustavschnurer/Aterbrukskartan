@@ -11,6 +11,8 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+// if isActive is false, the item is soft-deleted and should not be shown on the map
+
 model MapItem {
   id           Int      @id @default(autoincrement())
   name         String?
@@ -71,6 +73,8 @@ model Recycle {
   externalLinks       String? @map("external_links") @db.NVarChar(4000)
   availableMaterials  String? @map("available_materials")
   lookingForMaterials String? @map("looking_for_materials")
+  // If they are public they will be shown on the map, otherwise they will only be editable, not visible
+  isPublic            Boolean @default(false) @map("is_public")
   isActive            Boolean @default(true) @map("is_active")
   mapItem             MapItem @relation(fields: [mapId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -81,7 +85,27 @@ model Recycle {
 // The above mentioned functionality is NOT YET IMPLEMENTED
 model RecycleOrganisation {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
+
+  // The users who are allowed to add Recycle items for this organisation
+  users User[]
 
   @@map("recycle_organisation")
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  password      String
+  // Users with isAdmin = true are allowed to add and manage users (and should implicitly have all other permissions, but that should be implemented in the code, not the database)
+  isAdmin       Boolean @default(false) @map("is_admin")
+  // Users with isStoryteller = true are allowed to add Story items to the map
+  isStoryteller Boolean @default(false) @map("is_storyteller")
+  // Users with isRecycler = true are allowed to add Recycle items to the map
+  isRecycler    Boolean @default(false) @map("is_recycler")
+
+  // The organisations the user is allowed to add and edit Recycle items for
+  recycleOrganisations RecycleOrganisation[]
+
+  @@map("user")
 }
