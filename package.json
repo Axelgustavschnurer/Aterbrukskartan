@@ -16,8 +16,10 @@
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "bcrypt": "^5.1.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "iron-session": "^8.0.0-alpha.0",
     "leaflet": "^1.9.3",
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "leaflet-geosearch": "^3.7.0",
@@ -30,6 +32,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.6"

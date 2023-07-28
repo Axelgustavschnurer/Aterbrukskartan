@@ -96,6 +96,7 @@ model RecycleOrganisation {
 model User {
   id            Int     @id @default(autoincrement())
   email         String  @unique
+  // The password is hashed using bcrypt
   password      String
   // Users with isAdmin = true are allowed to add and manage users (and should implicitly have all other permissions, but that should be implemented in the code, not the database)
   isAdmin       Boolean @default(false) @map("is_admin")
