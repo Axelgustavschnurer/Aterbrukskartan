@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession, createResponse } from "@/session"
 import prisma from "@/prismaClient"
 import bcrypt from "bcrypt";
+import { Prisma } from '@prisma/client';
+
+type UserInfo = Prisma.UserCreateWithoutRecycleOrganisationsInput;
 
 export default async function handler(
   req: NextRequest,
@@ -34,7 +37,7 @@ export default async function handler(
   }
 
   // Get the email and password from the request body
-  let { email, password }: { email: string, password: string } = await req.json();
+  let { email, password, isAdmin, isStoryteller, isRecycler }: UserInfo = await req.json();
 
   // Make sure the email and password are present
   if (!email || !password) {
@@ -69,7 +72,10 @@ export default async function handler(
     await prisma.user.create({
       data: {
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
+        isAdmin: isAdmin,
+        isStoryteller: isStoryteller,
+        isRecycler: isRecycler,
       }
     });
     return createResponse(
