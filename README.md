@@ -7,6 +7,8 @@ The idea is that companies enter some project information, like when and where t
 
 # Dev stuff
 
+**Because of how it is written, this project won't work if certain columns in the database are empty. This includes when the entire database is empty.**
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 [React](https://reactjs.org/) is used for the frontend and [Prisma](https://www.prisma.io/) is used for the database.
 
