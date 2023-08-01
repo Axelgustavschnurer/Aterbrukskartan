@@ -16,7 +16,7 @@ export interface Data {
 // Config stuff for Iron-Session
 const options = {
   password: process.env.IRON_SESSION_PASSWORD!,
-  cookieName: "eco_planner",
+  cookieName: "stuns_map",
   cookieOptions: {
     // Uses https in production and http in development
     secure: process.env.NODE_ENV === "production",
