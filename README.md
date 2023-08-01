@@ -65,7 +65,7 @@ Run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) (by default) to see the site.
+Open [http://localhost:3000](http://localhost:3000) (by default) to see the site. *Note that it won't work if the database is empty, see the note at the top of this file.*
 
 To view the database, run the following command:
 
@@ -79,7 +79,7 @@ Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ## Changing the database schema
 
-NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) and download Stories-data, mapItem-data, and Recycle-data or get a proper backup somehow.
+NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) and download Stories-data, mapItem-data, and Recycle-data or get a proper backup somehow. Be careful when restoring from a backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, will mess up the IDs by default.)
 
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
