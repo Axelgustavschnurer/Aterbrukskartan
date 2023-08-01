@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const session = await getSession(req, res);
 
   // Only certain users are allowed access to the recycle pages.
-  // We assume that everyone *with an account* can access the aterbruk index page.
+  // We assume that everyone *with an account* can access the recycle index page.
   if (req.nextUrl.pathname.startsWith("/aterbruk")) {
     // If the user is not logged in, redirect them to the login page.
     if (!session.user) {

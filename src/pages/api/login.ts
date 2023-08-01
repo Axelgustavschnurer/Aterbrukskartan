@@ -1,76 +1,52 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSession, createResponse } from "@/session"
-import prisma from "@/prismaClient"
+import { getSession, createResponse } from "@/session";
+import prisma from "@/prismaClient";
 import bcrypt from "bcrypt";
 import { User } from '@prisma/client';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
-  req: NextRequest,
-  res: NextResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-  const response = new Response();
-  const session = await getSession(req, response);
+  const session = await getSession(req, res);
+  res.setHeader("Allow", "POST");
 
   // Make sure the request is a POST request
   if (req.method !== "POST") {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Method not allowed" }),
-      {
-        status: 405,
-        headers: {
-          Allow: "POST",
-        }
-      }
-    );
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
-  let { email, password }: { email: string, password: string } = await req.json();
+  let { email, password }: { email: string, password: string } = await req.body;
 
   // Validate request body
   if (!email || !password) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: 'Email and password are required' }),
-      { status: 400 }
-    );
+    return res.status(400).json({ message: "Email and password are required" });
   }
 
   // Validate credentials
-  let user: User;
+  let user: User | void = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: email,
+    },
+    select: {
+      id: true,
+      email: true,
+      password: true,
+      isAdmin: true,
+      isStoryteller: true,
+      isRecycler: true,
+    }
+  }).catch((e) => {
+    return res.status(400).json({ message: "User not found" });
+  });
 
-  try {
-    user = await prisma.user.findUniqueOrThrow({
-      where: {
-        email: email,
-      },
-      select: {
-        id: true,
-        email: true,
-        password: true,
-        isAdmin: true,
-        isStoryteller: true,
-        isRecycler: true,
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    return createResponse(
-      response,
-      JSON.stringify({ message: 'User not found' }),
-      { status: 400 }
-    );
-  }
+  if (!user) { return; }
 
   // Check password
   const passwordMatches = await bcrypt.compare(password, user.password);
 
   if (!passwordMatches) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: 'Incorrect password' }),
-      { status: 400 }
-    );
+    return res.status(400).json({ message: "Incorrect password" });
   }
 
   // Set session
@@ -85,9 +61,5 @@ export default async function handler(
 
   await session.save();
 
-  return createResponse(
-    response,
-    JSON.stringify({ message: 'Login successful' }),
-    { status: 200 }
-  );
+  return res.status(200).json({ message: "Login successful" });
 }

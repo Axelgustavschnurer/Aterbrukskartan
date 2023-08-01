@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, createResponse } from "@/session"
 import prisma from "@/prismaClient"
 import bcrypt from "bcrypt";
@@ -7,11 +7,11 @@ import { Prisma } from '@prisma/client';
 type UserInfo = Prisma.UserCreateWithoutRecycleOrganisationsInput;
 
 export default async function handler(
-  req: NextRequest,
-  res: NextResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   const response = new Response();
-  const session = await getSession(req, response);
+  const session = await getSession(req, res);
 
   // Make sure the request is a POST request
   if (req.method !== "POST") {

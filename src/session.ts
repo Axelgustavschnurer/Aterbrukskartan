@@ -1,3 +1,4 @@
+import { IncomingMessage, ServerResponse } from "http";
 import { getIronSession, createResponse, unsealData } from "iron-session";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 
@@ -35,7 +36,7 @@ export async function getSessionData(cookies: Pick<RequestCookies, 'get'>) {
 /**
  * Gets our cookie data from an incoming request
  */
-export function getSession(req: Request, res: Response) {
+export function getSession(req: IncomingMessage | Request, res: ServerResponse | Response) {
   const session = getIronSession<Data>(req, res, options);
   return session;
 };
