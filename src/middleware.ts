@@ -29,8 +29,20 @@ export async function middleware(req: NextRequest) {
     }
 
     // The "index" page of stories is actually not located in the /stories folder, so it's visible to everyone by default.
-    // As a result, no pages starting with /stories should be visible to non-admins/storytellers and we don't need any further checks.
+    // Therefore, all pages in the /stories folder should be hidden from users without permission to add/edit stories.
     if (!(session.user.isStoryteller || session.user.isAdmin)) {
+      return new NextResponse(JSON.stringify({ message: "You do not have access to this page" }), { status: 403 });
+    }
+  }
+
+  // Only admins are allowed access to the admin pages.
+  if (req.nextUrl.pathname.startsWith("/admin")) {
+    // If the user is not logged in, redirect them to the login page.
+    if (!session.user) {
+      return NextResponse.redirect(new URL("/login", req.nextUrl));
+    }
+
+    if (!session.user.isAdmin) {
       return new NextResponse(JSON.stringify({ message: "You do not have access to this page" }), { status: 403 });
     }
   }
