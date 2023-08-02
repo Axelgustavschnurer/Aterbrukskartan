@@ -70,21 +70,21 @@ export default function Signup() {
                 <label htmlFor="isRecycler">
                   <h3>Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </h3>
                 </label>
-                <input type="checkbox" name="isRecycler" id="isRecycler" style={{width: "20px", height: "20px"}} />
+                <input type="checkbox" name="isRecycler" id="isRecycler" style={{ width: "20px", height: "20px" }} />
               </div>
 
               <div style={{ marginTop: "10px" }}>
                 <label htmlFor="isStoryteller">
                   <h3>Ska användaren kunna skapa och redigera Stories? </h3>
                 </label>
-                <input type="checkbox" name="isStoryteller" id="isStoryteller" style={{width: "20px", height: "20px"}} />
+                <input type="checkbox" name="isStoryteller" id="isStoryteller" style={{ width: "20px", height: "20px" }} />
               </div>
 
               <div style={{ marginTop: "10px" }}>
                 <label htmlFor="isAdmin">
                   <h3>Ska användaren ha admin-privilegier? </h3>
                 </label>
-                <input type="checkbox" name="isAdmin" id="isAdmin" style={{width: "20px", height: "20px"}} />
+                <input type="checkbox" name="isAdmin" id="isAdmin" style={{ width: "20px", height: "20px" }} />
               </div>
 
               <br />
