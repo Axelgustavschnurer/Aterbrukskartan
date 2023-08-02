@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession, createResponse } from "@/session"
+import { getSession } from "@/session"
 import prisma from "@/prismaClient"
 import bcrypt from "bcrypt";
 import { Prisma } from '@prisma/client';
@@ -10,42 +10,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const response = new Response();
   const session = await getSession(req, res);
+  res.setHeader('Allow', 'POST');
 
   // Make sure the request is a POST request
   if (req.method !== "POST") {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Method not allowed" }),
-      {
-        status: 405,
-        headers: {
-          Allow: "POST",
-        }
-      }
-    );
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
   // Reject the request if the user is not an admin
   if (!session.user?.isAdmin) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Unauthorized; only admins may add new users right now" }),
-      { status: 401 }
-    );
+    return res.status(403).json({ message: "Unauthorized; only admins may add new users right now" });
   }
 
   // Get the email and password from the request body
-  let { email, password, isAdmin, isStoryteller, isRecycler }: UserInfo = await req.json();
+  let { email, password, isAdmin, isStoryteller, isRecycler }: UserInfo = await req.body;
 
   // Make sure the email and password are present
   if (!email || !password) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Missing email or password" }),
-      { status: 400 }
-    );
+    return res.status(400).json({ message: "Missing email or password" });
   }
 
   // Make sure the email is not yet in use
@@ -56,11 +39,7 @@ export default async function handler(
   })
 
   if (emailExists) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Email " + email + " already exists" }),
-      { status: 409 }
-    );
+    return res.status(409).json({ message: "Email " + email + " already exists" });
   }
 
   // Hash the password
@@ -68,34 +47,19 @@ export default async function handler(
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   // Create the user
-  try {
-    await prisma.user.create({
-      data: {
-        email: email,
-        password: hashedPassword,
-        isAdmin: isAdmin,
-        isStoryteller: isStoryteller,
-        isRecycler: isRecycler,
-      }
-    });
-    return createResponse(
-      response,
-      JSON.stringify({ message: "User created" }),
-      { status: 201 }
-    );
-  }
-  catch (error) {
-    return createResponse(
-      response,
-      JSON.stringify({ message: "Error creating user" }),
-      { status: 500 }
-    );
-  }
+  await prisma.user.create({
+    data: {
+      email: email,
+      password: hashedPassword,
+      isAdmin: isAdmin,
+      isStoryteller: isStoryteller,
+      isRecycler: isRecycler,
+    }
+  }).then((user) => {
+    return res.status(201).json({ message: "User created" });
+  }).catch((e) => {
+    return res.status(500).json({ message: "Error while creating user" });
+  })
 
-  // If we get here something went wrong
-  return createResponse(
-    response,
-    JSON.stringify({ message: "Something went very wrong, check database status; stuff may or may not have been created" }),
-    { status: 500 }
-  );
+  return
 }
