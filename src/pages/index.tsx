@@ -11,6 +11,7 @@ import styles from '@/styles/index.module.css'
 import Footer from '@/components/footer'
 import { Tooltip, Badge } from '@nextui-org/react'
 import { websiteKeys } from '@/keys'
+import { logoutFunction } from '@/components/logout'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -279,6 +280,14 @@ export default function HomePage() {
 
       {admin && (
         <>
+          <div className={styles.logout}>
+            <Tooltip content={"Logga\xa0ut"} placement="left">
+              <button className={styles.logoutButton} onClick={logoutFunction}>
+                <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+
           <div className={`${styles.addNewPost}`}>
             <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
               <button className={styles.addNewPostButton} onClick={goToNewStory}>
@@ -286,6 +295,7 @@ export default function HomePage() {
               </button>
             </Tooltip>
           </div>
+
           <div className={styles.editPost}>
             <Tooltip content={"Redigera\xa0en\xa0story"} placement="left">
               <button className={styles.editPostButton} onClick={goToEditStory}>

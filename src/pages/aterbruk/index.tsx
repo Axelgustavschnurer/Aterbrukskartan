@@ -12,6 +12,7 @@ import { Tooltip } from '@nextui-org/react'
 import { Badge } from '@nextui-org/react'
 import NotFound from '@/errors/404'
 import { websiteKeys } from '@/keys'
+import { logoutFunction } from '@/components/logout'
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -297,6 +298,14 @@ export default function HomePage() {
             {/* Button leading to another page where one can add projects to the database */}
             {admin && (
               <>
+                <div className={styles.logout}>
+                  <Tooltip content={"Logga\xa0ut"} placement="left">
+                    <button className={styles.logoutButton} onClick={logoutFunction}>
+                      <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
+                    </button>
+                  </Tooltip>
+                </div>
+
                 <div className={styles.addNewPost}>
                   <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
                     <button className={styles.addNewPostButton} onClick={goToNewPost}>
@@ -304,6 +313,7 @@ export default function HomePage() {
                     </button>
                   </Tooltip>
                 </div>
+                
                 <div className={styles.editPost}>
                   <Tooltip content={"Redigera\xa0inlägg"} placement="left">
                     <button className={styles.editPostButton} onClick={goToEditPost}>

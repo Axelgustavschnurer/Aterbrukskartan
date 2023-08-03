@@ -204,6 +204,37 @@
     width: 28px;
 }
 
+.logout {
+  position: fixed;
+  right: 0.5rem;
+  bottom: 196px;
+  height: auto;
+  width: auto;
+  z-index: 2;
+}
+
+.logoutButton {
+  background-color: #f2f2f2;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  width: 38px;
+  border: 2px solid #8a8a8a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logoutButton img {
+  height: 28px;
+  width: 28px;
+}
+
+.logoutButton:hover {
+  background-color: #cccccc;
+}
+
 /* Media queries */
 @media screen and (min-width: 2000px) {
     .wrap {
