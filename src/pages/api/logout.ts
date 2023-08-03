@@ -1,19 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getSession, createResponse } from "@/session"
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getSession } from "@/session"
 
 export default async function handler(
-  req: NextRequest,
-  res: NextResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-  const response = new Response();
-  const session = await getSession(req, response);
+  const session = await getSession(req, res);
 
   // Remove session to log out
-  session.destroy();
+  await session.destroy();
 
-  return createResponse(
-    response,
-    JSON.stringify({ message: 'Logged out' }),
-    { status: 200 }
-  );
+  return res.status(200).json({ message: "Logged out" });
+
 }
