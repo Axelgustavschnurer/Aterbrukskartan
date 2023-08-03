@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import path from "path"
 import { promises } from "fs"
 import prisma from '@/prismaClient'
+import { getSession } from '@/session'
 
 /**
  * This is the geoJSON format used by a specific external data source which we can use to automatically
@@ -57,9 +58,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const session = await getSession(req, res);
+
+  if (!session.user?.isAdmin) {
+    return res.status(403).json({ message: "Unauthorized; only admins may add data from external sources" })
+  }
+
   if (req.headers.host?.split(":")[0] !== "localhost") {
-    res.status(403).json({ message: "This API is only intended to be run locally" })
-    return
+    return res.status(403).json({ message: "This API is only intended to be run locally" })
   }
 
   // Folder where the external data is stored

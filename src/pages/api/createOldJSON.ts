@@ -35,6 +35,7 @@ export type oldDataFormat = {
 /**
  * This API fetches data from the database and formats it to the old data format.
  * This is used to generate csv files in the old format to upload to [dataportal.se](https://www.dataportal.se/datasets/763_1927/forteckning-over-stuns-samverkansprojekt-i-energy-stories-samt-installationer).
+ * Everyone is supposed to be able to access this API, so no authentication is required.
  */
 export default async function handler(
   req: NextApiRequest,

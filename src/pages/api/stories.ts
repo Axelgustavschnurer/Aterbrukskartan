@@ -2,20 +2,29 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Prisma } from '@prisma/client'
 import { DeepStory, DeepStoryInput } from '@/types'
 import prisma from '@/prismaClient'
+import { getSession } from '@/session';
 
 /**
  * This API handles requests regarding Stories data, such as creating new Story objects, or fetching existing ones.
+ * All requests require specific permissions; GET and HEAD require the user to be logged in,
+ * while others require the user to be a recycler or admin.
  */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const session = await getSession(req, res);
   res.setHeader('Allow', ['GET', 'HEAD', 'POST', 'PUT', 'DELETE']);
 
   switch (req.method) {
     // On GET or HEAD requests, return the `Story` object with the given ID, or all `Story` objects if no ID is specified
     case 'GET':
     case 'HEAD':
+      // Require the user to be logged in
+      if (!session.user) {
+        return res.status(401).json({ message: 'You must be logged in to perform this action' });
+      }
+
       if (!parseInt(req.query.id as string)) {
         try {
           /** Returns all `Story` objects, with `mapItem` objects included. */
@@ -75,6 +84,11 @@ export default async function handler(
 
     // On POST requests, create a new `Story` object and return it
     case 'POST':
+      // Only recyclers and admins can create new `Story` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+        return res.status(403).json({ message: 'Forbidden' });
+      }
+
       try {
         const newPost: DeepStoryInput = req.body;
         /** Creates a new `Story` object with the given data, and returns it with the `mapItem` object included. */
@@ -112,6 +126,11 @@ export default async function handler(
     // Throws an error if no ID is specified or no `Story` object with the given ID exists
     // This is because we only want to update existing objects, new objects should instead be created with POST requests
     case 'PUT':
+      // Only recyclers and admins can update `Story` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+        return res.status(403).json({ message: 'Forbidden' });
+      }
+
       try {
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
@@ -160,6 +179,11 @@ export default async function handler(
 
     // On DELETE requests, change the `isActive` field of the `Story` object with the given ID to false, and return it
     case 'DELETE':
+      // Only recyclers and admins can delete `Story` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+        return res.status(403).json({ message: 'Forbidden' });
+      }
+
       try {
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
