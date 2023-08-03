@@ -10,8 +10,28 @@ import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import Footer from '@/components/footer'
 import { Tooltip, Badge } from '@nextui-org/react'
-import { websiteKeys } from '@/keys'
 import { logoutFunction } from '@/components/logout'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { getSession } from '@/session'
+
+// Gets user data from the session
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const { user } = await getSession(req, res)
+
+  if (!user) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -25,10 +45,8 @@ export const yearLimitsStories = {
 /**
  * The main page for the stories section of the website.
  */
-export default function HomePage() {
+export default function HomePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter()
-
-  const [admin, setAdmin] = useState(false)
 
   // Controls whether the content should be tailored to "energiportalen" or not
   const [energiportalen, setEnergiportalen] = useState(false)
@@ -191,19 +209,6 @@ export default function HomePage() {
     }
   }
 
-  // Checks the URL for queries and sets access accordingly
-  useEffect(() => {
-    // The query is the part of the url after the question mark. It is case sensitive.
-    // For example, if the url is "www.example.com?test=abc", the query is "test=abc", with the key being "test" and the value being "abc".
-    // In order to have multiple queries, they are separated by an ampersand (&).
-    // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
-    let query = router.query
-
-    // A URL passing this check looks like "www.example.com?stunsStoriesAdmin=hVg1JHJV787gFGftrd"
-    query["stunsStoriesAdmin"] === websiteKeys["stunsStoriesAdmin"] ? setAdmin(true) : setAdmin(false)
-    query["energiportalen"] === websiteKeys["energiportalen"] ? setEnergiportalen(true) : setEnergiportalen(false)
-  }, [router.query])
-
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
@@ -276,18 +281,20 @@ export default function HomePage() {
         </div>
         : null}
 
-      {/* Button leading to another page where one can add projects to the database */}
+      {/* Logout button */}
+      {user && (
+        <div className={styles.logout}>
+          <Tooltip content={"Logga\xa0ut"} placement="left">
+            <button className={styles.logoutButton} onClick={logoutFunction}>
+              <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
+            </button>
+          </Tooltip>
+        </div>
+      )}
 
-      {admin && (
+      {/* Buttons leading to other pages where one can add/edit projects to the database */}
+      {user?.isAdmin && (
         <>
-          <div className={styles.logout}>
-            <Tooltip content={"Logga\xa0ut"} placement="left">
-              <button className={styles.logoutButton} onClick={logoutFunction}>
-                <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
-              </button>
-            </Tooltip>
-          </div>
-
           <div className={`${styles.addNewPost}`}>
             <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
               <button className={styles.addNewPostButton} onClick={goToNewStory}>

@@ -10,9 +10,28 @@ import Image from 'next/image'
 import styles from '@/styles/index.module.css'
 import { Tooltip } from '@nextui-org/react'
 import { Badge } from '@nextui-org/react'
-import NotFound from '@/errors/404'
-import { websiteKeys } from '@/keys'
 import { logoutFunction } from '@/components/logout'
+import { getSession } from '@/session'
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+
+// Get user data from session
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const { user } = await getSession(req, res)
+
+  if (!user) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
@@ -27,15 +46,8 @@ export const yearLimitsRecycle = {
 export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 
 /** The main page for the recycle section of the website. */
-export default function HomePage() {
+export default function HomePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter()
-
-  // State controlling whether or not to display the site.
-  // If this is false, a completely blank page will be displayed.
-  const [recycle, setRecycle] = useState(false)
-
-  // State controlling whether or not the edit and add post buttons are displayed
-  const [admin, setAdmin] = useState(false)
 
   const [isMobile, setIsMobile] = useState(false as boolean)
 
@@ -202,21 +214,6 @@ export default function HomePage() {
     }
   }
 
-  // Checks the URL for queries and sets access accordingly
-  useEffect(() => {
-    // The query is the part of the url after the question mark. It is case sensitive.
-    // For example, if the url is "www.example.com?test=abc", the query is "test=abc", with the key being "test" and the value being "abc".
-    // In order to have multiple queries, they are separated by an ampersand (&).
-    // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
-    let query = router.query
-
-    // A URL passing this check could look like "www.example.com?admin=yesforreal"
-    query["admin"] === websiteKeys["admin"] ? setAdmin(true) : setAdmin(false)
-
-    // A URL passing this check could look like "www.example.com?demoKey=supersecreturlmaybechangeinthefuture"
-    query["demoKey"] === websiteKeys["demoKey"] ? setRecycle(true) : setRecycle(false)
-  }, [router.query])
-
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
@@ -240,100 +237,89 @@ export default function HomePage() {
 
   return (
     <>
-      {
-        recycle ?
-          <>
-            <Head>
-              <title>Återbrukskartan</title>
-              <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
-            </Head>
+      <Head>
+        <title>Återbrukskartan</title>
+        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+      </Head>
 
-            <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
 
-            <div className={styles.smallRightContainerOpacity} />
-            <div className={styles.smallRightContainer}>
-              <Tooltip content={"Till\xa0Stuns"} placement="left">
-                <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
-                  <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
-                </a>
-              </Tooltip>
+      <div className={styles.smallRightContainerOpacity} />
+      <div className={styles.smallRightContainer}>
+        <Tooltip content={"Till\xa0Stuns"} placement="left">
+          <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
+            <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
+          </a>
+        </Tooltip>
+      </div>
+
+      <div className={styles.totalPProjects}>
+      </div>
+
+      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" />}
+
+      {/* Searchbar */}
+      {!isMobile ?
+        <div className={styles.wrap}>
+          <div className={styles.search}>
+            <input
+              type="search"
+              className={styles.searchTerm}
+              placeholder="Sök efter projekt..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <div className={styles.searchIcon}>
+              <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
             </div>
+          </div>
+        </div> : null}
 
-            <div className={styles.totalPProjects}>
-            </div>
+      {/* Badges showing currently avtive filters, if any */}
+      {!isMobile ?
+        <div className={styles.filterTextContent}>
+          <div className={styles.filterTextContainer}>
+            {projectTypeLabel()}
+            {yearLabel()}
+            {monthLabel()}
+            {lookingForMaterialsLabel()}
+            {availableMaterialsLabel()}
+            {organisationLabel()}
+          </div>
+        </div>
+        : null}
 
-            {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" />}
+      {/* Logout button */}
+      {user && (
+        <div className={styles.logout}>
+          <Tooltip content={"Logga\xa0ut"} placement="left">
+            <button className={styles.logoutButton} onClick={logoutFunction}>
+              <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
+            </button>
+          </Tooltip>
+        </div>
+      )}
 
-            {/* Searchbar */}
-            {!isMobile ?
-              <div className={styles.wrap}>
-                <div className={styles.search}>
-                  <input
-                    type="search"
-                    className={styles.searchTerm}
-                    placeholder="Sök efter projekt..."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
-                  <div className={styles.searchIcon}>
-                    <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
-                  </div>
-                </div>
-              </div> : null}
+      {/* Buttons leading to other pages where one can add/edit projects to the database */}
+      {user?.isAdmin && (
+        <>
+          <div className={styles.addNewPost}>
+            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+              <button className={styles.addNewPostButton} onClick={goToNewPost}>
+                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
 
-            {/* Badges showing currently avtive filters, if any */}
-            {!isMobile ?
-              <div className={styles.filterTextContent}>
-                <div className={styles.filterTextContainer}>
-                  {projectTypeLabel()}
-                  {yearLabel()}
-                  {monthLabel()}
-                  {lookingForMaterialsLabel()}
-                  {availableMaterialsLabel()}
-                  {organisationLabel()}
-                </div>
-              </div>
-              : null}
-
-            {/* Button leading to another page where one can add projects to the database */}
-            {admin && (
-              <>
-                <div className={styles.logout}>
-                  <Tooltip content={"Logga\xa0ut"} placement="left">
-                    <button className={styles.logoutButton} onClick={logoutFunction}>
-                      <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
-                    </button>
-                  </Tooltip>
-                </div>
-
-                <div className={styles.addNewPost}>
-                  <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
-                    <button className={styles.addNewPostButton} onClick={goToNewPost}>
-                      <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
-                    </button>
-                  </Tooltip>
-                </div>
-
-                <div className={styles.editPost}>
-                  <Tooltip content={"Redigera\xa0inlägg"} placement="left">
-                    <button className={styles.editPostButton} onClick={goToEditPost}>
-                      <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
-                    </button>
-                  </Tooltip>
-                </div>
-              </>
-            )}
-          </>
-          :
-          <>
-            <Head>
-              <title>404: This page could not be found</title>
-            </Head>
-            <NotFound />
-          </>
-
-      }
-
+          <div className={styles.editPost}>
+            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+              <button className={styles.editPostButton} onClick={goToEditPost}>
+                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+        </>
+      )}
     </>
   )
 }
