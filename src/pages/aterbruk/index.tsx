@@ -313,7 +313,7 @@ export default function HomePage() {
                     </button>
                   </Tooltip>
                 </div>
-                
+
                 <div className={styles.editPost}>
                   <Tooltip content={"Redigera\xa0inlägg"} placement="left">
                     <button className={styles.editPostButton} onClick={goToEditPost}>
