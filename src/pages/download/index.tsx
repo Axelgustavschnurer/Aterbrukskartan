@@ -4,8 +4,6 @@ import { createOldCsv, downloadCsv, createGenericCsv, createMapItemCsv } from "@
 import styles from "@/styles/downloads.module.css";
 import Head from "next/head";
 import { DeepRecycle, DeepStory } from "@/types";
-import { useRouter } from "next/router";
-import { websiteKeys } from "@/keys";
 import { Button } from "@nextui-org/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
