@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from "@/session"
 import prisma from "@/prismaClient"
-import bcrypt from "bcrypt";
 import { Prisma } from '@prisma/client';
 
 type UserInfo = Prisma.UserCreateWithoutRecycleOrganisationsInput & {
@@ -22,40 +21,40 @@ export default async function handler(
 
   // Reject the request if the user is not an admin
   if (!session.user?.isAdmin) {
-    return res.status(403).json({ message: "Unauthorized; only admins may add new users right now" });
+    return res.status(403).json({ message: "Unauthorized; only admins may edit users" });
   }
 
   // Get the email and password from the request body
-  let { email, password, isAdmin, isStoryteller, isRecycler, organisations }: UserInfo = await req.body;
+  let { email, isAdmin, isStoryteller, isRecycler, organisations }: UserInfo = await req.body;
 
   // Make sure the email and password are present
-  if (!email || !password) {
-    return res.status(400).json({ message: "Missing email or password" });
+  if (!email) {
+    return res.status(400).json({ message: "Missing user email" });
   }
 
-  // Make sure the email is not yet in use
-  const emailExists = await prisma.user.findUnique({
+  // Update the user
+  await prisma.user.update({
     where: {
       email: email
+    },
+    data: {
+      recycleOrganisations: {
+        set: [],
+      }
     }
+  }).catch((e) => {
+    return res.status(500).json({ message: "Error while removing old relations (probably couldn't find user)" });
   })
 
-  if (emailExists) {
-    return res.status(409).json({ message: "Email " + email + " already exists" });
-  }
 
-  // Hash the password
-  const saltRounds = 11;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  // Create the user
-  await prisma.user.create({
+  await prisma.user.update({
+    where: {
+      email: email
+    },
     data: {
-      email: email,
-      password: hashedPassword,
-      isAdmin: isAdmin,
-      isStoryteller: isStoryteller,
-      isRecycler: isRecycler,
+      isAdmin: !!isAdmin,
+      isStoryteller: !!isStoryteller,
+      isRecycler: !!isRecycler,
       recycleOrganisations: {
         connectOrCreate: organisations.map((organisation) => {
           return {
@@ -70,9 +69,9 @@ export default async function handler(
       }
     }
   }).then((user) => {
-    return res.status(201).json({ message: "User created" });
+    return res.status(201).json({ message: "User updated" });
   }).catch((e) => {
-    return res.status(500).json({ message: "Error while creating user" });
+    return res.status(500).json({ message: "Error while updating user" });
   })
 
   return

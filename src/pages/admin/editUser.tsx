@@ -10,7 +10,6 @@ function handleSubmit(event: any) {
   const form = event.target
   const formJSON = JSON.stringify({
     email: form.email.value,
-    password: form.password.value,
     isRecycler: form.isRecycler.checked,
     isStoryteller: form.isStoryteller.checked,
     isAdmin: form.isAdmin.checked,
@@ -18,27 +17,28 @@ function handleSubmit(event: any) {
     organisations: form.organisation.value ? [form.organisation.value] : [],
   })
 
-  // Try to create user, alert if successful or not.
-  fetch('/api/createUser', {
+  // Try to update user, alert if successful or not.
+  fetch('/api/editUser', {
     method: 'POST',
     body: formJSON,
     headers: { 'Content-Type': 'application/json' },
   }).then((res) => {
     if (res.ok) {
-      alert('Ny användare skapad.')
+      alert('Användare uppdaterad.')
     } else {
-      alert('Misslyckades att skapa användare.')
+      alert('Misslyckades att uppdatera användare.')
     }
   }).catch((err) => {
     alert('Misslyckades att skicka data.')
   })
 }
 
-export default function Signup() {
+export default function UpdateUser() {
+  // TODO: Get user data from database and do something like editPost.tsx and editStory.tsx to autofill the form.
   return (
     <>
       <Head>
-        <title>Lägg till användare</title>
+        <title>Uppdatera användare</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
@@ -50,7 +50,8 @@ export default function Signup() {
       {/* Form */}
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Lägg till användare</h1>
+          <h1 className={styles.addNewPostTitle}>Uppdatera användare</h1>
+          <p>Man måste tyvärr fylla i datan manuellt i nuläget, förhoppningsvis kan det fyllas i automatiskt framöver</p>
           <div className={styles.addNewPostForm}>
             <form onSubmit={handleSubmit}>
 
@@ -59,13 +60,6 @@ export default function Signup() {
                   <h3>Email: </h3>
                 </label>
                 <input type="text" name="email" id="email" required={true} />
-              </div>
-
-              <div className={styles.addNewPostFormName}>
-                <label htmlFor="password">
-                  <h3>Lösenord: </h3>
-                </label>
-                <input type="password" name="password" id="password" required={true} />
               </div>
 
               {/* Currently a dropdown + freetext if choosing new org.,
@@ -101,7 +95,7 @@ export default function Signup() {
 
               <br />
               <div className={styles.addNewPostFormSubmit}>
-                <Button type="submit" id={styles.save}>Skapa användare</Button >
+                <Button type="submit" id={styles.save}>Uppdatera</Button >
               </div>
 
             </form>
