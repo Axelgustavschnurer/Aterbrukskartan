@@ -79,7 +79,7 @@ Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ## Changing the database schema
 
-NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) and download Stories-data, mapItem-data, and Recycle-data or get a proper backup somehow. Be careful when restoring/creating a new database from a backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default.)
+NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download) while logged in and download Stories-data, mapItem-data, and Recycle-data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get actual backups from the database or copy it using the Copy Database Wizard.)
 
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
@@ -105,28 +105,33 @@ Otherwise, figure out a way to fix the database.
 
 ## Important links
 
-The query parameters change according to the values in `src/keys.ts`. If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
+If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
 
-- [https://maps.stuns.se](https://maps.stuns.se) - Story website.
-- [https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd](https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd) - Admin page for stories.
-- [https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture](https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture) - Återbrukskartan.
-- [https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](https://maps.stuns.se/aterbruk?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Admin for återbrukskartan.
-- [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the map to be viewed within the iframes of Energiportalen.
+- [https://maps.stuns.se](https://maps.stuns.se) - Stories map.
+- [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the Stories map, to be viewed from within the iframes of Energiportalen.
+- [https://maps.stuns.se/aterbruk](https://maps.stuns.se/aterbruk) - Återbrukskartan.
 - [https://maps.stuns.se/download](https://maps.stuns.se/download) - Page where you can download data from the database, both in current format and the old format used at dataportalen.
-- [https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture) - Adding the demo key will allow you to download data for Återbrukskartan.
-- [https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](https://maps.stuns.se/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal) - Allows you to upload data for Återbrukskartan, but only if run on localhost.
 
 ### Uploading data to the database
 
-If you want to upload recycle data to the database, you should run the project locally and use the button that shows up on the download page when both the demo key and the admin key are present in the query parameters.  
-Current local link there: [http://localhost:3000/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal](http://localhost:3000/download?demoKey=supersecreturlmaybechangeinthefuture&admin=yesforreal)  
+If you want to upload recycle data to the database, you should run the project locally and use the button that shows up on the download page when logged in as an admin.  
+Link to default localhost location: [http://localhost:3000/download](http://localhost:3000/download)  
 There is a folder called externalData in the root directory of the project wherein you can find some example files from the first upload.  
 The file called `ByggaBo.geojson` is used to convert from "Fastighetsbeteckning" to coordinates, and should not be changed unless you know what you're doing and are feeling up to the task of changing the code that uses it.  
 The file called `skolfastigheter.csv` contains an example of data that can be uploaded to the database. Any file you wish to upload should be in the same format (converted from the xlsx file provided by the municipality to a csv file with utf-8 encoding). You can change the file name, but make sure to change the name in the code as well. The file name is currently set to `skolfastigheter.csv` in `src\pages\api\addRecycleFromExternal.ts` on line 64 (in the declaration of the variable `csvFile`). If you feel up for it, feel free to update the code to accept any file name or drag and drop functionality in the browser or whatever else to make it easier to upload data.
 
 ### Good to know
 
-To change the keys/values in the url, change the values in `src/keys.ts`. If you do, please update the links above for easy access.
+The project previously used query-embedded keys to restrict access to certain pages, but it is now replaced with a more secure system using iron-session. If you find a link like `https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd` it is from an old version of the project and the query part of the link can be removed. The link will still work with it there, but it is unnecessary now. The only query parameter that is still used is `energiportalen=true` which is used to customize the map to be viewed within the iframes of Energiportalen.
+
+We store a few different values in the iron-session cookie, which are as follows:
+- id - the id of the user in the database.
+- email - the email of the user.
+- isLoggedIn - boolean, doesn't really do anything; any user with a valid session is currently assigned this role, but checks that only need the user to be logged in check for if the user has a valid session, not that they have this specific role.
+- isAdmin - boolean, if true the user can access all pages, can add and edit users, can upload certain data to the database when running the project locally, can add and edit Stories and Recycle data and enter any organisation as owner of those projects.
+- isStoryteller - boolean, if true the user can add and edit Stories, and enter any organisation as owner of those projects.
+- isRecycler - boolean, if true the user can add and edit Recycle data related to the organisation/-s listed in their recycleOrganisations field and can enter those organisations as owner of those projects.
+- recycleOrganisations - a list of organisations that the user is allowed to enter as owner of Recycle projects. This doesn't restrict access to any pages, but it restricts which organisations the user can enter as owner of Recycle projects. If the user is not an admin, they can only enter organisations that are in this list. If the user is an admin, they can enter any organisation as owner of Recycle projects, regardless of what is in this list.
 
 ---
 
