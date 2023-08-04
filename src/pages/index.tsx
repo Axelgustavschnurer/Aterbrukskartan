@@ -209,6 +209,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     }
   }
 
+  // Checks the URL for queries and sets energiportalen state if the query is present
+  useEffect(() => {
+    let query = router.query
+    !!query["energiportalen"] ? setEnergiportalen(true) : setEnergiportalen(false)
+  }, [router.query])
+
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
