@@ -301,7 +301,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       )}
 
       {/* Buttons leading to other pages where one can add/edit projects to the database */}
-      {user?.isAdmin && (
+      {(user?.isAdmin || user?.isRecycler) && (
         <>
           <div className={styles.addNewPost}>
             <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">

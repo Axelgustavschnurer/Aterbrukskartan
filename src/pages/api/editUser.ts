@@ -33,7 +33,7 @@ export default async function handler(
   }
 
   // Update the user
-  await prisma.user.update({
+  let isUpdated = await prisma.user.update({
     where: {
       email: email
     },
@@ -46,6 +46,7 @@ export default async function handler(
     return res.status(500).json({ message: "Error while removing old relations (probably couldn't find user)" });
   })
 
+  if (!isUpdated) { return; }
 
   await prisma.user.update({
     where: {

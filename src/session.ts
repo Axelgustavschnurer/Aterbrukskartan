@@ -11,6 +11,7 @@ export interface Data {
     isAdmin?: boolean;
     isStoryteller?: boolean;
     isRecycler?: boolean;
+    recycleOrganisations?: string[];
   };
 }
 

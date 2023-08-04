@@ -24,7 +24,7 @@ export default async function handler(
   }
 
   // Validate credentials
-  let user: User | void = await prisma.user.findUniqueOrThrow({
+  let user: User & { recycleOrganisations: {name: string}[]} | void = await prisma.user.findUniqueOrThrow({
     where: {
       email: email,
     },
@@ -35,6 +35,11 @@ export default async function handler(
       isAdmin: true,
       isStoryteller: true,
       isRecycler: true,
+      recycleOrganisations: {
+        select: {
+          name: true,
+        }
+      }
     }
   }).catch((e) => {
     return res.status(400).json({ message: "User not found" });
@@ -57,6 +62,9 @@ export default async function handler(
     isAdmin: user.isAdmin,
     isStoryteller: user.isStoryteller,
     isRecycler: user.isRecycler,
+    recycleOrganisations: user.recycleOrganisations.map((organisation) => {
+      return organisation.name;
+    })
   };
 
   await session.save();

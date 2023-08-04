@@ -84,8 +84,8 @@ export default async function handler(
 
     // On POST requests, create a new `Story` object and return it
     case 'POST':
-      // Only recyclers and admins can create new `Story` objects
-      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+      // Only storytellers and admins can create new `Story` objects
+      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 
@@ -126,8 +126,8 @@ export default async function handler(
     // Throws an error if no ID is specified or no `Story` object with the given ID exists
     // This is because we only want to update existing objects, new objects should instead be created with POST requests
     case 'PUT':
-      // Only recyclers and admins can update `Story` objects
-      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+      // Only storytellers and admins can update `Story` objects
+      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 
@@ -179,8 +179,8 @@ export default async function handler(
 
     // On DELETE requests, change the `isActive` field of the `Story` object with the given ID to false, and return it
     case 'DELETE':
-      // Only recyclers and admins can delete `Story` objects
-      if (!session.user?.isRecycler && !session.user?.isAdmin) {
+      // Only storytellers and admins can delete `Story` objects
+      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 
