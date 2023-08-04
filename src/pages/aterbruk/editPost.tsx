@@ -11,6 +11,8 @@ import Image from "next/image";
 import Modal from '@/components/deleteModal';
 import { categories, projectTypes } from "./newPost";
 import { Button } from "@nextui-org/react";
+import { getSession } from "@/session";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -42,7 +44,26 @@ export const monthOptions = () => {
   )
 };
 
-export default function EditPost() {
+// Get user data from session
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const { user } = await getSession(req, res)
+
+  if (!user) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
+
+export default function EditPost({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // All recycle data from the database
   const [recycleData, setRecycleData] = useState([] as DeepRecycle[]);
   // ID of the currently selected project, used when calling fetchRecycleObject
@@ -75,23 +96,29 @@ export default function EditPost() {
 
   const router = useRouter();
 
-  /** Fetches all recycle data from the database */
-  const fetchData = async () => {
-    const response = await fetch('/api/recycle')
-    const data = await response.json()
-    setRecycleData(data)
-  }
-
   // Runs fetchData function on component mount
   useEffect(() => {
+    /** Fetches all recycle data from the database */
+    const fetchData = async () => {
+      const response = await fetch('/api/recycle')
+      let data: DeepRecycle[] = await response.json()
+
+      // Removes all objects the user does not have access to
+      if (!user?.isAdmin) {
+        data = data.filter((item: DeepRecycle) => {
+          return user?.recycleOrganisations?.includes(item.mapItem?.organisation!)
+        })
+      }
+      setRecycleData(data)
+    }
+
     fetchData()
-  }, [])
+  }, [user])
 
   /** Fetches the recycle object with a specific id from the database */
   const fetchRecycleObject = async (id: any) => {
     const response = await fetch('/api/recycle?id=' + id)
     const data: DeepRecycle = await response.json()
-    console.log(data)
     setSelectedRecycleObject(data)
   }
 
@@ -210,7 +237,8 @@ export default function EditPost() {
   /** Dropdown menu for organisation selection */
   const organisationOptions = () => {
     let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation).sort()
+    // Filters out duplicate organisations and sorts them alphabetically. Also removes organisations that the user doesn't have access to.
+    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation && (user?.isAdmin || user?.recycleOrganisations?.includes(organisation))).sort()
     return (
       <>
         {filteredData.map((pin: any) => {

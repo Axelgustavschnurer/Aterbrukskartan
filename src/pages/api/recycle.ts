@@ -22,9 +22,10 @@ export default async function handler(
       if (!parseInt(req.query.id as string)) {
         try {
           /** Returns all `Recycle` objects, with `mapItem` objects included. */
-          const getData: DeepRecycle[] = await prisma.recycle.findMany({
+          let getData: DeepRecycle[] = await prisma.recycle.findMany({
             where: {
               isActive: true,
+              isPublic: true,
               mapItem: {
                 isActive: true
               },
@@ -32,6 +33,48 @@ export default async function handler(
             include: {
               mapItem: true
             }
+          })
+
+          // If the user is a recycler, also return all `Recycle` objects that are associated with the user's organisations
+          if (session.user?.isRecycler && session.user?.recycleOrganisations?.length) {
+            let additionalData: DeepRecycle[] = [];
+            for (let org of session.user.recycleOrganisations) {
+              await prisma.recycle.findMany({
+                where: {
+                  mapItem: {
+                    organisation: org
+                  }
+                },
+                include: {
+                  mapItem: true
+                }
+              }).then((data) => {
+                if (!data) { return; }
+                additionalData.push(...data);
+              })
+            };
+            getData.push(...additionalData);
+          }
+
+          // If the user is an admin, return all `Recycle` objects
+          if (session.user?.isAdmin) {
+            let additionalData: DeepRecycle[] = [];
+            await prisma.recycle.findMany({
+              include: {
+                mapItem: true
+              }
+            }).then((data) => {
+              if (!data) { return; }
+              additionalData.push(...data);
+            })
+            getData.push(...additionalData);
+          }
+
+          // Remove duplicates
+          getData = getData.filter((item, index) => {
+            return getData.findIndex((item2) => {
+              return item.id === item2.id
+            }) === index
           })
 
           res.status(200).json(getData)
@@ -78,8 +121,8 @@ export default async function handler(
 
     // On POST requests, create a new `Recycle` object and return it
     case 'POST':
-      // Only storytellers and admins can create new `Recycle` objects
-      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
+      // Only recyclers and admins can create new `Recycle` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 
@@ -120,8 +163,8 @@ export default async function handler(
     // Throws an error if no ID is specified or no `Recycle` object with the given ID exists
     // This is because we only want to update existing objects, new objects should instead be created with POST requests
     case 'PUT':
-      // Only storytellers and admins can update `Recycle` objects
-      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
+      // Only recyclers and admins can update `Recycle` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 
@@ -173,8 +216,8 @@ export default async function handler(
 
     // On DELETE requests, change the `isActive` field of the `Recycle` object with the given ID to false, and return it
     case 'DELETE':
-      // Only storytellers and admins can delete `Recycle` objects
-      if (!session.user?.isStoryteller && !session.user?.isAdmin) {
+      // Only recyclers and admins can delete `Recycle` objects
+      if (!session.user?.isRecycler && !session.user?.isAdmin) {
         return res.status(403).json({ message: 'Forbidden' });
       }
 

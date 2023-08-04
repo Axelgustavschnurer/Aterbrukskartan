@@ -67,7 +67,7 @@ export default function UpdateUser() {
               {/* TODO: Make dropdown similar to org selector in /aterbruk/newpost */}
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="organisation">
-                  <h3>Organisation: </h3>
+                  <h3>Ny organisation: </h3>
                 </label>
                 <input type="text" name="organisation" id="organisation" />
               </div>
