@@ -82,6 +82,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
+  const [isPublic, setIsPublic] = useState(false as boolean);
 
   // Error message
   const [message, setMessage] = useState("");
@@ -128,7 +129,8 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
           availableMaterials: offering.length > 0 ? offering.join(", ") : undefined,
           description,
           contact,
-          externalLinks
+          externalLinks,
+          isPublic,
         }),
       })
 
@@ -443,6 +445,26 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
+
+              {/* Publicity setting */}
+              <div style={{ marginTop: "10px" }}>
+                <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
+                <input
+                  type="checkbox"
+                  id="isPublic"
+                  name="isPublic"
+                  value="isPublic"
+                  checked={isPublic ?? false}
+                  onChange={(e) => setIsPublic(e.target.checked)}
+                  style={{ width: "20px", height: "20px" }}
+                />
+                {
+                  isPublic === true ?
+                    <p>Ja</p>
+                    :
+                    <p>Nej</p>
+                }
+              </div>
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>

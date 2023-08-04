@@ -92,6 +92,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
+  const [isPublic, setIsPublic] = useState(false as boolean);
   const [message, setMessage] = useState("");
 
   const router = useRouter();
@@ -140,6 +141,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     setDescription(selectedRecycleObject.description ? selectedRecycleObject.description : "")
     setContact(selectedRecycleObject.contact ? selectedRecycleObject.contact : "")
     setExternalLinks(selectedRecycleObject.externalLinks ? selectedRecycleObject.externalLinks : "")
+    setIsPublic(selectedRecycleObject.isPublic ? selectedRecycleObject.isPublic : false)
   }, [selectedRecycleObject])
 
   /** A map component used as an alternative to the address lookup */
@@ -167,6 +169,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         month: !!startMonth ? parseInt(startMonth) : null,
         contact: !!contact ? contact : null,
         externalLinks: !!externalLinks ? externalLinks : null,
+        isPublic: isPublic,
         mapItem: {
           // TODO: Allow these to be null if the user removes them
           organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganisation ? newOrganisation : null,
@@ -525,6 +528,26 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               </div >
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
+
+            {/* Publicity setting */}
+            <div style={{ marginTop: "10px" }}>
+              <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
+              <input
+                type="checkbox"
+                id="isPublic"
+                name="isPublic"
+                value="isPublic"
+                checked={isPublic ?? false}
+                onChange={(e) => setIsPublic(e.target.checked)}
+                style={{ width: "20px", height: "20px" }}
+              />
+              {
+                isPublic === true ?
+                  <p>Ja</p>
+                  :
+                  <p>Nej</p>
+              }
+            </div>
 
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
