@@ -9,9 +9,11 @@ import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
 import { yearLimitsRecycle } from ".";
 import { Button } from "@nextui-org/react";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { getSession } from "@/session";
 
 
-// FIX: We have used both organisation and organization in the code. We should stick to one of them.
+// TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
 /**
  * These are the categories listed in a "Miljöinventering" document in Uppsala, plus "Övrigt".
@@ -34,7 +36,26 @@ export const projectTypes = [
   "Ombyggnation",
 ];
 
-export default function AddNewPost() {
+// Get user data from session
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const { user } = await getSession(req, res)
+
+  if (!user) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
+
+export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
   // Controlls wheter the submit button is disabled or not
@@ -139,7 +160,8 @@ export default function AddNewPost() {
   /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {
     let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
-    let filteredData = mappedData.filter((pin: any, index: any) => mappedData.indexOf(pin) === index).sort()
+    // Filters out duplicate organisations and sorts them alphabetically. Also removes organisations that the user doesn't have access to.
+    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation && (user?.isAdmin || user?.recycleOrganisations?.includes(organisation))).sort()
     return (
       <>
         {filteredData.map((pin: any) => {
