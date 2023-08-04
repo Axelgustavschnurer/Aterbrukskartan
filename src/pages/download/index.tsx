@@ -7,21 +7,34 @@ import { DeepRecycle, DeepStory } from "@/types";
 import { useRouter } from "next/router";
 import { websiteKeys } from "@/keys";
 import { Button } from "@nextui-org/react";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { getSession } from "@/session";
 
-export default function DownloadCSV() {
-  // The router is used to get the URL queries
-  const router = useRouter()
+// Get user data from session
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const { user } = await getSession(req, res)
 
+  if (!user) {
+    return {
+      props: {
+        user: null
+      }
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
+
+export default function DownloadCSV({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // Data from the database
   // The data is stored in a different format for the old CSV to keep the same format as the one available on the dataportal.
   const [oldStories, setOldStories] = useState({} as { results: oldDataFormat[] })
   const [storyData, setStoryData] = useState([] as DeepStory[])
   const [recycleData, setRecycleData] = useState([] as DeepRecycle[])
-
-  // Whether or not the user has access to the recycle data
-  const [recycleAccess, setRecycleAccess] = useState(false)
-  // Whether or not the user has access to the admin actions
-  const [recycleAdmin, setRecycleAdmin] = useState(false)
 
   /** Fetches data from the database */
   const fetchOldData = async () => {
@@ -51,19 +64,6 @@ export default function DownloadCSV() {
     fetchRecycleData()
   }, [])
 
-  // Checks the URL for queries and sets access accordingly
-  // If the query is correct, the user has access to the recycle data and the mapItem data will include things related to the recycle projects.
-  useEffect(() => {
-    // The query is the part of the url after the question mark. It is case sensitive.
-    // For example, if the url is "www.example.com?test=abc", the query is "test=abc", with the key being "test" and the value being "abc".
-    // In order to have multiple queries, they are separated by an ampersand (&).
-    // For example, "www.example.com?test=abc&thing=4" has two queries, "test=abc" and "thing=4".
-    let query = router.query
-
-    query["demoKey"] === websiteKeys["demoKey"] ? setRecycleAccess(true) : setRecycleAccess(false)
-    query["admin"] === websiteKeys["admin"] ? setRecycleAdmin(true) : setRecycleAdmin(false)
-  }, [router.query])
-
   /** Handles the download of the old CSV */
   const handleOldDownload = () => {
     oldStories?.results?.length ? downloadCsv(createOldCsv(oldStories.results), "open_data.csv") : null;
@@ -74,9 +74,13 @@ export default function DownloadCSV() {
     storyData?.length ? downloadCsv(createGenericCsv(storyData), "story.csv") : null;
   }
 
-  /** Downloads the map_item table as a CSV */
+  /**
+   * Downloads the map_item table as a CSV
+   * If the user is logged in, the map_item data related to the recycle table will be included,
+   * otherwise only the map_item data related to the story table will be included.
+   */
   const handleMapItemDownload = () => {
-    recycleAccess ? downloadCsv(createMapItemCsv([...storyData, ...recycleData]), "map_item.csv") : storyData?.length ? downloadCsv(createMapItemCsv(storyData), "map_item.csv") : null;
+    !!user ? downloadCsv(createMapItemCsv([...storyData, ...recycleData]), "map_item.csv") : storyData?.length ? downloadCsv(createMapItemCsv(storyData), "map_item.csv") : null;
   }
 
   /** Downloads the recycle table as a CSV */
@@ -84,7 +88,8 @@ export default function DownloadCSV() {
     recycleData?.length ? downloadCsv(createGenericCsv(recycleData), "recycle.csv") : null;
   }
 
-  const funkyFunction = async () => {
+  /** Imports recycle data from external source */
+  const importLocalData = async () => {
     const res = await fetch('/api/addRecycleFromExternal')
     const data = await res.json()
     console.log(data)
@@ -106,16 +111,17 @@ export default function DownloadCSV() {
         <div className={styles.content}>
           <Button onPress={handleMapItemDownload} color={"gradient"}>Ladda ner mapItem-data (platser, organisationer och år kopplat till annan data)</Button>
         </div>
-        {
-          recycleAccess ?
+        { // If the user has access to the recycle data, the button to download it will be shown
+          !!user ?
             <>
               <div className={styles.content}>
                 <Button onPress={handleRecycleDownload} color={"gradient"}>Ladda ner Recycle-data</Button>
               </div>
-              {
-                recycleAdmin ?
+              { // If the user is an admin, show button to import recycle data from external source
+                // Note that it only works on localhost
+                user.isAdmin ?
                   <div className={styles.content}>
-                    <Button onPress={funkyFunction} color={"gradient"}>Importera Recycle-data från csv [Enbart på localhost]</Button>
+                    <Button onPress={importLocalData} color={"gradient"}>Importera Recycle-data från csv [Enbart på localhost]</Button>
                   </div>
                   : null
               }
