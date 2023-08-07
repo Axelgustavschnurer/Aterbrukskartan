@@ -58,14 +58,14 @@ export default function Signup() {
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
-                <input type="text" name="email" id="email" required={true} />
+                <input type="text" name="email" id="email" required={true} autoComplete="off" />
               </div>
 
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="password">
                   <h3>Lösenord: </h3>
                 </label>
-                <input type="password" name="password" id="password" required={true} />
+                <input type="password" name="password" id="password" required={true} autoComplete="new-password" />
               </div>
 
               {/* Currently a dropdown + freetext if choosing new org.,
@@ -75,7 +75,7 @@ export default function Signup() {
                 <label htmlFor="organisation">
                   <h3>Organisation: </h3>
                 </label>
-                <input type="text" name="organisation" id="organisation" />
+                <input type="text" name="organisation" id="organisation" autoComplete="organization" />
               </div>
 
               <div style={{ marginTop: "10px" }}>

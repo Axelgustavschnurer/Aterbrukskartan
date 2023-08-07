@@ -59,7 +59,7 @@ export default function UpdateUser() {
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
-                <input type="text" name="email" id="email" required={true} />
+                <input type="text" name="email" id="email" required={true} autoComplete="off"/>
               </div>
 
               {/* Currently a dropdown + freetext if choosing new org.,
@@ -69,7 +69,7 @@ export default function UpdateUser() {
                 <label htmlFor="organisation">
                   <h3>Ny organisation: </h3>
                 </label>
-                <input type="text" name="organisation" id="organisation" />
+                <input type="text" name="organisation" id="organisation" autoComplete="organization" />
               </div>
 
               <div style={{ marginTop: "10px" }}>

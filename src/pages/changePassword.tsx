@@ -56,26 +56,26 @@ export default function Login() {
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
-                <input type="text" name="email" id="email" required={true} />
+                <input type="text" name="email" id="email" required={true} autoComplete="email" />
               </div>
 
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="oldPassword">
                   <h3>Gammalt lösenord: </h3>
                 </label>
-                <input type="password" name="oldPassword" id="oldPassword" required={true} />
+                <input type="password" name="oldPassword" id="oldPassword" required={true} autoComplete="current-password" />
               </div>
 
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="newPassword">
                   <h3>Nytt lösenord: </h3>
                 </label>
-                <input type="password" name="newPassword" id="newPassword" required={true} />
+                <input type="password" name="newPassword" id="newPassword" required={true} autoComplete="new-password" />
               </div>
 
               <br />
               <div className={styles.addNewPostFormSubmit}>
-                <Button type="submit" id={styles.save}> Byt Lösenord </Button >
+                <Button type="submit" id={styles.save}> Byt Lösenord </Button>
               </div>
 
             </form>

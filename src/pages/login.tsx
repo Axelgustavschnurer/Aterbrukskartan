@@ -53,14 +53,14 @@ export default function Login() {
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
-                <input type="text" name="email" required={true} />
+                <input type="text" name="email" required={true} autoComplete="email" />
               </div>
 
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="password">
                   <h3>Lösenord: </h3>
                 </label>
-                <input type="password" name="password" required={true} />
+                <input type="password" name="password" required={true} autoComplete="current-password" />
               </div>
 
               <br />
