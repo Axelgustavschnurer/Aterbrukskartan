@@ -20,11 +20,6 @@ export default async function handler(
     // On GET or HEAD requests, return the `Story` object with the given ID, or all `Story` objects if no ID is specified
     case 'GET':
     case 'HEAD':
-      // Require the user to be logged in
-      if (!session.user) {
-        return res.status(401).json({ message: 'You must be logged in to perform this action' });
-      }
-
       if (!parseInt(req.query.id as string)) {
         try {
           /** Returns all `Story` objects, with `mapItem` objects included. */
