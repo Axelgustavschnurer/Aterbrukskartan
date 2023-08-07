@@ -11,6 +11,7 @@ steps:
     submodules: true
 
 # Download .env file from secure files
+# Contains database connection string and iron-session secret
   - task: DownloadSecureFile@1
     inputs:
       secureFile: '.env'
