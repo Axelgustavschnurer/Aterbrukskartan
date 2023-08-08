@@ -109,15 +109,7 @@ and follow the instructions.
 ### Changing the production database schema
 **NEVER run `prisma migrate dev` against the production database.**  
 Once you're done testing with the development database, you should apply the changes to the production database.
-This should be done using a pipeline running the command `npx prisma migrate deploy` against the production database, but we don't have one set up yet.
-
-If you need to run the command manually, set the `DATABASE_URL` environment variable to the production database url, and run the following command:
-
-```bash
-npx prisma migrate deploy
-```
-
-**Don't forget to change the database url back to the development database url afterwards.** We *really* don't want to accidentally run `prisma migrate dev` or do anything else to the production database by mistake.
+This is done automatically by a pipeline once you merge your changes to the master branch, if you have created a migration.
 
 ---
 
