@@ -1,0 +1,44 @@
+# This file is used to update the production database with the latest migrations.
+# It is triggered by a push to the main branch containing changes to the prisma/migrations folder.
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - 'prisma/migrations/*/migration.sql'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+# Download .env file from secure files
+# Contains database connection string and iron-session secret
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: '.env'
+
+# Copy .env file to working directory
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Agent.TempDirectory)'
+    contents: '.env'
+    targetFolder: '$(System.DefaultWorkingDirectory)'
+
+# Find or download Node.js
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+# npm install and build
+- script: |
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+# Apply pending Prisma migrations
+- script: |
+    npx prisma migrate deploy
+  displayName: 'Apply migrations'
