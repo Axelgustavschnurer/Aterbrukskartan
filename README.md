@@ -35,15 +35,20 @@ Then, create a `.env` file in the root directory containing the following:
 DATABASE_URL = "sqlserver://<url>:<port>;database=<database>;user=<user>;pwd=<password>;<optional arguments>"
 
 SHADOW_DATABASE_URL="sqlserver://localhost:1433;database=shadow;trustServerCertificate=true;integratedSecurity=true"
+
+IRON_SESSION_PASSWORD = "<password>"
 ```
 
 The current database url is already set up in a .env file among the secure files on azure, so if you change database you need to update the file there as well.
+The shadow database url is only used when changing the database schema, and is not necessary for running the project and can thus just be set to localhost.
+The iron session password can be set to anything *at least 32 characters long*, but should be kept secret. It is used to encrypt session cookies. The current password is already set up in the .env file among the secure files on azure, so if you wish to change it you need to update the file there as well, and not forget to still include the database url in the new file.
+
+**To summarize, don't touch the secure file called .env on azure unless you know what you're doing. You *need* to include both a valid database url and an iron session password if you do change it.**
+Since you can't read or edit the secure file on azure, make sure to be careful if you update it, as the previous version will be overwritten and lost.
 
 If you don't know the database url, try asking a project admin.
 If they don't know or can't be reached, you could try contacting leon.loov@outlook.com.
-
 If you still can't get the database url, you could theoretically get the deployment pipeline to print it out, but that's extremely bad practice and absolutely not recommended.
-
 - Do note that the database url is a secret and should not be shared with anyone.
   - Making the pipeline print it out is a very bad idea because it will be visible to others in the logs.
 - If you still want to do it, you should google how to print environment variables in Azure Pipelines. It's not hard, but it's not something I'm going to write here.
@@ -79,10 +84,12 @@ Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ## Changing the database schema
 
-NOTE: The following instructions are NOT best practice, we are using a dev command to change the production database schema. MAKE SURE TO DOWNLOAD A BACKUP OF THE DATABASE BEFORE MAKING ANY CHANGES. Either go [here](https://maps.stuns.se/download) while logged in and download Stories-data, mapItem-data, and Recycle-data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get actual backups from the database or copy it using the Copy Database Wizard.)
+MAKE SURE TO DOWNLOAD A BACKUP OF THE PRODUCTION DATABASE BEFORE MAKING ANY CHANGES TO IT. Either go [here](https://maps.stuns.se/download) while logged in as an admin and download Stories-data, mapItem-data, and Recycle-data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get proper backups from the database or copy it using the Copy Database Wizard.)
 
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
+### Changing the development database schema
+**NEVER run `prisma migrate dev` against the production database**
 Edit the file at `prisma/schema.prisma` to change the database schema.
 
 Then, run the following command to make sure the database is valid:
@@ -99,7 +106,18 @@ npx prisma migrate dev --create-only
 
 and follow the instructions.
 
-Otherwise, figure out a way to fix the database.
+### Changing the production database schema
+**NEVER run `prisma migrate dev` against the production database**
+Once you're done testing with the development database, you should apply the changes to the production database.
+This should be done using a pipeline running the command `npx prisma migrate deploy` against the production database, but we don't have one set up yet.
+
+If you need to run the command manually, set the `DATABASE_URL` environment variable to the production database url, and run the following command:
+
+```bash
+npx prisma migrate deploy
+```
+
+**Don't forget to change the database url back to the development database url afterwards.** We *really* don't want to accidentally run `prisma migrate dev` or do anything else to the production database by mistake.
 
 ---
 
@@ -111,6 +129,10 @@ If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the li
 - [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the Stories map, to be viewed from within the iframes of Energiportalen.
 - [https://maps.stuns.se/aterbruk](https://maps.stuns.se/aterbruk) - Återbrukskartan.
 - [https://maps.stuns.se/download](https://maps.stuns.se/download) - Page where you can download data from the database, both in current format and the old format used at dataportalen.
+- [https://maps.stuns.se/admin/addUser](https://maps.stuns.se/admin/addUser) - Page where you can add new users to the database.
+- [https://maps.stuns.se/admin/editUser](https://maps.stuns.se/admin/editUser) - Page where you can edit existing users in the database.
+- [https://maps.stuns.se/login](https://maps.stuns.se/login) - Login page. You're automatically redirected here if you try to access any limited pages (like the admin pages or återbrukskartan) without being logged in.
+- [https://maps.stuns.se/changePassword](https://maps.stuns.se/changePassword) - Page where you can change your password. You need to know your current password to change it, we don't have the ability to reset passwords (except by manually changing the hashed password in the database to the hash of the new password, which is not recommended as it's very bad practice and you might mess up which user you're changing the password for).
 
 ### Uploading data to the database
 
