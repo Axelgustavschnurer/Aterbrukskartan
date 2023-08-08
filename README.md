@@ -89,7 +89,7 @@ MAKE SURE TO DOWNLOAD A BACKUP OF THE PRODUCTION DATABASE BEFORE MAKING ANY CHAN
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 
 ### Changing the development database schema
-**NEVER run `prisma migrate dev` against the production database**
+**NEVER run `prisma migrate dev` against the production database.**  
 Edit the file at `prisma/schema.prisma` to change the database schema.
 
 Then, run the following command to make sure the database is valid:
@@ -107,7 +107,7 @@ npx prisma migrate dev --create-only
 and follow the instructions.
 
 ### Changing the production database schema
-**NEVER run `prisma migrate dev` against the production database**
+**NEVER run `prisma migrate dev` against the production database.**  
 Once you're done testing with the development database, you should apply the changes to the production database.
 This should be done using a pipeline running the command `npx prisma migrate deploy` against the production database, but we don't have one set up yet.
 
