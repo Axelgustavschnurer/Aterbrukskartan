@@ -19,11 +19,6 @@ export default async function handler(
     // On GET or HEAD requests, return the `Recycle` object with the given ID, or all `Recycle` objects if no ID is specified
     case 'GET':
     case 'HEAD':
-      // Require the user to be logged in to get recycle data
-      if (!session.user) {
-        return res.status(401).json({ message: 'You must be logged in to perform this action' });
-      }
-
       if (!parseInt(req.query.id as string)) {
         try {
           /** Returns all `Recycle` objects, with `mapItem` objects included. */
