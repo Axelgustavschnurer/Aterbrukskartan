@@ -255,7 +255,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         </Tooltip>
         <Tooltip content={"Till\xa0Återbruk"} placement="left">
           <Link href="/aterbruk">
-            <Image src="/map.svg" alt="Stunslogotyp" width={50} height={50} />
+            <Image src="/map.svg" alt="Kart-ikon" width={50} height={50} />
           </Link>
         </Tooltip>
       </div>
