@@ -3,33 +3,36 @@ import Head from "next/head";
 import styles from '@/styles/newStory.module.css';
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
-
-function handleSubmit(event: any) {
-  event.preventDefault()
-
-  const form = event.target
-  const formJSON = JSON.stringify({
-    email: form.email.value,
-    password: form.password.value,
-  })
-
-  // Try to login, redirect to the home page if successful.
-  fetch('/api/login', {
-    method: 'POST',
-    body: formJSON,
-    headers: { 'Content-Type': 'application/json' },
-  }).then((res) => {
-    if (res.ok) {
-      window.location.href = '/'
-    } else {
-      alert('Login failed.')
-    }
-  }).catch((err) => {
-    alert('Login failed.')
-  })
-}
+import Modal from '@/components/redirectModal';
 
 export default function Login() {
+  const [modal, setModal] = React.useState(false);
+
+  function handleSubmit(event: any) {
+    event.preventDefault()
+
+    const form = event.target
+    const formJSON = JSON.stringify({
+      email: form.email.value,
+      password: form.password.value,
+    })
+
+    // Try to login, redirect to the home page if successful.
+    fetch('/api/login', {
+      method: 'POST',
+      body: formJSON,
+      headers: { 'Content-Type': 'application/json' },
+    }).then((res) => {
+      if (res.ok) {
+        setModal(true);
+      } else {
+        alert('Login failed.')
+      }
+    }).catch((err) => {
+      alert('Login failed.')
+    })
+  }
+
   return (
     <>
       <Head>
@@ -86,6 +89,9 @@ export default function Login() {
           </div >
         </div >
       </div >
+
+      {/* Redirect modal, after login */}
+      <Modal toggle={modal} />
     </>
   )
 }

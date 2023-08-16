@@ -1,53 +1,63 @@
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transform: scale(0);
-    transition: opacity 0.3s, visibility 0.3s;
-    background-color: #00000081;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s, visibility 0.3s;
+  background-color: #00000081;
 }
 
 .container.active {
-    visibility: visible;
-    opacity: 1;
-    transform: scale(1);
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 250px;
-    width: 500px;
-    padding: 100px;
-    background-color: #ebebeb;
-    border-radius: 20px;
-    border: 1px solid black;
-    box-shadow: 5px 10px 10px 5px #00000015;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 500px;
+  padding: 100px;
+  background-color: #ebebeb;
+  border-radius: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 10px 10px 5px #00000015;
+}
+
+.modal button {
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 2px solid #8a8a8a;
+  background-color: #f2f2f2;
+  cursor: pointer;
 }
 
 .btnContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .btn {
-    display: flex;
-    margin-top: 40px;
-    cursor: pointer;
+  display: flex;
+  margin-top: 40px;
+  cursor: pointer;
 }
 
 @media only screen and (orientation: portrait) {
-    .btnContainer {
-        margin: 0 10px 0 10px;
-    }
+  .btnContainer {
+    margin: 0 10px 0 10px;
+  }
 }
