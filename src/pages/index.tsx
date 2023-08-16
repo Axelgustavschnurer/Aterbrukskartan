@@ -13,6 +13,7 @@ import { Tooltip, Badge } from '@nextui-org/react'
 import { logoutFunction } from '@/components/logout'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { getSession } from '@/session'
+import Link from 'next/link'
 
 // Gets user data from the session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -251,6 +252,11 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
             <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
           </a>
+        </Tooltip>
+        <Tooltip content={"Till\xa0Återbruk"} placement="left">
+          <Link href="/aterbruk">
+            <Image src="/map.svg" alt="Stunslogotyp" width={50} height={50} />
+          </Link>
         </Tooltip>
       </div>
 
