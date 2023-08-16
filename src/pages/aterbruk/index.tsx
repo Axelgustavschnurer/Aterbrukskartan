@@ -300,6 +300,17 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         </div>
       )}
 
+      {/* Login button */}
+      {!user && (
+        <div className={styles.logout}>
+          <Tooltip content={"Logga\xa0in"} placement="left">
+            <button className={styles.logoutButton} onClick={() => router.push('/login' + window.location.search)}>
+              <Image src="./login.svg" alt='Logga in' width={50} height={50} />
+            </button>
+          </Tooltip>
+        </div>
+      )}
+
       {/* Buttons leading to other pages where one can add/edit projects to the database */}
       {(user?.isAdmin || user?.isRecycler) && (
         <>

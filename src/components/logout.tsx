@@ -4,7 +4,7 @@ export function logoutFunction() {
     headers: { 'Content-Type': 'application/json' },
   }).then((res) => {
     if (res.ok) {
-      window.location.href = '/'
+      window.location.reload();
     } else {
       alert('Misslyckades med utloggning.')
     }

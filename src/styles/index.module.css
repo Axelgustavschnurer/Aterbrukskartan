@@ -1,213 +1,213 @@
 /* redirects to different pages */
 .smallRightContainerOpacityStory {
-    background-color: #f2f2f2;
-    height: 70px;
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 0;
-    top: 0;
-    border: 1px solid #000000;
-    z-index: 1;
-    border-bottom-left-radius: 20px;
-    opacity: 0.5;
+  background-color: #f2f2f2;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+  border: 1px solid #000000;
+  z-index: 1;
+  border-bottom-left-radius: 20px;
+  opacity: 0.5;
 }
 
 .smallRightContainerStory {
-    height: 70px;
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 0;
-    top: 0;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
 .smallRightContainerOpacity {
-    background-color: #f2f2f2;
-    height: 70px;
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 0;
-    top: 0;
-    border: 1px solid #000000;
-    z-index: 1;
-    border-bottom-left-radius: 20px;
-    opacity: 0.5;
+  background-color: #f2f2f2;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+  border: 1px solid #000000;
+  z-index: 1;
+  border-bottom-left-radius: 20px;
+  opacity: 0.5;
 
 }
 
 .smallRightContainer {
-    height: 70px;
-    width: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    right: 0;
-    top: 0;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
 .stunsIcon {
-    animation-name: spin;
-    animation-duration: 3000ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+  animation-name: spin;
+  animation-duration: 3000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 .iconContainer {
-    margin-top: 10px;
-    cursor: pointer;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .iconContainer:hover {
-    background-color: #f7f7f79d;
-    border-radius: 100%;
+  background-color: #f7f7f79d;
+  border-radius: 100%;
 }
 
 .iconContainerStory {
-    margin-top: 10px;
-    cursor: pointer;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .iconContainerStory:hover {
-    background-color: #f7f7f79d;
-    border-radius: 100%;
+  background-color: #f7f7f79d;
+  border-radius: 100%;
 }
 
 /* end of redirects to different pages */
 
 .wrap {
-    width: 20.5vw;
-    position: absolute;
-    top: 40px;
-    transform: translate(5px, -50%);
+  width: 20.5vw;
+  position: absolute;
+  top: 40px;
+  transform: translate(5px, -50%);
 }
 
 /* searchbar */
 .search {
-    width: 100%;
-    z-index: 2;
+  width: 100%;
+  z-index: 2;
 }
 
 .searchTerm {
-    width: 100%;
-    border: 2px solid #8a8a8a;
-    padding: 5px;
-    height: 40px;
-    border-radius: 10px;
-    outline: none;
-    color: #949494;
+  width: 100%;
+  border: 2px solid #8a8a8a;
+  padding: 5px;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+  color: #949494;
 }
 
 .searchIcon {
-    position: absolute;
-    right: 0;
-    transform: translate(-10%, -100%);
-    opacity: 0.8;
+  position: absolute;
+  right: 0;
+  transform: translate(-10%, -100%);
+  opacity: 0.8;
 }
 
 
 .searchTerm:focus {
-    color: black;
+  color: black;
 }
 
 .filterTextContent {
-    position: fixed;
-    z-index: 2;
-    top: 60px;
-    left: 10px;
+  position: fixed;
+  z-index: 2;
+  top: 60px;
+  left: 10px;
 }
 
 .filterTextContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 100%;
 }
 
 .filterText {
-    z-index: 4;
-    margin: 5px 2px;
-    transition: all 0.3s ease;
+  z-index: 4;
+  margin: 5px 2px;
+  transition: all 0.3s ease;
 }
 
 /*Add new post*/
 .addNewPost {
-    position: fixed;
-    right: 0.5rem;
-    bottom: 100px;
-    height: auto;
-    width: auto;
-    z-index: 2;
+  position: fixed;
+  right: 0.5rem;
+  bottom: 196px;
+  height: auto;
+  width: auto;
+  z-index: 2;
 }
 
 /*Add new post button*/
 .addNewPostButton {
-    background-color: #f2f2f2;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 38px;
-    width: 38px;
-    border: 2px solid #8a8a8a;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background-color: #f2f2f2;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  width: 38px;
+  border: 2px solid #8a8a8a;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .addNewPostButton img {
-    height: 28px;
-    width: 28px;
+  height: 28px;
+  width: 28px;
 }
 
 .addNewPostButton:hover {
-    background-color: #cccccc;
+  background-color: #cccccc;
 }
 
 .editPost {
-    position: fixed;
-    right: 0.5rem;
-    bottom: 148px;
-    height: auto;
-    width: auto;
-    z-index: 2;
+  position: fixed;
+  right: 0.5rem;
+  bottom: 148px;
+  height: auto;
+  width: auto;
+  z-index: 2;
 }
 
 .editPostButton {
-    background-color: #f2f2f2;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 38px;
-    width: 38px;
-    border: 2px solid #8a8a8a;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background-color: #f2f2f2;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  width: 38px;
+  border: 2px solid #8a8a8a;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .editPostButton img {
-    height: 28px;
-    width: 28px;
+  height: 28px;
+  width: 28px;
 }
 
 .logout {
   position: fixed;
   right: 0.5rem;
-  bottom: 196px;
+  bottom: 100px;
   height: auto;
   width: auto;
   z-index: 2;
@@ -237,23 +237,23 @@
 
 /* Media queries */
 @media screen and (min-width: 2000px) {
-    .wrap {
-        width: 15.5vw;
-    }
+  .wrap {
+    width: 15.5vw;
+  }
 }
 
 /* keframes to make the stuns logo spin */
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    50% {
-        transform: rotate(30deg);
-    }
+  50% {
+    transform: rotate(30deg);
+  }
 
-    100% {
-        transform: rotate(0deg);
-    }
+  100% {
+    transform: rotate(0deg);
+  }
 
 }
