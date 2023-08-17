@@ -9,7 +9,7 @@ import styles from '@/styles/editStory.module.css';
 import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
-import { educationalPrograms } from "./newStory";
+import { basePrograms, educationalPrograms } from "./newStory";
 import { dataPortals } from "./newStory";
 import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
@@ -45,7 +45,7 @@ export default function EditStory() {
   // Currently selected orientation of the educational program
   const [programOrientation, setProgramOrientation] = useState("");
   // Free text input for specifying the orientation of the educational program
-  const [newOrientation, setNewOrientation] = useState("");
+  const [newProgram, setNewProgram] = useState("");
   // Title of the project, is shown on the map
   const [projectTitle, setProjectTitle] = useState("");
   // Title of the report, used when searching for it in the linked website
@@ -107,21 +107,8 @@ export default function EditStory() {
 
   // Sets the states of the form to be the data from the selected project from the database
   useEffect(() => {
-    // Matches all characters before the first comma, the comma itself, and all immediately following whitespace
-    // Used to separate the specialisation from the combined program name by removing the program name
-    // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
-    const programRegex = /^[^,]*?,\s*/
-
     setOrganisation(selectedStoryObject.mapItem?.organisation ? selectedStoryObject.mapItem?.organisation : "")
-    setProgram(selectedStoryObject.educationalProgram?.split(", ")[0] as any || "")
-
-    // If no orientation is set, set it to an empty string, otherwise, it's set to everything after the first comma
-    if (!selectedStoryObject.educationalProgram?.match(programRegex)) {
-      setProgramOrientation("")
-    }
-    else {
-      setProgramOrientation(setFirstLetterCapital(selectedStoryObject.educationalProgram?.replace(programRegex, "")))
-    }
+    setProgram(selectedStoryObject.educationalProgram as any || "")
 
     setProjectTitle(selectedStoryObject.mapItem?.name as any || "")
     setReportTitle(selectedStoryObject.reportTitle as any)
@@ -178,7 +165,7 @@ export default function EditStory() {
         body: JSON.stringify({
           mapItem,
           categorySwedish: !!categorArray.join(", ") ? categorArray.join(", ") : null,
-          educationalProgram: !!programOrientation ? programOrientation == "addOrientation" ? (program + ", " + setFirstLetterCapital(newOrientation)) : (program + ", " + setFirstLetterCapital(programOrientation)) : !!program ? program : null,
+          educationalProgram: !!program ? program == "addOrientation" ? setFirstLetterCapital(newProgram.toLowerCase()) : program : null,
           descriptionSwedish: !!description ? description : null,
           reportLink: !!reportLink ? reportLink : null,
           reportSite: !!dataPortal ? dataPortal : null,
@@ -255,25 +242,23 @@ export default function EditStory() {
     }
   ), [])
 
-  /** Gets all programs + orientations from the database and return the orientations as options in a dropdown */
-  const orientationOptions = () => {
-    let programs = allStoryData.map((pin: any) => pin.educationalProgram);
-    // Matches all characters before the first comma, the comma itself, and all immediately following whitespace
-    // Used to separate the specialisation from the combined program name by removing the program name
-    // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
-    const programRegex = /^[^,]*?,\s*/
-    let specialisations = programs.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
-    let filteredData = specialisations
+  /** Gets all programs from the database, combines them with the base programs, and returns them as options in a select element */
+  const getOrientation = () => {
+    let programs: string[] = allStoryData.map((pin: any) => pin.educationalProgram);
+    let combinedPrograms = programs.concat(basePrograms);
+    // Sets the first letter of each program to uppercase and all other letters to lowercase
+    let formattedPrograms = combinedPrograms.map((program: string) => !!program ? setFirstLetterCapital(program.toLowerCase()) : "");
+    let filteredData = formattedPrograms
       .filter(
-        (specialisation: any, index: any) =>
-          specialisations.indexOf(specialisation) === index && !!specialisations[index]
+        (program: any, index: any) =>
+          formattedPrograms.indexOf(program) === index && !!formattedPrograms[index]
       )
       .sort();
     return (
       <>
-        {filteredData.map((specialisation: any, index: any) => {
+        {filteredData.map((program: any, index: any) => {
           return (
-            <option key={specialisation} value={specialisation} label={specialisation} />
+            <option key={program} value={program} label={program} />
           );
         })}
       </>
@@ -458,39 +443,22 @@ export default function EditStory() {
                   value={program ?? ""}
                   onChange={(e: any) => setProgram(e.target.value)}
                 >
-                  {getEducationalPrograms()}
+                  {getOrientation()}
+                  <option value="addOrientation" label="Lägg till ny programinriktning" />
                 </select>
               </div>
 
               {/* Program orientation section */}
               {
-                program ?
-                  <div className={styles.addNewPostFormSelect}>
-                    <h3>Programinriktning</h3>
-                    <select
-                      id={program}
-                      name={program}
-                      value={programOrientation}
-                      onChange={(e) => setProgramOrientation(e.target.value)}
-                    >
-                      <option value="" label="Välj programinriktning" />
-                      {orientationOptions()}
-                      <option value="addOrientation" label="Lägg till ny programinriktning" />
-                    </select>
-                  </div>
-                  :
-                  null
-              }
-              {
-                programOrientation === "addOrientation" ?
+                program === "addOrientation" ?
                   <div className={styles.addNewPostFormOrientation}>
                     <h3>Programinriktning</h3>
                     <input
                       type="text"
                       id={program}
                       name={program}
-                      value={newOrientation}
-                      onChange={(e) => setNewOrientation(e.target.value)}
+                      value={newProgram}
+                      onChange={(e) => setNewProgram(e.target.value)}
                     />
                   </div>
                   :
