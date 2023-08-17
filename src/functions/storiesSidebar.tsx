@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
-import { educationalPrograms } from "@/pages/stories/newStory";
+import { basePrograms, educationalPrograms } from "@/pages/stories/newStory";
 import { Button } from "@nextui-org/react";
+import setFirstLetterCapital from "./setFirstLetterCapital";
 
 /**
  * Contains all the allowed categories for stories (not including "Övrigt", as it's not a real category),
@@ -174,9 +175,17 @@ export function createEducationalFilter(
   educationalProgram: string[],
   setEducationalProgram: any,
   disableReset: any,
-  setDisableReset: any
+  setDisableReset: any,
+  databasePrograms: string[]
 ) {
-  let programs = educationalPrograms;
+  let programs = basePrograms.concat(databasePrograms);
+  let formattedPrograms = programs.map((program: string) => !!program ? setFirstLetterCapital(program.toLowerCase()) : "");
+  programs = formattedPrograms
+    .filter(
+      (program: any, index: any) =>
+        formattedPrograms.indexOf(program) === index && !!formattedPrograms[index]
+    )
+    .sort();
   return (
     <>
       {programs.map((program: any) => {

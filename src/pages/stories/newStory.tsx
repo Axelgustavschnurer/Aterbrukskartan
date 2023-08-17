@@ -87,9 +87,7 @@ export default function AddNewStory() {
   const [newOrganization, setNewOrganization] = useState("");
   // Currently selected educational program
   const [program, setProgram] = useState("");
-  // Currently selected orientation of the educational program
-  const [programOrientation, setProgramOrientation] = useState("");
-  // Free text input for specifying the orientation of the educational program
+  // Free text input for creating new educational program
   const [newProgram, setNewProgram] = useState("");
   // Title of the project, is shown on the map
   const [projectTitle, setProjectTitle] = useState("");
