@@ -469,9 +469,9 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
                       educationalProgram,
                       setEducationalProgram,
                       disableReset,
-                      setDisableReset
+                      setDisableReset,
+                      mapData.map((story: any) => story.educationalProgram)
                     )}
-                    {createSpecialisationFilter()}
                   </span>
                 ) : null}
                 {createOrganisationFilter()}
