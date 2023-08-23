@@ -23,6 +23,7 @@ export function recyclePopup(pin: DeepRecycle) {
         <div style={PopupText}>
           <b>{pin.projectType}</b> <br />
           {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year && !pin.month ? "Projektet påbörjas år: " + pin.mapItem.year : "Projektet påbörjas: " + monthArray[pin.month! - 1] + " " + pin.mapItem.year} <br />
+          {!pin.endYear ? null : pin.endYear && !pin.endMonth ? "Projektet avslutas år: " + pin.endYear : "Projektet avslutas: " + monthArray[pin.endMonth! - 1] + " " + pin.endYear + " (uppskattat)"} {!!pin.endYear && <br />}
           <>
             {/* This abomination checks multiple factors of materials being offered or requested and then displays the results */}
             {pin.projectType === "Rivning" && pin.availableMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
