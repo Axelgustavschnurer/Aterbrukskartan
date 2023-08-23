@@ -107,6 +107,23 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
     try {
       if (disableSubmit) throw new Error("Information saknas");
       setDisableSubmit(true);
+
+      // If user has selected "Lägg till en organisation", connect the new organisation to the user
+      if (organization === "addOrganisation" && newOrganization) {
+        fetch(window.location.origin + '/api/userCreateAndConnectOrg', {
+          method: 'POST',
+          mode: 'same-origin',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: newOrganization,
+          }),
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+
       // Creates a mapItem object from the form data
       let mapItem: Prisma.MapItemCreateInput = {
         latitude: lat ? parseFloat(lat) : null,

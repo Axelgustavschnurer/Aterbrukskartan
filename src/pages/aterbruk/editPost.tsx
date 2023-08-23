@@ -160,6 +160,22 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     catch { }
 
     try {
+      // If user has selected "Lägg till en organisation", connect the new organisation to the user
+      if (organisation === "addOrganisation" && newOrganisation) {
+        fetch(window.location.origin + '/api/userCreateAndConnectOrg', {
+          method: 'POST',
+          mode: 'same-origin',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: newOrganisation,
+          }),
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+
       /** The data that is sent to the database */
       const data = {
         projectType: !!projectType ? projectType : null,
