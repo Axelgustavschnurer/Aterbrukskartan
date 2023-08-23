@@ -84,7 +84,7 @@ Then open [http://localhost:5555](http://localhost:5555) to see the data.
 
 ## Changing the database schema
 
-MAKE SURE TO DOWNLOAD A BACKUP OF THE PRODUCTION DATABASE BEFORE MAKING ANY CHANGES TO IT. Either go [here](https://maps.stuns.se/download) while logged in as an admin and download Stories-data, mapItem-data, and Recycle-data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get proper backups from the database or copy it using the Copy Database Wizard.)
+MAKE SURE TO DOWNLOAD A BACKUP OF THE PRODUCTION DATABASE BEFORE MAKING ANY CHANGES TO IT. Either go [here](https://maps.stuns.se/download) while logged in as an admin and download Stories data, mapItem data, and Recycle data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get proper backups from the database or copy it using the Copy Database Wizard.)
 
 In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
 

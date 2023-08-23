@@ -77,6 +77,8 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
   const [newOrganization, setNewOrganization] = useState("");
   const [projectStartYear, setStartYear] = useState("");
   const [projectStartMonth, setStartMonth] = useState("");
+  const [projectEndYear, setEndYear] = useState("");
+  const [projectEndMonth, setEndMonth] = useState("");
   const [projectType, setProjectType] = useState("");
   const [searchingFor, setSearchingFor] = useState([] as string[]);
   const [offering, setOffering] = useState([] as string[]);
@@ -143,6 +145,8 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
           projectType,
           mapItem,
           month: projectStartMonth ? parseInt(projectStartMonth) : undefined,
+          endYear: projectEndYear ? parseInt(projectEndYear) : undefined,
+          endMonth: projectEndMonth ? parseInt(projectEndMonth) : undefined,
           lookingForMaterials: searchingFor.length > 0 ? searchingFor.join(", ") : undefined,
           availableMaterials: offering.length > 0 ? offering.join(", ") : undefined,
           description,
@@ -356,6 +360,44 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                   onChange={(e) => setStartMonth(e.target.value)}
                 >
                   <option value="">Välj startmånad</option>
+                  <option value={1}>Januari</option>
+                  <option value={2}>Februari</option>
+                  <option value={3}>Mars</option>
+                  <option value={4}>April</option>
+                  <option value={5}>Maj</option>
+                  <option value={6}>Juni</option>
+                  <option value={7}>Juli</option>
+                  <option value={8}>Augusti</option>
+                  <option value={9}>September</option>
+                  <option value={10}>Oktober</option>
+                  <option value={11}>November</option>
+                  <option value={12}>December</option>
+                </select>
+              </div>
+
+              {/* End year selection */}
+              <div className={styles.startYear}>
+                <h3>Slutår</h3>
+                <input
+                  type="number"
+                  id="endYear"
+                  name="endYear"
+                  value={projectEndYear}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setEndYear(e.target.value)}
+                />
+              </div>
+
+              {/* End month selection */}
+              <div className={styles.startMonth}>
+                <h3>Slutmånad</h3>
+                <select
+                  id="endMonth"
+                  name="endMonth"
+                  value={projectEndMonth}
+                  onChange={(e) => setEndMonth(e.target.value)}
+                >
+                  <option value="">Välj slutmånad</option>
                   <option value={1}>Januari</option>
                   <option value={2}>Februari</option>
                   <option value={3}>Mars</option>

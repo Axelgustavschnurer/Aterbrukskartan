@@ -16,7 +16,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
-  { value: "", label: "Välj startmånad" },
+  { value: "", label: "Välj månad" },
   { value: "1", label: "Januari" },
   { value: "2", label: "Februari" },
   { value: "3", label: "Mars" },
@@ -84,6 +84,8 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
   const [newOrganisation, setNewOrganisation] = useState("");
   const [startYear, setStartYear] = useState(undefined as string | undefined);
   const [startMonth, setStartMonth] = useState("");
+  const [endYear, setEndYear] = useState(undefined as string | undefined);
+  const [endMonth, setEndMonth] = useState("");
   const [projectType, setProjectType] = useState("");
   const [lat, setLat] = useState();
   const [lon, setLon] = useState();
@@ -135,6 +137,8 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     setOrganisation(selectedRecycleObject.mapItem?.organisation ? selectedRecycleObject.mapItem?.organisation : "")
     setStartYear(selectedRecycleObject.mapItem?.year ? selectedRecycleObject.mapItem?.year.toString() : undefined)
     setStartMonth(selectedRecycleObject.month ? selectedRecycleObject.month.toString() : "")
+    setEndYear(selectedRecycleObject.endYear ? selectedRecycleObject.endYear.toString() : undefined)
+    setEndMonth(selectedRecycleObject.endMonth ? selectedRecycleObject.endMonth.toString() : "")
     setProjectType(selectedRecycleObject.projectType ? selectedRecycleObject.projectType : "")
     setAvailableMaterials(selectedRecycleObject.availableMaterials ? selectedRecycleObject.availableMaterials.split(", ") as string[] : [] as string[])
     setSearchingFor(selectedRecycleObject.lookingForMaterials ? selectedRecycleObject.lookingForMaterials.split(", ") as string[] : [] as string[])
@@ -183,6 +187,8 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         lookingForMaterials: searchingFor.length ? searchingFor.join(", ") : null,
         availableMaterials: available.length ? available.join(", ") : null,
         month: !!startMonth ? parseInt(startMonth) : null,
+        endYear: !!endYear ? parseInt(endYear) : null,
+        endMonth: !!endMonth ? parseInt(endMonth) : null,
         contact: !!contact ? contact : null,
         externalLinks: !!externalLinks ? externalLinks : null,
         isPublic: isPublic,
@@ -450,6 +456,32 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                   name="startMonth"
                   value={monthOptionArray.find((option) => option.value === startMonth)?.value}
                   onChange={(e) => setStartMonth(e.target.value)}
+                >
+                  {monthOptions()}
+                </select>
+              </div>
+
+              {/* End year selection */}
+              <div className={styles.startYear}>
+                <h3>Slutår</h3>
+                <input
+                  type="number"
+                  id="endYear"
+                  name="endYear"
+                  value={endYear ?? ''}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setEndYear(e.target.value)}
+                />
+              </div>
+
+              {/* End month selection */}
+              <div className={styles.startMonth}>
+                <h3>Slutmånad</h3>
+                <select
+                  id="endMonth"
+                  name="endMonth"
+                  value={monthOptionArray.find((option) => option.value === endMonth)?.value}
+                  onChange={(e) => setEndMonth(e.target.value)}
                 >
                   {monthOptions()}
                 </select>

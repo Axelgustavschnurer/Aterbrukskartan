@@ -67,6 +67,8 @@ model Recycle {
   id                  Int     @id @default(autoincrement())
   mapId               Int     @unique @map("map_id")
   month               Int?
+  endYear             Int?    @map("end_year")
+  endMonth            Int?    @map("end_month")
   projectType         String  @map("project_type")
   description         String? @db.NVarChar(4000)
   contact             String? @db.NVarChar(4000)
