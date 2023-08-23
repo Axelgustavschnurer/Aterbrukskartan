@@ -382,6 +382,10 @@
     background-color: #228B22;
 }
 
+#Mellanlagring {
+    background-color: #fd9800;
+}
+
 /* Keyframes and mediaqueries */
 
 @keyframes moveHideButton {

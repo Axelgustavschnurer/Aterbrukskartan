@@ -34,6 +34,7 @@ export const projectTypes = [
   "Rivning",
   "Nybyggnation",
   "Ombyggnation",
+  "Mellanlagring",
 ];
 
 // Get user data from session

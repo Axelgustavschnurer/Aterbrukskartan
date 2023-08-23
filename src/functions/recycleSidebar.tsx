@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "../styles/sidebar.module.css";
 import { Button } from "@nextui-org/react";
 import { DeepRecycle } from "@/types";
-import { categories } from "@/pages/aterbruk/newPost";
+import { categories, projectTypes } from "@/pages/aterbruk/newPost";
 
 /**
  * Creates buttons for all the project categories defined in the array `categories` in this function
@@ -18,7 +18,7 @@ export function createProjectTypeFilter(
   disableReset: any,
   setDisableReset: any
 ) {
-  let categories = ["Rivning", "Nybyggnation", "Ombyggnation"];
+  let categories = projectTypes;
   return (
     <>
       {categories.map((category: any) => {
@@ -258,40 +258,40 @@ export function createMobileProjectTypes(
   disableReset: any,
   setDisableReset: any
 ) {
-  let categories = ["Rivning", "Nybyggnation", "Ombyggnation"];
+  let categories = projectTypes;
   return (
     <>
-    {categories.map((category: any) => {
-      return (
-        <div className={styles.inputGroup} key={category}>
-          <input
-            id={category}
-            name={category}
-            type="checkbox"
-            onChange={(e) => {
-              // If the checkbox is now unchecked and the category is in the projectType array, remove it
-              if (projectType.includes(e.target.name) && !e.target.checked) {
-                setProjectType(
-                  projectType.filter(
-                    (item: any) => item !== e.target.name
-                  )
-                );
-                setDisableReset({ ...disableReset, projectType: true });
-              }
-              // If the checkbox is now checked and the category is not in the projectType array, add it
-              else if (
-                !projectType.includes(e.target.name) &&
-                e.target.checked
-              ) {
-                setProjectType([...projectType, e.target.name]);
-                setDisableReset({ ...disableReset, projectType: false });
-              }
-            }}
-          />
-          <label htmlFor={category}>{category}</label>
-        </div>
-      );
-    })}
-  </>
+      {categories.map((category: any) => {
+        return (
+          <div className={styles.inputGroup} key={category}>
+            <input
+              id={category}
+              name={category}
+              type="checkbox"
+              onChange={(e) => {
+                // If the checkbox is now unchecked and the category is in the projectType array, remove it
+                if (projectType.includes(e.target.name) && !e.target.checked) {
+                  setProjectType(
+                    projectType.filter(
+                      (item: any) => item !== e.target.name
+                    )
+                  );
+                  setDisableReset({ ...disableReset, projectType: true });
+                }
+                // If the checkbox is now checked and the category is not in the projectType array, add it
+                else if (
+                  !projectType.includes(e.target.name) &&
+                  e.target.checked
+                ) {
+                  setProjectType([...projectType, e.target.name]);
+                  setDisableReset({ ...disableReset, projectType: false });
+                }
+              }}
+            />
+            <label htmlFor={category}>{category}</label>
+          </div>
+        );
+      })}
+    </>
   );
 }
