@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client'
 import { DeepRecycle, DeepRecycleInput } from '@/types'
 import prisma from '@/prismaClient'
 import { getSession } from '@/session';
+import { recycleSorter } from '@/functions/sorters';
 
 /**
  * This API handles requests regarding recycle data, such as creating new Recycle objects, or fetching existing ones.
@@ -70,12 +71,12 @@ export default async function handler(
             getData.push(...additionalData);
           }
 
-          // Remove duplicates
+          // Remove duplicates and sort the array
           getData = getData.filter((item, index) => {
             return getData.findIndex((item2) => {
               return item.id === item2.id
             }) === index
-          })
+          }).sort(recycleSorter)
 
           res.status(200).json(getData)
         }

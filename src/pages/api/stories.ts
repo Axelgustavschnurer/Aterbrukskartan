@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client'
 import { DeepStory, DeepStoryInput } from '@/types'
 import prisma from '@/prismaClient'
 import { getSession } from '@/session';
+import { storySorter } from '@/functions/sorters';
 
 /**
  * This API handles requests regarding Stories data, such as creating new Story objects, or fetching existing ones.
@@ -35,7 +36,7 @@ export default async function handler(
             }
           })
 
-          res.status(200).json(getData)
+          res.status(200).json(getData.sort(storySorter))
         }
         catch (err: any) {
           if (err instanceof Prisma.PrismaClientInitializationError) {
