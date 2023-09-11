@@ -96,7 +96,6 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
       <div className={styles.addPostContainer}>
         <div className={styles.addNewPostContainer}>
           <h1 className={styles.addNewPostTitle}>Uppdatera användare</h1>
-          <p>Man måste tyvärr fylla i datan manuellt i nuläget, förhoppningsvis kan det fyllas i automatiskt framöver</p>
           <div className={styles.addNewPostForm}>
             <form onSubmit={handleSubmit}>
 
