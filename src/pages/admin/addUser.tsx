@@ -3,19 +3,46 @@ import Head from "next/head";
 import styles from '@/styles/newStory.module.css';
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import prisma from "@/prismaClient";
+
+export async function getServerSideProps() {
+  const organisations = await prisma.recycleOrganisation.findMany({
+    select: {
+      name: true,
+    },
+  })
+
+  return {
+    props: {
+      organisations: organisations.map((org) => org.name),
+    },
+  }
+}
 
 function handleSubmit(event: any) {
   event.preventDefault()
 
-  const form = event.target
+  const form = event.target.elements
+  let organisations = []
+  for (let i = 0; i < form.organisation.length; i++) {
+    if (form.organisation[i].checked) {
+      organisations.push(form.organisation[i].value)
+    }
+  }
+
+  if (form.newOrganisation.value !== '') {
+    organisations.push(setFirstLetterCapital(form.newOrganisation.value))
+  }
+
   const formJSON = JSON.stringify({
     email: form.email.value,
     password: form.password.value,
     isRecycler: form.isRecycler.checked,
     isStoryteller: form.isStoryteller.checked,
     isAdmin: form.isAdmin.checked,
-    // This should be updated if we want to add multiple organisations to a user.
-    organisations: form.organisation.value ? [form.organisation.value] : [],
+    organisations: organisations,
   })
 
   // Try to create user, alert if successful or not.
@@ -34,7 +61,52 @@ function handleSubmit(event: any) {
   })
 }
 
-export default function Signup() {
+export function OrgSelect({ orgs, currentOrgs, setCurrentOrgs }: { orgs: string[], currentOrgs: string[], setCurrentOrgs: Function }) {
+  return (
+    <div className={styles.optionList}>
+      {/* Sorry for the inline styling; I'm not a frontend dev, so I'm just modifying the existing styles. */}
+      <div className={styles.form} style={{ height: 'auto', margin: '5px auto' }}>
+        {orgs.map((org) => (
+          <div className={styles.inputGroup} key={org}>
+            <input
+              type="checkbox"
+              id={org}
+              name='organisation'
+              value={org}
+              checked={currentOrgs.includes(org)}
+              onChange={(event) => {
+                if (event.target.checked) {
+                  setCurrentOrgs([...currentOrgs, org])
+                }
+                else {
+                  setCurrentOrgs(currentOrgs.filter((currentOrg) => currentOrg !== org))
+                }
+              }}
+            />
+            <label htmlFor={org}>{org}</label>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>, orgs: string[], newOrgs: Function, currentOrgs: string[], setCurrentOrgs: Function) {
+  if (event.key === 'Enter') {
+    const newOrg = setFirstLetterCapital(event.currentTarget.value)
+    if (orgs.includes(newOrg)) {
+      alert('Organisationen finns redan.')
+    } else {
+      newOrgs([...orgs, newOrg])
+      setCurrentOrgs([...currentOrgs, newOrg])
+    }
+    event.currentTarget.value = ''
+  }
+}
+
+export default function Signup({ organisations }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  let [orgs, setOrgs] = React.useState<string[]>(organisations)
+  let [currentOrgs, setCurrentOrgs] = React.useState<string[]>([])
   return (
     <>
       <Head>
@@ -53,6 +125,8 @@ export default function Signup() {
           <h1 className={styles.addNewPostTitle}>Lägg till användare</h1>
           <div className={styles.addNewPostForm}>
             <form onSubmit={handleSubmit}>
+              {/* This hidden submit button prevents submitting by pressing enter, this avoids accidental submission when adding new organisations */}
+              <input type="submit" disabled={true} style={{ display: 'none' }} aria-hidden={true} />
 
               <div className={styles.addNewPostFormName}>
                 <label htmlFor="email">
@@ -68,14 +142,11 @@ export default function Signup() {
                 <input type="password" name="password" id="password" required={true} autoComplete="new-password" />
               </div>
 
-              {/* Currently a dropdown + freetext if choosing new org.,
-              but should probably be checkboxes + freetext instead, to allow multiple orgs for one user */}
-              {/* TODO: Make dropdown similar to org selector in /aterbruk/newpost */}
               <div className={styles.addNewPostFormName}>
-                <label htmlFor="organisation">
-                  <h3>Organisation: </h3>
-                </label>
-                <input type="text" name="organisation" id="organisation" autoComplete="organization" />
+                <h3>Organisation: </h3>
+                <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
+                <label htmlFor="organisation"> <h3> Ny organisation: </h3> (Tryck enter om du vill lägga till mer än en organisation) </label>
+                <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
               </div>
 
               <div style={{ marginTop: "10px" }}>

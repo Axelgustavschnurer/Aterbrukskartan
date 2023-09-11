@@ -24,10 +24,10 @@ export default async function handler(
     return res.status(403).json({ message: "Unauthorized; only admins may edit users" });
   }
 
-  // Get the email and password from the request body
+  // Get the info from the request body
   let { email, isAdmin, isStoryteller, isRecycler, organisations }: UserInfo = await req.body;
 
-  // Make sure the email and password are present
+  // Make sure the email is present
   if (!email) {
     return res.status(400).json({ message: "Missing user email" });
   }

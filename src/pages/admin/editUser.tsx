@@ -3,18 +3,61 @@ import Head from "next/head";
 import styles from '@/styles/newStory.module.css';
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import prisma from "@/prismaClient";
+import { InferGetServerSidePropsType } from "next";
+import { OrgSelect, handleKeyDown } from "./addUser";
+import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+
+export async function getServerSideProps() {
+  const organisations = await prisma.recycleOrganisation.findMany({
+    select: {
+      name: true,
+    },
+  })
+
+  const users = await prisma.user.findMany({
+    select: {
+      email: true,
+      isRecycler: true,
+      isStoryteller: true,
+      isAdmin: true,
+      recycleOrganisations: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  })
+
+  return {
+    props: {
+      organisations: organisations.map((org) => org.name),
+      users: users,
+    },
+  }
+}
 
 function handleSubmit(event: any) {
   event.preventDefault()
 
-  const form = event.target
+  const form = event.target.elements
+  let organisations = []
+  for (let i = 0; i < form.organisation.length; i++) {
+    if (form.organisation[i].checked) {
+      organisations.push(form.organisation[i].value)
+    }
+  }
+
+  if (form.newOrganisation.value !== '') {
+    organisations.push(setFirstLetterCapital(form.newOrganisation.value))
+  }
+
   const formJSON = JSON.stringify({
     email: form.email.value,
     isRecycler: form.isRecycler.checked,
     isStoryteller: form.isStoryteller.checked,
     isAdmin: form.isAdmin.checked,
-    // This should be updated if we want to add multiple organisations to a user.
-    organisations: form.organisation.value ? [form.organisation.value] : [],
+    organisations: organisations,
   })
 
   // Try to update user, alert if successful or not.
@@ -33,8 +76,10 @@ function handleSubmit(event: any) {
   })
 }
 
-export default function UpdateUser() {
-  // TODO: Get user data from database and do something like editPost.tsx and editStory.tsx to autofill the form.
+export default function UpdateUser({ organisations, users }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [orgs, setOrgs] = React.useState<string[]>(organisations)
+  const [currentOrgs, setCurrentOrgs] = React.useState<string[]>([])
+  const [user, setUser] = React.useState<any>(null)
   return (
     <>
       <Head>
@@ -55,42 +100,82 @@ export default function UpdateUser() {
           <div className={styles.addNewPostForm}>
             <form onSubmit={handleSubmit}>
 
-              <div className={styles.addNewPostFormName}>
+              <div className={styles.addNewPostFormSelect}>
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
-                <input type="text" name="email" id="email" required={true} autoComplete="off"/>
+                <select
+                  name="email"
+                  id="email"
+                  value={user?.email ?? ""}
+                  onChange={(event) => {
+                    const selectedUser = users.find((user) => user.email === event.target.value)
+                    if (selectedUser) {
+                      setUser(selectedUser)
+                      setCurrentOrgs(selectedUser.recycleOrganisations.map((org) => org.name))
+                    }
+                  }}
+                >
+                  <option value="" disabled hidden>Välj användare</option>
+                  {users?.map((user) => (
+                    <option value={user.email} key={user.email}>{user.email}</option>
+                  ))}
+                </select>
               </div>
 
-              {/* Currently a dropdown + freetext if choosing new org.,
-              but should probably be checkboxes + freetext instead, to allow multiple orgs for one user */}
-              {/* TODO: Make dropdown similar to org selector in /aterbruk/newpost */}
               <div className={styles.addNewPostFormName}>
-                <label htmlFor="organisation">
-                  <h3>Ny organisation: </h3>
-                </label>
-                <input type="text" name="organisation" id="organisation" autoComplete="organization" />
+                <h3>Organisation: </h3>
+                <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
+                <label htmlFor="organisation"> <h3> Ny organisation: </h3> (Tryck enter om du vill lägga till mer än en organisation) </label>
+                <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
               </div>
 
               <div style={{ marginTop: "10px" }}>
                 <label htmlFor="isRecycler">
                   <h3>Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </h3>
                 </label>
-                <input type="checkbox" name="isRecycler" id="isRecycler" style={{ width: "20px", height: "20px" }} />
+                <input
+                  type="checkbox"
+                  name="isRecycler"
+                  id="isRecycler"
+                  style={{ width: "20px", height: "20px" }}
+                  checked={user?.isRecycler ?? false}
+                  onChange={(event) => {
+                    setUser({ ...user, isRecycler: event.target.checked })
+                  }}
+                />
               </div>
 
               <div style={{ marginTop: "10px" }}>
                 <label htmlFor="isStoryteller">
                   <h3>Ska användaren kunna skapa och redigera Stories? </h3>
                 </label>
-                <input type="checkbox" name="isStoryteller" id="isStoryteller" style={{ width: "20px", height: "20px" }} />
+                <input
+                  type="checkbox"
+                  name="isStoryteller"
+                  id="isStoryteller"
+                  style={{ width: "20px", height: "20px" }}
+                  checked={user?.isStoryteller ?? false}
+                  onChange={(event) => {
+                    setUser({ ...user, isStoryteller: event.target.checked })
+                  }}
+                />
               </div>
 
               <div style={{ marginTop: "10px" }}>
                 <label htmlFor="isAdmin">
                   <h3>Ska användaren ha admin-privilegier? </h3>
                 </label>
-                <input type="checkbox" name="isAdmin" id="isAdmin" style={{ width: "20px", height: "20px" }} />
+                <input
+                  type="checkbox"
+                  name="isAdmin"
+                  id="isAdmin"
+                  style={{ width: "20px", height: "20px" }}
+                  checked={user?.isAdmin ?? false}
+                  onChange={(event) => {
+                    setUser({ ...user, isAdmin: event.target.checked })
+                  }}
+                />
               </div>
 
               <br />
