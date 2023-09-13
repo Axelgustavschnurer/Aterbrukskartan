@@ -21,13 +21,15 @@ import { getSession } from "@/session";
  * We also changed "Grundläggning" to "Fyllnadsmaterial".
  */
 export const categories = [
-  "Bjälklag",
   "Fasad",
+  "Fast inredning",
   "Fyllnadsmaterial",
   "Fönster",
   "Golv",
+  "Installationer",
+  "Stomme",
   "Tak",
-  "Övrigt",
+  "Övrigt"
 ];
 
 export const projectTypes = [
@@ -508,32 +510,32 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
 
               {/* Publicity setting */}
               <div className={styles.optionList}>
-              <div className={styles.form}>
-                <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
-                <div className={styles.typeInputGroup}>
-                  <input
-                    type="radio"
-                    id="isPublicTrue"
-                    name="isPublic"
-                    value="true"
-                    checked={isPublic}
-                    onChange={(e) => setIsPublic(true)}
-                  />
-                  <label htmlFor="isPublicTrue">Ja</label>
-                </div>
-                <div className={styles.typeInputGroup}>
-                  <input
-                    type="radio"
-                    id="isPublicFalse"
-                    name="isPublic"
-                    value="false"
-                    checked={!isPublic}
-                    onChange={(e) => setIsPublic(false)}
-                  />
-                  <label htmlFor="isPublicFalse">Nej</label>
+                <div className={styles.form}>
+                  <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
+                  <div className={styles.typeInputGroup}>
+                    <input
+                      type="radio"
+                      id="isPublicTrue"
+                      name="isPublic"
+                      value="true"
+                      checked={isPublic}
+                      onChange={(e) => setIsPublic(true)}
+                    />
+                    <label htmlFor="isPublicTrue">Ja</label>
+                  </div>
+                  <div className={styles.typeInputGroup}>
+                    <input
+                      type="radio"
+                      id="isPublicFalse"
+                      name="isPublic"
+                      value="false"
+                      checked={!isPublic}
+                      onChange={(e) => setIsPublic(false)}
+                    />
+                    <label htmlFor="isPublicFalse">Nej</label>
+                  </div>
                 </div>
               </div>
-            </div>
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
