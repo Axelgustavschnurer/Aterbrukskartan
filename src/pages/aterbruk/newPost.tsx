@@ -507,24 +507,33 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
               </div >
 
               {/* Publicity setting */}
-              <div style={{ marginTop: "10px" }}>
+              <div className={styles.optionList}>
+              <div className={styles.form}>
                 <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
-                <input
-                  type="checkbox"
-                  id="isPublic"
-                  name="isPublic"
-                  value="isPublic"
-                  checked={isPublic ?? false}
-                  onChange={(e) => setIsPublic(e.target.checked)}
-                  style={{ width: "20px", height: "20px" }}
-                />
-                {
-                  isPublic === true ?
-                    <p>Ja</p>
-                    :
-                    <p>Nej</p>
-                }
+                <div className={styles.typeInputGroup}>
+                  <input
+                    type="radio"
+                    id="isPublicTrue"
+                    name="isPublic"
+                    value="true"
+                    checked={isPublic}
+                    onChange={(e) => setIsPublic(true)}
+                  />
+                  <label htmlFor="isPublicTrue">Ja</label>
+                </div>
+                <div className={styles.typeInputGroup}>
+                  <input
+                    type="radio"
+                    id="isPublicFalse"
+                    name="isPublic"
+                    value="false"
+                    checked={!isPublic}
+                    onChange={(e) => setIsPublic(false)}
+                  />
+                  <label htmlFor="isPublicFalse">Nej</label>
+                </div>
               </div>
+            </div>
 
               {/* Submit button */}
               <div className={styles.addNewPostFormSubmit}>
