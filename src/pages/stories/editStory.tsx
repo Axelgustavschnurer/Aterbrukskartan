@@ -441,12 +441,12 @@ export default function EditStory() {
                   value={program ?? ""}
                   onChange={(e: any) => setProgram(e.target.value)}
                 >
+                  <option value="" label="Välj program" />
                   {getOrientation()}
                   <option value="addOrientation" label="Lägg till ny programinriktning" />
                 </select>
               </div>
-
-              {/* Program orientation section */}
+              {/* Add new program */}
               {
                 program === "addOrientation" ?
                   <div className={styles.addNewPostFormOrientation}>
