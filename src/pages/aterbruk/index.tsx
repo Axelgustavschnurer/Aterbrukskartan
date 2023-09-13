@@ -299,7 +299,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       {user && (
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0ut"} placement="left">
-            <button className={styles.logoutButton} onClick={logoutFunction}>
+            <button className={styles.linkButton} onClick={logoutFunction}>
               <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
             </button>
           </Tooltip>
@@ -310,7 +310,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       {!user && (
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0in"} placement="left">
-            <button className={styles.logoutButton} onClick={() => router.push('/login' + window.location.search)}>
+            <button className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
               <Image src="./login.svg" alt='Logga in' width={50} height={50} />
             </button>
           </Tooltip>
@@ -320,18 +320,39 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       {/* Buttons leading to other pages where one can add/edit projects to the database */}
       {(user?.isAdmin || user?.isRecycler) && (
         <>
-          <div className={styles.addNewPost}>
-            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
-              <button className={styles.addNewPostButton} onClick={goToNewPost}>
-                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+          <div className={styles.editPost}>
+            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+              <button className={styles.linkButton} onClick={goToEditPost}>
+                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
               </button>
             </Tooltip>
           </div>
 
-          <div className={styles.editPost}>
-            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
-              <button className={styles.editPostButton} onClick={goToEditPost}>
-                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+          <div className={styles.addNewPost}>
+            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+              <button className={styles.linkButton} onClick={goToNewPost}>
+                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+        </>
+      )}
+
+      {/* Buttons leading to the admin pages */}
+      {user?.isAdmin && (
+        <>
+          <div className={styles.editUser}>
+            <Tooltip content={"Redigera\xa0användare"} placement="left">
+              <button className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
+                <Image src="./editUser.svg" alt='Redigera användare' width={50} height={50} />
+              </button>
+            </Tooltip>
+          </div>
+
+          <div className={styles.addUser}>
+            <Tooltip content={"Lägg\xa0till\xa0ny\xa0användare"} placement="left">
+              <button className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
+                <Image src="./addUser.svg" alt='Lägg till ny användare' width={50} height={50} />
               </button>
             </Tooltip>
           </div>

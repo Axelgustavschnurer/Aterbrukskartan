@@ -144,37 +144,14 @@
   transition: all 0.3s ease;
 }
 
-/*Add new post*/
-.addNewPost {
+/* Positioning for link buttons */
+.logout {
   position: fixed;
   right: 0.5rem;
-  bottom: 196px;
+  bottom: 100px;
   height: auto;
   width: auto;
   z-index: 2;
-}
-
-/*Add new post button*/
-.addNewPostButton {
-  background-color: #f2f2f2;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
-  width: 38px;
-  border: 2px solid #8a8a8a;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.addNewPostButton img {
-  height: 28px;
-  width: 28px;
-}
-
-.addNewPostButton:hover {
-  background-color: #cccccc;
 }
 
 .editPost {
@@ -186,34 +163,35 @@
   z-index: 2;
 }
 
-.editPostButton {
-  background-color: #f2f2f2;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
-  width: 38px;
-  border: 2px solid #8a8a8a;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.editPostButton img {
-  height: 28px;
-  width: 28px;
-}
-
-.logout {
+.addNewPost {
   position: fixed;
   right: 0.5rem;
-  bottom: 100px;
+  bottom: 196px;
   height: auto;
   width: auto;
   z-index: 2;
 }
 
-.logoutButton {
+.editUser {
+  position: fixed;
+  right: 0.5rem;
+  bottom: 244px;
+  height: auto;
+  width: auto;
+  z-index: 2;
+}
+
+.addUser {
+  position: fixed;
+  right: 0.5rem;
+  bottom: 292px;
+  height: auto;
+  width: auto;
+  z-index: 2;
+}
+
+/* Style for link buttons */
+.linkButton {
   background-color: #f2f2f2;
   border-radius: 100%;
   display: flex;
@@ -226,12 +204,12 @@
   transition: all 0.3s ease;
 }
 
-.logoutButton img {
+.linkButton img {
   height: 28px;
   width: 28px;
 }
 
-.logoutButton:hover {
+.linkButton:hover {
   background-color: #cccccc;
 }
 
