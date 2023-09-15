@@ -192,12 +192,14 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         contact: !!contact ? contact : null,
         externalLinks: !!externalLinks ? externalLinks : null,
         isPublic: isPublic,
+        isActive: true,
         mapItem: {
           // TODO: Allow these to be null if the user removes them
           organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganisation ? newOrganisation : null,
           year: !!startYear ? parseInt(startYear) : null,
           latitude: !!lat ? parseFloat(lat) : null,
           longitude: !!lon ? parseFloat(lon) : null,
+          isActive: true,
         }
       }
       console.log(data)
@@ -607,9 +609,16 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             </div>
 
             <div className={styles.btnAlignContainer}>
-              <div className={styles.addNewPostFormSubmit}>
-                < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
-              </div>
+              { // If the project is active, show a save button, else show a restore button
+                selectedRecycleObject.isActive === true ?
+                  <div className={styles.addNewPostFormSubmit}>
+                    < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
+                  </div>
+                  :
+                  <div className={styles.addNewPostFormSubmit}>
+                    < Button id={styles.restore} type="submit" onClick={handleSubmit}> Spara och Återställ </Button >
+                  </div>
+              }
 
               { // If  the selected project is inactive, show a dangerous delete button, else show a button to deactivate the project
                 // In practice, the dangerous delete button will only be shown if the user is an admin and the API will reject the dangerous delete request if the user is not an admin
