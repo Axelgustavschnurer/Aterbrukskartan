@@ -227,6 +227,34 @@ export default async function handler(
       try {
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
+        // Fetch the `Recycle` object to check its current `isActive` status
+        const recycle = await prisma.recycle.findFirst({
+          where: {
+            id: parseInt(req.query.id as string)
+          }
+        })
+
+        // If the object is already inactive and the user is not an admin, return a 403 error
+        if (!recycle?.isActive && !session.user?.isAdmin) {
+          return res.status(403).json({ message: 'Forbidden' });
+        }
+
+        // If the object is already inactive and the user is an admin, delete it permanently
+        if (!recycle?.isActive && session.user?.isAdmin) {
+          /** Deletes the `Recycle` object with the given ID, and returns it with the `mapItem` object included. */
+          const deletedData = await prisma.recycle.delete({
+            where: {
+              id: parseInt(req.query.id as string)
+            },
+            include: {
+              mapItem: true
+            },
+          });
+
+          return res.status(200).json(deletedData);
+        }
+
+        // Otherwise, just deactivate the object
         const updateData: DeepRecycleInput = req.body;
         /** Updates the `Recycle` object with the given ID to be inactive, and returns it with the `mapItem` object included. */
         const updatedData = await prisma.recycle.update({

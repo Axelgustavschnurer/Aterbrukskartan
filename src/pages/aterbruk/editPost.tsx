@@ -8,7 +8,7 @@ import styles from '@/styles/editPost.module.css'
 import { DeepRecycle } from "@/types";
 import { yearLimitsRecycle } from ".";
 import Image from "next/image";
-import Modal from '@/components/deleteModal';
+import Modal, { DangerousModal } from '@/components/deleteModal';
 import { categories, projectTypes } from "./newPost";
 import { Button } from "@nextui-org/react";
 import { getSession } from "@/session";
@@ -609,16 +609,25 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             <div className={styles.btnAlignContainer}>
               <div className={styles.addNewPostFormSubmit}>
                 < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
-              </div >
+              </div>
 
-              <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button >
-                <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
-              </div >
+              { // If  the selected project is inactive, show a dangerous delete button, else show a button to deactivate the project
+                // In practice, the dangerous delete button will only be shown if the user is an admin and the API will reject the dangerous delete request if the user is not an admin
+                selectedRecycleObject.isActive === false ?
+                  <div className={styles.addNewPostFormSubmit}>
+                    <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button >
+                    <DangerousModal toggle={modalState} cancel={handleDeleteModalOnclick} delete={handleDelete} />
+                  </div>
+                  :
+                  <div className={styles.addNewPostFormSubmit}>
+                    <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button >
+                    <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
+                  </div>
+              }
             </div>
-          </div >
-        </div >
-      </div >
+          </div>
+        </div>
+      </div>
 
       <div className={styles.footer} id={styles.footer}>
         < div className={styles.footerContainer}>
