@@ -12,7 +12,7 @@ export interface Data {
     isStoryteller?: boolean;
     isRecycler?: boolean;
     recycleOrganisations?: string[];
-  };
+  } | null;
 }
 
 // Config stuff for Iron-Session

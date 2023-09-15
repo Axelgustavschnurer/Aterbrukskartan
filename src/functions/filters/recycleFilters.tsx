@@ -1,7 +1,7 @@
 import { DeepRecycle, RecycleFilter } from "@/types";
 import { MapItem, Recycle } from "@prisma/client";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
-import { filterByYear, filterByOrganisation } from "./commonFilters";
+import { filterByYear, filterByOrganisation, filterByActive } from "./commonFilters";
 
 export default runActiveFilters;
 
@@ -196,6 +196,9 @@ export function runActiveFilters(data: DeepRecycle[], filters: RecycleFilter): D
   }
   if (filters.searchInput) {
     returnData = filterBySearchInput(returnData, filters.searchInput);
+  }
+  if (filters.showInactive) {
+    returnData = filterByActive(returnData, filters.showInactive) as DeepRecycle[];
   }
   return returnData;
 }

@@ -8,7 +8,7 @@ import { DeepRecycle, DeepStory } from "@/types";
  */
 export function filterByYear(data: DeepRecycle[] | DeepStory[], years: number[]): DeepRecycle[] | DeepStory[] {
   let returnData: DeepRecycle[] | DeepStory[] = [];
-  
+
   for (let i in data) {
     // If the year is not defined, use the current year
     let current: number
@@ -39,6 +39,32 @@ export function filterByOrganisation(data: DeepRecycle[] | DeepStory[], organisa
 
   for (let i in data) {
     if (organisation.includes(data[i].mapItem.organisation!)) {
+      // @ts-ignore - `data` should always fit
+      returnData.push(data[i]);
+    }
+  }
+
+  return returnData;
+}
+
+/**
+ * If showInactive is true, removes all objects that *are* active.
+ * @param data Array of `DeepRecycle` or `DeepStory` objects to filter
+ * @param showInactive Boolean
+ */
+export function filterByActive(data: DeepRecycle[] | DeepStory[], showInactive: boolean): DeepRecycle[] | DeepStory[] {
+  let returnData: DeepRecycle[] | DeepStory[] = [];
+
+  for (let i in data) {
+    // If showInactive is true, return all inactive objects
+    if (showInactive) {
+      if (!data[i].isActive || !data[i].mapItem.isActive) {
+        // @ts-ignore - `data` should always fit
+        returnData.push(data[i]);
+      }
+    }
+    // otherwise, do nothing
+    else {
       // @ts-ignore - `data` should always fit
       returnData.push(data[i]);
     }

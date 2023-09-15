@@ -72,6 +72,8 @@ export type DeepStoryInput = Prisma.StoryCreateWithoutMapItemInput & {
  * @param availableCategories Array of strings containing materials to filter out which projects have them available
  * @param lookingForCategories Array of strings containing materials to filter out which projects are looking for them
  * @param organisation Array of strings containing the organisations to filter by
+ * @param searchInput String containing the search input
+ * @param showInactive Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all)
  */
 export type RecycleFilter = {
   /** Array of strings containing the project types to filter by. */
@@ -88,6 +90,8 @@ export type RecycleFilter = {
   organisation?: string[],
   /** String containing the search input */
   searchInput?: string,
+  /** Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all) */
+  showInactive?: boolean,
 }
 
 /**
@@ -102,6 +106,7 @@ export type RecycleFilter = {
  * @param openData Boolean to filter out stories that don't have a link to open data
  * @param energyStory Boolean to filter out stories that aren't energy stories, whatever that means
  * @param searchInput String containing the search input
+ * @param showInactive Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all)
  */
 export type StoryFilter = {
   /** Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year. */
@@ -128,4 +133,6 @@ export type StoryFilter = {
   solarData?: boolean,
   /** String containing the search input */
   searchInput?: string,
+  /** Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all) */
+  showInactive?: boolean,
 }

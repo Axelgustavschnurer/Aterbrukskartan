@@ -1,7 +1,7 @@
 import { DeepStory, StoryFilter } from "@/types";
 import { yearLimitsStories } from "@/pages";
 import { MapItem } from "@prisma/client";
-import { filterByYear, filterByOrganisation } from "./commonFilters";
+import { filterByYear, filterByOrganisation, filterByActive } from "./commonFilters";
 
 export default runActiveFilters;
 
@@ -311,6 +311,8 @@ export function runActiveFilters(data: DeepStory[], filters: StoryFilter) {
   if (filters.searchInput) {
     returnData = filterStoriesBySearchInput(returnData, filters.searchInput);
   }
-
+  if (filters.showInactive) {
+    returnData = filterByActive(returnData, filters.showInactive) as DeepStory[];
+  }
   return returnData;
 }

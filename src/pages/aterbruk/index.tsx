@@ -215,6 +215,19 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     }
   }
 
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding showing inactive projects, if any
+   * 
+   * If the showInactive filter is true, the label will be displayed
+   */
+  const showInactiveLabel = () => {
+    if (currentFilter.showInactive) {
+      return (
+        <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "black", color: "bone" }}>Visar inaktiva objekt</Badge>
+      )
+    }
+  }
+
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
     if (window.matchMedia("(orientation: portrait)").matches || window.innerWidth < 1000) {
@@ -262,7 +275,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       <div className={styles.totalPProjects}>
       </div>
 
-      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" />}
+      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
 
       {/* Searchbar */}
       {!isMobile ?
@@ -291,6 +304,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             {lookingForMaterialsLabel()}
             {availableMaterialsLabel()}
             {organisationLabel()}
+            {showInactiveLabel()}
           </div>
         </div>
         : null}

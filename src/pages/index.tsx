@@ -261,7 +261,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </div>
 
       {/* Sidebar */}
-      {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" />}
+      {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
 
       {/* Searchbar */}
       {!isMobile ?

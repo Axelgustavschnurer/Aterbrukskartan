@@ -20,8 +20,9 @@ import { Button, Collapse } from "@nextui-org/react";
 
 import mobileStyles from "../styles/mobileSidebar.module.css";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+import { Data } from "@/session";
 
-export default function MobileSidebar({ setFilter, currentMap, energiportalen }: any) {
+export default function MobileSidebar({ setFilter, currentMap, energiportalen, user }: { setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
   const [isOpen, setOpen] = useState(true);
 
   // List of all pins in the database
@@ -73,6 +74,9 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
 
   // List of all active filters for the field `organisation`
   const [organisation, setOrganisation] = useState([] as string[]);
+
+  // Boolean to indicate if only inactive pins should be shown
+  const [showInactive, setShowInactive] = useState(false as boolean);
 
   // State to check when the year slider are at it's default values
   const [yearSliderDefault, setYearSliderDefault] = useState(true as boolean);
@@ -141,7 +145,8 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
         cases: hasCase,
         openData: hasOpenData,
         energyStory: isRealStory,
-        solarData: hasSolarData
+        solarData: hasSolarData,
+        showInactive: showInactive,
       } as StoryFilter);
     } else if (currentMap === "Recycle") {
       setFilter({
@@ -151,6 +156,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
         lookingForCategories: lookingForMaterials,
         availableCategories: availableMaterials,
         organisation: organisation,
+        showInactive: showInactive,
       } as RecycleFilter);
     }
   }, [
@@ -171,6 +177,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
     hasOpenData,
     isRealStory,
     hasSolarData,
+    showInactive,
   ]);
 
   /**
@@ -475,6 +482,28 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen }:
                   </span>
                 ) : null}
                 {createOrganisationFilter()}
+
+                {/* Admin-only button to filter for disabled pins */}
+                {user && user.isAdmin && (
+                  <>
+                    <div className={mobileStyles.inputGroup}>
+                      <input
+                        id="showDisabled"
+                        name="showDisabled"
+                        type="checkbox"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setShowInactive(true);
+                          } else {
+                            setShowInactive(false);
+                          }
+                        }}
+                      />
+                      <label htmlFor="showDisabled">Visa bara inaktiva inlägg</label>
+                    </div>
+                  </>
+                )
+                }
               </form>
 
               {/* Button for clearing the current filter. Disabled when no filter is active */}
