@@ -36,14 +36,16 @@ export default async function handler(
             }
           })
 
-          // If the user is a recycler, also return all `Recycle` objects that are associated with the user's organisations
+          // If the user is a recycler, also return all non-public `Recycle` objects that are associated with the user's organisations
           if (session.user?.isRecycler && session.user?.recycleOrganisations?.length) {
             let additionalData: DeepRecycle[] = [];
             for (let org of session.user.recycleOrganisations) {
               await prisma.recycle.findMany({
                 where: {
+                  isActive: true,
                   mapItem: {
-                    organisation: org
+                    organisation: org,
+                    isActive: true
                   }
                 },
                 include: {
@@ -57,7 +59,7 @@ export default async function handler(
             getData.push(...additionalData);
           }
 
-          // If the user is an admin, return all `Recycle` objects
+          // If the user is an admin, return all `Recycle` objects, including inactive ones
           if (session.user?.isAdmin) {
             let additionalData: DeepRecycle[] = [];
             await prisma.recycle.findMany({
