@@ -194,7 +194,6 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         isPublic: isPublic,
         isActive: true,
         mapItem: {
-          // TODO: Allow these to be null if the user removes them
           organisation: !!organisation && organisation != "addOrganisation" ? organisation : !!newOrganisation ? newOrganisation : null,
           year: !!startYear ? parseInt(startYear) : null,
           latitude: !!lat ? parseFloat(lat) : null,

@@ -22,7 +22,6 @@ export const educationalPrograms: string[] = [
 ];
 
 /**
- * TODO: Start using this combined with the data from the database to make a singular dropdown plus a free text alternative rather than two separate dropdowns and a free text alternative
  * A base list of educational programs and their orientations
  * Should be combined with the data from the database to get all the programs and orientations
  */
