@@ -95,7 +95,12 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
   const [isPublic, setIsPublic] = useState(false as boolean);
+  const [fileObject, setFileObject] = useState(null as File | null);
   const [message, setMessage] = useState("");
+
+  // Extra data regarding the file
+  const [fileName, setFileName] = useState(null as string | null);
+  const [fileContent, setFileContent] = useState(null as Buffer | null);
 
   const router = useRouter();
 
@@ -122,8 +127,37 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
   const fetchRecycleObject = async (id: any) => {
     const response = await fetch('/api/recycle?id=' + id)
     const data: DeepRecycle = await response.json()
+    // Creates a proper Buffer from the (stringified) attachment data
+    data.attachment = data.attachment ? Buffer.from(data.attachment) : null;
     setSelectedRecycleObject(data)
   }
+
+  /** Sets fileContent and fileName when a file is uploaded */
+  useEffect(() => {
+    if (fileObject) {
+      setFileName(fileObject.name)
+      // Converts the file to an ArrayBuffer and then to a Buffer
+      // Buffers can be sent as JSON to the API, where they are converted to Buffer objects again, which Prisma can handle
+      fileObject.arrayBuffer().then((buffer: ArrayBuffer) => {
+        let fileBuffer = Buffer.from(buffer)
+        // If the file is larger than 1 MB, the file is removed and the user is notified
+        if (fileBuffer.byteLength > 1048576) {
+          let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+          let container = new DataTransfer();
+          fileInput.files = container.files;
+          alert("Filen är för stor, max 1 MB. Ingen fil är vald nu, klicka på \"Ladda upp en fil\" igen för att välja en ny fil eller \"Återställ ursprunglig fil\" för att återställa den ursprungliga filen.")
+          setFileObject(null)
+          setFileName(null)
+          setFileContent(null)
+          return
+        }
+        setFileContent(fileBuffer)
+      })
+    } else {
+      setFileName(null)
+      setFileContent(null)
+    }
+  }, [fileObject])
 
   // Runs fetchRecycleObject function whenever a project is selected
   useEffect(() => {
@@ -145,6 +179,18 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     setDescription(selectedRecycleObject.description ? selectedRecycleObject.description : "")
     setContact(selectedRecycleObject.contact ? selectedRecycleObject.contact : "")
     setExternalLinks(selectedRecycleObject.externalLinks ? selectedRecycleObject.externalLinks : "")
+    if (selectedRecycleObject.attachment) {
+      let file = new File([selectedRecycleObject.attachment], selectedRecycleObject.attachmentName || "Unknown")
+      setFileObject(selectedRecycleObject.attachment ? new File([selectedRecycleObject.attachment], selectedRecycleObject.attachmentName || "Unknown") : null)
+      // Set the file of the file input element to the file object
+      let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+      // DataTransfer is used to create a new FileList object, which is then assigned to the file input element
+      let container = new DataTransfer();
+      container.items.add(file);
+      fileInput.files = container.files;
+    } else {
+      setFileObject(null)
+    }
     setIsPublic(selectedRecycleObject.isPublic ? selectedRecycleObject.isPublic : false)
   }, [selectedRecycleObject])
 
@@ -191,6 +237,8 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         endMonth: !!endMonth ? parseInt(endMonth) : null,
         contact: !!contact ? contact : null,
         externalLinks: !!externalLinks ? externalLinks : null,
+        attachment: fileContent,
+        attachmentName: fileName ? fileName : null,
         isPublic: isPublic,
         isActive: true,
         mapItem: {
@@ -578,6 +626,39 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
             </form >
 
+            {/* Attachments */}
+            <div className={styles.addNewPostFormAttachments}>
+              <h3>Ladda upp en fil</h3>
+              <input type="file" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+              <div className={styles.btnAlignContainer}>
+                <div className={styles.fileButton}>
+                  <Button id={styles.removeFileButton} onClick={() => {
+                    let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                    let container = new DataTransfer();
+                    fileInput.files = container.files;
+                    setFileObject(null)
+                  }}>
+                    Ta bort fil
+                  </Button>
+                </div>
+                {  // If the project has an attachment, show a button to reset the file input element to the file from the database
+                  selectedRecycleObject.attachment &&
+                  <div className={styles.fileButton}>
+                    <Button id={styles.resetFileButton} onClick={() => {
+                      let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                      let container = new DataTransfer();
+                      let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
+                      container.items.add(file);
+                      fileInput.files = container.files;
+                      setFileObject(file)
+                    }}>
+                      Återställ ursprunglig fil
+                    </Button>
+                  </div>
+                }
+              </div>
+            </div>
+
             {/* Publicity setting */}
             <div className={styles.optionList}>
               <div className={styles.form}>
@@ -611,11 +692,11 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               { // If the project is active, show a save button, else show a restore button
                 selectedRecycleObject.isActive === true ?
                   <div className={styles.addNewPostFormSubmit}>
-                    < Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
+                    <Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button >
                   </div>
                   :
                   <div className={styles.addNewPostFormSubmit}>
-                    < Button id={styles.restore} type="submit" onClick={handleSubmit}> Spara och Återställ </Button >
+                    <Button id={styles.restore} type="submit" onClick={handleSubmit}> Spara och Återställ </Button >
                   </div>
               }
 

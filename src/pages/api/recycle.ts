@@ -181,6 +181,12 @@ export default async function handler(
         if (!parseInt(req.query.id as string)) throw new Error('No ID specified');
 
         const updateData: DeepRecycleInput = req.body;
+        // Creates a proper Buffer from the (stringified) attachment data
+        updateData.attachment = updateData.attachment ? Buffer.from(updateData.attachment) : null;
+        // If the attachment is larger than 1MB (1048576 bytes), return a 400 error
+        if (updateData.attachment && updateData.attachment?.byteLength > 1048576) {
+          return res.status(400).json({ message: 'Attachment too large. Maximum size is 1MB.' });
+        }
         /** Updates the `Recycle` object with the given ID with the given data, and returns it with the `mapItem` object included. */
         const updatedData = await prisma.recycle.update({
           where: {

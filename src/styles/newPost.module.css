@@ -163,6 +163,45 @@
   background-color: #f2f2f2;
 }
 
+#removeFileButton {
+  background-color: #ff0000d7;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#removeFileButton:hover {
+  background-color: #8b0000;
+  color: #ffffff;
+  box-shadow: 5px 5px 5px 5px #00000015;
+}
+
+.fileButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.fileButton button {
+  height: 35px;
+  width: 85px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 2px solid #8a8a8a;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.fileButton button:hover {
+  background-color: #d6d6d6;
+}
+
+.fileButton button:active {
+  background-color: #777777;
+  color: #dedede;
+}
+
 #save {
   background-color: #00cc11d7;
   color: #000000;

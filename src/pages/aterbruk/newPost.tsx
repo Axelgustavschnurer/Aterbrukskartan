@@ -118,7 +118,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       fileObject.arrayBuffer().then((buffer: ArrayBuffer) => {
         let fileBuffer = Buffer.from(buffer)
         if (fileBuffer.byteLength > 1048576) {
-          setMessage("Filen är för stor. Max 1 MB. Om du sparar nu kommer filen inte att laddas upp.")
+          alert("Filen är för stor, max 1 MB. Vänligen välj en mindre fil eller komprimera den till en zip-fil.")
           setFileObject(null)
           setFileName(null)
           setFileContent(null)
@@ -126,6 +126,9 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
         }
         setFileContent(fileBuffer)
       })
+    } else {
+      setFileName(null)
+      setFileContent(null)
     }
   }, [fileObject])
 
@@ -537,6 +540,18 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
               <div className={styles.addNewPostFormAttachments}>
                 <h3>Ladda upp en fil</h3>
                 <input type="file" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+                <div className={styles.btnAlignContainer}>
+                  <div className={styles.fileButton}>
+                    <Button id={styles.removeFileButton} onClick={() => {
+                      let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                      let container = new DataTransfer();
+                      fileInput.files = container.files;
+                      setFileObject(null)
+                    }}>
+                      Ta bort fil
+                    </Button>
+                  </div>
+                </div>
               </div>
 
               {/* Publicity setting */}
