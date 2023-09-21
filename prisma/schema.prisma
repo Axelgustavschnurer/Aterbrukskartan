@@ -75,6 +75,11 @@ model Recycle {
   externalLinks       String? @map("external_links") @db.NVarChar(4000)
   availableMaterials  String? @map("available_materials")
   lookingForMaterials String? @map("looking_for_materials")
+  // To make the bytes field larger than 8000 bytes, we need to use a VarBinary(Max) field which has a maximum size of 2GB
+  // VERY IMPORTANT: Be strict about how large files are allowed to be uploaded, as we currently only have 2GB of total storage space on the server
+  // For now, we will limit the size to 1MB (1048576 bytes) in the code.
+  attachment          Bytes?  @db.VarBinary(Max)
+  attachmentName      String? @map("attachment_name")
   // If they are public they will be shown on the map, otherwise they will only be editable, not visible
   isPublic            Boolean @default(false) @map("is_public")
   isActive            Boolean @default(true) @map("is_active")
