@@ -87,7 +87,12 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
+  const [fileObject, setFileObject] = useState(null as File | null);
   const [isPublic, setIsPublic] = useState(false as boolean);
+
+  // Extra data regarding the file
+  const [fileName, setFileName] = useState(null as string | null);
+  const [fileContent, setFileContent] = useState(null as Buffer | null);
 
   // Error message
   const [message, setMessage] = useState("");
@@ -103,6 +108,26 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
   useEffect(() => {
     fetchData()
   }, [])
+
+  /** Sets fileContent and fileName when a file is uploaded */
+  useEffect(() => {
+    if (fileObject) {
+      setFileName(fileObject.name)
+      // Converts the file to an ArrayBuffer and then to a Buffer
+      // Buffers can be sent as JSON to the API, where they are converted to Buffer objects again, which Prisma can handle
+      fileObject.arrayBuffer().then((buffer: ArrayBuffer) => {
+        let fileBuffer = Buffer.from(buffer)
+        if (fileBuffer.byteLength > 1048576) {
+          setMessage("Filen är för stor. Max 1 MB. Om du sparar nu kommer filen inte att laddas upp.")
+          setFileObject(null)
+          setFileName(null)
+          setFileContent(null)
+          return
+        }
+        setFileContent(fileBuffer)
+      })
+    }
+  }, [fileObject])
 
   const handleSubmit = async (e: any) => {
     // Prevents the page from sometimes reloading on submit, fixes a bug where the data wasn't always sent properly
@@ -154,6 +179,8 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
           description,
           contact,
           externalLinks,
+          attachment: fileContent,
+          attachmentName: fileName ? fileName : undefined,
           isPublic,
         }),
       })
@@ -192,9 +219,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       <>
         {filteredData.map((pin: any) => {
           return (
-            <>
-              <option key={pin} value={pin}>{pin}</option>
-            </>
+            <option key={pin} value={pin}>{pin}</option>
           )
         })}
       </>
@@ -507,6 +532,12 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                   onChange={(e) => setExternalLinks(e.target.value)}
                 />
               </div >
+
+              {/* Attachments */}
+              <div className={styles.addNewPostFormAttachments}>
+                <h3>Ladda upp en fil</h3>
+                <input type="file" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+              </div>
 
               {/* Publicity setting */}
               <div className={styles.optionList}>

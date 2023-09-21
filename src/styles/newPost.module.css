@@ -1,42 +1,42 @@
 #header {
-    font-size: large;
-    padding: 10px;
-    margin: 0em;
-    background-color: #f1f1f1;
-    box-shadow: 0 10px 10px 5px #00000015;
+  font-size: large;
+  padding: 10px;
+  margin: 0em;
+  background-color: #f1f1f1;
+  box-shadow: 0 10px 10px 5px #00000015;
 }
 
 .header img {
-    float: top;
-    width: 170px;
-    height: 50px;
-    margin-left: 20px;
+  float: top;
+  width: 170px;
+  height: 50px;
+  margin-left: 20px;
 }
 
 .addPostContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
 
 }
 
 .addNewPostTitle {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .addNewPostContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 50%;
-    padding: 100px;
-    background-color: #ebebeb;
-    border-radius: 20px;
-    border: 1px solid black;
-    box-shadow: 5px 10px 10px 5px #00000015;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  padding: 100px;
+  background-color: #ebebeb;
+  border-radius: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 10px 10px 5px #00000015;
 }
 
 .addNewPostForm,
@@ -47,408 +47,409 @@
 .addNewPostFormLocation,
 .addNewPostFormContact,
 .addNewPostFormExternalLinks,
-.addNewPostFormInput {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    width: 100%;
+.addNewPostFormInput,
+.addNewPostFormAttachments {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .addNewPostFormSelect select {
-    height: 30px;
-    width: 40%;
-    border: 2px solid #8a8a8a;
-    background-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    -webkit-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;
+  height: 30px;
+  width: 40%;
+  border: 2px solid #8a8a8a;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .addNewPostFormSelect select:focus {
-    outline: none;
-    border: 2px solid #ff7300;
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .addNewPostFormSelect option {
-    width: 100%;
-    line-height: 45px;
-    padding-left: 20px;
-    -webkit-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;
+  width: 100%;
+  line-height: 45px;
+  padding-left: 20px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .addNewPostFormInput input {
-    height: 30px;
-    width: 30%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
-    margin-left: inherit;
+  height: 30px;
+  width: 30%;
+  border-radius: 5px;
+  border: 2px solid #8a8a8a;
+  margin-left: inherit;
 }
 
 .addNewPostFormInput input:focus {
-    outline: none;
-    border: 2px solid #ff7300;
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .startYear input {
-    height: 30px;
-    width: 20%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
+  height: 30px;
+  width: 20%;
+  border-radius: 5px;
+  border: 2px solid #8a8a8a;
 }
 
 .startYear input:focus {
-    outline: none;
-    border: 2px solid #ff7300;
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .startMonth select {
-    height: 30px;
-    width: 20%;
-    border: 2px solid #8a8a8a;
-    background-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    -webkit-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out;
+  height: 30px;
+  width: 20%;
+  border: 2px solid #8a8a8a;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .startMonth select:focus {
-    outline: none;
-    border: 2px solid #ff7300;
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .addNewPostFormDescription textarea {
-    margin: auto;
-    display: block;
-    height: 150px;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
+  margin: auto;
+  display: block;
+  height: 150px;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #8a8a8a;
 }
 
 .addNewPostFormContact textarea,
 .addNewPostFormExternalLinks textarea {
-    margin: auto;
-    display: block;
-    height: 30px;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #8a8a8a;
+  margin: auto;
+  display: block;
+  height: 30px;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #8a8a8a;
 }
 
 .addNewPostFormDescription textarea:focus,
 .addNewPostFormContact textarea:focus,
 .addNewPostFormExternalLinks textarea:focus {
-    outline: none;
-    border: 2px solid #ff7300;
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .addNewPostFormSubmit {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 }
 
 .addNewPostFormSubmit button {
-    height: 50px;
-    width: 100px;
-    border-radius: 10px;
-    font-size: 15px;
-    border: 2px solid #8a8a8a;
-    background-color: #f2f2f2;
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 2px solid #8a8a8a;
+  background-color: #f2f2f2;
 }
 
 #save {
-    background-color: #00cc11d7;
-    color: #000000;
-    font-size: 20px;
-    font-weight: 500;
+  background-color: #00cc11d7;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 #save:hover {
-    background-color: #006b09;
-    color: #ffffff;
-    box-shadow: 5px 5px 5px 5px #00000015;
+  background-color: #006b09;
+  color: #ffffff;
+  box-shadow: 5px 5px 5px 5px #00000015;
 }
 
 #disabled {
-    background-color: #f1f1f1;
-    font-size: 20px;
-    font-weight: 500;
+  background-color: #f1f1f1;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 
 /* CSS for both type of project and searching for and offering checkboxes*/
 .optionList {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 5px;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
 }
 
 .form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 36px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 36px;
 }
 
 .inputGroup {
-    background-color: #ffffff;
-    display: block;
-    margin: 3px 10px;
-    position: relative;
-    border-radius: 20px;
-    border: 1px solid #b1b1b1;
+  background-color: #ffffff;
+  display: block;
+  margin: 3px 10px;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #b1b1b1;
 }
 
 .typeInputGroup {
-    background-color: #ffffff;
-    display: block;
-    margin: 3px 10px;
-    position: relative;
-    border-radius: 20px;
-    max-width: 50%;
-    border: 1px solid #b1b1b1;
+  background-color: #ffffff;
+  display: block;
+  margin: 3px 10px;
+  position: relative;
+  border-radius: 20px;
+  max-width: 50%;
+  border: 1px solid #b1b1b1;
 }
 
 .inputGroup label,
 .typeInputGroup label {
-    padding: 1px 20px;
-    width: 100%;
-    display: block;
-    text-align: left;
-    color: #000000;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    transition: color 200ms ease-in;
-    overflow: hidden;
+  padding: 1px 20px;
+  width: 100%;
+  display: block;
+  text-align: left;
+  color: #000000;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 200ms ease-in;
+  overflow: hidden;
 }
 
 
 .inputGroup label:before,
 .inputypeInputGrouptGroup label::before {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    content: '';
-    position: absolute;
-    transform: translate(-50%, -50%) scale3d(1, 1, 1);
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    z-index: -1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  transform: translate(-50%, -50%) scale3d(1, 1, 1);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  z-index: -1;
 }
 
 .inputGroup label:after {
-    width: 25px;
-    height: 25px;
-    content: '';
-    border: 2px solid #D1D7DC;
-    background-image: url("data:image/svg+xml,%3Csvg width='27' height='30' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-    background-repeat: no-repeat;
-    z-index: 2;
-    position: absolute;
-    right: 10px;
-    border-radius: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    transition: all 200ms ease-in;
+  width: 25px;
+  height: 25px;
+  content: '';
+  border: 2px solid #D1D7DC;
+  background-image: url("data:image/svg+xml,%3Csvg width='27' height='30' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+  background-repeat: no-repeat;
+  z-index: 2;
+  position: absolute;
+  right: 10px;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 200ms ease-in;
 }
 
 .typeInputGroup label::after {
-    width: 25px;
-    height: 25px;
-    content: '';
-    border: 2px solid #D1D7DC;
-    background-image: url("data:image/svg+xml,%3Csvg width='27' height='30' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    z-index: 2;
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    transition: all 200ms ease-in;
+  width: 25px;
+  height: 25px;
+  content: '';
+  border: 2px solid #D1D7DC;
+  background-image: url("data:image/svg+xml,%3Csvg width='27' height='30' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 200ms ease-in;
 }
 
 .inputGroup input:checked~label:before,
 .typeInputGroup input:checked~label::before {
-    transform: translate(-50%, -50%) scale3d(56, 56, 1);
-    opacity: 1;
+  transform: translate(-50%, -50%) scale3d(56, 56, 1);
+  opacity: 1;
 }
 
 .inputGroup input:checked~label:after,
 .typeInputGroup input:checked~label::after {
-    background-color: #ff7300;
-    border-color: #000000;
+  background-color: #ff7300;
+  border-color: #000000;
 }
 
 .inputGroup input,
 .typeInputGroup input {
-    width: 32px;
-    height: 32px;
-    order: 1;
-    z-index: 2;
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    visibility: hidden;
+  width: 32px;
+  height: 32px;
+  order: 1;
+  z-index: 2;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  visibility: hidden;
 }
 
 /* Toogle map currently not used*/
 .switch {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .switchInput {
-    display: none;
+  display: none;
 }
 
 .switchLabel {
-    display: block;
-    width: 48px;
-    height: 24px;
-    text-indent: -150%;
-    clip: rect(0 0 0 0);
-    color: transparent;
-    user-select: none;
+  display: block;
+  width: 48px;
+  height: 24px;
+  text-indent: -150%;
+  clip: rect(0 0 0 0);
+  color: transparent;
+  user-select: none;
 }
 
 .switchLabel:before,
 .switchLabel:after {
-    content: "";
-    display: block;
-    position: absolute;
-    cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  cursor: pointer;
 }
 
 .switchLabel:before {
-    width: 48px;
-    height: 100%;
-    background-color: #dedede;
-    border-radius: 9999em;
-    transition: background-color 0.25s ease;
+  width: 48px;
+  height: 100%;
+  background-color: #dedede;
+  border-radius: 9999em;
+  transition: background-color 0.25s ease;
 }
 
 .switchLabel:after {
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
-    transition: left 0.25s ease;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+  transition: left 0.25s ease;
 }
 
 .switchInput:checked+.switchLabel:before {
-    background-color: #89c12d;
+  background-color: #89c12d;
 }
 
 .switchInput:checked+.switchLabel:after {
-    left: 24px;
+  left: 24px;
 }
 
 
 .footer {
-    left: 0;
-    bottom: 0;
-    width: auto;
-    background-color: #f1f1f1;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    box-shadow: 0 -10px 10px 5px #00000015;
+  left: 0;
+  bottom: 0;
+  width: auto;
+  background-color: #f1f1f1;
+  color: black;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 -10px 10px 5px #00000015;
 }
 
 .footerContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 10px;
 }
 
 .footerRow {
-    padding: 10px 0px 10px 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20%;
-    max-height: 180px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  max-height: 180px;
 }
 
 .footerHeader {
-    font-size: 20px;
-    font-weight: 500;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .footerLink {
-    font-size: 16px;
-    font-weight: 4000;
+  font-size: 16px;
+  font-weight: 4000;
 }
 
 .footerLink a {
-    color: #e47b1e;
+  color: #e47b1e;
 }
 
 .footerLink a:visited {
-    color: #e47b1e;
+  color: #e47b1e;
 }
 
 @media only screen and (orientation: portrait) {
-    .addNewPostContainer {
-        width: 100vw;
-        padding: 40px;
-    }
+  .addNewPostContainer {
+    width: 100vw;
+    padding: 40px;
+  }
 
-    .addPostContainer {
-        padding: 50px;
-    }
+  .addPostContainer {
+    padding: 50px;
+  }
 
-    .addNewPostFormSelect select {
-        width: 100%;
-    }
+  .addNewPostFormSelect select {
+    width: 100%;
+  }
 
-    .startYear input {
-        width: 50%;
-    }
+  .startYear input {
+    width: 50%;
+  }
 
-    .startMonth select {
-        width: 50%;
-    }
+  .startMonth select {
+    width: 50%;
+  }
 
-    .typeInputGroup {
-        max-width: 80%;
-    }
+  .typeInputGroup {
+    max-width: 80%;
+  }
 
-    .optionList {
-        flex-direction: column;
-    }
+  .optionList {
+    flex-direction: column;
+  }
 
-    .addNewPostFormSubmit {
-        margin-top: 20px;
-    }
+  .addNewPostFormSubmit {
+    margin-top: 20px;
+  }
 }

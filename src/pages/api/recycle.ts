@@ -131,6 +131,12 @@ export default async function handler(
 
       try {
         const newPost: DeepRecycleInput = req.body;
+        // Creates a proper Buffer from the (stringified) attachment data
+        newPost.attachment = newPost.attachment ? Buffer.from(newPost.attachment) : null;
+        // If the attachment is larger than 1MB (1048576 bytes), return a 400 error
+        if (newPost.attachment && newPost.attachment?.byteLength > 1048576) {
+          return res.status(400).json({ message: 'Attachment too large. Maximum size is 1MB.' });
+        }
         /** Creates a new `Recycle` object with the given data, and returns it with the `mapItem` object included. */
         const savedPost = await prisma.recycle.create({
           data: {
