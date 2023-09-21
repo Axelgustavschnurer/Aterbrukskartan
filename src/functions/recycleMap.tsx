@@ -14,6 +14,12 @@ import { monthArray } from '@/pages/aterbruk'
  * @returns JSX.Element 
  */
 export function recyclePopup(pin: DeepRecycle) {
+  let attachment: File | undefined;
+  let attachmentUrl: string | undefined;
+  if (pin.attachment) {
+    attachment = new File([Buffer.from(pin.attachment)], pin.attachmentName ?? "Unknown")
+    attachmentUrl = URL.createObjectURL(attachment)
+  }
   return (
     <Popup className='request-popup'>
       <div>
@@ -40,6 +46,7 @@ export function recyclePopup(pin: DeepRecycle) {
           {!pin.description ? null : <p><b>Beskrvining</b> <br /> {pin.description}</p>}
           {!pin.contact ? <p><b>Kontakt</b> <br /> Ingen kontaktinformation tillgänglig</p> : <p><b>Kontakt</b> <br /> {pin.contact}</p>}
           {!pin.externalLinks ? null : <div><b>Länkar</b> <br /> <a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
+          {!pin.attachment ? null : <div><b>Bilaga</b> <br /> Var försiktig med nedladdade filer,<br />vi håller inte koll på vad de innehåller <br /> <a download={pin.attachmentName} href={attachmentUrl}>{pin.attachmentName}</a></div>}
         </div>
       </div>
     </Popup>
