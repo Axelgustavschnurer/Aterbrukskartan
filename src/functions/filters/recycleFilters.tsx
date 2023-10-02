@@ -166,6 +166,16 @@ export function filterByAvailable(data: DeepRecycle[], available: string[]): Dee
   return returnData;
 }
 
+export function filterByAttachment(data: DeepRecycle[], attachment: boolean): DeepRecycle[] {
+  let returnData: DeepRecycle[] = [];
+  for (let i in data) {
+    if (attachment && data[i].attachment) {
+      returnData.push(data[i]);
+    }
+  }
+  return returnData;
+}
+
 /**
  * Filters through the data parameter using the filters parameter
  * @param data Array of DeepRecycle objects to run through filters
@@ -199,6 +209,9 @@ export function runActiveFilters(data: DeepRecycle[], filters: RecycleFilter): D
   }
   if (filters.showInactive) {
     returnData = filterByActive(returnData, filters.showInactive) as DeepRecycle[];
+  }
+  if (filters.attachment) {
+    returnData = filterByAttachment(returnData, filters.attachment);
   }
   return returnData;
 }

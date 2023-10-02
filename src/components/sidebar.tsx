@@ -85,6 +85,9 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
   // Boolean to indicate if only inactive pins should be shown
   const [showInactive, setShowInactive] = useState(false as boolean);
 
+  // Boolean to indicate if only pins with attachments should be shown
+  const [showAttachment, setShowAttachment] = useState(false as boolean);
+
   // State to check when the year slider are at it's default values
   const [yearSliderDefault, setYearSliderDefault] = useState(true as boolean);
 
@@ -162,6 +165,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
         availableCategories: availableMaterials,
         organisation: organisation,
         showInactive: showInactive,
+        attachment: showAttachment,
       } as RecycleFilter);
     }
   }, [
@@ -183,6 +187,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
     isRealStory,
     hasSolarData,
     showInactive,
+    showAttachment,
   ]);
 
   /**
@@ -360,8 +365,30 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
             </>
           ) : null}
 
-          {/* Checkboxes for filtering materials and organisations */}
           <form className={styles.form}>
+            {/* A button for only showing pins with attachments. Currently recycle map only */}
+            {currentMap === "Recycle" ? (
+              <>
+                <h3>Bilagor</h3>
+                <div className={styles.inputGroup}>
+                  <input
+                    id="showAttached"
+                    name="showAttached"
+                    type="checkbox"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setShowAttachment(true);
+                      } else {
+                        setShowAttachment(false);
+                      }
+                    }}
+                  />
+                  <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
+                </div>
+              </>
+            ) : null}
+
+            {/* Checkboxes for filtering materials and organisations */}
             {currentMap === "Recycle" ? (
               <span>
                 <h3>Erbjuds</h3>{" "}
@@ -454,6 +481,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                 !hasVideo &&
                 !hasSolarData &&
                 !showInactive &&
+                !showAttachment &&
                 yearSliderDefault &&
                 monthSliderDefault
               }
@@ -473,6 +501,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                 setIsRealStory(false);
                 setHasSolarData(false);
                 setShowInactive(false);
+                setShowAttachment(false);
                 setDisableReset({
                   projectType: true,
                   lookingForMaterials: true,

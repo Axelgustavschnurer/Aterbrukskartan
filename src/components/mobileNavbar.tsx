@@ -78,6 +78,9 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
   // Boolean to indicate if only inactive pins should be shown
   const [showInactive, setShowInactive] = useState(false as boolean);
 
+  // Boolean to indicate if only pins with attachments should be shown
+  const [showAttachment, setShowAttachment] = useState(false as boolean);
+
   // State to check when the year slider are at it's default values
   const [yearSliderDefault, setYearSliderDefault] = useState(true as boolean);
 
@@ -157,6 +160,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         availableCategories: availableMaterials,
         organisation: organisation,
         showInactive: showInactive,
+        attachment: showAttachment,
       } as RecycleFilter);
     }
   }, [
@@ -178,6 +182,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
     isRealStory,
     hasSolarData,
     showInactive,
+    showAttachment,
   ]);
 
   /**
@@ -437,6 +442,22 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               <form className={mobileStyles.form}>
                 {currentMap === "Recycle" ? (
                   <span>
+                    <h3>Bilaga</h3>
+                    <div className={mobileStyles.inputGroup}>
+                      <input
+                        id="showAttached"
+                        name="showAttached"
+                        type="checkbox"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setShowAttachment(true);
+                          } else {
+                            setShowAttachment(false);
+                          }
+                        }}
+                      />
+                      <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
+                    </div>
                     <h3>Erbjuds</h3>{" "}
                     {createAvailableFilter(
                       mapData,
@@ -524,6 +545,8 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     !hasReport &&
                     !hasOpenData &&
                     !hasVideo &&
+                    !showInactive &&
+                    !showAttachment &&
                     yearSliderDefault &&
                     monthSliderDefault
                   }
@@ -541,6 +564,8 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     setHasCase(false);
                     setHasOpenData(false);
                     setIsRealStory(false);
+                    setShowInactive(false);
+                    setShowAttachment(false);
                     setDisableReset({
                       projectType: true,
                       lookingForMaterials: true,

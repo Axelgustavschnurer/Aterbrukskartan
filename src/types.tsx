@@ -74,6 +74,7 @@ export type DeepStoryInput = Prisma.StoryCreateWithoutMapItemInput & {
  * @param organisation Array of strings containing the organisations to filter by
  * @param searchInput String containing the search input
  * @param showInactive Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all)
+ * @param attachment Boolean to look for projects with an attachment
  */
 export type RecycleFilter = {
   /** Array of strings containing the project types to filter by. */
@@ -92,6 +93,8 @@ export type RecycleFilter = {
   searchInput?: string,
   /** Boolean to filter out stories that haven't been deactivated (true = show only inactive, fale = show all) */
   showInactive?: boolean,
+  /** Boolean to look for projects with an attachment */
+  attachment?: boolean,
 }
 
 /**
