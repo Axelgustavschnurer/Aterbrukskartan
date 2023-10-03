@@ -16,7 +16,7 @@ import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
 
-// TODO: We have used both organisation and organisation in the code. We should stick to one of them.
+// TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
 export default function EditStory() {
   const router = useRouter();
