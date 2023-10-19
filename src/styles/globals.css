@@ -22,6 +22,7 @@
 @import url("forms.css");
 
 body {
+	margin: 0;
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -51,6 +52,26 @@ h1, h2, h3, h4, h5, h6 {
         margin: 2em 0;
         padding: unset;
     }
+}
+
+.display-flex {
+	display: flex;
+}
+
+.align-items-center {
+	align-items: center;
+}
+
+.gap-50 {
+	gap: .5em;
+}
+
+.margin-y-50 {
+	margin: .5em 0;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }
 
 /* Chrome, Safari, Edge, Opera */
