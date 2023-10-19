@@ -48,13 +48,26 @@ export function createCategoryFilter(
     <>
       {/* Creates a button for each category in the `categories` object. */}
       {Object.keys(categories).map((category: any) => {
+
+      const isCategoryActive = storyCategory.includes(category.replaceAll("-", " "));
+      
+      const buttonStyle = {
+        background: isCategoryActive ? "" : "#8a8a8a",
+      };
+
+      if (storyCategory.length === 0) {
+        // Override styling when the list is completely empty
+        buttonStyle.background = ''; // You can use a different color or style here
+      }
+
         return (
           <div className={styles.alignCategories} key={category}>
             <div className={styles.categoryContainer}>
               <Button
                 id={styles[category]}
                 className={styles.categoryBtn}
-                css={{ width: "50px", height: "50px" }}
+                style={buttonStyle}
+                css={{ width: "50px", height: "50px", }}
                 rounded
                 auto
                 icon={
