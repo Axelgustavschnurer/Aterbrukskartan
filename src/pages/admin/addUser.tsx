@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import styles from '@/styles/newStory.module.css';
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";

@@ -1,5 +1,12 @@
+:root {
+	--light: #ececec;
+	
+	--accent-light: hsl(36, 100%, 75%);
+	--accent: hsl(36, 100%, 50%);
+	--accent-dark: hsl(36, 100%, 40%);
+}
+
 * {
-	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	z-index: 1;
@@ -12,10 +19,38 @@
 
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("forms.css");
 
 body {
-	background: #f2f2f2;
 	font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.layout-main {
+	position: relative;
+	margin: auto;
+	width: 1250px;
+	max-width: 100%;
+	padding: 0 1em;
+}
+
+.card {
+    box-shadow: 0 0 1em var(--light);
+    padding: 2em;
+    margin: auto;
+    border-radius: .5em;
+    margin: 5em 0;
+}
+
+@media (max-width: 500px) {
+    .card {
+        box-shadow: unset;
+        margin: 2em 0;
+        padding: unset;
+    }
 }
 
 /* Chrome, Safari, Edge, Opera */

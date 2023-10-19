@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import styles from '@/styles/newStory.module.css';
 import Image from "next/image";
 import { yearLimitsStories } from "../index";
 import { Button } from "@nextui-org/react";
