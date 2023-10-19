@@ -62,11 +62,11 @@ function handleSubmit(event: any) {
 
 export function OrgSelect({ orgs, currentOrgs, setCurrentOrgs }: { orgs: string[], currentOrgs: string[], setCurrentOrgs: Function }) {
   return (
-    <div className={styles.optionList}>
+    <div>
       {/* Sorry for the inline styling; I'm not a frontend dev, so I'm just modifying the existing styles. */}
-      <div className={styles.form} style={{ height: 'auto', margin: '5px auto' }}>
+      <div style={{ height: 'auto', margin: '5px auto' }}>
         {orgs.map((org) => (
-          <div className={styles.inputGroup} key={org}>
+          <div key={org}>
             <input
               type="checkbox"
               id={org}
@@ -114,34 +114,34 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
       </Head>
 
       {/* Header */}
-      <div className={styles.header} id={styles.header}>
+      <div>
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
 
       {/* Form */}
-      <div className={styles.addPostContainer}>
-        <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Lägg till användare</h1>
-          <div className={styles.addNewPostForm}>
+      <div>
+        <div>
+          <h1>Lägg till användare</h1>
+          <div>
             <form onSubmit={handleSubmit}>
               {/* This hidden submit button prevents submitting by pressing enter, this avoids accidental submission when adding new organisations */}
               <input type="submit" disabled={true} style={{ display: 'none' }} aria-hidden={true} />
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
                 <input type="text" name="email" id="email" required={true} autoComplete="off" />
               </div>
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <label htmlFor="password">
                   <h3>Lösenord: </h3>
                 </label>
                 <input type="password" name="password" id="password" required={true} autoComplete="new-password" />
               </div>
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <h3>Organisation: </h3>
                 <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
                 <label htmlFor="organisation"> <h3> Ny organisation: </h3> (Tryck enter om du vill lägga till mer än en organisation) </label>
@@ -170,8 +170,8 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
               </div>
 
               <br />
-              <div className={styles.addNewPostFormSubmit}>
-                <Button type="submit" id={styles.save}>Skapa användare</Button >
+              <div>
+                <Button type="submit" id="save">Skapa användare</Button >
               </div>
 
             </form>
@@ -180,11 +180,11 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
       </div>
 
       {/* Footer */}
-      <div className={styles.footer} id={styles.footer}>
-        < div className={styles.footerContainer}>
-          <div className={styles.footerRow}>
-            <div className={styles.footerHeader}>STUNS</div>
-            <div className={styles.footerLink}>
+      <div>
+        <div>
+          <div>
+            <div>STUNS</div>
+            <div>
               <a href="https://stuns.se/" target="_blank" rel="noreferrer">
                 STUNS
               </a>

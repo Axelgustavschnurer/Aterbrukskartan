@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import { cookies } from "next/headers"
-import styles from '@/styles/newStory.module.css';
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { Data, getSessionData } from "@/session";
@@ -41,32 +40,32 @@ export default function Login() {
       </Head>
 
       {/* Header */}
-      <div className={styles.header} id={styles.header}>
+      <div>
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
       </div>
 
       {/* Form */}
-      <div className={styles.addPostContainer}>
-        <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Lösenordsbyte</h1>
-          <div className={styles.addNewPostForm}>
+      <div>
+        <div>
+          <h1>Lösenordsbyte</h1>
+          <div>
             <form onSubmit={handleSubmit}>
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <label htmlFor="email">
                   <h3>Email: </h3>
                 </label>
                 <input type="text" name="email" id="email" required={true} autoComplete="email" />
               </div>
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <label htmlFor="oldPassword">
                   <h3>Gammalt lösenord: </h3>
                 </label>
                 <input type="password" name="oldPassword" id="oldPassword" required={true} autoComplete="current-password" />
               </div>
 
-              <div className={styles.addNewPostFormName}>
+              <div>
                 <label htmlFor="newPassword">
                   <h3>Nytt lösenord: </h3>
                 </label>
@@ -74,8 +73,8 @@ export default function Login() {
               </div>
 
               <br />
-              <div className={styles.addNewPostFormSubmit}>
-                <Button type="submit" id={styles.save}> Byt Lösenord </Button>
+              <div>
+                <Button type="submit" id="save"> Byt Lösenord </Button>
               </div>
 
             </form>
@@ -84,11 +83,11 @@ export default function Login() {
       </div>
 
       {/* Footer */}
-      <div className={styles.footer} id={styles.footer}>
-        < div className={styles.footerContainer}>
-          <div className={styles.footerRow}>
-            <div className={styles.footerHeader}>STUNS</div>
-            <div className={styles.footerLink}>
+      <div>
+        <div>
+          <div>
+            <div>STUNS</div>
+            <div>
               <a href="https://stuns.se/" target="_blank" rel="noreferrer">
                 STUNS
               </a>

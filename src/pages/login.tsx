@@ -52,9 +52,9 @@ export default function Login() {
           <form onSubmit={handleSubmit} >
 
             <label htmlFor="email">Email</label>
-            <input type="text" placeholder="email" name="email" required={true} autoComplete="email" />
+            <input type="text" placeholder="email" name="email" id="email" required={true} autoComplete="email" />
             <label htmlFor="password">Lösenord</label>
-            <input type="password" placeholder="lösenord" name="password" required={true} autoComplete="current-password" />
+            <input type="password" placeholder="lösenord" name="password" id="password" required={true} autoComplete="current-password" />
             <input type="submit" id="save" value="Logga In" />
           </form>
         </main>
