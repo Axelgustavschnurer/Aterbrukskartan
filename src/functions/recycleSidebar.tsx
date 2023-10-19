@@ -19,15 +19,28 @@ export function createProjectTypeFilter(
   setDisableReset: any
 ) {
   let categories = projectTypes;
-  return (
+  return (  
     <>
       {categories.map((category: any) => {
+
+      const isCategoryActive = projectType.includes(category.replaceAll("-", " "));
+            
+      const buttonStyle = {
+        background: isCategoryActive ? "" : "#808080",
+      };
+
+      if (projectType.length === 0) {
+        // Override styling when the list is completely empty
+        buttonStyle.background = ''; // You can use a different color or style here
+      }
+
         return (
           <div className={styles.alignCategoriesRecycle} key={category}>
             <div className={styles.categoryContainerRecycle} >
               <Button
                 id={styles[category]}
                 className={styles.categoryBtn}
+                style={buttonStyle}
                 css={{ width: "50px", height: "50px" }}
                 rounded
                 auto

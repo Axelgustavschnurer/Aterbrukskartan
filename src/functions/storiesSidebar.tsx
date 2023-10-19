@@ -52,7 +52,7 @@ export function createCategoryFilter(
       const isCategoryActive = storyCategory.includes(category.replaceAll("-", " "));
       
       const buttonStyle = {
-        background: isCategoryActive ? "" : "#8a8a8a",
+        background: isCategoryActive ? "" : "#808080",
       };
 
       if (storyCategory.length === 0) {
