@@ -1,33 +1,24 @@
-form > *:not(input[type="checkbox"], input[type="submit"], div) {
+form *:not(input[type="checkbox"], input[type="submit"], input[type="radio"], div, section, button) {
     display: block;
     width: 100%;
 }
 
-form > *:not(input[type="checkbox"]) {
+form *:not(input[type="checkbox"], input[type="radio"], div) {
     margin: 1em 0;
 }
 
-form > input[type="text"], form > input[type="password"], form > input[type="email"] {
+form input[type="text"], form input[type="password"], form input[type="email"], input[type="number"], textarea {
     border-radius: 3px;
     border: unset;
     background-color: var(--light);
     padding: 1em;
 }
 
-form > input[type="text"]:focus, form > input[type="password"]:focus, form > input[type="email"]:focus, form > select:focus {
+form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form select:focus, form input[type="number"]:focus, textarea:focus {
     outline: 3px solid var(--accent);
 }
 
-form > input[type="submit"] {
-    border-radius: 3px;
-    padding: 1em 5em;
-    border: unset;
-    cursor: pointer;
-    background-color: var(--accent);
-    font-weight: bold;
-}
-
-form > select {
+form select {
     width: 100%;
     padding: 1em;
     cursor: pointer;
@@ -42,26 +33,35 @@ form > select {
     background-position: calc(100% - 0.75rem) center !important;
 }
 
-form input[type="submit"] {
+form input[type="submit"], form button {
     border-radius: 3px;
     padding: 1em 5em;
     border: unset;
     cursor: pointer;
     background-color: var(--accent);
     font-weight: bold;
-    font-size: 1em;
 }
 
-form input[type="submit"]:hover {
+form input[type="submit"]:disabled {
+    background-color: var(--accent-light);
+    cursor: not-allowed;
+}
+
+form input[type="submit"]:hover, form button:hover {
     background-color: var(--accent-dark);
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
     width: 1.5em; 
     height: 1.5em;
     cursor: pointer;
+    margin: 0;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"] + label, input[type="radio"] + label {
     cursor: pointer;
+}
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
 }
