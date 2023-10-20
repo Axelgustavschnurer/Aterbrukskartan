@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import styles from '@/styles/editStory.module.css';
 import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
@@ -15,6 +14,7 @@ import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
+import LinkIcon from "@/components/linkIcon";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -310,7 +310,7 @@ export default function EditStory() {
       <>
         {categories.map((category: any, index: any) => {
           return (
-            <div className={styles.inputGroup} key={index}>
+            <div key={index} className="display-flex align-items-center gap-50">
               <input
                 type="checkbox"
                 id={index}
@@ -341,7 +341,7 @@ export default function EditStory() {
       <>
         {Object.keys(dataPortals).map((portal: any) => {
           return (
-            <div className={styles.typeInputGroup} key={portal}>
+            <div key={portal}>
               <input
                 type="radio"
                 id={portal}
@@ -380,310 +380,267 @@ export default function EditStory() {
         <title>Ändra en story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-      <div className={styles.header} id={styles.header}>
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-      </div>
-      <div className={styles.addPostContainer}>
-        <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Redigera en story</h1>
-          <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
+      <div className="layout-main">
+        <div>
+          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        </div>
+        <LinkIcon href='/' src="/back.svg" alt="back" />
 
-              {/* Choose project section */}
-              <div className={styles.addNewPostFormSelect}>
-                <h3>Välj projekt</h3>
-                <select
-                  id="project"
-                  name="project"
-                  value={project ?? ""}
-                  onChange={(e) => setProject(e.target.value)}
-                >
-                  <option value="">Välj projekt</option>
-                  {getProject()}
-                </select>
+        <h1>Redigera en story</h1>
+        <main>
+          <form method="post" onSubmit={handleSubmit}>
+
+            {/* Choose project section */}
+            <label htmlFor="project"><h2>Välj projekt</h2></label>
+            <select
+              id="project"
+              name="project"
+              value={project ?? ""}
+              onChange={(e) => setProject(e.target.value)}
+            >
+              <option value="">Välj projekt</option>
+              {getProject()}
+            </select>
+
+            {/* Organisation section */}
+            <label htmlFor="organisation">Organisation</label>
+            <select
+              id="organisation"
+              name="organisation"
+              value={organisation ?? ""}
+              onChange={(e) => setOrganisation(e.target.value)}
+            >
+              {organisationOptions()}
+              <option value="addOrganisation">Lägg till en organisation</option>
+            </select>
+
+            {/* Input field for adding a new organisation if addOrganisation is selected */}
+            {organisation === "addOrganisation" && (
+              <div>
+                <label htmlFor="newOrganization">Ny organisation</label>
+                <input
+                  type="text"
+                  key="newOrganization"
+                  id="newOrganization"
+                  name="newOrganization"
+                  value={newOrganization ?? ""}
+                  onChange={(e) => setNewOrganization(e.target.value)}
+                />
               </div>
+            )}
 
-              {/* Organisation section */}
-              <div className={styles.addNewPostFormSelect}>
-                <h3>Organisation</h3>
-                <select
-                  id="organisation"
-                  name="organisation"
-                  value={organisation ?? ""}
-                  onChange={(e) => setOrganisation(e.target.value)}
-                >
-                  {organisationOptions()}
-                  <option value="addOrganisation">Lägg till en organisation</option>
-                </select>
-              </div>
-
-              {/* Input field for adding a new organisation if addOrganisation is selected */}
-              {organisation === "addOrganisation" && (
-                <div className={styles.addNewPostFormInput}>
-                  <h3>Ny organisation</h3>
+            {/* Program section */}
+            <label htmlFor="program">Program</label>
+            <select
+              id="program"
+              name="program"
+              value={program ?? ""}
+              onChange={(e: any) => setProgram(e.target.value)}
+            >
+              <option value="" label="Välj program" />
+              {getOrientation()}
+              <option value="addOrientation" label="Lägg till ny programinriktning" />
+            </select>
+            {/* Add new program */}
+            {
+              program === "addOrientation" ?
+                <div>
+                  <label htmlFor={program}>Programinriktning</label>
                   <input
                     type="text"
-                    key="newOrganization"
-                    id="newOrganization"
-                    name="newOrganization"
-                    value={newOrganization ?? ""}
-                    onChange={(e) => setNewOrganization(e.target.value)}
+                    id={program}
+                    name={program}
+                    value={newProgram}
+                    onChange={(e) => setNewProgram(e.target.value)}
                   />
                 </div>
-              )}
+                :
+                null
+            }
 
-              {/* Program section */}
-              <div className={styles.addNewPostFormSelect}>
-                <h3>Program</h3>
-                <select
-                  id="program"
-                  name="program"
-                  value={program ?? ""}
-                  onChange={(e: any) => setProgram(e.target.value)}
-                >
-                  <option value="" label="Välj program" />
-                  {getOrientation()}
-                  <option value="addOrientation" label="Lägg till ny programinriktning" />
-                </select>
-              </div>
-              {/* Add new program */}
-              {
-                program === "addOrientation" ?
-                  <div className={styles.addNewPostFormOrientation}>
-                    <h3>Programinriktning</h3>
-                    <input
-                      type="text"
-                      id={program}
-                      name={program}
-                      value={newProgram}
-                      onChange={(e) => setNewProgram(e.target.value)}
-                    />
-                  </div>
-                  :
-                  null
-              }
+            {/* Title section */}
+            <label htmlFor="title">Casetitel</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={projectTitle ?? ""}
+              onChange={(e) => setProjectTitle(e.target.value)}
+            />
 
-              {/* Title section */}
-              <div className={styles.addNewPostFormTitle}>
-                <h3>Casetitel</h3>
+            {/* Report section */}
+            <label htmlFor="name">Rapporttitel</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={reportTitle ?? ""}
+              onChange={(e) => setReportTitle(e.target.value)}
+            />
+
+            {/* Selection of which data portal the report is/will be published on */}
+            <h3>Dataportal där rapporten är/kommer vara:</h3>
+            {getDataPortals()}
+
+
+            {/* Report link section */}
+            <label htmlFor="reportLink">Länk till rapport</label>
+            <input
+              type="text"
+              id="reportLink"
+              name="reportLink"
+              value={reportLink ?? ""}
+              onChange={(e) => setReportLink(e.target.value)}
+            />
+
+            {/* Start year section */}
+            <label htmlFor="startYear">År</label>
+            <input
+              type="number"
+              id="startYear"
+              name="startYear"
+              value={projectYear ?? ""}
+              min={yearLimitsStories.min}
+              onChange={(e) => setProjectYear(e.target.value)}
+            />
+
+            {/* Category section */}
+            <strong>Kategorier</strong>
+            {getFilterdCategories()}
+
+            {/* Location section */}
+            <strong>Plats</strong>
+            { // The map switch is hidden if no project is selected (by checking if mapItem exists)
+              !!selectedStoryObject.mapItem &&
+              <div>
                 <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={projectTitle ?? ""}
-                  onChange={(e) => setProjectTitle(e.target.value)}
+                  id="switch-1"
+                  type="checkbox"
+                  onChange={(e) => setLocationToggle(e.target.checked)}
                 />
-              </div>
-
-              {/* Report section */}
-              <div className={styles.addNewPostFormName}>
-                <h3>Rapporttitel</h3>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={reportTitle ?? ""}
-                  onChange={(e) => setReportTitle(e.target.value)}
+                <label htmlFor="switch-1">Switch</label>
+              </div>}
+            {
+              locationToggle === true ?
+                <>
+                  <NewPostMap
+                    setLat={setLat}
+                    setLon={setLon}
+                    lat={lat ?? ''}
+                    lon={lon ?? ''}
+                    defaultLat={selectedStoryObject.mapItem?.latitude || 59.8586}
+                    defaultLon={selectedStoryObject.mapItem?.longitude || 17.6389}
+                  />
+                </>
+                :
+                <LeafletAddressLookup
+                  setLat={setLat}
+                  setLon={setLon}
+                  lat={lat ?? ''}
+                  lon={lon ?? ''}
                 />
-              </div>
+            }
 
-              {/* Selection of which data portal the report is/will be published on */}
-              <div className={styles.addNewPostForm}>
-                <h3>Dataportal där rapporten är/kommer vara:</h3>
-                <div className={styles.optionList}>
-                  <div className={styles.formData}>
-                    {getDataPortals()}
-                  </div>
-                </div>
-              </div>
+            {/* Description section */}
+            <label htmlFor="description">Sammanfatting</label>
+            <textarea
+              id="description"
+              name="description"
+              maxLength={3000}
+              value={description ?? ""}
+              onChange={(e) => setDescription(e.target.value)}
+            />
 
-              {/* Report link section */}
-              <div className={styles.addNewPostFormName}>
-                <h3>Länk till rapport</h3>
-                <input
-                  type="text"
-                  id="reportLink"
-                  name="reportLink"
-                  value={reportLink ?? ""}
-                  onChange={(e) => setReportLink(e.target.value)}
-                />
-              </div>
-
-              {/* Start year section */}
-              <div className={styles.startYear}>
-                <h3>År</h3>
-                <input
-                  type="number"
-                  id="startYear"
-                  name="startYear"
-                  value={projectYear ?? ""}
-                  min={yearLimitsStories.min}
-                  onChange={(e) => setProjectYear(e.target.value)}
-                />
-              </div>
-
-              {/* Category section */}
-              <div className={styles.addNewPostForm}>
-                <h3>Kategorier</h3>
-                <div className={styles.optionList}>
-                  <div className={styles.form}>
-                    {getFilterdCategories()}
-                  </div>
-                </div>
-              </div>
-
-              {/* Location section */}
-              <div className={styles.addNewPostFormLocation}>
-                <h3>Plats</h3>
-                { // The map switch is hidden if no project is selected (by checking if mapItem exists)
-                  !!selectedStoryObject.mapItem &&
-                  <div className={styles.switch}>
-                    <input
-                      id="switch-1"
-                      type="checkbox"
-                      className={styles.switchInput}
-                      onChange={(e) => setLocationToggle(e.target.checked)}
-                    />
-                    <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
-                  </div>}
-                {
-                  locationToggle === true ?
-                    <>
-                      <NewPostMap
-                        setLat={setLat}
-                        setLon={setLon}
-                        lat={lat ?? ''}
-                        lon={lon ?? ''}
-                        defaultLat={selectedStoryObject.mapItem?.latitude || 59.8586}
-                        defaultLon={selectedStoryObject.mapItem?.longitude || 17.6389}
-                      />
-                    </>
-                    :
-                    <LeafletAddressLookup
-                      setLat={setLat}
-                      setLon={setLon}
-                      lat={lat ?? ''}
-                      lon={lon ?? ''}
-                    />
-                }
-              </div>
-
-              {/* Description section */}
-              <div className={styles.addNewPostFormDescription}>
-                <h3 style={{ marginTop: "10px" }}>Sammanfatting</h3>
-                <textarea
-                  id="description"
-                  name="description"
-                  maxLength={3000}
-                  value={description ?? ""}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div >
+            <section className="grid-auto-rows">
 
               {/* Link to case section */}
-              <div className={styles.addNewPostFormContact}>
-                <h3>Länk till case-beskrivning</h3>
-                <textarea
+              <div>
+                <label htmlFor="caseDescription">Länk till case-beskrivning</label>
+                <input type="text"
                   id="caseDescription"
                   name="caseDescription"
                   value={caseDescription ?? ""}
                   onChange={(e) => setCaseDescription(e.target.value)}
                 />
-              </div >
+              </div>
 
               {/* External links section */}
-              <div className={styles.addNewPostFormExternalLinks}>
-                <h3>Videolänk</h3>
-                <textarea
+              <div>
+                <label htmlFor="videos">Videolänk</label>
+                <input type="text"
                   id="videos"
                   name="videos"
                   placeholder="Ex: https://www.youtube.com/embed/dQw4w9WgXcQ"
                   value={videos ?? ""}
                   onChange={(e) => setVideos(e.target.value)}
                 />
-              </div >
+              </div>
 
               {/* OpenData section */}
-              <div className={styles.openData}>
-                <h3>Länk till eventuell öppen data?</h3>
-                <textarea
+              <div>
+                <label htmlFor="openData">Länk till eventuell öppen data?</label>
+                <input type="text"
                   id="openData"
                   name="openData"
                   value={openData ?? ""}
                   onChange={(e) => setOpenData(e.target.value)}
                 />
               </div>
+            </section>
 
-              {/* Author section */}
-              <div className={styles.authorName}>
-                <h3>Namn på författare</h3>
-                <textarea
-                  id="authorName"
-                  name="authorName"
-                  value={authorName}
-                  onChange={(e) => setAuthorName(e.target.value)}
-                />
-              </div >
+            {/* Author section */}
+            <label htmlFor="authorName">Namn på författare</label>
+            <input type="text"
+              id="authorName"
+              name="authorName"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+            />
 
-              {/*Contact section */}
-              <div className={styles.authorContact}>
-                <h3>Kontaktuppgifter</h3>
-                <textarea
-                  id="authorContact"
-                  name="authorContact"
-                  value={authorContact}
-                  onChange={(e) => setAuthorContact(e.target.value)}
-                />
-              </div >
+            {/*Contact section */}
+            <label htmlFor="authorContact">Kontaktuppgifter</label>
+            <textarea
+              id="authorContact"
+              name="authorContact"
+              value={authorContact}
+              onChange={(e) => setAuthorContact(e.target.value)}
+            />
 
-              {/* isEnergystory section */}
-              <div style={{ marginTop: "10px" }}>
-                <h3>Är det ett stories projekt?</h3>
-                <input
-                  type="checkbox"
-                  id="energyStory"
-                  name="energyStory"
-                  value="energyStory"
-                  checked={energyStory ?? false}
-                  onChange={(e) => setEnergyStory(e.target.checked)}
-                />
+            {/* isEnergystory section */}
+            <strong>Är det ett stories projekt?</strong>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="checkbox"
+                id="energyStory"
+                name="energyStory"
+                value="energyStory"
+                checked={energyStory ?? false}
+                onChange={(e) => setEnergyStory(e.target.checked)}
+              />
+              <label htmlFor="energyStory" style={{ margin: 0 }}>
                 {
                   energyStory === true ?
-                    <p>Ja</p>
+                    <span>Ja</span>
                     :
-                    <p>Nej</p>
-                }
-              </div>
-              <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
-            </form>
+                    <span>Nej</span>
+                }</label>
+              <div>{message ? <p>{message}</p> : null}</div></div>
+          </form>
 
-            {/* Submit and delete button */}
-            <div className={styles.btnAlignContainer}>
-              <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.save} type="submit" onClick={handleSubmit}> Spara </Button>
-              </div>
-              <div className={styles.addNewPostFormSubmit}>
-                <Button id={styles.remove} onClick={handleDeleteModalOnclick}> Ta bort </Button>
-                <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
-              </div>
-            </div>
-          </div >
-        </div >
-      </div >
+          {/* Submit and delete button */}
 
-      {/* Footer */}
-      <div className={styles.footer} id={styles.footer}>
-        < div className={styles.footerContainer}>
-          <div className={styles.footerRow}>
-            <div className={styles.footerHeader}>STUNS</div>
-            <div className={styles.footerLink}>
-              <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-                STUNS
-              </a>
-            </div >
-          </div >
-        </div >
-      </div >
+          <div className="display-flex gap-50">
+            <button type="submit" id="save" onClick={handleSubmit} className="button cta"> Spara </button>
+            <button id="remove" onClick={handleDeleteModalOnclick} className="button danger"> Ta bort </button>
+          </div>
+          <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
+        </main>
+
+        {/* Footer */}
+        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
+          STUNS
+        </a>
+      </div>
     </>
   );
 }

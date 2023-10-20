@@ -6,7 +6,7 @@ import prisma from "@/prismaClient";
 import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import LinkIcon from "@/components/linkicon";
+import LinkIcon from "@/components/linkIcon";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({

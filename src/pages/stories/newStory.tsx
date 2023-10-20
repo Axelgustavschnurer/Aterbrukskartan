@@ -7,7 +7,7 @@ import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import Image from "next/image";
 import { yearLimitsStories } from "../index";
-import LinkIcon from "@/components/linkicon";
+import LinkIcon from "@/components/linkIcon";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
 
@@ -541,9 +541,9 @@ export default function AddNewStory() {
               <label htmlFor="energyStory" style={{ margin: 0 }}>
                 {
                   energyStory === true ?
-                    <p>Ja</p>
+                    <span>Ja</span>
                     :
-                    <p>Nej</p>
+                    <span>Nej</span>
                 }</label>
             </div>
 

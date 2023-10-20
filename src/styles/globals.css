@@ -113,6 +113,19 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: var(--light);
 }
 
+.danger {
+	background-color: var(--danger);
+	color: white;
+}
+
+.cta {
+	background-color: var(--accent);
+}
+
+.cta:hover {
+	background-color: var(--accent-dark);
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

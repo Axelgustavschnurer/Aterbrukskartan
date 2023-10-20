@@ -5,7 +5,7 @@ import Image from "next/image";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
-import LinkIcon from "@/components/linkicon";
+import LinkIcon from "@/components/linkIcon";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
