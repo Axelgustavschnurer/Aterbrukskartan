@@ -111,7 +111,8 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
       const response = await fetch('/api/recycle')
       let data: DeepRecycle[] = await response.json()
 
-      // Removes all objects the user does not have access to
+      // Removes all objects the user does not have access to edit
+      // This should probably have been done in the API, but I guess it's fine since the information is kinda public and stuff marked private gets filtered in the API anyway
       if (!user?.isAdmin) {
         data = data.filter((item: DeepRecycle) => {
           return user?.recycleOrganisations?.includes(item.mapItem?.organisation!)
