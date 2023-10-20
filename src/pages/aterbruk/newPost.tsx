@@ -454,7 +454,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
               {/* Position selection */}
               <div className={styles.addNewPostFormLocation}>
                 <h3>Plats *</h3>
-                <div className={styles.switch}>
+                <div className="display-flex align-items-center gap-50">
                   <input
                     id="switch-1"
                     type="checkbox"

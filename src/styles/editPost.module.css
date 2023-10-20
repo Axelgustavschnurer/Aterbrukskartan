@@ -32,7 +32,6 @@
   height: 100%;
   width: 50%;
   padding: 100px;
-  background-color: #ebebeb;
   border-radius: 20px;
   border: 1px solid black;
   box-shadow: 5px 10px 10px 5px #00000015;
@@ -404,61 +403,6 @@
   transform: translateY(-50%);
   cursor: pointer;
   visibility: hidden;
-}
-
-/* Toogle map */
-.switch {
-  position: relative;
-  display: inline-block;
-}
-
-.switchInput {
-  display: none;
-}
-
-.switchLabel {
-  display: block;
-  width: 48px;
-  height: 24px;
-  text-indent: -150%;
-  clip: rect(0 0 0 0);
-  color: transparent;
-  user-select: none;
-}
-
-.switchLabel:before,
-.switchLabel:after {
-  content: "";
-  display: block;
-  position: absolute;
-  cursor: pointer;
-}
-
-.switchLabel:before {
-  width: 48px;
-  height: 100%;
-  background-color: #dedede;
-  border-radius: 9999em;
-  transition: background-color 0.25s ease;
-}
-
-.switchLabel:after {
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
-  transition: left 0.25s ease;
-}
-
-.switchInput:checked+.switchLabel:before {
-  background-color: #89c12d;
-}
-
-.switchInput:checked+.switchLabel:after {
-  left: 24px;
 }
 
 /* footer */

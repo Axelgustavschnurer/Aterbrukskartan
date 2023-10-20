@@ -10,7 +10,6 @@ import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { basePrograms, educationalPrograms } from "./newStory";
 import { dataPortals } from "./newStory";
-import { Button } from "@nextui-org/react";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
@@ -341,7 +340,7 @@ export default function EditStory() {
       <>
         {Object.keys(dataPortals).map((portal: any) => {
           return (
-            <div key={portal}>
+            <div key={portal} className="display-flex align-items-center gap-50">
               <input
                 type="radio"
                 id={portal}
@@ -479,7 +478,7 @@ export default function EditStory() {
             />
 
             {/* Selection of which data portal the report is/will be published on */}
-            <h3>Dataportal där rapporten är/kommer vara:</h3>
+            <strong>Dataportal där rapporten är/kommer vara:</strong>
             {getDataPortals()}
 
 
