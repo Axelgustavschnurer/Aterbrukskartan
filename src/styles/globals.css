@@ -1,4 +1,7 @@
 :root {
+
+	--danger: #bb2124;
+
 	--light: #ececec;
 	
 	--accent-light: hsl(36, 100%, 75%);

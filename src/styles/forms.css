@@ -7,14 +7,14 @@ form > *:not(input[type="checkbox"]) {
     margin: 1em 0;
 }
 
-form > input[type="text"], input[type="password"], input[type="email"] {
+form > input[type="text"], form > input[type="password"], form > input[type="email"] {
     border-radius: 3px;
     border: unset;
     background-color: var(--light);
     padding: 1em;
 }
 
-form > input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+form > input[type="text"]:focus, form > input[type="password"]:focus, form > input[type="email"]:focus, form > select:focus {
     outline: 3px solid var(--accent);
 }
 
@@ -27,17 +27,32 @@ form > input[type="submit"] {
     font-weight: bold;
 }
 
+form > select {
+    width: 100%;
+    padding: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    border: unset;
+    box-sizing: border-box;
+    border-radius: 3px;
+    appearance: unset;
+    font-family: Arial, Helvetica, sans-serif;    
+    background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat #ececec; 
+    background-position: calc(100% - 0.75rem) center !important;
+}
 
-form > input[type="submit"] {
+form input[type="submit"] {
     border-radius: 3px;
     padding: 1em 5em;
     border: unset;
     cursor: pointer;
     background-color: var(--accent);
     font-weight: bold;
+    font-size: 1em;
 }
 
-form > input[type="submit"]:hover {
+form input[type="submit"]:hover {
     background-color: var(--accent-dark);
 }
 

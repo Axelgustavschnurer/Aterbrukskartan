@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Button } from "@nextui-org/react";
+import Link from "next/link";
 import Image from "next/image";
 import prisma from "@/prismaClient";
 import { InferGetServerSidePropsType } from "next";
@@ -87,118 +87,88 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
       </Head>
 
       {/* Header */}
-      <div>
+      <div className="layout-main">
         <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-      </div>
 
-      {/* Form */}
-      <div>
-        <div>
+        {/* Form */}
+        <main>
           <h1>Uppdatera användare</h1>
-          <div>
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
+            <select
+              name="email"
+              id="email"
+              value={user?.email ?? ""}
+              onChange={(event) => {
+                const selectedUser = users.find((user) => user.email === event.target.value)
+                if (selectedUser) {
+                  setUser(selectedUser)
+                  setCurrentOrgs(selectedUser.recycleOrganisations.map((org) => org.name))
+                }
+              }}
+            >
+              <option value="" disabled hidden>Välj användare</option>
+              {users?.map((user) => (
+                <option value={user.email} key={user.email}>{user.email}</option>
+              ))}
+            </select>
 
-              <div>
-                <label htmlFor="email">
-                  <h3>Email: </h3>
-                </label>
-                <select
-                  name="email"
-                  id="email"
-                  value={user?.email ?? ""}
-                  onChange={(event) => {
-                    const selectedUser = users.find((user) => user.email === event.target.value)
-                    if (selectedUser) {
-                      setUser(selectedUser)
-                      setCurrentOrgs(selectedUser.recycleOrganisations.map((org) => org.name))
-                    }
-                  }}
-                >
-                  <option value="" disabled hidden>Välj användare</option>
-                  {users?.map((user) => (
-                    <option value={user.email} key={user.email}>{user.email}</option>
-                  ))}
-                </select>
-              </div>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="checkbox"
+                name="isRecycler"
+                id="isRecycler"
+                style={{ width: "20px", height: "20px" }}
+                checked={user?.isRecycler ?? false}
+                onChange={(event) => {
+                  setUser({ ...user, isRecycler: event.target.checked })
+                }}
+              />
+              <label htmlFor="isRecycler">Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </label>
+            </div>
 
-              <div>
-                <h3>Organisation: </h3>
-                <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
-                <label htmlFor="organisation"> <h3> Ny organisation: </h3> (Tryck enter om du vill lägga till mer än en organisation) </label>
-                <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
-              </div>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="checkbox"
+                name="isStoryteller"
+                id="isStoryteller"
+                checked={user?.isStoryteller ?? false}
+                onChange={(event) => {
+                  setUser({ ...user, isStoryteller: event.target.checked })
+                }}
+              />
+              <label htmlFor="isStoryteller">Ska användaren kunna skapa och redigera Stories? </label>
+            </div>
 
-              <div style={{ marginTop: "10px" }}>
-                <label htmlFor="isRecycler">
-                  <h3>Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </h3>
-                </label>
-                <input
-                  type="checkbox"
-                  name="isRecycler"
-                  id="isRecycler"
-                  style={{ width: "20px", height: "20px" }}
-                  checked={user?.isRecycler ?? false}
-                  onChange={(event) => {
-                    setUser({ ...user, isRecycler: event.target.checked })
-                  }}
-                />
-              </div>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="checkbox"
+                name="isAdmin"
+                id="isAdmin"
+                style={{ width: "20px", height: "20px" }}
+                checked={user?.isAdmin ?? false}
+                onChange={(event) => {
+                  setUser({ ...user, isAdmin: event.target.checked })
+                }}
+              />
+              <label htmlFor="isAdmin">Ska användaren ha admin-privilegier?</label>
+            </div>
 
-              <div style={{ marginTop: "10px" }}>
-                <label htmlFor="isStoryteller">
-                  <h3>Ska användaren kunna skapa och redigera Stories? </h3>
-                </label>
-                <input
-                  type="checkbox"
-                  name="isStoryteller"
-                  id="isStoryteller"
-                  style={{ width: "20px", height: "20px" }}
-                  checked={user?.isStoryteller ?? false}
-                  onChange={(event) => {
-                    setUser({ ...user, isStoryteller: event.target.checked })
-                  }}
-                />
-              </div>
+            <h2>Organisation</h2>
+            <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
+            <label htmlFor="organisation"> Ny organisation (Tryck enter om du vill lägga till mer än en organisation) </label>
+            <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
 
-              <div style={{ marginTop: "10px" }}>
-                <label htmlFor="isAdmin">
-                  <h3>Ska användaren ha admin-privilegier? </h3>
-                </label>
-                <input
-                  type="checkbox"
-                  name="isAdmin"
-                  id="isAdmin"
-                  style={{ width: "20px", height: "20px" }}
-                  checked={user?.isAdmin ?? false}
-                  onChange={(event) => {
-                    setUser({ ...user, isAdmin: event.target.checked })
-                  }}
-                />
-              </div>
+            <input type="submit" id='save' value="Uppdatera" />
 
-              <br />
-              <div>
-                <Button type="submit" id='save'>Uppdatera</Button >
-              </div>
+          </form>
+        </main>
 
-            </form>
-          </div>
-        </div>
+        {/* Footer */}
+
+        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
+          STUNS
+        </a>
       </div>
-
-      {/* Footer */}
-      <div>
-        <div>
-          <div>
-            <div>STUNS</div>
-            <div>
-              <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-                STUNS
-              </a>
-            </div >
-          </div >
-        </div >
-      </div >
     </>
   )
 }
