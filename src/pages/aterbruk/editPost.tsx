@@ -548,7 +548,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                 <h3>Plats</h3>
                 { // The map switch is hidden if no project is selected (by checking if mapItem exists)
                   !!selectedRecycleObject.mapItem &&
-                  <div className="display-flex align-items-center gap-50">
+                  <div className={styles.switch}>
                     <input
                       id="switch-1"
                       type="checkbox"

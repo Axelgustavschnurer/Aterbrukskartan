@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   padding: 100px;
+
 }
 
 .addNewPostTitle {
@@ -40,18 +41,37 @@
 
 .addNewPostForm,
 .addNewPostFormSelect,
+.addNewPostFormTitle,
+.addNewPostFormOrientation,
+.addNewPostFormName,
 .startYear,
-.startMonth,
 .addNewPostFormDescription,
-.addNewPostFormLocation,
 .addNewPostFormContact,
 .addNewPostFormExternalLinks,
-.addNewPostFormInput,
-.addNewPostFormAttachments {
+.openData,
+.authorName,
+.authorContact,
+.addNewPostFormInput {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
   width: 100%;
+}
+
+.addNewPostFormTitle input,
+.addNewPostFormName input,
+.addNewPostFormOrientation input {
+  height: 30px;
+  width: 50%;
+  border-radius: 5px;
+  border: 2px solid #8a8a8a;
+}
+
+.addNewPostFormTitle input:focus,
+.addNewPostFormName input:focus,
+.addNewPostFormOrientation input:focus {
+  outline: none;
+  border: 2px solid #ff7300;
 }
 
 .addNewPostFormSelect select {
@@ -78,20 +98,6 @@
   transition: 0.2s ease-in-out;
 }
 
-.addNewPostFormInput input {
-  height: 30px;
-  width: 30%;
-  border-radius: 5px;
-  border: 2px solid #8a8a8a;
-  margin-left: inherit;
-}
-
-.addNewPostFormInput input:focus {
-  outline: none;
-  border: 2px solid #ff7300;
-}
-
-
 .startYear input {
   height: 30px;
   width: 20%;
@@ -104,18 +110,15 @@
   border: 2px solid #ff7300;
 }
 
-.startMonth select {
+.addNewPostFormInput input {
   height: 30px;
-  width: 20%;
-  border: 2px solid #8a8a8a;
-  background-color: white;
+  width: 30%;
   border-radius: 5px;
-  cursor: pointer;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out;
+  border: 2px solid #8a8a8a;
+  margin-left: inherit;
 }
 
-.startMonth select:focus {
+.addNewPostFormInput input:focus {
   outline: none;
   border: 2px solid #ff7300;
 }
@@ -130,7 +133,10 @@
 }
 
 .addNewPostFormContact textarea,
-.addNewPostFormExternalLinks textarea {
+.addNewPostFormExternalLinks textarea,
+.openData textarea,
+.authorName textarea,
+.authorContact textarea {
   margin: auto;
   display: block;
   height: 30px;
@@ -141,7 +147,10 @@
 
 .addNewPostFormDescription textarea:focus,
 .addNewPostFormContact textarea:focus,
-.addNewPostFormExternalLinks textarea:focus {
+.addNewPostFormExternalLinks textarea:focus,
+.openData textarea:focus,
+.authorName textarea:focus,
+.authorContact textarea:focus {
   outline: none;
   border: 2px solid #ff7300;
 }
@@ -152,104 +161,6 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-}
-
-#removeFileButton {
-  background-color: #ff0000d7;
-  color: #000000;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-#resetFileButton {
-  background-color: #0084ff;
-  color: #000000;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-#removeFileButton:hover {
-  background-color: #8b0000;
-  color: #ffffff;
-  box-shadow: 5px 5px 5px 5px #00000015;
-}
-
-#resetFileButton:hover {
-  background-color: #0059b3;
-  color: #ffffff;
-  box-shadow: 5px 5px 5px 5px #00000015;
-}
-
-.fileButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-}
-
-.fileButton button {
-  height: 35px;
-  width: 85px;
-  border-radius: 10px;
-  font-size: 15px;
-  border: 2px solid #8a8a8a;
-  background-color: #f2f2f2;
-  cursor: pointer;
-}
-
-.fileButton button:hover {
-  background-color: #d6d6d6;
-}
-
-.fileButton button:active {
-  background-color: #777777;
-  color: #dedede;
-}
-
-#save {
-  background-color: #00cc11d7;
-  color: #000000;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-#remove {
-  background-color: #ff0000d7;
-  color: #000000;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-#restore {
-  background-color: #0084ff;
-  color: #000000;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-#save:hover {
-  background-color: #006b09;
-  color: #ffffff;
-  box-shadow: 5px 5px 5px 5px #00000015;
-}
-
-#remove:hover {
-  background-color: #8b0000;
-  color: #ffffff;
-  box-shadow: 5px 5px 5px 5px #00000015;
-}
-
-#restore:hover {
-  background-color: #0059b3;
-  color: #ffffff;
-  box-shadow: 5px 5px 5px 5px #00000015;
-}
-
-.message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
 }
 
 .addNewPostFormSubmit {
@@ -270,6 +181,39 @@
   cursor: pointer;
 }
 
+#save {
+  background-color: #00cc11d7;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#remove {
+  background-color: #ff0000d7;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#save:hover {
+  background-color: #006b09;
+  color: #ffffff;
+  box-shadow: 5px 5px 5px 5px #00000015;
+}
+
+#remove:hover {
+  background-color: #8b0000;
+  color: #ffffff;
+  box-shadow: 5px 5px 5px 5px #00000015;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 .addNewPostFormSubmit button:hover {
   background-color: #d6d6d6;
 }
@@ -279,24 +223,89 @@
   color: #dedede;
 }
 
-/* CSS for both type of project and searching for and offering checkboxes*/
+
+/* CSS for categories checkboxes*/
 .optionList {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 5px;
   width: 100%;
 }
 
 .form {
   width: 100%;
+  height: 300px;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   margin: 20px auto;
   font-size: 15px;
   font-weight: 600;
   line-height: 36px;
+}
+
+.formData {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+/* Toogle map */
+.switch {
+  position: relative;
+  display: inline-block;
+}
+
+.switchInput {
+  display: none;
+}
+
+.switchLabel {
+  display: block;
+  width: 48px;
+  height: 24px;
+  text-indent: -150%;
+  clip: rect(0 0 0 0);
+  color: transparent;
+  user-select: none;
+}
+
+.switchLabel:before,
+.switchLabel:after {
+  content: "";
+  display: block;
+  position: absolute;
+  cursor: pointer;
+}
+
+.switchLabel:before {
+  width: 100%;
+  height: 100%;
+  background-color: #dedede;
+  border-radius: 9999em;
+  transition: background-color 0.25s ease;
+}
+
+.switchLabel:after {
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+  transition: left 0.25s ease;
+}
+
+.switchInput:checked+.switchLabel:before {
+  background-color: #89c12d;
+}
+
+.switchInput:checked+.switchLabel:after {
+  left: 24px;
 }
 
 .inputGroup {
@@ -314,7 +323,7 @@
   margin: 3px 10px;
   position: relative;
   border-radius: 20px;
-  max-width: 50%;
+  max-width: 30%;
   border: 1px solid #b1b1b1;
 }
 
@@ -373,7 +382,7 @@
   border-radius: 50%;
   z-index: 2;
   position: absolute;
-  right: 5px;
+  right: 30px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -404,61 +413,6 @@
   transform: translateY(-50%);
   cursor: pointer;
   visibility: hidden;
-}
-
-/* Toogle map */
-.switch {
-  position: relative;
-  display: inline-block;
-}
-
-.switchInput {
-  display: none;
-}
-
-.switchLabel {
-  display: block;
-  width: 48px;
-  height: 24px;
-  text-indent: -150%;
-  clip: rect(0 0 0 0);
-  color: transparent;
-  user-select: none;
-}
-
-.switchLabel:before,
-.switchLabel:after {
-  content: "";
-  display: block;
-  position: absolute;
-  cursor: pointer;
-}
-
-.switchLabel:before {
-  width: 48px;
-  height: 100%;
-  background-color: #dedede;
-  border-radius: 9999em;
-  transition: background-color 0.25s ease;
-}
-
-.switchLabel:after {
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
-  transition: left 0.25s ease;
-}
-
-.switchInput:checked+.switchLabel:before {
-  background-color: #89c12d;
-}
-
-.switchInput:checked+.switchLabel:after {
-  left: 24px;
 }
 
 /* footer */
@@ -522,6 +476,12 @@
     width: 100%;
   }
 
+  .addNewPostFormTitle input,
+  .addNewPostFormName input,
+  .addNewPostFormOrientation input {
+    width: 100%;
+  }
+
   .startYear input {
     width: 50%;
   }
@@ -534,12 +494,23 @@
     max-width: 80%;
   }
 
-  .optionList {
-    flex-direction: column;
+  .form {
+    height: 100%;
+  }
+
+  .addNewPostFormExternalLinks textarea {
+    height: 40px;
+  }
+
+  .inputGroup label:after {
+    right: 10px;
+  }
+
+  .addNewPostFormSubmit {
+    margin-top: 20px;
   }
 
   .btnAlignContainer {
-    display: flex;
     flex-direction: column;
   }
 }
