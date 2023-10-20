@@ -5,6 +5,7 @@ import Image from "next/image";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
+import LinkIcon from "@/components/linkicon";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -112,8 +113,12 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
 
       {/* Header */}
       <div className="layout-main">
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        <div>
+          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        </div>
 
+        <LinkIcon href='/' src="/back.svg" alt="back" />
+        
         <main>
           <h1>Lägg till användare</h1>
           <form onSubmit={handleSubmit}>

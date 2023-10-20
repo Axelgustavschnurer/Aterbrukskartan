@@ -7,7 +7,7 @@ import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import Image from "next/image";
 import { yearLimitsStories } from "../index";
-import { Button } from "@nextui-org/react";
+import LinkIcon from "@/components/linkicon";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
 
@@ -321,12 +321,15 @@ export default function AddNewStory() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
       <div className="layout-main">
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        <header style={{padding: "1em 0",}}>
+          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        </header>
+        <LinkIcon href='/' src="/back.svg" alt="back" />
         <main>
           <h1>Lägg till en ny story</h1>
           <form method="post" onSubmit={handleSubmit}>
             {/*Oraganisation section */}
-            <strong>Organisation *</strong>
+            <label htmlFor="organisation">Organisation *</label>
             <select
               id="organisation"
               name="organisation"
@@ -341,7 +344,7 @@ export default function AddNewStory() {
             {/* Input field for adding a new organisation if addOrganisation is selected */}
             {organisation === "addOrganisation" && (
               <div>
-                <strong>Ny organisation</strong>
+                <label htmlFor="newOrganization">Ny organisation</label>
                 <input
                   type="text"
                   key="newOrganization"
@@ -354,7 +357,7 @@ export default function AddNewStory() {
             )}
 
             {/*Program section */}
-            <strong>Program</strong>
+            <label htmlFor="program">Program</label>
             <select
               id="program"
               name="program"
@@ -368,7 +371,7 @@ export default function AddNewStory() {
             {/*Add new program */}
             {program === "addOrientation" ?
               <div>
-                <strong>Nytt program</strong>
+                <label htmlFor={program}>Nytt program</label>
                 <input
                   type="text"
                   id={program}
@@ -382,7 +385,7 @@ export default function AddNewStory() {
             }
 
             {/*Title section */}
-            <strong>Casetitel *</strong>
+            <label htmlFor="title">Casetitel *</label>
             <input
               type="text"
               id="title"
@@ -392,7 +395,7 @@ export default function AddNewStory() {
             />
 
             {/*Report section */}
-            <strong>Rapporttitel</strong>
+            <label htmlFor="name">Rapporttitel</label>
             <input
               type="text"
               id="name"
@@ -402,11 +405,11 @@ export default function AddNewStory() {
             />
 
             {/* Selection of which data portal the report is/will be published on */}
-            <strong>Dataportal där rapporten är/kommer vara:</strong>
+            <strong>Dataportal där rapporten är/kommer vara</strong>
             {getDataPortals()}
 
             {/*Report link section */}
-            <strong>Länk till rapport</strong>
+            <label htmlFor="reportLink">Länk till rapport</label>
             <input
               type="text"
               id="reportLink"
@@ -416,7 +419,7 @@ export default function AddNewStory() {
             />
 
             {/*Start year section */}
-            <strong>År *</strong>
+            <label htmlFor="startYear">Startår *</label>
             <input
               type="number"
               id="startYear"
@@ -461,7 +464,7 @@ export default function AddNewStory() {
             }
 
             {/*Description section */}
-            <strong>Sammanfattning</strong>
+            <label htmlFor="description">Sammanfattning</label>
             <textarea
               id="description"
               name="description"
@@ -473,7 +476,7 @@ export default function AddNewStory() {
             <section className="grid-auto-rows">
               <div>
                 {/*Link to case section */}
-                <strong>Länk till case-beskrivning</strong>
+                <label htmlFor="caseDescription">Länk till case-beskrivning</label>
                 <input type="text"
                   id="caseDescription"
                   name="caseDescription"
@@ -484,7 +487,7 @@ export default function AddNewStory() {
 
               <div>
                 {/*External links section */}
-                <strong>Videolänk</strong>
+                <label htmlFor="videos">Videolänk</label>
                 <input type="text"
                   id="videos"
                   name="videos"
@@ -496,7 +499,7 @@ export default function AddNewStory() {
 
               <div>
                 {/*OpenData section */}
-                <strong>Länk till eventuell öppen data</strong>
+                <label htmlFor="openData">Länk till eventuell öppen data</label>
                 <input type="text"
                   id="openData"
                   name="openData"
@@ -507,8 +510,8 @@ export default function AddNewStory() {
             </section>
 
             {/*Author section */}
-            <strong>Namn på författare</strong>
-            <textarea
+            <label htmlFor="authorName">Namn på författare</label>
+            <input type="text"
               id="authorName"
               name="authorName"
               value={authorName}
@@ -516,7 +519,7 @@ export default function AddNewStory() {
             />
 
             {/*Contact section */}
-            <strong>Kontaktuppgifter</strong>
+            <label htmlFor="authorContact">Kontaktuppgifter</label>
             <textarea
               id="authorContact"
               name="authorContact"

@@ -6,6 +6,7 @@ import prisma from "@/prismaClient";
 import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
+import LinkIcon from "@/components/linkicon";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -88,8 +89,11 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
 
       {/* Header */}
       <div className="layout-main">
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        <div>
+          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        </div>
 
+        <LinkIcon href='/' src="/back.svg" alt="back" />
         {/* Form */}
         <main>
           <h1>Uppdatera användare</h1>
