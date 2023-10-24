@@ -14,7 +14,7 @@ export default function Modal(props: any) {
         Vill du verkligen ta bort detta inlägg?
         <div className={styles.btnContainer}>
           <div className={styles.btn} onClick={handleDelete}>
-            <button>Ta bort</button>
+            <button className="danger">Ta bort</button>
           </div>
           <div className={styles.btn} onClick={action}>
             <button>Avbryt</button>
