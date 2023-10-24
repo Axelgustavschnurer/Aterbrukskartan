@@ -5,13 +5,11 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import styles from '@/styles/newPost.module.css';
 import Image from "next/image";
 import { yearLimitsRecycle } from ".";
-import { Button } from "@nextui-org/react";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
-
+import LinkIcon from "@/components/linkIcon";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -235,7 +233,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       <>
         {projectTypes.map((type: any) => {
           return (
-            <div className={styles.typeInputGroup} key={type}>
+            <div className="display-flex align-items-center gap-50" key={type}>
               <input
                 type="radio"
                 id={type}
@@ -257,7 +255,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       <>
         {categories.map((category: any) => {
           return (
-            <div className={styles.inputGroup} key={"_" + category}>
+            <div className="display-flex align-items-center gap-50" key={"_" + category}>
               <input
                 type="checkbox"
                 id={"_" + category}
@@ -288,7 +286,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       <>
         {categories.map((category: any) => {
           return (
-            <div className={styles.inputGroup} key={category}>
+            <div className="display-flex align-items-center gap-50" key={category}>
               <input
                 type="checkbox"
                 id={category}
@@ -324,51 +322,49 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
         <title>Lägg till inlägg</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+      <div className="layout-main">
+        <div>
+          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
+        </div>
+        <main>
+          <LinkIcon href='/' src="/back.svg" alt="back" />
 
-      <div className={styles.header} id={styles.header}>
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-      </div>
+          <h1>Lägg till ett inlägg</h1>
+          <form method="post" onSubmit={handleSubmit}>
+            {/* Organisation selection */}
+            <h3>Organisation *</h3>
+            <select
+              id="organization"
+              name="organization"
+              value={organization}
+              onChange={(e) => setOrganization(e.target.value)}
+              required
+            >
+              <option value="">Välj organisation</option>
+              {getOrganisation()}
+              <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+            </select>
 
-      <div className={styles.addPostContainer}>
-        <div className={styles.addNewPostContainer}>
-          <h1 className={styles.addNewPostTitle}>Lägg till ett inlägg</h1>
-          <div className={styles.addNewPostForm}>
-            <form method="post" onSubmit={handleSubmit}>
-              {/* Organisation selection */}
-              <div className={styles.addNewPostFormSelect}>
-                <h3>Organisation *</h3>
-                <select
-                  id="organization"
-                  name="organization"
-                  value={organization}
-                  onChange={(e) => setOrganization(e.target.value)}
-                  required
-                >
-                  <option value="">Välj organisation</option>
-                  {getOrganisation()}
-                  <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
-                </select>
+            {organization === "addOrganisation" && (
+              <div>
+                <label htmlFor="newOrganization">Ny organisation</label>
+                <input
+                  type="text"
+                  key="newOrganization"
+                  id="newOrganization"
+                  name="newOrganization"
+                  value={newOrganization}
+                  onChange={(e) => setNewOrganization(e.target.value)}
+                />
               </div>
-
-              {organization === "addOrganisation" && (
-                <div className={styles.addNewPostFormInput}>
-                  <h3>Ny organisation</h3>
-                  <input
-                    type="text"
-                    key="newOrganization"
-                    id="newOrganization"
-                    name="newOrganization"
-                    value={newOrganization}
-                    onChange={(e) => setNewOrganization(e.target.value)}
-                  />
-                </div>
-              )
-              }
+            )
+            }
 
 
-              {/* Year selection */}
-              <div className={styles.startYear}>
-                <h3>Startår</h3>
+            {/* Year selection */}
+            <section className="grid-auto-rows">
+              <div>
+                <label htmlFor="startYear">Startår</label>
                 <input
                   type="number"
                   id="startYear"
@@ -379,10 +375,25 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                 />
               </div>
 
-              {/* Month selection */}
-              {/* TODO: Import monthOptionArray from editPost and do this like how it's done there */}
-              <div className={styles.startMonth}>
-                <h3>Startmånad</h3>
+              <div>
+                {/* End year selection */}
+                <label htmlFor="endYear">Slutår</label>
+                <input
+                  type="number"
+                  id="endYear"
+                  name="endYear"
+                  value={projectEndYear}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setEndYear(e.target.value)}
+                />
+              </div>
+            </section>
+
+            {/* Month selection */}
+            {/* TODO: Import monthOptionArray from editPost and do this like how it's done there */}
+            <section className="grid-auto-rows">
+              <div>
+                <label htmlFor="startMonth">Startmånad</label>
                 <select
                   id="startMonth"
                   name="startMonth"
@@ -405,22 +416,9 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                 </select>
               </div>
 
-              {/* End year selection */}
-              <div className={styles.startYear}>
-                <h3>Slutår</h3>
-                <input
-                  type="number"
-                  id="endYear"
-                  name="endYear"
-                  value={projectEndYear}
-                  min={yearLimitsRecycle.min}
-                  onChange={(e) => setEndYear(e.target.value)}
-                />
-              </div>
-
               {/* End month selection */}
-              <div className={styles.startMonth}>
-                <h3>Slutmånad</h3>
+              <div>
+                <label htmlFor="endMonth">Slutmånad</label>
                 <select
                   id="endMonth"
                   name="endMonth"
@@ -442,170 +440,132 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
                   <option value={12}>December</option>
                 </select>
               </div>
+            </section>
 
-              {/* Project type selection */}
-              <div className={styles.optionList}>
-                <div className={styles.form}>
-                  <h3>Typ av projekt *</h3>
-                  {projectTypeSelector()}
-                </div>
-              </div>
+            {/* Project type selection */}
+            <strong>Typ av projekt *</strong>
+            {projectTypeSelector()}
 
-              {/* Position selection */}
-              <div className={styles.addNewPostFormLocation}>
-                <h3>Plats *</h3>
-                <div className="display-flex align-items-center gap-50">
-                  <input
-                    id="switch-1"
-                    type="checkbox"
-                    className={styles.switchInput}
-                    onChange={(e) => setLocationToggle(e.target.checked)}
+            {/* Position selection */}
+            <strong>Plats *</strong>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                id="switch-1"
+                type="checkbox"
+                onChange={(e) => setLocationToggle(e.target.checked)}
+              />
+              {/* A toggle for switching between the map and the address lookup */}
+              <label htmlFor="switch-1">Switch</label>
+            </div>
+
+            {
+              locationToggle === true ?
+                <>
+                  <NewPostMap
+                    setLat={setLat}
+                    setLon={setLon}
+                    lat={lat}
+                    lon={lon}
                   />
-                  {/* A toggle for switching between the map and the address lookup */}
-                  <label htmlFor="switch-1" className={styles.switchLabel}>Switch</label>
-                </div>
-
-                {
-                  locationToggle === true ?
-                    <>
-                      <NewPostMap
-                        setLat={setLat}
-                        setLon={setLon}
-                        lat={lat}
-                        lon={lon}
-                      />
-                    </>
-                    :
-                    <LeafletAddressLookup
-                      setLat={setLat}
-                      setLon={setLon}
-                      lat={lat}
-                      lon={lon}
-                    />
-                }
-              </div>
-
-              {/* Offered and wanted material selection */}
-              <div className={styles.optionList}>
-                <div className={styles.form}>
-                  <h3>Erbjuds</h3>
-                  {offers()}
-                </div>
-
-                <div className={styles.form}>
-                  <h3>Sökes</h3>
-                  {searchingFors()}
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className={styles.addNewPostFormDescription}>
-                <h3>Beskrivning *</h3>
-                <textarea
-                  id="description"
-                  name="description"
-                  maxLength={3000}
-                  placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
+                </>
+                :
+                <LeafletAddressLookup
+                  setLat={setLat}
+                  setLon={setLon}
+                  lat={lat}
+                  lon={lon}
                 />
-              </div >
+            }
 
-              {/* Contact */}
-              <div className={styles.addNewPostFormContact}>
-                <h3>Kontakt *</h3>
-                <textarea
-                  id="contact"
-                  name="contact"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                  required
-                />
-              </div >
+            {/* Offered and wanted material selection */}
+            <strong>Erbjuds</strong>
+            {offers()}
 
-              {/* External links */}
-              <div className={styles.addNewPostFormExternalLinks}>
-                <h3>Länkar</h3>
-                <textarea
-                  id="externalLinks"
-                  name="externalLinks"
-                  placeholder="https://www.example.com"
-                  value={externalLinks}
-                  onChange={(e) => setExternalLinks(e.target.value)}
-                />
-              </div >
+            <strong>Sökes</strong>
+            {searchingFors()}
 
-              {/* Attachments */}
-              <div className={styles.addNewPostFormAttachments}>
-                <h3>Ladda upp en fil</h3>
-                <input type="file" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
-                <div className={styles.btnAlignContainer}>
-                  <div className={styles.fileButton}>
-                    <Button id={styles.removeFileButton} onClick={() => {
-                      let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
-                      let container = new DataTransfer();
-                      fileInput.files = container.files;
-                      setFileObject(null)
-                    }}>
-                      Ta bort fil
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            {/* Description */}
+            <label htmlFor="description">Beskrivning *</label>
+            <textarea
+              id="description"
+              name="description"
+              maxLength={3000}
+              placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
 
-              {/* Publicity setting */}
-              <div className={styles.optionList}>
-                <div className={styles.form}>
-                  <h3>Ska det här projektet visas för alla på Återbrukskartan?</h3>
-                  <div className={styles.typeInputGroup}>
-                    <input
-                      type="radio"
-                      id="isPublicTrue"
-                      name="isPublic"
-                      value="true"
-                      checked={isPublic}
-                      onChange={(e) => setIsPublic(true)}
-                    />
-                    <label htmlFor="isPublicTrue">Ja</label>
-                  </div>
-                  <div className={styles.typeInputGroup}>
-                    <input
-                      type="radio"
-                      id="isPublicFalse"
-                      name="isPublic"
-                      value="false"
-                      checked={!isPublic}
-                      onChange={(e) => setIsPublic(false)}
-                    />
-                    <label htmlFor="isPublicFalse">Nej</label>
-                  </div>
-                </div>
-              </div>
+            {/* Contact */}
+            <label htmlFor="contact">Kontakt *</label>
+            <textarea
+              id="contact"
+              name="contact"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              required
+            />
 
-              {/* Submit button */}
-              <div className={styles.addNewPostFormSubmit}>
-                <Button disabled={disableSubmit} id={!disableSubmit ? styles.save : styles.disabled} type="submit" onClick={handleSubmit}> Spara</Button >
-              </div >
+            {/* External links */}
+            <label htmlFor="externalLinks">Länkar</label>
+            <textarea
+              id="externalLinks"
+              name="externalLinks"
+              placeholder="https://www.example.com"
+              value={externalLinks}
+              onChange={(e) => setExternalLinks(e.target.value)}
+            />
 
-              <div className={styles.message}>{message ? <p>{message}</p> : null}</div>
-            </form >
-          </div >
-        </div >
-      </div >
+            {/* Attachments */}
+            <label htmlFor="fileUpload">Ladda upp en fil</label>
+            <input type="file" name="file" id="fileUpload" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+            <button id="removeFileButton" className="danger" onClick={() => {
+              let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+              let container = new DataTransfer();
+              fileInput.files = container.files;
+              setFileObject(null)
+            }}>
+              Ta bort fil
+            </button>
 
-      <div className={styles.footer} id={styles.footer}>
-        <div className={styles.footerContainer}>
-          <div className={styles.footerRow}>
-            <div className={styles.footerHeader}>STUNS</div>
-            <div className={styles.footerLink}>
-              <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-                STUNS
-              </a>
-            </div >
-          </div >
-        </div >
-      </div >
+
+            {/* Publicity setting */}
+
+            <strong>Ska det här projektet visas för alla på Återbrukskartan?</strong>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="radio"
+                id="isPublicTrue"
+                name="isPublic"
+                value="true"
+                checked={isPublic}
+                onChange={(e) => setIsPublic(true)}
+              />
+              <label htmlFor="isPublicTrue">Ja</label>
+            </div>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="radio"
+                id="isPublicFalse"
+                name="isPublic"
+                value="false"
+                checked={!isPublic}
+                onChange={(e) => setIsPublic(false)}
+              />
+              <label htmlFor="isPublicFalse">Nej</label>
+            </div>
+
+            {/* Submit button */}
+            <input disabled={disableSubmit} id={!disableSubmit ? "save" : "disabled"} type="submit" onClick={handleSubmit} value="Spara" />
+
+            <div>{message ? <p>{message}</p> : null}</div>
+          </form >
+        </main>
+
+        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
+          STUNS
+        </a>
+      </div>
     </>
   );
 }

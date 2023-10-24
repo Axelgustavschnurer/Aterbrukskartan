@@ -440,239 +440,250 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         <div id="header">
           <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
         </div>
+        <main>
+          <LinkIcon href='/' src="/back.svg" alt="back" />
 
-        <LinkIcon href='/' src="/back.svg" alt="back" />
+          <h1>Redigera ett inlägg</h1>
+          <form method="put" onSubmit={handleSubmit}>
+            <label htmlFor="project">Välj projekt</label>
+            <select
+              id="project"
+              name="project"
+              value={project ?? ''}
+              onChange={(e) => setProject(e.target.value)}
+            >
+              <option value="">Välj projekt</option>
+              {getProject()}
+            </select>
 
-        <h1>Redigera ett inlägg</h1>
-        <form method="put" onSubmit={handleSubmit}>
-          <label htmlFor="project">Välj projekt</label>
-          <select
-            id="project"
-            name="project"
-            value={project ?? ''}
-            onChange={(e) => setProject(e.target.value)}
-          >
-            <option value="">Välj projekt</option>
-            {getProject()}
-          </select>
+            <label htmlFor="organisation">Organisation</label>
+            <select
+              id="organisation"
+              name="organisation"
+              value={organisation ?? ''}
+              onChange={(e) => setOrganisation(e.target.value)}
+            >
+              {organisationOptions()}
+              <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+            </select>
 
-          <label htmlFor="organisation">Organisation</label>
-          <select
-            id="organisation"
-            name="organisation"
-            value={organisation ?? ''}
-            onChange={(e) => setOrganisation(e.target.value)}
-          >
-            {organisationOptions()}
-            <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
-          </select>
+            {organisation === "addOrganisation" && (
+              <div>
+                <label htmlFor="newOrganisation">Ny organisation</label>
+                <input
+                  type="text"
+                  key="newOrganisation"
+                  id="newOrganisation"
+                  name="newOrganisation"
+                  value={newOrganisation}
+                  onChange={(e) => setNewOrganisation(e.target.value)}
+                />
+              </div>
+            )
+            }
 
-          {organisation === "addOrganisation" && (
-            <div>
-              <label htmlFor="newOrganisation">Ny organisation</label>
-              <input
-                type="text"
-                key="newOrganisation"
-                id="newOrganisation"
-                name="newOrganisation"
-                value={newOrganisation}
-                onChange={(e) => setNewOrganisation(e.target.value)}
-              />
-            </div>
-          )
-          }
+            <section className="grid-auto-rows">
+              <div>
+                <label htmlFor="startYear">Startår</label>
+                <input
+                  type="number"
+                  id="startYear"
+                  name="startYear"
+                  value={startYear ?? ''}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setStartYear(e.target.value)}
+                />
+              </div>
 
-          <label htmlFor="startYear">Startår</label>
-          <input
-            type="number"
-            id="startYear"
-            name="startYear"
-            value={startYear ?? ''}
-            min={yearLimitsRecycle.min}
-            onChange={(e) => setStartYear(e.target.value)}
-          />
+              {/* End year selection */}
+              <div>
+                <label htmlFor="endYear">Slutår</label>
+                <input
+                  type="number"
+                  id="endYear"
+                  name="endYear"
+                  value={endYear ?? ''}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setEndYear(e.target.value)}
+                />
+              </div>
+            </section>
 
-          <label htmlFor="startMonth">Startmånad</label>
-          <select
-            id="startMonth"
-            name="startMonth"
-            value={monthOptionArray.find((option) => option.value === startMonth)?.value}
-            onChange={(e) => setStartMonth(e.target.value)}
-          >
-            {monthOptions()}
-          </select>
+            <section className="grid-auto-rows">
+              <div>
+                <label htmlFor="startMonth">Startmånad</label>
+                <select
+                  id="startMonth"
+                  name="startMonth"
+                  value={monthOptionArray.find((option) => option.value === startMonth)?.value}
+                  onChange={(e) => setStartMonth(e.target.value)}
+                >
+                  {monthOptions()}
+                </select>
+              </div>
 
-          {/* End year selection */}
-          <label htmlFor="endYear">Slutår</label>
-          <input
-            type="number"
-            id="endYear"
-            name="endYear"
-            value={endYear ?? ''}
-            min={yearLimitsRecycle.min}
-            onChange={(e) => setEndYear(e.target.value)}
-          />
+              {/* End month selection */}
+              <div>
+                <label htmlFor="endMonth">Slutmånad</label>
+                <select
+                  id="endMonth"
+                  name="endMonth"
+                  value={monthOptionArray.find((option) => option.value === endMonth)?.value}
+                  onChange={(e) => setEndMonth(e.target.value)}
+                >
+                  {monthOptions()}
+                </select>
+              </div>
+            </section>
 
-          {/* End month selection */}
-          <label htmlFor="endMonth">Slutmånad</label>
-          <select
-            id="endMonth"
-            name="endMonth"
-            value={monthOptionArray.find((option) => option.value === endMonth)?.value}
-            onChange={(e) => setEndMonth(e.target.value)}
-          >
-            {monthOptions()}
-          </select>
+            <strong>Typ av projekt</strong>
+            {projectTypeSelector()}
 
-          <strong>Typ av projekt</strong>
-          {projectTypeSelector()}
-
-
-          <strong>Plats</strong>
-          { // The map switch is hidden if no project is selected (by checking if mapItem exists)
-            !!selectedRecycleObject.mapItem &&
-            <div className="display-flex align-items-center gap-50">
-              <input
-                id="switch-1"
-                type="checkbox"
-                onChange={(e) => setLocationToggle(e.target.checked)}
-              />
-              <label htmlFor="switch-1">Switch</label>
-            </div>}
-          {
-            locationToggle === true ?
-              <>
-                <NewPostMap
+            <strong>Plats</strong>
+            { // The map switch is hidden if no project is selected (by checking if mapItem exists)
+              !!selectedRecycleObject.mapItem &&
+              <div className="display-flex align-items-center gap-50">
+                <input
+                  id="switch-1"
+                  type="checkbox"
+                  onChange={(e) => setLocationToggle(e.target.checked)}
+                />
+                <label htmlFor="switch-1">Switch</label>
+              </div>}
+            {
+              locationToggle === true ?
+                <>
+                  <NewPostMap
+                    setLat={setLat}
+                    setLon={setLon}
+                    lat={lat ?? ''}
+                    lon={lon ?? ''}
+                    defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
+                    defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
+                  />
+                </>
+                :
+                <LeafletAddressLookup
                   setLat={setLat}
                   setLon={setLon}
                   lat={lat ?? ''}
                   lon={lon ?? ''}
-                  defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
-                  defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
                 />
-              </>
-              :
-              <LeafletAddressLookup
-                setLat={setLat}
-                setLon={setLon}
-                lat={lat ?? ''}
-                lon={lon ?? ''}
-              />
-          }
+            }
 
-          <strong>Erbjuds</strong>
-          {offers()}
+            <strong>Erbjuds</strong>
+            {offers()}
 
-          <strong>Sökes</strong>
-          {searchingFors()}
+            <strong>Sökes</strong>
+            {searchingFors()}
 
 
-          <label htmlFor="description">Beskrivning</label>
-          <textarea
-            id="description"
-            name="description"
-            maxLength={3000}
-            placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-            value={description ?? ''}
-            onChange={(e) => {
-              setDescription(e.target.value)
-            }}
-          />
+            <label htmlFor="description">Beskrivning</label>
+            <textarea
+              id="description"
+              name="description"
+              maxLength={3000}
+              placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
+              value={description ?? ''}
+              onChange={(e) => {
+                setDescription(e.target.value)
+              }}
+            />
 
-          <label htmlFor="contact">Kontakt</label>
-          <textarea
-            id="contact"
-            name="contact"
-            value={contact ?? ''}
-            onChange={(e) => setContact(e.target.value)}
-          />
+            <label htmlFor="contact">Kontakt</label>
+            <textarea
+              id="contact"
+              name="contact"
+              value={contact ?? ''}
+              onChange={(e) => setContact(e.target.value)}
+            />
 
-          <label htmlFor="externalLinks">Länkar</label>
-          <textarea
-            id="externalLinks"
-            name="externalLinks"
-            value={externalLinks ?? ''}
-            onChange={(e) => setExternalLinks(e.target.value)}
-          />
-          <div>{message ? <p>{message}</p> : null}</div>
-        </form >
+            <label htmlFor="externalLinks">Länkar</label>
+            <textarea
+              id="externalLinks"
+              name="externalLinks"
+              value={externalLinks ?? ''}
+              onChange={(e) => setExternalLinks(e.target.value)}
+            />
+            <div>{message ? <p>{message}</p> : null}</div>
 
-        {/* Attachments */}
-        <div className="card margin-y-200">
-          <label htmlFor="uploadFile" className="margin-y-100" style={{ display: "block" }}><strong>Dra och släpp, eller bläddra bland filer</strong></label>
-          <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+            {/* Attachments */}
+            <label htmlFor="uploadFile" style={{ display: "block" }}><strong>Dra och släpp, eller bläddra bland filer</strong></label>
+            <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
 
-          <button id="removeFileButton" className="button danger margin-y-100" style={{ display: "block" }} onClick={() => {
-            let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
-            let container = new DataTransfer();
-            fileInput.files = container.files;
-            setFileObject(null)
-          }}>
-            Ta bort fil
-          </button>
-          {  // If the project has an attachment, show a button to reset the file input element to the file from the database
-            selectedRecycleObject.attachment &&
-            <button id="resetFileButton" className="button danger margin-y-100" onClick={() => {
+            <button id="removeFileButton" className="danger" onClick={() => {
               let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
               let container = new DataTransfer();
-              let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
-              container.items.add(file);
               fileInput.files = container.files;
-              setFileObject(file)
+              setFileObject(null)
             }}>
-              Återställ ursprunglig fil
+              Ta bort fil
             </button>
-          }
-        </div>
+            {  // If the project has an attachment, show a button to reset the file input element to the file from the database
+              selectedRecycleObject.attachment &&
+              <button id="resetFileButton" className="danger" onClick={() => {
+                let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                let container = new DataTransfer();
+                let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
+                container.items.add(file);
+                fileInput.files = container.files;
+                setFileObject(file)
+              }}>
+                Återställ ursprunglig fil
+              </button>
+            }
 
-        {/* Publicity setting */}
+            {/* Publicity setting */}
 
-        <strong className="margin-y-100" style={{ display: "block" }}>Ska det här projektet visas för alla på Återbrukskartan?</strong>
-        <div className="display-flex align-items-center gap-50 margin-y-100">
-          <input
-            type="radio"
-            id="isPublicTrue"
-            name="isPublic"
-            value="true"
-            checked={isPublic ?? false}
-            onChange={(e) => setIsPublic(true)}
-          />
-          <label htmlFor="isPublicTrue">Ja</label>
-        </div>
-        <div className="display-flex align-items-center gap-50 margin-y-100">
-          <input
-            type="radio"
-            id="isPublicFalse"
-            name="isPublic"
-            value="false"
-            checked={!isPublic ?? false}
-            onChange={(e) => setIsPublic(false)}
-          />
-          <label htmlFor="isPublicFalse">Nej</label>
-        </div>
+            <strong>Ska det här projektet visas för alla på Återbrukskartan?</strong>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="radio"
+                id="isPublicTrue"
+                name="isPublic"
+                value="true"
+                checked={isPublic ?? false}
+                onChange={(e) => setIsPublic(true)}
+              />
+              <label htmlFor="isPublicTrue">Ja</label>
+            </div>
+            <div className="display-flex align-items-center gap-50">
+              <input
+                type="radio"
+                id="isPublicFalse"
+                name="isPublic"
+                value="false"
+                checked={!isPublic ?? false}
+                onChange={(e) => setIsPublic(false)}
+              />
+              <label htmlFor="isPublicFalse">Nej</label>
+            </div>
 
-        <div className="display-flex gap-50">
-          { // If the project is active, show a save button, else show a restore button
-            selectedRecycleObject.isActive === true ?
-              <button id="save" type="submit" className="button cta" onClick={handleSubmit}> Spara </button >
-              :
-              <button id="restore" type="submit" className="button cta" onClick={handleSubmit}> Spara och Återställ </button >
-          }
+            <div className="display-flex gap-50">
+              { // If the project is active, show a save button, else show a restore button
+                selectedRecycleObject.isActive === true ?
+                  <button id="save" type="submit" onClick={handleSubmit}> Spara </button >
+                  :
+                  <button id="restore" type="submit" onClick={handleSubmit}> Spara och Återställ </button >
+              }
 
-          { // If  the selected project is inactive, show a dangerous delete button, else show a button to deactivate the project
-            // In practice, the dangerous delete button will only be shown if the user is an admin and the API will reject the dangerous delete request if the user is not an admin
-            selectedRecycleObject.isActive === false ?
-              <div>
-                <button id="remove" className="button danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
-                <DangerousModal toggle={modalState} cancel={handleDeleteModalOnclick} delete={handleDelete} />
-              </div>
-              :
-              <div>
-                <button id="remove" className="button danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
-                <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
-              </div>
-          }
-        </div>
+              { // If  the selected project is inactive, show a dangerous delete button, else show a button to deactivate the project
+                // In practice, the dangerous delete button will only be shown if the user is an admin and the API will reject the dangerous delete request if the user is not an admin
+                selectedRecycleObject.isActive === false ?
+                  <div>
+                    <button id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
+                    <DangerousModal toggle={modalState} cancel={handleDeleteModalOnclick} delete={handleDelete} />
+                  </div>
+                  :
+                  <div>
+                    <button id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
+                    <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
+                  </div>
+              }
+            </div>
+          </form >
+
+        </main>
 
         <a href="https://stuns.se/" target="_blank" rel="noreferrer">
           STUNS

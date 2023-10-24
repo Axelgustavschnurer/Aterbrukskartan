@@ -36,6 +36,7 @@ input[type="file"]::file-selector-button {
     border: unset;
     font-weight: bold;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 form strong {
@@ -70,7 +71,7 @@ form input[type="submit"]:disabled {
     cursor: not-allowed;
 }
 
-form input[type="submit"]:hover, form button:hover {
+form input[type="submit"]:hover, form button:not(.danger):hover {
     background-color: var(--accent-dark);
 }
 
