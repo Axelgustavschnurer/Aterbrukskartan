@@ -10,6 +10,7 @@ import { yearLimitsStories } from "../index";
 import LinkIcon from "@/components/linkIcon";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
+import Header from "@/components/header/header";
 
 /** Array containing all the allowed educational programs */
 export const educationalPrograms: string[] = [
@@ -320,13 +321,14 @@ export default function AddNewStory() {
         <title>Lägg till story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
+      
+      <Header />
       <div className="layout-main">
-        <header style={{padding: "1em 0",}}>
-          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-        </header>
-        <LinkIcon href='/' src="/back.svg" alt="back" />
         <main>
-          <h1>Lägg till en ny story</h1>
+          <h1 className="display-flex align-items-center gap-50">         
+            <LinkIcon src="/back.svg" alt="back" />
+            Lägg till en ny story
+          </h1>
           <form method="post" onSubmit={handleSubmit}>
             {/*Oraganisation section */}
             <label htmlFor="organisation">Organisation *</label>

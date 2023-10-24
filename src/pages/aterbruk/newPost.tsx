@@ -10,6 +10,7 @@ import { yearLimitsRecycle } from ".";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
 import LinkIcon from "@/components/linkIcon";
+import Header from "@/components/header/header";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -322,14 +323,14 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
         <title>Lägg till inlägg</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-      <div className="layout-main">
-        <div>
-          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-        </div>
-        <main>
-          <LinkIcon href='/' src="/back.svg" alt="back" />
 
-          <h1>Lägg till ett inlägg</h1>
+      <Header />
+      <div className="layout-main">
+        <main>
+          <h1 className="display-flex align-items-center gap-50">
+            <LinkIcon src="/back.svg" alt="back" />
+            Lägg till ett inlägg
+          </h1>
           <form method="post" onSubmit={handleSubmit}>
             {/* Organisation selection */}
             <h3>Organisation *</h3>
@@ -517,7 +518,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             />
 
             {/* Attachments */}
-            <label htmlFor="fileUpload">Ladda upp en fil</label>
+            <label htmlFor="fileUpload"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" name="file" id="fileUpload" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
             <button id="removeFileButton" className="danger" onClick={() => {
               let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
@@ -527,7 +528,6 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             }}>
               Ta bort fil
             </button>
-
 
             {/* Publicity setting */}
 

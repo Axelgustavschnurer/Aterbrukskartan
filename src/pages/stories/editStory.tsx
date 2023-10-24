@@ -14,6 +14,7 @@ import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
 import LinkIcon from "@/components/linkIcon";
+import Header from "@/components/header/header";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -379,13 +380,13 @@ export default function EditStory() {
         <title>Ändra en story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-      <div className="layout-main">
-        <div>
-          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-        </div>
-        <LinkIcon href='/' src="/back.svg" alt="back" />
 
-        <h1>Redigera en story</h1>
+      <Header />
+      <div className="layout-main">
+        <h1 className="display-flex align-items-center gap-50">
+          <LinkIcon src="/back.svg" alt="back" />
+          Redigera en story
+        </h1>
         <main>
           <form method="post" onSubmit={handleSubmit}>
 

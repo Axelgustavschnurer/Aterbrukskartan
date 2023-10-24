@@ -7,6 +7,7 @@ import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import LinkIcon from "@/components/linkIcon";
+import Header from "@/components/header/header";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -88,15 +89,15 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
       </Head>
 
       {/* Header */}
-      <div className="layout-main">
-        <div>
-          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-        </div>
+      <Header />
 
-        <LinkIcon href='/' src="/back.svg" alt="back" />
+      <div className="layout-main">
         {/* Form */}
         <main>
-          <h1>Uppdatera användare</h1>
+          <h1 className="display-flex align-items-center gap-50">         
+            <LinkIcon src="/back.svg" alt="back" />
+            Uppdatera användare
+          </h1>
           <form onSubmit={handleSubmit}>
             <select
               name="email"

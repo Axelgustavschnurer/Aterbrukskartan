@@ -12,6 +12,7 @@ import { categories, projectTypes } from "./newPost";
 import { getSession } from "@/session";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import LinkIcon from "@/components/linkIcon";
+import Header from "@/components/header/header";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -436,14 +437,13 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
+      <Header />
       <div className="layout-main">
-        <div id="header">
-          <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-        </div>
         <main>
-          <LinkIcon href='/' src="/back.svg" alt="back" />
-
-          <h1>Redigera ett inlägg</h1>
+          <h1 className="display-flex align-items-center gap-50">
+            <LinkIcon src="/back.svg" alt="back" />
+            Redigera ett inlägg
+          </h1>
           <form method="put" onSubmit={handleSubmit}>
             <label htmlFor="project">Välj projekt</label>
             <select
@@ -608,7 +608,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             <div>{message ? <p>{message}</p> : null}</div>
 
             {/* Attachments */}
-            <label htmlFor="uploadFile" style={{ display: "block" }}><strong>Dra och släpp, eller bläddra bland filer</strong></label>
+            <label htmlFor="uploadFile"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
 
             <button id="removeFileButton" className="danger" onClick={() => {
