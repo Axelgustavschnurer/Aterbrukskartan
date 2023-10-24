@@ -55,7 +55,7 @@ export default function Login() {
             <input type="text" placeholder="email" name="email" id="email" required={true} autoComplete="email" />
             <label htmlFor="password">Lösenord</label>
             <input type="password" placeholder="lösenord" name="password" id="password" required={true} autoComplete="current-password" />
-            <input type="submit" id="save" value="Logga In" />
+            <input type="submit" id="save" value="Logga In" className="cta" />
           </form>
         </main>
 

@@ -625,14 +625,14 @@ export default function EditStory() {
                     <span>Nej</span>
                 }</label>
               <div>{message ? <p>{message}</p> : null}</div></div>
+
+            {/* Submit and delete button */}
+            <div className="display-flex gap-50">
+              <input type="submit" id="save" onClick={handleSubmit} value="spara" />
+              <button id="remove" onClick={handleDeleteModalOnclick} className="danger"> Ta bort story </button>
+            </div>
+
           </form>
-
-          {/* Submit and delete button */}
-
-          <div className="display-flex gap-50">
-            <button type="submit" id="save" onClick={handleSubmit} className="button cta"> Spara </button>
-            <button id="remove" onClick={handleDeleteModalOnclick} className="button danger"> Ta bort story </button>
-          </div>
           <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
         </main>
       </div>

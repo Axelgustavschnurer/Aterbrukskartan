@@ -42,7 +42,7 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
       <div id="search">
         <div id="searchDir" className='display-flex gap-50'>
           <input type="text" name="addr" value={location} id="addr" onChange={(e) => setLocation(e.target.value)} />
-          <button id="addressBtn" type="button" onClick={handleSearch}> Sök </button>
+          <button id="addressBtn" type="button" className='cta' onClick={handleSearch}> Sök </button>
         </div>
 
         {/*Result of the search */}

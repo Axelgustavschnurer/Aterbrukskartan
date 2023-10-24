@@ -520,7 +520,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             {/* Attachments */}
             <label htmlFor="fileUpload"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" name="file" id="fileUpload" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
-            <button id="removeFileButton" className="danger" onClick={() => {
+            <button id="removeFileButton" className="danger-secondary" onClick={() => {
               let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
               let container = new DataTransfer();
               fileInput.files = container.files;

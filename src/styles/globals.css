@@ -1,9 +1,15 @@
 :root {
 
-	--danger: #bb2124;
+	--danger-light: hsl(359, 70%, 53%);
+	--danger: hsl(359, 70%, 43%);
+	--danger-dark: hsl(359, 70%, 33%);
 
 	--light: #ececec;
 	
+	--confirm-light: hsl(212, 100%, 77%);
+	--confirm: hsl(212, 100%, 47%);
+	--confirm-dark: hsl(212, 100%, 37%);
+
 	--accent-light: hsl(36, 100%, 75%);
 	--accent: hsl(36, 100%, 50%);
 	--accent-dark: hsl(36, 100%, 40%);
@@ -142,8 +148,23 @@ h1, h2, h3, h4, h5, h6 {
 	color: white;
 }
 
+.danger:hover {
+	background-color: var(--danger-dark);
+}
+
+.danger-secondary {
+	border: 3px solid var(--danger);
+	background-color: transparent;
+	color: black;
+}
+
+.danger-secondary:hover {
+	border-color: var(--danger-dark);
+}
+
 .cta {
 	background-color: var(--accent);
+	color: black;
 }
 
 .cta:hover {

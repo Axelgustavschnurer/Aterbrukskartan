@@ -62,17 +62,21 @@ form input[type="submit"], form button {
     padding: 1em 5em;
     border: unset;
     cursor: pointer;
-    background-color: var(--accent);
     font-weight: bold;
 }
 
+form input[type="submit"]:not(.cta, .danger, .danger-secondary), form button:not(.cta, .danger, .danger-secondary) {
+    background-color: var(--confirm);
+    color: white;
+}
+
 form input[type="submit"]:disabled {
-    background-color: var(--accent-light);
+    background-color: var(--confirm-light);
     cursor: not-allowed;
 }
 
-form input[type="submit"]:hover, form button:not(.danger):hover {
-    background-color: var(--accent-dark);
+form input[type="submit"]:not(:disabled, .cta):hover, form button:not(.danger, .danger-secondary, .cta, :disabled):hover {
+    background-color: var(--confirm-dark);
 }
 
 input[type="checkbox"], input[type="radio"] {
