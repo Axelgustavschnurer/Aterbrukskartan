@@ -631,9 +631,8 @@ export default function EditStory() {
               <input type="submit" id="save" onClick={handleSubmit} value="spara" />
               <button id="remove" onClick={handleDeleteModalOnclick} className="danger"> Ta bort story </button>
             </div>
-
+            <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
           </form>
-          <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
         </main>
       </div>
 
