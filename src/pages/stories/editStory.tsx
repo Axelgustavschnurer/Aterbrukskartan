@@ -630,7 +630,7 @@ export default function EditStory() {
 
           <div className="display-flex gap-50">
             <button type="submit" id="save" onClick={handleSubmit} className="button cta"> Spara </button>
-            <button id="remove" onClick={handleDeleteModalOnclick} className="button danger"> Ta bort </button>
+            <button id="remove" onClick={handleDeleteModalOnclick} className="button danger"> Ta bort story </button>
           </div>
           <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
         </main>

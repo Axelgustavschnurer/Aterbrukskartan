@@ -31,7 +31,7 @@ export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.8
     // Returns map with red marker pin
     return (
         <>
-            <MapContainer center={!lat && !lon ? [defaultLat, defaultLon] : [lat, lon]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "90vh", width: "100%", borderRadius: '.5em' }} zoomControl={false} >
+            <MapContainer center={!lat && !lon ? [defaultLat, defaultLon] : [lat, lon]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "90vh", width: "100%", borderRadius: '.5em', margin: "2em 0" }} zoomControl={false} >
                 <ZoomControl position="bottomright" />
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

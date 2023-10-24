@@ -36,7 +36,7 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
   };
 
   return (
-    <div className='card margin-y-100'>
+    <div className='card margin-y-200'>
       <strong>Skriv adress</strong>
 
       <div id="search">

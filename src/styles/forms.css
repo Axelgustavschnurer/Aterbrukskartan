@@ -3,7 +3,7 @@ form *:not(input[type="checkbox"], input[type="submit"], input[type="radio"], di
     width: 100%;
 }
 
-form *:not(input[type="checkbox"], input[type="radio"], div) {
+form *:not(input[type="checkbox"], input[type="radio"], div, strong) {
     margin: 1em 0;
 }
 
@@ -16,6 +16,30 @@ form input[type="text"], form input[type="password"], form input[type="email"], 
 
 form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form select:focus, form input[type="number"]:focus, textarea:focus {
     outline: 3px solid var(--accent);
+}
+
+input[type="file"] {
+    display: block;
+    width: 100%;
+    border: 2px dashed var(--accent);
+    border-radius: 3px;
+    padding: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-align-last: center;
+}
+
+input[type="file"]::file-selector-button {
+    margin: 1em;
+    background-color: var(--accent);
+    padding: .5em 1em;
+    border: unset;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+form strong {
+    margin: 2em 0 1em 0;
 }
 
 form select {
