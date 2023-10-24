@@ -6,13 +6,13 @@ import Head from "next/head";
 import LeafletAddressLookup from "@/components/findAddress";
 import { DeepRecycle } from "@/types";
 import { yearLimitsRecycle } from ".";
-import Image from "next/image";
 import Modal, { DangerousModal } from '@/components/deleteModal';
 import { categories, projectTypes } from "./newPost";
 import { getSession } from "@/session";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -684,11 +684,11 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
           </form >
 
         </main>
-
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+      
+      {/* Footer */}
+      <TempFooter />
+      
     </>
   )
 }

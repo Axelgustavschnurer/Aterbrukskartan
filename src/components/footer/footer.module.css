@@ -1,0 +1,10 @@
+.section > a {
+    display: block;
+    margin: .5em 0;
+} 
+
+.footer {
+    margin-top: 5em;
+    border-top: 3px solid var(--accent);
+    padding: 1em 0;
+}

@@ -1,11 +1,11 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -153,13 +153,10 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
             <input type="submit" id="save" value="Skapa Användare" />
           </form>
         </main>
-
-
-        {/* Footer */}
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+
+      {/* Footer */}
+      <TempFooter />
 
     </>
   )

@@ -1,13 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
 import prisma from "@/prismaClient";
 import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -94,7 +93,7 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
       <div className="layout-main">
         {/* Form */}
         <main>
-          <h1 className="display-flex align-items-center gap-50">         
+          <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Uppdatera användare
           </h1>
@@ -167,13 +166,11 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
 
           </form>
         </main>
-
-        {/* Footer */}
-
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+      
+      {/* Footer */}
+      <TempFooter />
+
     </>
   )
 }

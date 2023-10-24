@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import Image from "next/image";
 import { yearLimitsStories } from "../index";
 import LinkIcon from "@/components/linkIcon";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 /** Array containing all the allowed educational programs */
 export const educationalPrograms: string[] = [
@@ -321,11 +321,11 @@ export default function AddNewStory() {
         <title>Lägg till story</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-      
+
       <Header />
       <div className="layout-main">
         <main>
-          <h1 className="display-flex align-items-center gap-50">         
+          <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till en ny story
           </h1>
@@ -554,11 +554,11 @@ export default function AddNewStory() {
             <div>{message ? <p>{message}</p> : null}</div>
           </form >
         </main>
-        {/*Footer section */}
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+
+      {/* Footer */}
+      <TempFooter />
+
     </>
   );
 }

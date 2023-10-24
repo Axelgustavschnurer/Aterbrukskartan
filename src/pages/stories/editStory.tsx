@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import Image from "next/image";
 import { DeepStory } from "@/types";
 import Modal from "@/components/deleteModal";
 import { basePrograms, educationalPrograms } from "./newStory";
@@ -15,6 +14,7 @@ import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -635,12 +635,11 @@ export default function EditStory() {
           </div>
           <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
         </main>
-
-        {/* Footer */}
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+
+      {/* Footer */}
+      <TempFooter />
+
     </>
   );
 }

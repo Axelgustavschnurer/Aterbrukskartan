@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import Image from "next/image";
 import { yearLimitsRecycle } from ".";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
+import TempFooter from "@/components/footer/tempFooter";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -561,11 +561,11 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             <div>{message ? <p>{message}</p> : null}</div>
           </form >
         </main>
-
-        <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-          STUNS
-        </a>
       </div>
+      
+      {/* Footer */}
+      <TempFooter />
+
     </>
   );
 }

@@ -87,6 +87,14 @@ h1, h2, h3, h4, h5, h6 {
 	gap: .5em;
 }
 
+.gap-100 {
+	gap: 1em;
+}
+
+.gap-200 {
+	gap: 2em;
+}
+
 .flex-grow-100 {
 	flex-grow: 1;
 }
