@@ -27,9 +27,10 @@ export default function ExpandButton({ children }: { children: ReactNode }) {
     <>
       {isOpen && (
         <div  style={{position: "absolute", bottom: "0", left: "0", width: "100%"}}>
-          <div className={styles.footerClose} style={{position: "relative", top: "0"}} >
+          <div style={{position: "relative", top: "0"}} >
             <button
-              id={styles.hideBtn}
+              id="hideBtn"
+              className={styles.button}
               onClick={toggleMenu}>
               <Image src="/downArrow.svg" alt="Closing arrow" width={20} height={20} />
             </button>
@@ -39,14 +40,13 @@ export default function ExpandButton({ children }: { children: ReactNode }) {
       )
       }
       {!isOpen && (
-        <div className={styles.hiddenFooter}>
-          <div className={styles.footerOpen}>
-            <button
-              id={styles.openBtn}
-              onClick={toggleMenu}>
-              <Image src="/upArrow.svg" alt="Open arrow" width={20} height={20} />
-            </button>
-          </div>
+        <div style={{position: "absolute", bottom: "0", width: "100%"}}>
+          <button
+            id="openBtn"
+            className={styles.button}
+            onClick={toggleMenu}>
+            <Image src="/upArrow.svg" alt="Open arrow" width={20} height={20} />
+          </button>
         </div>
       )}
     </>
