@@ -10,7 +10,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -326,7 +326,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
 
       <Header />
       <div className="layout-main">
-        <main>
+        <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till ett inlägg
@@ -564,7 +564,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
       </div>
       
       {/* Footer */}
-      <TempFooter />
+      <Footer />
 
     </>
   );

@@ -10,7 +10,7 @@ import LinkIcon from "@/components/linkIcon";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 /** Array containing all the allowed educational programs */
 export const educationalPrograms: string[] = [
@@ -324,7 +324,7 @@ export default function AddNewStory() {
 
       <Header />
       <div className="layout-main">
-        <main>
+        <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till en ny story
@@ -557,7 +557,7 @@ export default function AddNewStory() {
       </div>
 
       {/* Footer */}
-      <TempFooter />
+      <Footer />
 
     </>
   );

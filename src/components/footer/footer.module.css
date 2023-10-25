@@ -4,7 +4,7 @@
 } 
 
 .footer {
-    margin-top: 2em;
+    background-color: white;
     border-top: 3px solid var(--accent);
     padding: 1em 0;
 }

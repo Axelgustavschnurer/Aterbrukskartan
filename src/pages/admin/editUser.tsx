@@ -6,7 +6,7 @@ import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -92,7 +92,7 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
 
       <div className="layout-main">
         {/* Form */}
-        <main>
+        <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Uppdatera användare
@@ -169,7 +169,7 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
       </div>
       
       {/* Footer */}
-      <TempFooter />
+      <Footer />
 
     </>
   )

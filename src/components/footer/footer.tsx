@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./footer.module.css";
 
 // Footer component
-export default function TempFooter() {
+export default function Footer() {
   return (
     <>
       <footer className={styles.footer}>

@@ -14,7 +14,7 @@ import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -387,7 +387,7 @@ export default function EditStory() {
           <LinkIcon src="/back.svg" alt="back" />
           Redigera en story
         </h1>
-        <main>
+        <main className="margin-y-100">
           <form method="post" onSubmit={handleSubmit}>
 
             {/* Choose project section */}
@@ -637,7 +637,7 @@ export default function EditStory() {
       </div>
 
       {/* Footer */}
-      <TempFooter />
+      <Footer />
 
     </>
   );

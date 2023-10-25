@@ -5,7 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -115,7 +115,7 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
       <Header />
 
       <div className="layout-main">
-        <main>
+        <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">         
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till användare
@@ -156,7 +156,7 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
       </div>
 
       {/* Footer */}
-      <TempFooter />
+      <Footer />
 
     </>
   )

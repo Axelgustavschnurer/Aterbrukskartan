@@ -8,12 +8,13 @@ import Head from 'next/head'
 import { StoryFilter } from '@/types'
 import Image from 'next/image'
 import styles from '@/styles/index.module.css'
-import Footer from '@/components/footer'
+import Footer from '@/components/footer/footer'
 import { Tooltip, Badge } from '@nextui-org/react'
 import { logoutFunction } from '@/components/logout'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { getSession } from '@/session'
 import Link from 'next/link'
+import ExpandButton from '@/components/buttons/expandButton'
 
 // Gets user data from the session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -357,7 +358,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         </>
       )}
 
-      <Footer />
+      <ExpandButton>
+        <Footer />
+      </ExpandButton>
+   
     </>
   )
 }

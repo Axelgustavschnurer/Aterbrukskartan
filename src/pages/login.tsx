@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import Modal from '@/components/redirectModal';
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
 
 export default function Login() {
   const [modal, setModal] = React.useState(false);

@@ -14,6 +14,8 @@ import { logoutFunction } from '@/components/logout'
 import { getSession } from '@/session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Link from 'next/link'
+import ExpandButton from '@/components/buttons/expandButton'
+import Footer from '@/components/footer/footer'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -372,6 +374,11 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           </div>
         </>
       )}
+
+      <ExpandButton>
+        <Footer />
+      </ExpandButton>
+
     </>
   )
 }

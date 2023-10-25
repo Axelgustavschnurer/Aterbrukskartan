@@ -12,7 +12,7 @@ import { getSession } from "@/session";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import LinkIcon from "@/components/linkIcon";
 import Header from "@/components/header/header";
-import TempFooter from "@/components/footer/tempFooter";
+import Footer from "@/components/footer/footer";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -439,7 +439,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
 
       <Header />
       <div className="layout-main">
-        <main>
+        <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Redigera ett inlägg
@@ -687,7 +687,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
       </div>
       
       {/* Footer */}
-      <TempFooter />
+      <Footer />
       
     </>
   )
