@@ -1,9 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import { cookies } from "next/headers"
-import { Button } from "@nextui-org/react";
-import Image from "next/image";
 import { Data, getSessionData } from "@/session";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 function handleSubmit(event: any) {
   event.preventDefault()
@@ -40,61 +39,27 @@ export default function Login() {
       </Head>
 
       {/* Header */}
-      <div>
-        <Image src="/images/stuns_logo.png" alt="logo" width={170} height={50} />
-      </div>
+      <Header />
 
       {/* Form */}
-      <div>
-        <div>
-          <h1>Lösenordsbyte</h1>
-          <div>
-            <form onSubmit={handleSubmit}>
+      <main className="layout-main">
+        <h1>Lösenordsbyte</h1>
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email</label>
+            <input type="text" name="email" id="email" required={true} autoComplete="email" />
 
-              <div>
-                <label htmlFor="email">
-                  <h3>Email: </h3>
-                </label>
-                <input type="text" name="email" id="email" required={true} autoComplete="email" />
-              </div>
+            <label htmlFor="oldPassword">Gammlt Lösenord</label>
+            <input type="password" name="oldPassword" id="oldPassword" required={true} autoComplete="current-password" />
 
-              <div>
-                <label htmlFor="oldPassword">
-                  <h3>Gammalt lösenord: </h3>
-                </label>
-                <input type="password" name="oldPassword" id="oldPassword" required={true} autoComplete="current-password" />
-              </div>
+            <label htmlFor="newPassword">Nytt lösenord</label>
+            <input type="password" name="newPassword" id="newPassword" required={true} autoComplete="new-password" />
 
-              <div>
-                <label htmlFor="newPassword">
-                  <h3>Nytt lösenord: </h3>
-                </label>
-                <input type="password" name="newPassword" id="newPassword" required={true} autoComplete="new-password" />
-              </div>
-
-              <br />
-              <div>
-                <Button type="submit" id="save"> Byt Lösenord </Button>
-              </div>
-
-            </form>
-          </div>
-        </div>
-      </div>
+            <input type="submit" id="save" value="Byt Lösenord" />
+        </form>
+      </main>
 
       {/* Footer */}
-      <div>
-        <div>
-          <div>
-            <div>STUNS</div>
-            <div>
-              <a href="https://stuns.se/" target="_blank" rel="noreferrer">
-                STUNS
-              </a>
-            </div >
-          </div >
-        </div >
-      </div >
+      <Footer />
     </>
   )
 }
