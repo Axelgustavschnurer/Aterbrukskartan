@@ -17,6 +17,7 @@ import Link from 'next/link'
 import ExpandButton from '@/components/buttons/expandButton'
 import Footer from '@/components/footer/footer'
 import Aside from '@/components/aside/aside'
+import { relative } from 'path'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -279,11 +280,9 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </div>
 
       <Aside>
-        {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
-
         {/* Searchbar */}
         {!isMobile ?
-          <div>
+          <div style={{position: "relative"}}>
             <input
               type="search"
               className={styles.searchTerm}
@@ -293,6 +292,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             />
             <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
           </div> : null}
+
+        {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
       </Aside>
 
       {/* Badges showing currently avtive filters, if any */}

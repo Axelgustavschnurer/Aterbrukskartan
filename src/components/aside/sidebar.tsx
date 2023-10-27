@@ -254,289 +254,285 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
     <>
       {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
         <div className={styles.sidebar}>
-          <div className={styles.sidebarHeader}>
+          <div>
             {currentMap === "Stories" ? (
               <h3>Kategorier</h3>
             ) : currentMap === "Recycle" ? (
               <h3>Projekttyper</h3>
             ) : null}
-          </div>
-          {/* Buttons for choosing project types to filter by */}
-          <div className={styles.filterButtons}>
-            {currentMap === "Stories"
-              ? createCategoryFilter(
-                storyCategory,
-                setStoryCategory,
-                disableReset,
-                setDisableReset
-              )
-              : currentMap === "Recycle"
-                ? createProjectTypeFilter(
-                  projectType,
-                  setProjectType,
+            {/* Buttons for choosing project types to filter by */}
+            <div className={styles.filterButtons}>
+              {currentMap === "Stories"
+                ? createCategoryFilter(
+                  storyCategory,
+                  setStoryCategory,
                   disableReset,
                   setDisableReset
                 )
-                : null}
-          </div>
-
-          <div className={styles.sidebarHeader}>
-            <div className={styles.sidebarTitle}>
-              <h3>År</h3>
-            </div>
-          </div>
-          {/* Range slider for year filter */}
-          <div className={styles.rSliderContainer}>
-            <DualRangeSlider
-              min={
-                currentMap === "Stories"
-                  ? yearLimitsStories.min
-                  : currentMap === "Recycle"
-                    ? yearLimitsRecycle.min
-                    : null
-              }
-              max={
-                currentMap === "Stories"
-                  ? yearLimitsStories.max
-                  : currentMap === "Recycle"
-                    ? yearLimitsRecycle.max
-                    : null
-              }
-              onChange={({ min, max }: any) => {
-                if (
-                  years.includes(
-                    currentMap === "Stories"
-                      ? yearLimitsStories.min
-                      : currentMap === "Recycle"
-                        ? yearLimitsRecycle.min
-                        : 0
-                  ) &&
-                  years.includes(
-                    currentMap === "Stories"
-                      ? yearLimitsStories.max
-                      : currentMap === "Recycle"
-                        ? yearLimitsRecycle.max
-                        : 0
+                : currentMap === "Recycle"
+                  ? createProjectTypeFilter(
+                    projectType,
+                    setProjectType,
+                    disableReset,
+                    setDisableReset
                   )
-                ) {
-                  setYearSliderDefault(true);
-                } else {
-                  setYearSliderDefault(false);
+                  : null}
+            </div>
+
+            <h3>År</h3>
+            
+            {/* Range slider for year filter */}
+            <div className={styles.rSliderContainer}>
+              <DualRangeSlider
+                min={
+                  currentMap === "Stories"
+                    ? yearLimitsStories.min
+                    : currentMap === "Recycle"
+                      ? yearLimitsRecycle.min
+                      : null
                 }
-                if (
-                  !(years.includes(min) && years.includes(max)) ||
-                  (min === max && !(years[0] === min && years[1] === max))
-                ) {
-                  setYears([min, max]), setSliderReset(false);
+                max={
+                  currentMap === "Stories"
+                    ? yearLimitsStories.max
+                    : currentMap === "Recycle"
+                      ? yearLimitsRecycle.max
+                      : null
                 }
-              }}
-              reset={sliderReset}
-            />
-          </div>
-
-          {/*This is a range slider for months filter. Recycle map only */}
-          {currentMap === "Recycle" ? (
-            <>
-              <div className={styles.sidebarHeader}>
-                <div className={styles.sidebarTitle}>
-                  <h3>Månad</h3>
-                </div>
-              </div>
-              <div className={styles.rSliderContainer}>
-                <DualRangeSlider
-                  min={1}
-                  max={12}
-                  onChange={({ min, max }: any) => {
-                    if (months.includes(1) && months.includes(12)) {
-                      setMonthSliderDefault(true);
-                    } else {
-                      setMonthSliderDefault(false);
-                    }
-                    if (
-                      !(months.includes(min) && months.includes(max)) ||
-                      (min === max && !(months[0] === min && months[1] === max))
-                    ) {
-                      setMonths([min, max]), setSliderReset(false);
-                    }
-                  }}
-                  reset={sliderReset}
-                />
-              </div>
-            </>
-          ) : null}
-
-          <form className={styles.form}>
-            {/* A button for only showing pins with attachments. Currently recycle map only */}
-            {currentMap === "Recycle" ? (
-              <>
-                <h3>Bilagor</h3>
-                <div className={styles.inputGroup}>
-                  <input
-                    id="showAttached"
-                    name="showAttached"
-                    type="checkbox"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setShowAttachment(true);
-                      } else {
-                        setShowAttachment(false);
-                      }
-                    }}
-                  />
-                  <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
-                </div>
-              </>
-            ) : null}
-
-            {/* Checkboxes for filtering materials and organisations */}
-            {currentMap === "Recycle" ? (
-              <span>
-                <h3>Erbjuds</h3>{" "}
-                {createAvailableFilter(
-                  mapData,
-                  availableMaterials,
-                  setAvailableMaterials,
-                  disableReset,
-                  setDisableReset
-                )}{" "}
-                <h3>Sökes</h3>{" "}
-                {createLookingForFilter(
-                  mapData,
-                  lookingForMaterials,
-                  setLookingForMaterials,
-                  disableReset,
-                  setDisableReset
-                )}
-              </span>
-            ) : currentMap === "Stories" ? (
-              <span>
-                <h3>Projektinnehåll</h3>{" "}
-                {createMiscFilter(
-                  hasReport,
-                  setHasReport,
-                  hasVideo,
-                  setHasVideo,
-                  hasCase,
-                  setHasCase,
-                  hasOpenData,
-                  setHasOpenData,
-                  isRealStory,
-                  setIsRealStory,
-                  hasSolarData,
-                  setHasSolarData,
-                )}{" "}
-                <h3>Utbildningsprogram</h3>{" "}
-                {createEducationalFilter(
-                  educationalProgram,
-                  setEducationalProgram,
-                  disableReset,
-                  setDisableReset,
-                  mapData.map((story: any) => story.educationalProgram)
-                )}
-                {/* {createSpecialisationFilter()} */}
-              </span>
-            ) : null}
-            {createOrganisationFilter()}
-
-            {/* Admin-only button to filter for disabled pins */}
-            {user && user.isAdmin && (
-              <>
-                <div className={styles.inputGroup}>
-                  <input
-                    id="showDisabled"
-                    name="showDisabled"
-                    type="checkbox"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setShowInactive(true);
-                      } else {
-                        setShowInactive(false);
-                      }
-                    }}
-                  />
-                  <label htmlFor="showDisabled">Visa bara inaktiva inlägg</label>
-                </div>
-              </>
-            )
-            }
-          </form>
-
-          {/* Button for clearing the current filter. Disabled when no filter is active */}
-          <div className={styles.clearFilter}>
-            <Button
-              id={styles.clearBtn}
-              css={{ width: "100%" }}
-              disabled={
-                disableReset.projectType &&
-                disableReset.lookingForMaterials &&
-                disableReset.availableMaterials &&
-                disableReset.organisation &&
-                disableReset.storyCategory &&
-                disableReset.educationalProgram &&
-                disableReset.educationalSpecialisation &&
-                !isRealStory &&
-                !hasCase &&
-                !hasReport &&
-                !hasOpenData &&
-                !hasVideo &&
-                !hasSolarData &&
-                !showInactive &&
-                !showAttachment &&
-                yearSliderDefault &&
-                monthSliderDefault
-              }
-              onPress={() => {
-                setProjectType([]);
-                setSliderReset(true);
-                setLookingForMaterials([]);
-                setAvailableMaterials([]);
-                setOrganisation([]);
-                setStoryCategory([]);
-                setEducationalProgram([]);
-                setEducationalSpecialisation([]);
-                setHasVideo(false);
-                setHasReport(false);
-                setHasCase(false);
-                setHasOpenData(false);
-                setIsRealStory(false);
-                setHasSolarData(false);
-                setShowInactive(false);
-                setShowAttachment(false);
-                setDisableReset({
-                  projectType: true,
-                  lookingForMaterials: true,
-                  availableMaterials: true,
-                  organisation: true,
-                  storyCategory: true,
-                  educationalProgram: true,
-                  educationalSpecialisation: true,
-                });
-
-                let checkboxes = document.querySelectorAll(
-                  "input[type=checkbox]"
-                );
-                checkboxes.forEach((checkbox: any) => {
-                  checkbox.checked = false;
-                });
-              }}
-            >
-              Rensa filter
-            </Button>
-          </div>
-
-          {/* Button for closing the sidebar */}
-          <div className={styles.sidebarClose}>
-            <button id={styles.hideBtn} onClick={toggleMenu}>
-              <Image
-                src="/closeArrow.svg"
-                alt="Closing arrow"
-                width={20}
-                height={20}
+                onChange={({ min, max }: any) => {
+                  if (
+                    years.includes(
+                      currentMap === "Stories"
+                        ? yearLimitsStories.min
+                        : currentMap === "Recycle"
+                          ? yearLimitsRecycle.min
+                          : 0
+                    ) &&
+                    years.includes(
+                      currentMap === "Stories"
+                        ? yearLimitsStories.max
+                        : currentMap === "Recycle"
+                          ? yearLimitsRecycle.max
+                          : 0
+                    )
+                  ) {
+                    setYearSliderDefault(true);
+                  } else {
+                    setYearSliderDefault(false);
+                  }
+                  if (
+                    !(years.includes(min) && years.includes(max)) ||
+                    (min === max && !(years[0] === min && years[1] === max))
+                  ) {
+                    setYears([min, max]), setSliderReset(false);
+                  }
+                }}
+                reset={sliderReset}
               />
-            </button>
+            </div>
+
+            {/*This is a range slider for months filter. Recycle map only */}
+            {currentMap === "Recycle" ? (
+              <>
+                <div className={styles.sidebarHeader}>
+                  <div className={styles.sidebarTitle}>
+                    <h3>Månad</h3>
+                  </div>
+                </div>
+                <div className={styles.rSliderContainer}>
+                  <DualRangeSlider
+                    min={1}
+                    max={12}
+                    onChange={({ min, max }: any) => {
+                      if (months.includes(1) && months.includes(12)) {
+                        setMonthSliderDefault(true);
+                      } else {
+                        setMonthSliderDefault(false);
+                      }
+                      if (
+                        !(months.includes(min) && months.includes(max)) ||
+                        (min === max && !(months[0] === min && months[1] === max))
+                      ) {
+                        setMonths([min, max]), setSliderReset(false);
+                      }
+                    }}
+                    reset={sliderReset}
+                  />
+                </div>
+              </>
+            ) : null}
+
+            <form className={styles.form}>
+              {/* A button for only showing pins with attachments. Currently recycle map only */}
+              {currentMap === "Recycle" ? (
+                <>
+                  <h3>Bilagor</h3>
+                  <div className={styles.inputGroup}>
+                    <input
+                      id="showAttached"
+                      name="showAttached"
+                      type="checkbox"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setShowAttachment(true);
+                        } else {
+                          setShowAttachment(false);
+                        }
+                      }}
+                    />
+                    <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
+                  </div>
+                </>
+              ) : null}
+
+              {/* Checkboxes for filtering materials and organisations */}
+              {currentMap === "Recycle" ? (
+                <span>
+                  <h3>Erbjuds</h3>{" "}
+                  {createAvailableFilter(
+                    mapData,
+                    availableMaterials,
+                    setAvailableMaterials,
+                    disableReset,
+                    setDisableReset
+                  )}{" "}
+                  <h3>Sökes</h3>{" "}
+                  {createLookingForFilter(
+                    mapData,
+                    lookingForMaterials,
+                    setLookingForMaterials,
+                    disableReset,
+                    setDisableReset
+                  )}
+                </span>
+              ) : currentMap === "Stories" ? (
+                <span>
+                  <h3>Projektinnehåll</h3>{" "}
+                  {createMiscFilter(
+                    hasReport,
+                    setHasReport,
+                    hasVideo,
+                    setHasVideo,
+                    hasCase,
+                    setHasCase,
+                    hasOpenData,
+                    setHasOpenData,
+                    isRealStory,
+                    setIsRealStory,
+                    hasSolarData,
+                    setHasSolarData,
+                  )}{" "}
+                  <h3>Utbildningsprogram</h3>{" "}
+                  {createEducationalFilter(
+                    educationalProgram,
+                    setEducationalProgram,
+                    disableReset,
+                    setDisableReset,
+                    mapData.map((story: any) => story.educationalProgram)
+                  )}
+                  {/* {createSpecialisationFilter()} */}
+                </span>
+              ) : null}
+              {createOrganisationFilter()}
+
+              {/* Admin-only button to filter for disabled pins */}
+              {user && user.isAdmin && (
+                <>
+                  <div className={styles.inputGroup}>
+                    <input
+                      id="showDisabled"
+                      name="showDisabled"
+                      type="checkbox"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setShowInactive(true);
+                        } else {
+                          setShowInactive(false);
+                        }
+                      }}
+                    />
+                    <label htmlFor="showDisabled">Visa bara inaktiva inlägg</label>
+                  </div>
+                </>
+              )
+              }
+            </form>
+
+            {/* Button for closing the sidebar */}
+            <div className={styles.sidebarClose}>
+              <button id={styles.hideBtn} onClick={toggleMenu}>
+                <Image
+                  src="/closeArrow.svg"
+                  alt="Closing arrow"
+                  width={20}
+                  height={20}
+                />
+              </button>
+            </div>
           </div>
         </div>
       )}
+
+      {/* Button for clearing the current filter. Disabled when no filter is active */}
+      <div className={styles.clearFilter}>
+        <Button
+          id={styles.clearBtn}
+          disabled={
+            disableReset.projectType &&
+            disableReset.lookingForMaterials &&
+            disableReset.availableMaterials &&
+            disableReset.organisation &&
+            disableReset.storyCategory &&
+            disableReset.educationalProgram &&
+            disableReset.educationalSpecialisation &&
+            !isRealStory &&
+            !hasCase &&
+            !hasReport &&
+            !hasOpenData &&
+            !hasVideo &&
+            !hasSolarData &&
+            !showInactive &&
+            !showAttachment &&
+            yearSliderDefault &&
+            monthSliderDefault
+          }
+          onPress={() => {
+            setProjectType([]);
+            setSliderReset(true);
+            setLookingForMaterials([]);
+            setAvailableMaterials([]);
+            setOrganisation([]);
+            setStoryCategory([]);
+            setEducationalProgram([]);
+            setEducationalSpecialisation([]);
+            setHasVideo(false);
+            setHasReport(false);
+            setHasCase(false);
+            setHasOpenData(false);
+            setIsRealStory(false);
+            setHasSolarData(false);
+            setShowInactive(false);
+            setShowAttachment(false);
+            setDisableReset({
+              projectType: true,
+              lookingForMaterials: true,
+              availableMaterials: true,
+              organisation: true,
+              storyCategory: true,
+              educationalProgram: true,
+              educationalSpecialisation: true,
+            });
+
+            let checkboxes = document.querySelectorAll(
+              "input[type=checkbox]"
+            );
+            checkboxes.forEach((checkbox: any) => {
+              checkbox.checked = false;
+            });
+          }}
+        >
+          Rensa filter
+        </Button>
+      </div>
 
       {/* Button for opening the sidebar when it's closed */}
       {energiportalen ? null : !isOpen && (

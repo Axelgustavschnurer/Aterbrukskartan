@@ -263,12 +263,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </div>
 
       <Aside>
-        {/* Sidebar */}
-        {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
 
         {/* Searchbar */}
         {!isMobile ?
-          <div>
+          <div style={{position: "relative"}}>
             <input
               type="search"
               className={styles.searchTerm}
@@ -278,6 +276,9 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             />
             <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
           </div> : null}
+
+        {/* Sidebar */}
+        {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
       </Aside>
 
       {/* Labels showing currently avtive filters, if any */}

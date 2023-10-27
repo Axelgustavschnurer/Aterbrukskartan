@@ -42,7 +42,7 @@ export function createProjectTypeFilter(
                 id={styles[category]}
                 className={styles.categoryBtn}
                 style={buttonStyle}
-                css={{ width: "100%", height: "75px"}}
+                css={{ width: "100%", height: "75px", borderRadius: ".5em"}}
                 auto
                 icon={<Image
                   src={"/images/categoriesÅterbruk/" + category.toLowerCase() + ".svg"}

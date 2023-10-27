@@ -1,6 +1,6 @@
 /* sidebar container */
 .aside {
-    width: 350px;
+    width: 400px;
     position: fixed;
     top: 0;
     left: 0;
@@ -12,19 +12,54 @@
     margin: 1em 0;
 }
 
+@media (max-width: 1000px) {
+    .aside {
+        margin: unset;
+    }
+    .aside > * {
+        margin: unset;
+    }
+}
+
 .sidebar {
-    width: 350px;
-    padding: 1em;
-    height: calc(85% - 120px);
+    margin-bottom: 0;
+    height: 75vh;
     background-color: white;
-    position: fixed;
     z-index: 2;
-    top: 110px;
-    left: 10px;
     border: 3px solid black;
-    border-radius: .5em;
+    border-radius: .5em .5em 0 0;
+    border-bottom: none;
+    padding: .1em;
+}
+
+
+/* Scrollbar */
+
+.sidebar > div {
+    padding: .5em;
+    height: 100%;
     overflow: auto;
-    scrollbar-width: thin;
+    scrollbar-width: auto;
+    scrollbar-color: var(--light) #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.sidebar > div::-webkit-scrollbar {
+    width: 1em;
+}
+
+.sidebar > div::-webkit-scrollbar-track {
+    background: #ffffff;
+    background-clip: padding-box;
+
+}
+
+.sidebar > div::-webkit-scrollbar-thumb {
+    background-color: var(--light);
+    border-radius: .5em;
+    border: 3px solid #ffffff;
+    background-clip: padding-box;
+
 }
 
 /* Filter components */
@@ -32,11 +67,14 @@
 .filterButtons {
     display: grid;
     gap: .5em;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 75px), 1fr));
-    grid-auto-rows: auto;    
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr));
+    grid-auto-rows: auto;
     text-align: center;
 }
 
+.filterButtons p {
+    margin-bottom: .5em;
+}
 
 .form {
     width: 100%;
@@ -134,18 +172,12 @@
 }
 
 .clearFilter {
+    margin-top: 0;
     padding: .5em;
-    width: inherit;
-    left: inherit;
-    border-bottom-left-radius: .5em;
-    border-bottom-right-radius: .5em;
-    top: calc(90% - 90px);
-    position: fixed;
+    border-radius: 0 0 .5em .5em;
     background-color: white;
     border: 3px solid black;
-    
     z-index: 10;
-
 }
 
 /* Close and open sidebar */
@@ -155,7 +187,7 @@
     justify-content: center;
     position: fixed;
     top: calc(100% / 2 - 47px);
-    left: calc(350px + 10px);
+    left: calc(400px + 1em);
     animation: moveOpenButton 0.2s;
 }
 
@@ -187,6 +219,7 @@
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
+    width: 100%;
 }
 
 /* Hide/Show sidebar button */
@@ -393,4 +426,3 @@
         }
     }
 }
-
