@@ -45,7 +45,7 @@ export function createProjectTypeFilter(
                 rounded
                 auto
                 icon={<Image
-                  src={"/images/" + category.toLowerCase() + ".svg"}
+                  src={"/images/categoriesÅterbruk/" + category.toLowerCase() + ".svg"}
                   alt={category}
                   width={40}
                   height={40}

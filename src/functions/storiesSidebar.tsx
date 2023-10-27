@@ -73,7 +73,7 @@ export function createCategoryFilter(
                 icon={
                   <Image
                     src={
-                      "/images/categories/" +
+                      "/images/categoriesStories/" +
                       categories[category as keyof typeof categories] +
                       ".svg"
                     }
