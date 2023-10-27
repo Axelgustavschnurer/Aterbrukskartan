@@ -10,15 +10,15 @@ import {
   createMobileProjectTypes,
   createLookingForFilter,
   createAvailableFilter,
-} from "@/functions/recycleSidebar";
+} from "@/components/aside/recycleSidebar";
 import {
   createMobileCategories,
   createEducationalFilter,
   createMiscFilter,
-} from "@/functions/storiesSidebar";
+} from "@/components/aside/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
 
-import mobileStyles from "../styles/mobileSidebar.module.css";
+import mobileStyles from "@/styles/mobileSidebar.module.css";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { Data } from "@/session";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../styles/sidebar.module.css";
+import styles from "./aside.module.css";
 import { Button } from "@nextui-org/react";
 import { DeepRecycle } from "@/types";
 import { categories, projectTypes } from "@/pages/aterbruk/newPost";
@@ -27,6 +27,7 @@ export function createProjectTypeFilter(
             
       const buttonStyle = {
         background: isCategoryActive ? "" : "#808080",
+        transition: "unset",
       };
 
       if (projectType.length === 0) {
@@ -41,8 +42,7 @@ export function createProjectTypeFilter(
                 id={styles[category]}
                 className={styles.categoryBtn}
                 style={buttonStyle}
-                css={{ width: "50px", height: "50px" }}
-                rounded
+                css={{ width: "100%", height: "75px"}}
                 auto
                 icon={<Image
                   src={"/images/categoriesÅterbruk/" + category.toLowerCase() + ".svg"}

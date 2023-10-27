@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../styles/sidebar.module.css";
+import styles from "./aside.module.css";
 import { basePrograms, educationalPrograms } from "@/pages/stories/newStory";
 import { Button } from "@nextui-org/react";
-import setFirstLetterCapital from "./setFirstLetterCapital";
+import setFirstLetterCapital from "../../functions/setFirstLetterCapital";
 
 /**
  * Contains all the allowed categories for stories (not including "Övrigt", as it's not a real category),
- * and the names of the corresponding images in the /images/categories folder.
+ * and the names of the corresponding images in the /images/categoriesStories  folder.
  */
 export const storyCategories = {
   "Bygg-och-anläggning": "building",
@@ -49,66 +49,65 @@ export function createCategoryFilter(
       {/* Creates a button for each category in the `categories` object. */}
       {Object.keys(categories).map((category: any) => {
 
-      const isCategoryActive = storyCategory.includes(category.replaceAll("-", " "));
-      
-      const buttonStyle = {
-        background: isCategoryActive ? "" : "#808080",
-      };
+        /* Styling for inactive/active buttons */
+        const isCategoryActive = storyCategory.includes(category.replaceAll("-", " "));
 
-      if (storyCategory.length === 0) {
-        // Override styling when the list is completely empty
-        buttonStyle.background = ''; // You can use a different color or style here
-      }
+        const buttonStyle = {
+          background: isCategoryActive ? "" : "#808080",
+          transition: "unset",
+        };
+
+        if (storyCategory.length === 0) {
+          // Override styling when the list is completely empty
+          buttonStyle.background = '';
+        }
 
         return (
-          <div className={styles.alignCategories} key={category}>
-            <div className={styles.categoryContainer}>
-              <Button
-                id={styles[category]}
-                className={styles.categoryBtn}
-                style={buttonStyle}
-                css={{ width: "50px", height: "50px", }}
-                rounded
-                auto
-                icon={
-                  <Image
-                    src={
-                      "/images/categoriesStories/" +
-                      categories[category as keyof typeof categories] +
-                      ".svg"
-                    }
-                    alt={category}
-                    width={40}
-                    height={40}
-                  />
+          <div key={category}>
+            <Button
+              id={styles[category]}
+              className={styles.categoryBtn}
+              style={buttonStyle}
+              css={{ width: "100%", height: "75px"}}
+              auto
+              icon={
+                <Image
+                  src={
+                    "/images/categoriesStories/" +
+                    categories[category as keyof typeof categories] +
+                    ".svg"
+                  }
+                  alt={category}
+                  width={40}
+                  height={40}
+                />
+              }
+              // Replace all dashes with spaces in the category name for database query
+              value={category.replaceAll("-", " ")}
+              onPress={(e: any) => {
+                // If category is already in the storyCategory array, remove it
+                if (storyCategory.includes(e.target.value)) {
+                  // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                  if (storyCategory.length <= 1) {
+                    setDisableReset({ ...disableReset, storyCategory: true });
+                  }
+                  setStoryCategory(
+                    storyCategory.filter(
+                      (item: any) => item !== e.target.value
+                    )
+                  );
                 }
-                // Replace all dashes with spaces in the category name for database query
-                value={category.replaceAll("-", " ")}
-                onPress={(e: any) => {
-                  // If category is already in the storyCategory array, remove it
-                  if (storyCategory.includes(e.target.value)) {
-                    // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                    if (storyCategory.length <= 1) {
-                      setDisableReset({ ...disableReset, storyCategory: true });
-                    }
-                    setStoryCategory(
-                      storyCategory.filter(
-                        (item: any) => item !== e.target.value
-                      )
-                    );
-                  }
-                  // Otherwise, add it
-                  else {
-                    setStoryCategory([...storyCategory, e.target.value]);
-                    setDisableReset({ ...disableReset, storyCategory: false });
-                  }
-                }}
-              >
-                {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
-              </Button>
-              {/* Replace all dashes with spaces in the category name for display */}
-              <p>{category.replaceAll("-", " ")}</p>
-            </div>
+                // Otherwise, add it
+                else {
+                  setStoryCategory([...storyCategory, e.target.value]);
+                  setDisableReset({ ...disableReset, storyCategory: false });
+                }
+              }}
+            >
+              {/* Image is imported from the /images/categories folder, image name is mapped to the category name in the `categories` object. */}
+            </Button>
+            {/* Replace all dashes with spaces in the category name for display */}
+            <p>{category.replaceAll("-", " ")}</p>
           </div>
         );
       })}

@@ -34,7 +34,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Logga in</title>
+        <title>Byt lösenord</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
@@ -43,12 +43,12 @@ export default function Login() {
 
       {/* Form */}
       <main className="layout-main">
-        <h1>Lösenordsbyte</h1>
+        <h1>Byt Lösenord</h1>
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>
             <input type="text" name="email" id="email" required={true} autoComplete="email" />
 
-            <label htmlFor="oldPassword">Gammlt Lösenord</label>
+            <label htmlFor="oldPassword">Gammalt Lösenord</label>
             <input type="password" name="oldPassword" id="oldPassword" required={true} autoComplete="current-password" />
 
             <label htmlFor="newPassword">Nytt lösenord</label>

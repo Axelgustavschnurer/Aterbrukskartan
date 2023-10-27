@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Sidebar from '@/components/sidebar'
+import Sidebar from '@/components/aside/sidebar'
 import MobileSidebar from '@/components/mobileNavbar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -15,6 +15,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { getSession } from '@/session'
 import Link from 'next/link'
 import ExpandButton from '@/components/buttons/expandButton'
+import Aside from '@/components/aside/aside'
 
 // Gets user data from the session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -261,13 +262,13 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         </Tooltip>
       </div>
 
-      {/* Sidebar */}
-      {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
+      <Aside>
+        {/* Sidebar */}
+        {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
 
-      {/* Searchbar */}
-      {!isMobile ?
-        <div className={styles.wrap}>
-          <div className={styles.search}>
+        {/* Searchbar */}
+        {!isMobile ?
+          <div>
             <input
               type="search"
               className={styles.searchTerm}
@@ -275,11 +276,9 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <div className={styles.searchIcon}>
-              <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
-            </div>
-          </div>
-        </div> : null}
+            <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
+          </div> : null}
+      </Aside>
 
       {/* Labels showing currently avtive filters, if any */}
       {!isMobile ?
@@ -361,7 +360,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       <ExpandButton>
         <Footer />
       </ExpandButton>
-   
+
     </>
   )
 }

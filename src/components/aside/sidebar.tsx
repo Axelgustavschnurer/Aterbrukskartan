@@ -1,22 +1,22 @@
 import React, { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import DualRangeSlider from "./dualSlider";
+import DualRangeSlider from "../dualSlider";
 import { RecycleFilter, StoryFilter } from "@/types";
 import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
 import { yearLimitsStories } from "@/pages";
-import styles from "../styles/sidebar.module.css";
+import styles from "./aside.module.css";
 import {
   createProjectTypeFilter,
   createLookingForFilter,
   createAvailableFilter,
-} from "@/functions/recycleSidebar";
+} from "@/components/aside/recycleSidebar";
 import {
   createCategoryFilter,
   createEducationalFilter,
   createMiscFilter,
-} from "@/functions/storiesSidebar";
+} from "@/components/aside/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
 import { Data } from "@/session";
 
@@ -262,7 +262,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
             ) : null}
           </div>
           {/* Buttons for choosing project types to filter by */}
-          <div className={currentMap === "Stories" ? styles.filterBtn : styles.filterBtnRecycle}>
+          <div className={styles.filterButtons}>
             {currentMap === "Stories"
               ? createCategoryFilter(
                 storyCategory,

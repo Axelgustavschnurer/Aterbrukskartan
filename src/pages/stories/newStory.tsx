@@ -8,7 +8,7 @@ import LeafletAddressLookup from "@/components/findAddress";
 import { yearLimitsStories } from "../index";
 import LinkIcon from "@/components/buttons/backButton";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import { storyCategories } from "@/functions/storiesSidebar";
+import { storyCategories } from "@/components/aside/storiesSidebar";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 

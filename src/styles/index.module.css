@@ -95,31 +95,24 @@
 }
 
 /* searchbar */
-.search {
-  width: 100%;
-  z-index: 2;
-}
-
 .searchTerm {
   width: 100%;
-  border: 2px solid #8a8a8a;
-  padding: 5px;
-  height: 40px;
-  border-radius: 10px;
+  border: 3px solid black;
+  padding: .75em;
+  border-radius: .5em;
   outline: none;
-  color: #949494;
+  appearance: none;
+}
+
+.searchTerm:focus {
+  border: 3px solid var(--accent);
 }
 
 .searchIcon {
   position: absolute;
-  right: 0;
-  transform: translate(-10%, -100%);
-  opacity: 0.8;
-}
-
-
-.searchTerm:focus {
-  color: black;
+  top: 50%;
+  right: .5em;
+  transform: translate(0, -50%);
 }
 
 .filterTextContent {

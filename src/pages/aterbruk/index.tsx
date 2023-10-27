@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Sidebar from '@/components/sidebar'
+import Sidebar from '@/components/aside/sidebar'
 import MobileSidebar from '@/components/mobileNavbar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -16,6 +16,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Link from 'next/link'
 import ExpandButton from '@/components/buttons/expandButton'
 import Footer from '@/components/footer/footer'
+import Aside from '@/components/aside/aside'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -277,12 +278,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       <div className={styles.totalPProjects}>
       </div>
 
-      {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
+      <Aside>
+        {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
 
-      {/* Searchbar */}
-      {!isMobile ?
-        <div className={styles.wrap}>
-          <div className={styles.search}>
+        {/* Searchbar */}
+        {!isMobile ?
+          <div>
             <input
               type="search"
               className={styles.searchTerm}
@@ -290,11 +291,9 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <div className={styles.searchIcon}>
-              <Image src="/search.svg" alt="Sökikon" width={30} height={30} />
-            </div>
-          </div>
-        </div> : null}
+            <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
+          </div> : null}
+      </Aside>
 
       {/* Badges showing currently avtive filters, if any */}
       {!isMobile ?
