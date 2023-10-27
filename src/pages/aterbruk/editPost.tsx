@@ -606,7 +606,9 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               onChange={(e) => setExternalLinks(e.target.value)}
             />
             <div>{message ? <p>{message}</p> : null}</div>
+          </form >
 
+          <div className="form">
             {/* Attachments */}
             <label htmlFor="uploadFile"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
@@ -681,14 +683,14 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                   </div>
               }
             </div>
-          </form >
+          </div>
 
         </main>
       </div>
-      
+
       {/* Footer */}
       <Footer />
-      
+
     </>
   )
 }
