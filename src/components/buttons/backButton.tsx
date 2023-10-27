@@ -1,4 +1,5 @@
 import Image from "next/image";
+import styles from './buttons.module.css'
 import { useRouter } from 'next/router'
 
 
@@ -12,7 +13,7 @@ export default function LinkIcon({
   const router = useRouter()
   return (
     <>
-      <button onClick={() => router.back()} style={{position: 'relative', display: 'grid', cursor: 'pointer', backgroundColor: 'unset', border: 'unset'}}>
+      <button onClick={() => router.back()} className={styles.backButton}>
         <Image src={src} alt={alt} width={35} height={35} />
       </button>
     </>

@@ -12,6 +12,13 @@
     user-select: none;
 }
 
+.backButton {
+    position: relative; 
+    display: grid; 
+    cursor: pointer;
+    background-color: unset;
+    border: unset;
+}
 
 @media only screen and (orientation: portrait) {
     #hideBtn {

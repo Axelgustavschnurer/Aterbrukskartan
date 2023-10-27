@@ -6,7 +6,7 @@ import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
 import { yearLimitsStories } from "../index";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/functions/storiesSidebar";
 import Header from "@/components/header/header";

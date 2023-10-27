@@ -3,7 +3,7 @@ import Head from "next/head";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 

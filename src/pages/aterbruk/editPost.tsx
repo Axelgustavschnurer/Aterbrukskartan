@@ -10,7 +10,7 @@ import Modal, { DangerousModal } from '@/components/deleteModal';
 import { categories, projectTypes } from "./newPost";
 import { getSession } from "@/session";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 

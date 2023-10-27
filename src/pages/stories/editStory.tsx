@@ -12,7 +12,7 @@ import { dataPortals } from "./newStory";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { yearLimitsStories } from "..";
 import { storyCategories } from "@/functions/storiesSidebar";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 

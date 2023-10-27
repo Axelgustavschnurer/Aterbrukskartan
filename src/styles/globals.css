@@ -4,7 +4,7 @@
 	--danger: hsl(359, 70%, 43%);
 	--danger-dark: hsl(359, 70%, 33%);
 
-	--light: #ececec;
+	--light: lightgray;
 	
 	--confirm-light: hsl(212, 100%, 77%);
 	--confirm: hsl(212, 100%, 47%);

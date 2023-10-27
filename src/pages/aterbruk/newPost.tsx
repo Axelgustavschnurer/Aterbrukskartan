@@ -8,7 +8,7 @@ import LeafletAddressLookup from "@/components/findAddress";
 import { yearLimitsRecycle } from ".";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 

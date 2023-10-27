@@ -4,7 +4,7 @@ import prisma from "@/prismaClient";
 import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import LinkIcon from "@/components/linkIcon";
+import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
