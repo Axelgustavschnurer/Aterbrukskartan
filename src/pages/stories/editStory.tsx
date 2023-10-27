@@ -627,7 +627,7 @@ export default function EditStory() {
               <div>{message ? <p>{message}</p> : null}</div></div>
 
             {/* Submit and delete button */}
-            <div className="display-flex gap-50">
+            <div className="display-flex gap-50 flex-wrap-wrap">
               <input type="submit" id="save" onClick={handleSubmit} value="spara" />
               <button id="remove" onClick={handleDeleteModalOnclick} className="danger"> Ta bort story </button>
             </div>

@@ -105,6 +105,10 @@ h1, h2, h3, h4, h5, h6 {
 	flex-grow: 1;
 }
 
+.flex-wrap-wrap {
+	flex-wrap: wrap;
+}
+
 .margin-y-50 {
 	margin: .5em 0;
 }

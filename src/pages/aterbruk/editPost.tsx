@@ -659,7 +659,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               <label htmlFor="isPublicFalse">Nej</label>
             </div>
 
-            <div className="display-flex gap-50">
+            <div className="display-flex gap-50 flex-wrap-wrap">
               { // If the project is active, show a save button, else show a restore button
                 selectedRecycleObject.isActive === true ?
                   <button id="save" type="submit" onClick={handleSubmit}> Spara </button >
