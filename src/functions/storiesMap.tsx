@@ -64,7 +64,7 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.AlignLinks}>
                 <a href={!!pin.reportLink ? pin.reportLink : pin.reportSite} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkReport}>
-                    <Image width={30} height={30} src="/images/categories/newspaper.svg" alt="Rapport" />
+                    <Image width={30} height={30} src="/images/categoriesStories/newspaper.svg" alt="Rapport" />
                   </span>
                 </a>
                 {!!pin.reportLink ? <span style={popup.PopUpReportInfo}>Rapport</span> : <span style={popup.PopUpReportInfo}>Rapportsida</span>}
@@ -106,7 +106,7 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.AlignLinks}>
                 <a href={pin.pdfCase} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkPdf}>
-                    <Image width={30} height={30} src="/images/categories/case.svg" alt="Case" />
+                    <Image width={30} height={30} src="/images/categoriesStories/case.svg" alt="Case" />
                   </span>
                 </a>
                 Case
@@ -116,7 +116,7 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.AlignLinks}>
                 <a href={pin.openData} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkOpenData}>
-                    <Image width={30} height={30} src="/images/categories/dataicon.svg" alt="Öppna data" />
+                    <Image width={30} height={30} src="/images/categoriesStories/dataicon.svg" alt="Öppna data" />
                   </span>
                 </a>
                 Öppna data
@@ -126,7 +126,7 @@ export function storiesPopup(pin: DeepStory | any) {
               <div style={popup.AlignLinks}>
                 <a href={"https://energiportalregionuppsala.se/about?device=" + pin.identity} target="_blank" rel="noreferrer">
                   <span style={popup.PopupLinkEP}>
-                    <Image width={30} height={30} src="/images/categories/lightbulb.svg" alt="Energiportalen" />
+                    <Image width={30} height={30} src="/images/categoriesStories/lightbulb.svg" alt="Energiportalen" />
                   </span>
                 </a>
                 Energiportalen
@@ -139,14 +139,14 @@ export function storiesPopup(pin: DeepStory | any) {
   )
 }
 
-// Arrays of all different color pins and categories in matching order. Used to color pins based on category
+// Arrays of all different color pins and categoriesStories in matching order. Used to color pins based on category
 const iconArray = [pinIcons.IconPinPurple, pinIcons.IconPinTeal, pinIcons.IconPinPink, pinIcons.IconPinViolet, pinIcons.IconPinAzure, pinIcons.IconPinGreenBlue, pinIcons.IconPinRed, pinIcons.IconPinYellowGreen, pinIcons.IconPinYellow, pinIcons.IconPinGreen, pinIcons.IconPinOrange, pinIcons.IconPinBlue, pinIcons.IconPinGray];
 const categoryArray = ["Bygg och anläggning", "Grön energi", "Hållbarhet", "Social hållbarhet", "Mobilitet", "Elnät", "Hälsa och bioteknik", "Miljöteknik", "Energilagring", "Agrara näringar", "Livsmedel", "Vatten och avlopp", "Övrigt"]
 
 /**
  * Function that returns an icon for a pin based on the category of the pin
  * 
- * If the pin has multiple categories, it will return the icon for its first category
+ * If the pin has multiple categoriesStories, it will return the icon for its first category
  * 
  * If the pin has no category, it will return the default white pin
  * @param pin The pin to get the icon for
@@ -156,13 +156,13 @@ const categoryArray = ["Bygg och anläggning", "Grön energi", "Hållbarhet", "S
 function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
   // Changes color of all displayed pins to match with the first matching category in the current filter, if any
   for (let i in categoryArray) {
-    for (let j in currentFilter.categories) {
-      if (currentFilter.categories && String(currentFilter.categories[j as keyof typeof currentFilter.categories])?.toLowerCase().includes(categoryArray[i].toLowerCase()) && pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
+    for (let j in currentFilter.categoriesStories) {
+      if (currentFilter.categoriesStories && String(currentFilter.categoriesStories[j as keyof typeof currentFilter.categoriesStories])?.toLowerCase().includes(categoryArray[i].toLowerCase()) && pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
         return iconArray[i]
       }
     }
   }
-  // Loop through all categories in the pin and return the first matching category
+  // Loop through all categoriesStories in the pin and return the first matching category
   for (let i in categoryArray) {
     if (pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
       return iconArray[i]

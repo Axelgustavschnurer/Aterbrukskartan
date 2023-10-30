@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
-import styles from "../styles/dualSlider.module.css";
+import styles from "./dualSlider.module.css";
 import { monthArray } from "@/pages/aterbruk";
 
 // Range slider component for filtering by years and months. Needs to be given min and max values, as well as onChange function to work.
@@ -54,10 +54,10 @@ const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
           className={`${styles.thumb} ${styles.thumbRight}`}
         />
         {/* The slider track */}
-        <div className={styles.sliderTrack} style={{ background: `linear-gradient(to right, lightGray 0 ${(Math.min(minVal, maxVal) - min) / (max - min) * 100}%, #ffb921 ${(Math.min(minVal, maxVal) - min) / (max - min) * 100}% ${(Math.max(minVal, maxVal) - min) / (max - min) * 100}%, lightGray ${(Math.max(minVal, maxVal) - min) / (max - min) * 100}% 100% )` }} />
+        <div className={styles.sliderTrack} style={{ background: `linear-gradient(to right, lightGray 0 ${(Math.min(minVal, maxVal) - min) / (max - min) * 100}%, var(--accent) ${(Math.min(minVal, maxVal) - min) / (max - min) * 100}% ${(Math.max(minVal, maxVal) - min) / (max - min) * 100}%, lightGray ${(Math.max(minVal, maxVal) - min) / (max - min) * 100}% 100% )` }} />
         <div ref={range} className={styles.sliderRange} />
       </div>
-      <div>
+      <div className={`display-flex justify-content-space-between ${styles.sliderValues}`}>
         {/* The values displayed at the left and right of the slider. 
                 If the values are less than 12 we assume it's the slider for months and map the results to the monthArray. 
                 Also keeps track of which value is larger for when the thumbs overlap*/}

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import DualRangeSlider from "../dualSlider";
+import DualRangeSlider from "../dualSlider/dualSlider";
 import { RecycleFilter, StoryFilter } from "@/types";
 import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
