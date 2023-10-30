@@ -134,7 +134,7 @@ export function createLookingForFilter(
     <>
       {cat.map((category: any) => {
         return (
-          <div className={styles.inputGroup} key={category + "Sökes"}>
+          <div className={styles.input} key={category + "Sökes"}>
             <input
               id={category + "Sökes"}
               name={category + "Sökes"}
@@ -177,7 +177,7 @@ export function createLookingForFilter(
                 }
               }}
             />
-            <label htmlFor={category + "Sökes"}>{category}</label>
+            <label htmlFor={category + "Sökes"} style={{margin: "0",}}>{category}</label>
           </div>
         );
       })}
@@ -206,7 +206,7 @@ export function createAvailableFilter(
     <>
       {cat.map((category: any) => {
         return (
-          <div className={styles.inputGroup} key={category + "Erbjuds"}>
+          <div className={styles.input} key={category + "Erbjuds"}>
             <input
               id={category + "Erbjuds"}
               name={category + "Erbjuds"}
@@ -250,7 +250,7 @@ export function createAvailableFilter(
                 }
               }}
             />
-            <label htmlFor={category + "Erbjuds"}>{category}</label>
+            <label htmlFor={category + "Erbjuds"} style={{margin: "0",}}>{category}</label>
           </div>
         );
       })}
@@ -276,7 +276,7 @@ export function createMobileProjectTypes(
     <>
       {categories.map((category: any) => {
         return (
-          <div className={styles.inputGroup} key={category}>
+          <div className={styles.input} key={category}>
             <input
               id={category}
               name={category}
@@ -301,7 +301,7 @@ export function createMobileProjectTypes(
                 }
               }}
             />
-            <label htmlFor={category}>{category}</label>
+            <label htmlFor={category} style={{margin: "0",}}>{category}</label>
           </div>
         );
       })}

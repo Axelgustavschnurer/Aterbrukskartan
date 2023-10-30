@@ -273,7 +273,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((pin: any) => {
             return (
-              <div key={pin}>
+              <div key={pin} className={styles.input}>
                 <input
                   id={pin}
                   name={pin}
@@ -308,7 +308,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     }
                   }}
                 />
-                <label htmlFor={pin}>{pin}</label>
+                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
               </div>
             );
           })}
@@ -445,7 +445,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                 {currentMap === "Recycle" ? (
                   <span>
                     <h3>Bilaga</h3>
-                    <div>
+                    <div className={styles.input}>
                       <input
                         id="showAttached"
                         name="showAttached"
@@ -458,7 +458,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                           }
                         }}
                       />
-                      <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
+                      <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
                     </div>
                     <h3>Erbjuds</h3>{" "}
                     {createAvailableFilter(
@@ -509,7 +509,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                 {/* Admin-only button to filter for disabled pins */}
                 {user && user.isAdmin && (
                   <>
-                    <div>
+                    <div className={styles.input}>
                       <input
                         id="showDisabled"
                         name="showDisabled"
@@ -522,7 +522,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                           }
                         }}
                       />
-                      <label htmlFor="showDisabled">Visa bara inaktiva inlägg</label>
+                      <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
                     </div>
                   </>
                 )
@@ -532,7 +532,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               {/* Button for clearing the current filter. Disabled when no filter is active */}
               <div>
                 <Button
-                  id="clearBtn"
+                  id={styles.clearBtn}
                   css={{ width: "100%" }}
                   disabled={
                     disableReset.projectType &&

@@ -146,7 +146,7 @@ export function createMiscFilter(
       {/* Creates a checkbox for each item in the `options` array. */}
       {options.map((item: any) => {
         return (
-          <div className={styles.inputGroup} key={item}>
+          <div className={styles.input} key={item}>
             <input
               id={item}
               name={item}
@@ -168,7 +168,7 @@ export function createMiscFilter(
                 }
               }}
             />
-            <label htmlFor={item}>{item}</label>
+            <label htmlFor={item} style={{margin: "0",}}>{item}</label>
           </div>
         );
       })}
@@ -202,7 +202,7 @@ export function createEducationalFilter(
     <>
       {programs.map((program: any) => {
         return (
-          <div className={styles.inputGroup} key={program}>
+          <div className={styles.input} key={program}>
             <input
               id={program}
               name={program}
@@ -236,7 +236,7 @@ export function createEducationalFilter(
                 }
               }}
             />
-            <label htmlFor={program}>{program}</label>
+            <label htmlFor={program} style={{margin: "0",}}>{program}</label>
           </div>
         );
       })}
@@ -264,7 +264,7 @@ export function createMobileCategories(
     <>
       {categories.map((category: any) => {
         return (
-          <div className={styles.inputGroup} key={category}>
+          <div className={styles.input} key={category}>
             <input
               id={category}
               name={category.replaceAll("-", " ")}
@@ -289,7 +289,7 @@ export function createMobileCategories(
                 }
               }}
             />
-            <label htmlFor={category}>{category.replaceAll("-", " ")}</label>
+            <label htmlFor={category} style={{margin: "0",}}>{category.replaceAll("-", " ")}</label>
           </div>
         );
       })}

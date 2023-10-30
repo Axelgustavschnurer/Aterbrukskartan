@@ -206,7 +206,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((pin: any) => {
             return (
-              <div id={styles.inputGroupOrg} className={styles.inputGroup} key={pin}>
+              <div id={styles.inputGroupOrg} className={styles.input} key={pin}>
                 <input
                   id={pin}
                   name={pin}
@@ -241,7 +241,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                     }
                   }}
                 />
-                <label htmlFor={pin}>{pin}</label>
+                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
               </div>
             );
           })}
@@ -366,7 +366,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
               {currentMap === "Recycle" ? (
                 <>
                   <h3>Bilagor</h3>
-                  <div className={styles.inputGroup}>
+                  <div className={styles.input}>
                     <input
                       id="showAttached"
                       name="showAttached"
@@ -379,7 +379,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                         }
                       }}
                     />
-                    <label htmlFor="showAttached">Visa bara inlägg med bilaga</label>
+                    <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
                   </div>
                 </>
               ) : null}
@@ -437,7 +437,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
               {/* Admin-only button to filter for disabled pins */}
               {user && user.isAdmin && (
                 <>
-                  <div className={styles.inputGroup}>
+                  <div className={styles.input}>
                     <input
                       id="showDisabled"
                       name="showDisabled"
@@ -450,7 +450,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                         }
                       }}
                     />
-                    <label htmlFor="showDisabled">Visa bara inaktiva inlägg</label>
+                    <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
                   </div>
                 </>
               )
