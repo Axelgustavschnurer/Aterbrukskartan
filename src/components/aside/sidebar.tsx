@@ -472,67 +472,69 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
         </div>
       )}
 
-      {/* Button for clearing the current filter. Disabled when no filter is active */}
-      <div className={styles.clearFilter}>
-        <Button
-          id={styles.clearBtn}
-          disabled={
-            disableReset.projectType &&
-            disableReset.lookingForMaterials &&
-            disableReset.availableMaterials &&
-            disableReset.organisation &&
-            disableReset.storyCategory &&
-            disableReset.educationalProgram &&
-            disableReset.educationalSpecialisation &&
-            !isRealStory &&
-            !hasCase &&
-            !hasReport &&
-            !hasOpenData &&
-            !hasVideo &&
-            !hasSolarData &&
-            !showInactive &&
-            !showAttachment &&
-            yearSliderDefault &&
-            monthSliderDefault
-          }
-          onPress={() => {
-            setProjectType([]);
-            setSliderReset(true);
-            setLookingForMaterials([]);
-            setAvailableMaterials([]);
-            setOrganisation([]);
-            setStoryCategory([]);
-            setEducationalProgram([]);
-            setEducationalSpecialisation([]);
-            setHasVideo(false);
-            setHasReport(false);
-            setHasCase(false);
-            setHasOpenData(false);
-            setIsRealStory(false);
-            setHasSolarData(false);
-            setShowInactive(false);
-            setShowAttachment(false);
-            setDisableReset({
-              projectType: true,
-              lookingForMaterials: true,
-              availableMaterials: true,
-              organisation: true,
-              storyCategory: true,
-              educationalProgram: true,
-              educationalSpecialisation: true,
-            });
+        {/* Button for clearing the current filter. Disabled when no filter is active */}
+      {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
+        <div className={styles.clearFilter}>
+          <Button
+            id={styles.clearBtn}
+            disabled={
+              disableReset.projectType &&
+              disableReset.lookingForMaterials &&
+              disableReset.availableMaterials &&
+              disableReset.organisation &&
+              disableReset.storyCategory &&
+              disableReset.educationalProgram &&
+              disableReset.educationalSpecialisation &&
+              !isRealStory &&
+              !hasCase &&
+              !hasReport &&
+              !hasOpenData &&
+              !hasVideo &&
+              !hasSolarData &&
+              !showInactive &&
+              !showAttachment &&
+              yearSliderDefault &&
+              monthSliderDefault
+            }
+            onPress={() => {
+              setProjectType([]);
+              setSliderReset(true);
+              setLookingForMaterials([]);
+              setAvailableMaterials([]);
+              setOrganisation([]);
+              setStoryCategory([]);
+              setEducationalProgram([]);
+              setEducationalSpecialisation([]);
+              setHasVideo(false);
+              setHasReport(false);
+              setHasCase(false);
+              setHasOpenData(false);
+              setIsRealStory(false);
+              setHasSolarData(false);
+              setShowInactive(false);
+              setShowAttachment(false);
+              setDisableReset({
+                projectType: true,
+                lookingForMaterials: true,
+                availableMaterials: true,
+                organisation: true,
+                storyCategory: true,
+                educationalProgram: true,
+                educationalSpecialisation: true,
+              });
 
-            let checkboxes = document.querySelectorAll(
-              "input[type=checkbox]"
-            );
-            checkboxes.forEach((checkbox: any) => {
-              checkbox.checked = false;
-            });
-          }}
-        >
-          Rensa filter
-        </Button>
-      </div>
+              let checkboxes = document.querySelectorAll(
+                "input[type=checkbox]"
+              );
+              checkboxes.forEach((checkbox: any) => {
+                checkbox.checked = false;
+              });
+            }}
+          >
+            Rensa filter
+          </Button>
+        </div>
+      )}
 
       {/* Button for opening the sidebar when it's closed */}
       {energiportalen ? null : !isOpen && (
