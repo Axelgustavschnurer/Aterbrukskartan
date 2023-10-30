@@ -273,43 +273,43 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((pin: any) => {
             return (
-              <div key={pin} className={styles.input}>
-                <input
-                  id={pin}
-                  name={pin}
-                  type="checkbox"
-                  onChange={(e) => {
-                    // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
-                    if (
-                      organisation.includes(e.target.name) &&
-                      !e.target.checked
-                    ) {
-                      setOrganisation(
-                        organisation.filter(
-                          (item: any) => item !== e.target.name
-                        )
-                      );
-                      // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                      if (organisation.length <= 1) {
-                        setDisableReset({
-                          ...disableReset,
-                          organisation: true,
-                        });
+                <div key={pin} className={styles.input}>
+                  <input
+                    id={pin}
+                    name={pin}
+                    type="checkbox"
+                    onChange={(e) => {
+                      // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
+                      if (
+                        organisation.includes(e.target.name) &&
+                        !e.target.checked
+                      ) {
+                        setOrganisation(
+                          organisation.filter(
+                            (item: any) => item !== e.target.name
+                          )
+                        );
+                        // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                        if (organisation.length <= 1) {
+                          setDisableReset({
+                            ...disableReset,
+                            organisation: true,
+                          });
+                        }
                       }
-                    }
-                    // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
-                    else if (
-                      !organisation.includes(e.target.name) &&
-                      e.target.checked
-                    ) {
-                      setOrganisation([...organisation, e.target.name]);
-                      // Enable the reset button when a filter is active
-                      setDisableReset({ ...disableReset, organisation: false });
-                    }
-                  }}
-                />
-                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
-              </div>
+                      // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
+                      else if (
+                        !organisation.includes(e.target.name) &&
+                        e.target.checked
+                      ) {
+                        setOrganisation([...organisation, e.target.name]);
+                        // Enable the reset button when a filter is active
+                        setDisableReset({ ...disableReset, organisation: false });
+                      }
+                    }}
+                  />
+                  <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
+                </div>
             );
           })}
         </Collapse>
@@ -329,7 +329,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
 
           <nav className={styles.phoneWrapper}>
             <div>
-              <div style={{marginTop: "100px"}}>
+              <div style={{marginTop: "3em"}}>
                 {currentMap === "Stories" ? (
                   <h3>Kategorier</h3>
                 ) : currentMap === "Recycle" ? (

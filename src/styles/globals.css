@@ -298,3 +298,9 @@ textarea {
 .marker-cluster span {
 	line-height: 30px;
 }
+
+/* Temp solutions */
+
+.nextui-expand-content { /* Keeps child element from being cut off (Change child elements box shadow to border instead?) */
+	padding: .5em;
+}
