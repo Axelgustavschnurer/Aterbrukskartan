@@ -264,11 +264,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
       <div className={styles.smallRightContainerOpacity} />
       <div className={styles.smallRightContainer}>
-        <Tooltip content={"Till\xa0Stuns"} placement="left">
-          <a href="https://stuns.se/" target="_blank" rel="noreferrer" className={styles.stunsIcon}>
-            <Image src="/images/stuns.png" alt="Stunslogotyp" width={50} height={50} />
-          </a>
-        </Tooltip>
         <Tooltip content={"Till\xa0Stories"} placement="left">
           <Link href="/">
             <Image src="/map.svg" alt="Kart-ikon" width={50} height={50} />

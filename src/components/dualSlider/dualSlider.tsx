@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import styles from "./dualSlider.module.css";
 import { monthArray } from "@/pages/aterbruk";
 
+/* MOVE TO ASIDE */
+
 // Range slider component for filtering by years and months. Needs to be given min and max values, as well as onChange function to work.
 const MultiRangeSlider = ({ min, max, onChange, reset }: any) => {
   const [minVal, setMinVal] = useState(min);

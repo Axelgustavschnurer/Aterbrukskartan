@@ -10,14 +10,17 @@ import {
   createMobileProjectTypes,
   createLookingForFilter,
   createAvailableFilter,
+  createProjectTypeFilter,
 } from "@/components/aside/recycleSidebar";
 import {
   createMobileCategories,
   createEducationalFilter,
   createMiscFilter,
+  createCategoryFilter,
 } from "@/components/aside/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
 
+import styles from '@/components/aside/aside.module.css'
 import mobileStyles from "@/styles/mobileSidebar.module.css";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { Data } from "@/session";
@@ -335,16 +338,16 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                 ) : null}
               </div>
               {/* Buttons for choosing project types to filter by */}
-              <div className={mobileStyles.form}>
+              <div className={styles.filterButtons}>
                 {currentMap === "Stories"
-                  ? createMobileCategories(
+                  ? createCategoryFilter(
                     storyCategory,
                     setStoryCategory,
                     disableReset,
                     setDisableReset
                   )
                   : currentMap === "Recycle"
-                    ? createMobileProjectTypes(
+                    ? createProjectTypeFilter(
                       projectType,
                       setProjectType,
                       disableReset,
