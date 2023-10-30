@@ -15,12 +15,121 @@
 @media (max-width: 1000px) {
     .aside {
         margin: unset;
+        width: 100%;
+        max-height: 100%;
+        overflow: auto;
+        z-index: 3;
     }
     .aside > * {
         margin: unset;
     }
 }
 
+/* For phone */
+.phoneWrapper {
+    position: relative;
+    padding: 1em;
+    z-index: 11;
+}
+
+.background {
+    height: 4rem;
+    width: 4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1dc;
+    z-index: 10;
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+    border-radius: 50%;
+}
+
+.checkbox:checked~.background {
+    transform: scale(80);
+}
+
+.checkbox:not(:checked) ~.phoneWrapper {
+    display: none;
+}
+
+.checkbox:checked~.phoneWrapper {
+    opacity: 1;
+    width: 100%;
+    right: 0;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.icon,
+.icon::before,
+.icon::after {
+    width: 3rem;
+    height: 2px;
+    background-color: gray;
+    display: inline-block;
+}
+
+.icon::before,
+.icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+}
+
+.icon::before {
+    top: -0.8rem;
+}
+
+.icon::after {
+    top: 0.8rem;
+}
+
+.button:hover icon:before {
+    top: -1rem;
+}
+
+.button:hover icon::after {
+    top: 1rem;
+}
+
+.checkbox:checked+.button .icon {
+    background-color: transparent;
+}
+
+.checkbox:checked+.button .icon::before {
+    top: 0;
+    transform: rotate(135deg);
+}
+
+.checkbox:checked+.button .icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+}
+
+.checkbox {
+    display: none;
+}
+
+.button {
+    background-color: #ffffff;
+    height: 70px;
+    width: 70px;
+    position: fixed;
+    border-bottom-right-radius: 20px;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    text-align: center;
+    cursor: pointer;
+}
+
+/**/
 .sidebar {
     margin-bottom: 0;
     height: 75vh;

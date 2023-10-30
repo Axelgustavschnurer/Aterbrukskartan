@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import DualRangeSlider from "./dualSlider/dualSlider";
+import DualRangeSlider from "../dualSlider/dualSlider";
 import { RecycleFilter, StoryFilter } from "@/types";
 import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
@@ -21,7 +21,6 @@ import {
 import { Button, Collapse } from "@nextui-org/react";
 
 import styles from '@/components/aside/aside.module.css'
-import mobileStyles from "@/styles/mobileSidebar.module.css";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { Data } from "@/session";
 
@@ -209,7 +208,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <Collapse title="Specialisering" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((specialisation: any) => {
             return (
-              <div id={mobileStyles.inputGroupOrg} className={mobileStyles.inputGroup} key={specialisation}>
+              <div key={specialisation}>
                 <input
                   id={specialisation}
                   name={specialisation}
@@ -274,7 +273,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((pin: any) => {
             return (
-              <div id={mobileStyles.inputGroupOrg} className={mobileStyles.inputGroup} key={pin}>
+              <div key={pin}>
                 <input
                   id={pin}
                   name={pin}
@@ -322,15 +321,15 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
     <>
       {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : (
         <>
-          <input type="checkbox" id="navi-toggle" className={mobileStyles.checkbox} />
-          <label htmlFor="navi-toggle" className={mobileStyles.button}>
-            <span className={mobileStyles.icon}>&nbsp;</span>
+          <input type="checkbox" id="navi-toggle" className={styles.checkbox} />
+          <label htmlFor="navi-toggle" className={styles.button}>
+            <span className={styles.icon}>&nbsp;</span>
           </label>
-          <div className={mobileStyles.background}>&nbsp;</div>
+          <div className={styles.background}>&nbsp;</div>
 
-          <nav className={mobileStyles.nav}>
-            <div className={mobileStyles.sidebar}>
-              <div className={mobileStyles.topHeader}>
+          <nav className={styles.phoneWrapper}>
+            <div>
+              <div style={{marginTop: "100px"}}>
                 {currentMap === "Stories" ? (
                   <h3>Kategorier</h3>
                 ) : currentMap === "Recycle" ? (
@@ -356,13 +355,13 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     : null}
               </div>
 
-              <div className={mobileStyles.sidebarHeader}>
-                <div className={mobileStyles.sidebarTitle}>
+              <div>
+                <div>
                   <h3>År</h3>
                 </div>
               </div>
               {/* Range slider for year filter */}
-              <div className={mobileStyles.rSliderContainer}>
+              <div>
                 <DualRangeSlider
                   min={
                     currentMap === "Stories"
@@ -413,12 +412,12 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               {/*This is a range slider for months filter. Recycle map only */}
               {currentMap === "Recycle" ? (
                 <>
-                  <div className={mobileStyles.sidebarHeader}>
-                    <div className={mobileStyles.sidebarTitle}>
+                  <div>
+                    <div>
                       <h3>Månad</h3>
                     </div>
                   </div>
-                  <div className={mobileStyles.rSliderContainer}>
+                  <div>
                     <DualRangeSlider
                       min={1}
                       max={12}
@@ -442,11 +441,11 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               ) : null}
 
               {/* Checkboxes for filtering materials and organisations */}
-              <form className={mobileStyles.form}>
+              <form>
                 {currentMap === "Recycle" ? (
                   <span>
                     <h3>Bilaga</h3>
-                    <div className={mobileStyles.inputGroup}>
+                    <div>
                       <input
                         id="showAttached"
                         name="showAttached"
@@ -510,7 +509,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                 {/* Admin-only button to filter for disabled pins */}
                 {user && user.isAdmin && (
                   <>
-                    <div className={mobileStyles.inputGroup}>
+                    <div>
                       <input
                         id="showDisabled"
                         name="showDisabled"
@@ -531,9 +530,9 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               </form>
 
               {/* Button for clearing the current filter. Disabled when no filter is active */}
-              <div className={mobileStyles.clearFilter}>
+              <div>
                 <Button
-                  id={mobileStyles.clearBtn}
+                  id="clearBtn"
                   css={{ width: "100%" }}
                   disabled={
                     disableReset.projectType &&

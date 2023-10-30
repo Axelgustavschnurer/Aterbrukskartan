@@ -1,7 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/aside/sidebar'
-import MobileSidebar from '@/components/mobileNavbar'
+import MobileSidebar from '@/components/aside/mobileNavbar'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
