@@ -156,8 +156,8 @@ const categoryArray = ["Bygg och anläggning", "Grön energi", "Hållbarhet", "S
 function getIcon(pin: DeepStory, currentFilter: StoryFilter) {
   // Changes color of all displayed pins to match with the first matching category in the current filter, if any
   for (let i in categoryArray) {
-    for (let j in currentFilter.categoriesStories) {
-      if (currentFilter.categoriesStories && String(currentFilter.categoriesStories[j as keyof typeof currentFilter.categoriesStories])?.toLowerCase().includes(categoryArray[i].toLowerCase()) && pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
+    for (let j in currentFilter.categories) {
+      if (currentFilter.categories && String(currentFilter.categories[j as keyof typeof currentFilter.categories])?.toLowerCase().includes(categoryArray[i].toLowerCase()) && pin.categorySwedish?.toLowerCase().includes(categoryArray[i].toLowerCase())) {
         return iconArray[i]
       }
     }
