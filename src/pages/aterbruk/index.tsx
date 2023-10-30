@@ -311,7 +311,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0ut"} placement="left">
             <button className={styles.linkButton} onClick={logoutFunction}>
-              <Image src="./logout.svg" alt='Logga ut' width={50} height={50} />
+              <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={50} height={50} />
             </button>
           </Tooltip>
         </div>
@@ -322,7 +322,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0in"} placement="left">
             <button className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-              <Image src="./login.svg" alt='Logga in' width={50} height={50} />
+              <Image src="./images/adminIcons/login.svg" alt='Logga in' width={50} height={50} />
             </button>
           </Tooltip>
         </div>
@@ -334,7 +334,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <div className={styles.editPost}>
             <Tooltip content={"Redigera\xa0inlägg"} placement="left">
               <button className={styles.linkButton} onClick={goToEditPost}>
-                <Image src="./edit.svg" alt='Redigera projekt' width={50} height={50} />
+                <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={50} height={50} />
               </button>
             </Tooltip>
           </div>
@@ -342,7 +342,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <div className={styles.addNewPost}>
             <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
               <button className={styles.linkButton} onClick={goToNewPost}>
-                <Image src="./add.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+                <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={50} height={50} />
               </button>
             </Tooltip>
           </div>
@@ -355,7 +355,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <div className={styles.editUser}>
             <Tooltip content={"Redigera\xa0användare"} placement="left">
               <button className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                <Image src="./editUser.svg" alt='Redigera användare' width={50} height={50} />
+                <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={50} height={50} />
               </button>
             </Tooltip>
           </div>
@@ -363,7 +363,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <div className={styles.addUser}>
             <Tooltip content={"Lägg\xa0till\xa0ny\xa0användare"} placement="left">
               <button className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                <Image src="./addUser.svg" alt='Lägg till ny användare' width={50} height={50} />
+                <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={50} height={50} />
               </button>
             </Tooltip>
           </div>
