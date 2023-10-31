@@ -19,6 +19,8 @@ import {
 } from "@/components/aside/storiesSidebar";
 import { Button, Collapse } from "@nextui-org/react";
 import { Data } from "@/session";
+import Link from "next/link";
+import AlternatingLink from "./alternatingLink";
 
 /**
  * Sidebar component
@@ -535,6 +537,8 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
           </Button>
         </div>
       )}
+
+      <AlternatingLink currentMap={currentMap} />
 
       {/* Button for opening the sidebar when it's closed */}
       {energiportalen ? null : !isOpen && (

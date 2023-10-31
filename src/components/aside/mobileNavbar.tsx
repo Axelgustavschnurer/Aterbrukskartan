@@ -23,6 +23,7 @@ import { Button, Collapse } from "@nextui-org/react";
 import styles from '@/components/aside/aside.module.css'
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { Data } from "@/session";
+import AlternatingLink from "./alternatingLink";
 
 export default function MobileSidebar({ setFilter, currentMap, energiportalen, user }: { setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
   const [isOpen, setOpen] = useState(true);
@@ -330,6 +331,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
           <nav className={styles.phoneWrapper}>
             <div>
               <div style={{marginTop: "3em"}}>
+                <AlternatingLink currentMap={currentMap} />
                 {currentMap === "Stories" ? (
                   <h3>Kategorier</h3>
                 ) : currentMap === "Recycle" ? (

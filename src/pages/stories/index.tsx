@@ -248,15 +248,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Stories" />
 
-      <div className={styles.smallRightContainerOpacityStory} />
-      <div className={styles.smallRightContainerStory}>
-        <Tooltip content={"Till\xa0Återbruk"} placement="left">
-          <Link href="/aterbruk">
-            <Image src="/map.svg" alt="Kart-ikon" width={50} height={50} />
-          </Link>
-        </Tooltip>
-      </div>
-
       <Aside>
 
         {/* Searchbar */}

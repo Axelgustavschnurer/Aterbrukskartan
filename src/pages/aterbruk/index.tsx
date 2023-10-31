@@ -262,15 +262,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
       <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
 
-      <div className={styles.smallRightContainerOpacity} />
-      <div className={styles.smallRightContainer}>
-        <Tooltip content={"Till\xa0Stories"} placement="left">
-          <Link href="/">
-            <Image src="/map.svg" alt="Kart-ikon" width={50} height={50} />
-          </Link>
-        </Tooltip>
-      </div>
-
       <div className={styles.totalPProjects}>
       </div>
 
