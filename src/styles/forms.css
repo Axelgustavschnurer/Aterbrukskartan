@@ -60,7 +60,7 @@ form select {
 form input[type="submit"], form button {
     border-radius: 3px;
     padding: 1em 5em;
-    border: unset;
+    border: none;
     cursor: pointer;
     font-weight: bold;
 }
@@ -157,6 +157,7 @@ textarea {
 .form input[type="submit"], .form button {
     border-radius: 3px;
     padding: 1em 5em;
+    border: none;
     cursor: pointer;
     font-weight: bold;
 }

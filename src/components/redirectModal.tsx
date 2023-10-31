@@ -11,7 +11,7 @@ export default function Modal(props: any) {
       <div className={styles.modal}>
         Vilken karta vill du gå till?
         <div className={styles.btnContainer}>
-          <div className={styles.btn} onClick={(e) => window.location.href = "/"}>
+          <div className={styles.btn} onClick={(e) => window.location.href = "/stories"}>
             <button>Stories</button>
           </div>
           <div className={styles.btn} onClick={(e) => window.location.href = "/aterbruk"}>

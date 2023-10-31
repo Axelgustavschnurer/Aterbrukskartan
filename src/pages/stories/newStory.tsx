@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Prisma } from "@prisma/client";
 import LeafletAddressLookup from "@/components/findAddress";
-import { yearLimitsStories } from "../index";
+import { yearLimitsStories } from "./index";
 import LinkIcon from "@/components/buttons/backButton";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { storyCategories } from "@/components/aside/storiesSidebar";

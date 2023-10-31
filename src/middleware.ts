@@ -22,13 +22,16 @@ export async function middleware(req: NextRequest) {
 
   // Only certain users are allowed access to the stories admin pages. The stories map is located at the root of the website and is thus visible to everyone.
   if (req.nextUrl.pathname.startsWith("/stories")) {
-    // If the user is not logged in, redirect them to the login page.
-    if (!session.user) {
-      return NextResponse.redirect(new URL("/login", req.nextUrl));
-    }
+    // To go to any page other than the index stories page, the user must have permission to add/edit story items.
+    if (!(req.nextUrl.pathname.endsWith("/stories") || req.nextUrl.pathname.endsWith("/stories/"))) {
+      // If the user is not logged in, redirect them to the login page.
+      if (!session.user) {
+        return NextResponse.redirect(new URL("/login", req.nextUrl));
+      }
 
-    if (!(session.user.isStoryteller || session.user.isAdmin)) {
-      return new NextResponse(JSON.stringify({ message: "You do not have access to this page" }), { status: 403 });
+      if (!(session.user.isStoryteller || session.user.isAdmin)) {
+        return new NextResponse(JSON.stringify({ message: "You do not have access to this page" }), { status: 403 });
+      }
     }
   }
 

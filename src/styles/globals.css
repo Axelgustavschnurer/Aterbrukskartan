@@ -137,6 +137,10 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 2em 0;
 }
 
+.padding-200 {
+	padding: 2em;
+}
+
 .cursor-pointer {
 	cursor: pointer;
 }

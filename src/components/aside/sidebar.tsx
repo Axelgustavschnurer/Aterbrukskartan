@@ -5,7 +5,7 @@ import DualRangeSlider from "../dualSlider/dualSlider";
 import { RecycleFilter, StoryFilter } from "@/types";
 import Image from "next/image";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
-import { yearLimitsStories } from "@/pages";
+import { yearLimitsStories } from "@/pages/stories";
 import styles from "./aside.module.css";
 import {
   createProjectTypeFilter,

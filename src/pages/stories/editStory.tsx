@@ -10,7 +10,7 @@ import Modal from "@/components/deleteModal";
 import { basePrograms, educationalPrograms } from "./newStory";
 import { dataPortals } from "./newStory";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import { yearLimitsStories } from "..";
+import { yearLimitsStories } from ".";
 import { storyCategories } from "@/components/aside/storiesSidebar";
 import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";

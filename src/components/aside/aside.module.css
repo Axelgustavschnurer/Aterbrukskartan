@@ -463,14 +463,6 @@
 }
 
 @media screen and (min-width: 2000px) {
-    .sidebar {
-        width: 15%;
-    }
-
-    .sidebarClose {
-        left: calc(15% + 10px);
-    }
-
     @keyframes moveHideButton {
         0% {
             left: 12%;

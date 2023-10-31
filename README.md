@@ -117,7 +117,7 @@ This is done automatically by a pipeline once you merge your changes to the mast
 
 If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
 
-- [https://maps.stuns.se](https://maps.stuns.se) - Stories map.
+- [https://maps.stuns.se/stories](https://maps.stuns.se) - Stories map.
 - [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the Stories map, to be viewed from within the iframes of Energiportalen.
 - [https://maps.stuns.se/aterbruk](https://maps.stuns.se/aterbruk) - Återbrukskartan.
 - [https://maps.stuns.se/download](https://maps.stuns.se/download) - Page where you can download data from the database, both in current format and the old format used at dataportalen.
