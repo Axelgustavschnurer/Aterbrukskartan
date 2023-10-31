@@ -4,7 +4,7 @@ import styles from '@/styles/index.module.css'
 export default function Page() {
     return <>
         <main>
-            <div className="display-flex" style={{color: "white"}}>
+            <div className={styles.gridAutoRowsHome} style={{color: "white"}}>
                 <section className={`flex-grow-100 display-flex align-items-center ${styles.featured}`}>
                     <div className={styles.featuredOverlay}></div>
                     <img src="/images/backgrounds/stories.jpg" alt="" className={styles.featuredImage}/>
@@ -27,7 +27,7 @@ export default function Page() {
             <section className="layout-main padding-200">
                 <h1 style={{fontSize: "2em"}}>STUNS Kartor</h1>
                 <p style={{fontSize: "1.25em"}}>En samling kartor framtagna av STUNS</p>
-                <div className="display-flex gap-100 flex-wrap-wrap">
+                <div className="display-flex gap-200 flex-wrap-wrap">
                     <a href="/stories" className={styles.linkCard}> 
                         <img src="/images/backgrounds/stories.jpg" alt="" style={{borderRadius: ".5em .5em 0 0", width: "100%", height: "200px", objectFit: "cover"}} />
                         <div style={{padding: "1em"}}>
