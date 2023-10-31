@@ -28,20 +28,20 @@ export default function Page() {
                 <h1 style={{fontSize: "2em"}}>STUNS Kartor</h1>
                 <p style={{fontSize: "1.25em"}}>En samling kartor framtagna av STUNS</p>
                 <div className="display-flex gap-200 flex-wrap-wrap">
-                    <a href="/stories" className={styles.linkCard}> 
+                    <Link href="/stories" className={styles.linkCard}> 
                         <img src="/images/backgrounds/stories.jpg" alt=""/>
                         <div>
                             <strong>STUNS Stories</strong>
                             <p>Upptäck hur studenter löser framtidens hållbarhetsutmaningar.</p>
                         </div>
-                    </a>
-                    <a href="/aterbruk" className={styles.linkCard} >
+                    </Link>
+                    <Link href="/aterbruk" className={styles.linkCard} >
                         <img src="/images/backgrounds/återbruk.jpg" alt="" />
                         <div>
                             <strong>Återbrukskartan</strong>
                             <p>Verktyg för att utnyttja återvunnit material vid nybygge.</p>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </section>
         </main>
