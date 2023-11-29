@@ -7,7 +7,7 @@ export default function Page() {
             <div className={styles.gridAutoRowsHome} style={{color: "white"}}>
                 <section className={`flex-grow-100 display-flex align-items-center ${styles.featured}`}>
                     <div className={styles.featuredOverlay}></div>
-                    <img src="/images/backgrounds/stories.jpg" alt="" className={styles.featuredImage}/>
+                    <img src="/images/backgrounds/stories_m.webp" alt="" className={styles.featuredImage}/>
                     <div className="padding-200">
                         <h2 style={{fontSize: "2em"}}>STUNS Stories</h2>
                         <p style={{fontSize: "1.25em"}}>Upptäck hur studenter löser framtidens hållbarhetsutmaningar.</p>
@@ -16,7 +16,7 @@ export default function Page() {
                 </section>
                 <section className={`flex-grow-100 display-flex align-items-center ${styles.featured}`}>
                     <div className={styles.featuredOverlay}></div>
-                    <img src="/images/backgrounds/återbruk.jpg" alt="" className={styles.featuredImage} />
+                    <img src="/images/backgrounds/återbruk_m.webp" alt="" className={styles.featuredImage} />
                     <div className="padding-200">
                         <h2 style={{fontSize: "2em"}}>Återbrukskartan</h2>
                         <p style={{fontSize: "1.25em"}}>Verktyg för att utnyttja återvunnit material vid nybygge.</p>
@@ -29,14 +29,14 @@ export default function Page() {
                 <p style={{fontSize: "1.25em"}}>En samling kartor framtagna av STUNS</p>
                 <div className="display-flex gap-200 flex-wrap-wrap">
                     <Link href="/stories" className={styles.linkCard}> 
-                        <img src="/images/backgrounds/stories.jpg" alt=""/>
+                        <img src="/images/backgrounds/stories_s.webp" alt=""/>
                         <div>
                             <strong>STUNS Stories</strong>
                             <p>Upptäck hur studenter löser framtidens hållbarhetsutmaningar.</p>
                         </div>
                     </Link>
                     <Link href="/aterbruk" className={styles.linkCard} >
-                        <img src="/images/backgrounds/återbruk.jpg" alt="" />
+                        <img src="/images/backgrounds/återbruk_s.webp" alt="" />
                         <div>
                             <strong>Återbrukskartan</strong>
                             <p>Verktyg för att utnyttja återvunnit material vid nybygge.</p>
