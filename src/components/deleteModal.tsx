@@ -11,14 +11,18 @@ export default function Modal(props: any) {
   return (
     <div className={`${styles.container} ${modalState ? styles.active : ''}`}>
       <div className={styles.modal}>
-        Vill du verkligen ta bort detta inlägg?
+        <h2 style={{marginTop: "0"}}>Vill du verkligen ta bort detta inlägg?</h2>
+        <p>Du håller på att ta bort ett inlägg, är du säker att du vill göra detta?</p>
+        <div style={{backgroundColor: "pink", borderLeft: "5px solid var(--danger)", padding: "1em", borderRadius: "0 3px 3px 0"}}>
+          <div style={{display: "flex", gap: "2em", alignItems: "center", justifyContent: "flex-start"}}>
+            <img src="/alert.svg" alt="warning" height={24} width={24} style={{width: "unset", margin: "unset"}}/>
+            <span style={{width: "unset", margin: "unset", fontSize: "24px"}}>Varning</span>
+          </div>
+          <p style={{marginBottom: "0"}}>Det går ej att ångra detta val.</p>
+        </div>
         <div className={styles.btnContainer}>
-          <div className={styles.btn} onClick={handleDelete}>
-            <button className="danger">Ta bort</button>
-          </div>
-          <div className={styles.btn} onClick={action}>
-            <button>Avbryt</button>
-          </div>
+            <button style={{backgroundColor: "var(--light)", color: "black"}} onClick={action}>Avbryt</button>
+            <button className="danger" style={{flexGrow: "unset", padding: "1em"}} onClick={handleDelete}>Radera</button>
         </div>
       </div>
     </div >
