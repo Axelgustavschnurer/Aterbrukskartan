@@ -542,14 +542,14 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             <strong>Plats</strong>
             { // The map switch is hidden if no project is selected (by checking if mapItem exists)
               !!selectedRecycleObject.mapItem &&
-              <div className="display-flex align-items-center gap-50">
+              <label className="switch" style={{width: "60px"}}>
                 <input
-                  id="switch-1"
-                  type="checkbox"
-                  onChange={(e) => setLocationToggle(e.target.checked)}
-                />
-                <label htmlFor="switch-1">Switch</label>
-              </div>}
+                      id="switch-1"
+                      type="checkbox"
+                      onChange={(e) => setLocationToggle(e.target.checked)}
+                    />
+                <span className="slider round" style={{margin: "unset"}}></span>
+              </label>}
             {
               locationToggle === true ?
                 <>

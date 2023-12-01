@@ -449,15 +449,15 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
 
             {/* Position selection */}
             <strong>Plats *</strong>
-            <div className="display-flex align-items-center gap-50">
+            <label className="switch" style={{width: "60px"}}>
               <input
                 id="switch-1"
                 type="checkbox"
                 onChange={(e) => setLocationToggle(e.target.checked)}
               />
+              <span className="slider round" style={{margin: "unset"}}></span>
               {/* A toggle for switching between the map and the address lookup */}
-              <label htmlFor="switch-1">Switch</label>
-            </div>
+            </label>
 
             {
               locationToggle === true ?

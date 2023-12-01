@@ -512,14 +512,14 @@ export default function EditStory() {
             <strong>Plats</strong>
             { // The map switch is hidden if no project is selected (by checking if mapItem exists)
               !!selectedStoryObject.mapItem &&
-              <div>
+              <label className="switch" style={{width: "60px"}}>
                 <input
                   id="switch-1"
                   type="checkbox"
                   onChange={(e) => setLocationToggle(e.target.checked)}
                 />
-                <label htmlFor="switch-1">Switch</label>
-              </div>}
+                <span className="slider round" style={{margin: "unset"}}></span>
+              </label>}
             {
               locationToggle === true ?
                 <>
