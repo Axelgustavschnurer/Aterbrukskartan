@@ -9,14 +9,10 @@ export default function Modal(props: any) {
   return (
     <div className={`${styles.container} ${modalState ? styles.active : ''}`}>
       <div className={styles.modal}>
-        Vilken karta vill du gå till?
+        <h1>Vilken karta vill du gå till?</h1>
         <div className={styles.btnContainer}>
-          <div className={styles.btn} onClick={(e) => window.location.href = "/stories"}>
-            <button>Stories</button>
-          </div>
-          <div className={styles.btn} onClick={(e) => window.location.href = "/aterbruk"}>
-            <button>Återbruk</button>
-          </div>
+          <button onClick={(e) => window.location.href = "/stories"} style={{backgroundColor: "#f90"}}>Stories</button>
+          <button onClick={(e) => window.location.href = "/aterbruk"} style={{backgroundColor: "darkseagreen"}}>Återbruk</button>
         </div>
       </div>
     </div >

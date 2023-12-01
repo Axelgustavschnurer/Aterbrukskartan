@@ -571,12 +571,16 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                 />
             }
 
-            <strong>Erbjuds</strong>
-            {offers()}
-
-            <strong>Sökes</strong>
-            {searchingFors()}
-
+            <div style={{display: "flex", gap: "3em", flexWrap: "wrap"}}>
+              <div>
+                <strong>Erbjuds</strong>
+                {offers()}
+              </div>
+              <div>
+                <strong>Sökes</strong>
+                {searchingFors()}
+              </div>
+            </div>
 
             <label htmlFor="description">Beskrivning</label>
             <textarea

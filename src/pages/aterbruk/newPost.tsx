@@ -479,11 +479,16 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             }
 
             {/* Offered and wanted material selection */}
-            <strong>Erbjuds</strong>
-            {offers()}
-
-            <strong>Sökes</strong>
-            {searchingFors()}
+            <div style={{display: "flex", gap: "3em", flexWrap: "wrap"}}>
+              <div>
+                <strong>Erbjuds</strong>
+                {offers()}
+              </div>
+              <div>
+                <strong>Sökes</strong>
+                {searchingFors()}
+              </div>
+            </div>
 
             {/* Description */}
             <label htmlFor="description">Beskrivning *</label>
