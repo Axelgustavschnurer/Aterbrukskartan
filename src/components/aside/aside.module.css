@@ -4,8 +4,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    margin: 1em;
+    padding: 1em 1em 1em;
     z-index: 2;
+    max-height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.aside::-webkit-scrollbar {
+    display: none;
 }
 
 .aside > * {
@@ -257,7 +264,7 @@
     justify-content: center;
     position: fixed;
     top: calc(100% / 2 - 47px);
-    left: calc(400px + 1em);
+    left: calc(400px - 1em);
     animation: moveOpenButton 0.2s;
 }
 
@@ -490,7 +497,8 @@
 
 /* Link for Stories / Återbruk */
 .alternatingLink {
-
+    display: block;
+    width: fit-content;
     text-decoration: none; 
     font-weight: bold; 
     background-color: rgba(0, 0, 0, .9); 
