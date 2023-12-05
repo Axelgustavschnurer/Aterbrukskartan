@@ -1,13 +1,4 @@
 /* Rangeslider */
-
-.rangeSliderContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 60px 0;
-    position: relative;
-}
-
 .slider {
     position: relative;
     width: 100%;
@@ -17,25 +8,26 @@
 .sliderTrack,
 .sliderRange {
     position: absolute;
-    border-radius: 1em;
+    height: 100%;
+    width: 100%;
+    border-radius: 9999px;
 }
 
 .sliderTrack {
-    background-color: var(--accent);
-    height: 100%;
-    width: 100%;
     z-index: 1;
 }
 
 .sliderRange {
-    background-color: var(--accent);
     z-index: 2;
 }
 
-.sliderValues {
+.values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     font-weight: bold;
 }
-
 
 /* Removing the default slider appearance */
 .thumb,
@@ -45,42 +37,39 @@
 }
 
 .thumb {
+    margin: 0;
+    background-color: transparent;
     pointer-events: none;
     position: absolute;
-    top: 4px; /* Magic number, replace if someone figures out how */
-    height: 0;
+    height: 100%;
     width: 100%;
-    outline: none;
+    top: 50%;
+    transform: translate(0, -50%);
     z-index: 4;
 }
 
-/* For Chrome browsers */
+/* Range slider thumb apperance */
 .thumb::-webkit-slider-thumb {
     background-color: var(--accent);
-    outline: 2px solid black;
+    border: none;
     border-radius: 50%;
-    cursor: grab;
+    outline: 2px solid black;
+    cursor: pointer;
     height: 20px;
     width: 20px;
-    position: relative;
     pointer-events: all;
+    position: relative;
 }
 
-.thumb::-webkit-slider-thumb:active {
-    cursor: grabbing;
-}
-
-/* For Firefox browsers */
 .thumb::-moz-range-thumb {
     background-color: var(--accent);
-    outline: 2px solid black;
+    border: none;
     border-radius: 50%;
-    cursor: grab;
+    outline: 2px solid black;
+    cursor: pointer;
     height: 20px;
     width: 20px;
+    pointer-events: all;
     position: relative;
 }
 
-.thumb::-moz-range-thumb:active {
-    cursor: pointer;
-}
