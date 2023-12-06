@@ -252,7 +252,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
         {/* Searchbar */}
         {!isMobile ?
-          <div style={{position: "relative"}}>
+          <div style={{position: "relative", marginTop: "0"}}>
             <input
               type="search"
               className={styles.searchTerm}

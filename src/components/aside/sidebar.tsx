@@ -206,7 +206,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
     if (currentFilter.projectType?.length) {
       if (currentFilter.projectType.length > maxCategoryAmount) {
         return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.length} projekttyper</Badge>
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone", }}>{currentFilter.projectType.length} projekttyper</Badge>
         )
       }
       else {
@@ -507,29 +507,6 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
   return (
     <>
-      {currentMap === "Stories" ? (
-        <div className={styles.filterTextContent}>
-          <div className={styles.filterTextContainer}>
-            {categoryLabel()}
-            {yearLabel()}
-            {contentLabel()}
-            {educationLabel()}
-            {organisationLabel()}
-          </div>
-        </div>
-      ) : currentMap === "Recycle" ? (
-        <div className={styles.filterTextContent}>
-          <div className={styles.filterTextContainer}>
-            {projectTypeLabel()}
-            {yearLabel()}
-            {monthLabel()}
-            {lookingForMaterialsLabel()}
-            {availableMaterialsLabel()}
-            {organisationLabel()}
-            {showInactiveLabel()}
-          </div>
-        </div>
-      ) : null}
       {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
         <div className={styles.sidebar}>
           <div>
@@ -813,6 +790,26 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
           </Button>
         </div>
       )}
+
+      {currentMap === "Stories" ? (
+        <div style={{display: 'flex', flexWrap: 'wrap', gap: '.25em'}}>
+            {categoryLabel()}
+            {yearLabel()}
+            {contentLabel()}
+            {educationLabel()}
+            {organisationLabel()}
+        </div>
+      ) : currentMap === "Recycle" ? (
+        <div style={{display: 'flex', flexWrap: 'wrap' , gap: '.25em'}}>
+            {projectTypeLabel()}
+            {yearLabel()}
+            {monthLabel()}
+            {lookingForMaterialsLabel()}
+            {availableMaterialsLabel()}
+            {organisationLabel()}
+            {showInactiveLabel()}
+        </div>
+      ) : null}
 
       <AlternatingLink currentMap={currentMap} />
 
