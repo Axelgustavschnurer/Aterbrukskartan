@@ -279,23 +279,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
           </div> : null}
 
-        {!isMobile ? <Sidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
+        {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
       </Aside>
-
-      {/* Badges showing currently avtive filters, if any */}
-      {!isMobile ?
-        <div className={styles.filterTextContent}>
-          <div className={styles.filterTextContainer}>
-            {projectTypeLabel()}
-            {yearLabel()}
-            {monthLabel()}
-            {lookingForMaterialsLabel()}
-            {availableMaterialsLabel()}
-            {organisationLabel()}
-            {showInactiveLabel()}
-          </div>
-        </div>
-        : null}
 
       {/* Logout button */}
       {user && (

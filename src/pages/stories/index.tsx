@@ -264,21 +264,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           </div> : null}
 
         {/* Sidebar */}
-        {!isMobile ? <Sidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
+        {!isMobile ? <Sidebar maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} /> : <MobileSidebar setFilter={setFilter} energiportalen={energiportalen} currentMap="Stories" user={user} />}
       </Aside>
-
-      {/* Labels showing currently avtive filters, if any */}
-      {!isMobile ?
-        <div className={styles.filterTextContent}>
-          <div className={styles.filterTextContainer}>
-            {categoryLabel()}
-            {yearLabel()}
-            {contentLabel()}
-            {educationLabel()}
-            {organisationLabel()}
-          </div>
-        </div>
-        : null}
 
       {/* Logout button */}
       {user && (

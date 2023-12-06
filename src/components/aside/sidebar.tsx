@@ -17,10 +17,14 @@ import {
   createEducationalFilter,
   createMiscFilter,
 } from "@/components/aside/storiesSidebar";
-import { Button, Collapse } from "@nextui-org/react";
+import { Badge, Button, Collapse } from "@nextui-org/react";
 import { Data } from "@/session";
 import Link from "next/link";
 import AlternatingLink from "./alternatingLink";
+
+
+// TODO: Label functions exist both here and in index.tsx, fix this
+// TODO: Label functions should probably not work that way :)
 
 /**
  * Sidebar component
@@ -30,7 +34,7 @@ import AlternatingLink from "./alternatingLink";
  * @param user Object containing the user's session data
  * @returns JSX.Element
  */
-export default function Sidebar({ setFilter, currentMap, energiportalen, user }: { setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
+export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, setFilter, currentMap, energiportalen, user }: { monthArray?: any, maxCategoryAmount: any, currentFilter: any, setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);
 
@@ -77,7 +81,6 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
   const [lookingForMaterials, setLookingForMaterials] = useState(
     [] as string[]
   );
-
   // List of all active filters for the field `availableMaterials`
   const [availableMaterials, setAvailableMaterials] = useState([] as string[]);
 
@@ -192,6 +195,256 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
     showAttachment,
   ]);
 
+
+  /**
+     * Returns a Badge component from nextui with the currently active project type filters, if any
+     * 
+     * If the amount of selected categories is greater than maxCategoryAmount, the label will be compacted
+     * to only display the amount of selected projecttypes
+     */
+  const projectTypeLabel = () => {
+    if (currentFilter.projectType?.length) {
+      if (currentFilter.projectType.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.length} projekttyper</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active year filters, if any
+   * 
+   * If the year slider is at its default value, the label will not be displayed
+   * If the year slider is at a value where the min and max values are the same, the label will be compacted to only display the single year
+   */
+  const yearLabel = () => {
+    if (currentMap == 'Recycle') {
+      if (currentFilter.years?.length) {
+        if (Math.min(...currentFilter.years) === yearLimitsRecycle.min && Math.max(...currentFilter.years) === yearLimitsRecycle.max) {
+          return null;
+        }
+        else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
+          return (
+            <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {currentFilter.years[0]}</Badge>
+          )
+        }
+        else {
+          return (
+            <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</Badge>
+          )
+        }
+      }
+    }
+    if (currentMap == 'Stories') {
+      if (currentFilter.years?.length) {
+        if (Math.min(...currentFilter.years) === yearLimitsStories.min && Math.max(...currentFilter.years) === yearLimitsStories.max) {
+          return null;
+        }
+        else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
+          return (
+            <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {currentFilter.years[0]}</Badge>
+          )
+        }
+        else {
+          return (
+            <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</Badge>
+          )
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active month filters, if any
+   * 
+   * If the month slider is at its default value, the label will not be displayed
+   * If the month slider is at a value where the min and max values are the same, the label will be compacted to only display the single month
+   */
+  const monthLabel = () => {
+    if (currentFilter.months?.length) {
+      if (Math.min(...currentFilter.months) === 1 && Math.max(...currentFilter.months) === 12) {
+        return null;
+      }
+      else if (currentFilter.months[0] === currentFilter.months[1] && currentFilter.months[0] !== undefined) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månad: {monthArray[currentFilter.months[0] - 1]}</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månader: {monthArray[Math.min(...currentFilter.months) - 1]} - {monthArray[Math.max(...currentFilter.months) - 1]}</Badge>
+        )
+      }
+    }
+  }
+
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding materials that are being searched for by the projects on the map, if any
+   * 
+   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected material categories
+   */
+  const lookingForMaterialsLabel = () => {
+    if (currentFilter.lookingForCategories?.length) {
+      if (currentFilter.lookingForCategories.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding available materials, if any
+   * 
+   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected material categories
+   */
+  const availableMaterialsLabel = () => {
+    if (currentFilter.availableCategories?.length) {
+      if (currentFilter.availableCategories.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding organisations, if any
+   * 
+   * If the amount of selected organisations is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected organisations, Works for both Stories and Recycle
+   */
+  const organisationLabel = () => {
+    if (currentFilter.organisation?.length) {
+      if (currentFilter.organisation.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>{currentFilter.organisation.length} Organisationer</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>Organisationer: {currentFilter.organisation.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding showing inactive projects, if any
+   * 
+   * If the showInactive filter is true, the label will be displayed
+   */
+  const showInactiveLabel = () => {
+    if (currentFilter.showInactive) {
+      return (
+        <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "black", color: "bone" }}>Visar inaktiva objekt</Badge>
+      )
+    }
+  }
+
+
+  /**
+   * Returns a Badge component from nextui with the currently active category filters, if any
+   * 
+   * If the amount of selected categories is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected projecttypes
+   */
+  const categoryLabel = () => {
+    if (currentFilter.categories?.length) {
+      if (currentFilter.categories.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.categories.length} Kategorier</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>Kategorier: {currentFilter.categories.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding project contents, if any
+   * 
+   * If the amount of selected project contents is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected project contents
+   */
+  const contentLabel = () => {
+    if (currentFilter.report || currentFilter.video || currentFilter.cases || currentFilter.openData || currentFilter.energyStory || currentFilter.solarData && !energiportalen) {
+      let content = []
+      if (currentFilter.report) {
+        content.push("Rapport")
+      }
+      if (currentFilter.video) {
+        content.push("Video")
+      }
+      if (currentFilter.cases) {
+        content.push("Case")
+      }
+      if (currentFilter.openData) {
+        content.push("Öppna data")
+      }
+      if (currentFilter.energyStory) {
+        content.push("Story")
+      }
+      if (currentFilter.solarData) {
+        content.push("Energiportalen")
+      }
+      if (content.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>{content.length} innehåll</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Projekt innehåll: {content.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+  /**
+   * Returns a Badge component from nextui with the currently active filters regarding educational programs, if any
+   * 
+   * If the amount of selected educational programs is greater than maxCategoryAmount, the label will be compacted
+   * to only display the amount of selected educational programs
+  */
+  const educationLabel = () => {
+    if (currentFilter.educationalProgram?.length) {
+      if (currentFilter.educationalProgram.length > maxCategoryAmount) {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>{currentFilter.educationalProgram.length} Utbildningar</Badge>
+        )
+      }
+      else {
+        return (
+          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Utbildningar: {currentFilter.educationalProgram.join(", ")}</Badge>
+        )
+      }
+    }
+  }
+
+
   /**
    * Creates checkboxes for all the different organisations in the database
    */
@@ -243,7 +496,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                     }
                   }}
                 />
-                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
+                <label htmlFor={pin} style={{ margin: "0", }}>{pin}</label>
               </div>
             );
           })}
@@ -254,6 +507,29 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
 
   return (
     <>
+      {currentMap === "Stories" ? (
+        <div className={styles.filterTextContent}>
+          <div className={styles.filterTextContainer}>
+            {categoryLabel()}
+            {yearLabel()}
+            {contentLabel()}
+            {educationLabel()}
+            {organisationLabel()}
+          </div>
+        </div>
+      ) : currentMap === "Recycle" ? (
+        <div className={styles.filterTextContent}>
+          <div className={styles.filterTextContainer}>
+            {projectTypeLabel()}
+            {yearLabel()}
+            {monthLabel()}
+            {lookingForMaterialsLabel()}
+            {availableMaterialsLabel()}
+            {organisationLabel()}
+            {showInactiveLabel()}
+          </div>
+        </div>
+      ) : null}
       {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
         <div className={styles.sidebar}>
           <div>
@@ -282,7 +558,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
             </div>
 
             <h3>År</h3>
-            
+
             {/* Range slider for year filter */}
             <div className={styles.rSliderContainer}>
               <DualRangeSlider
@@ -381,7 +657,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                         }
                       }}
                     />
-                    <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
+                    <label htmlFor="showAttached" style={{ margin: "0", }}>Visa bara inlägg med bilaga</label>
                   </div>
                 </>
               ) : null}
@@ -452,7 +728,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
                         }
                       }}
                     />
-                    <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
+                    <label htmlFor="showDisabled" style={{ margin: "0", }}>Visa bara inaktiva inlägg</label>
                   </div>
                 </>
               )
@@ -474,7 +750,7 @@ export default function Sidebar({ setFilter, currentMap, energiportalen, user }:
         </div>
       )}
 
-        {/* Button for clearing the current filter. Disabled when no filter is active */}
+      {/* Button for clearing the current filter. Disabled when no filter is active */}
       {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : isOpen && (
         <div className={styles.clearFilter}>
           <Button
