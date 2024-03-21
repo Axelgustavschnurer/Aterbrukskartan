@@ -512,13 +512,13 @@ export default function EditStory() {
             <strong>Plats</strong>
             { // The map switch is hidden if no project is selected (by checking if mapItem exists)
               !!selectedStoryObject.mapItem &&
-              <label className="switch" style={{width: "60px"}}>
+              <label className="switch" style={{ width: "60px" }}>
                 <input
                   id="switch-1"
                   type="checkbox"
                   onChange={(e) => setLocationToggle(e.target.checked)}
                 />
-                <span className="slider round" style={{margin: "unset"}}></span>
+                <span className="slider round" style={{ margin: "unset" }}></span>
               </label>}
             {
               locationToggle === true ?
@@ -631,11 +631,11 @@ export default function EditStory() {
             {/* Submit and delete button */}
             <div className="display-flex gap-50 flex-wrap-wrap">
               <input type="submit" id="save" onClick={handleSubmit} value="spara" />
-              <button id="remove" onClick={handleDeleteModalOnclick} className="danger"> Ta bort story </button>
+              <button type="button" id="remove" onClick={handleDeleteModalOnclick} className="danger"> Ta bort story </button>
             </div>
             <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
           </div>
-          
+
         </main>
       </div>
 

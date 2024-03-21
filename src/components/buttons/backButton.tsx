@@ -13,7 +13,7 @@ export default function LinkIcon({
   const router = useRouter()
   return (
     <>
-      <button onClick={() => router.back()} className={styles.backButton}>
+      <button type="button" onClick={() => router.back()} className={styles.backButton}>
         <Image src={src} alt={alt} width={35} height={35} />
       </button>
     </>

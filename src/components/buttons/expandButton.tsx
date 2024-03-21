@@ -26,9 +26,10 @@ export default function ExpandButton({ children }: { children: ReactNode }) {
   return (
     <>
       {isOpen && (
-        <div  style={{position: "absolute", bottom: "0", left: "0", width: "100%"}}>
-          <div style={{position: "relative", top: "0"}} >
+        <div style={{ position: "absolute", bottom: "0", left: "0", width: "100%" }}>
+          <div style={{ position: "relative", top: "0" }} >
             <button
+              type="button"
               id="hideBtn"
               className={styles.button}
               onClick={toggleMenu}>
@@ -40,8 +41,9 @@ export default function ExpandButton({ children }: { children: ReactNode }) {
       )
       }
       {!isOpen && (
-        <div style={{position: "absolute", bottom: "0", width: "100%"}}>
+        <div style={{ position: "absolute", bottom: "0", width: "100%" }}>
           <button
+            type="button"
             id="openBtn"
             className={styles.button}
             onClick={toggleMenu}>

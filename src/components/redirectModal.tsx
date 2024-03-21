@@ -11,8 +11,8 @@ export default function Modal(props: any) {
       <div className={styles.modal}>
         <h1>Vilken karta vill du gå till?</h1>
         <div className={styles.btnContainer}>
-          <button onClick={(e) => window.location.href = "/stories"} style={{backgroundColor: "#f90"}}>Stories</button>
-          <button onClick={(e) => window.location.href = "/aterbruk"} style={{backgroundColor: "darkseagreen"}}>Återbruk</button>
+          <button type="button" onClick={(e) => window.location.href = "/stories"} style={{ backgroundColor: "#f90" }}>Stories</button>
+          <button type="button" onClick={(e) => window.location.href = "/aterbruk"} style={{ backgroundColor: "darkseagreen" }}>Återbruk</button>
         </div>
       </div>
     </div >

@@ -252,7 +252,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
         {/* Searchbar */}
         {!isMobile ?
-          <div style={{position: "relative", marginTop: "0"}}>
+          <div style={{ position: "relative", marginTop: "0" }}>
             <input
               type="search"
               className={styles.searchTerm}
@@ -271,7 +271,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       {user && (
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0ut"} placement="left">
-            <button className={styles.linkButton} onClick={logoutFunction}>
+            <button type="button" className={styles.linkButton} onClick={logoutFunction}>
               <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={50} height={50} />
             </button>
           </Tooltip>
@@ -282,7 +282,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       {!user && (
         <div className={styles.logout}>
           <Tooltip content={"Logga\xa0in"} placement="left">
-            <button className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
+            <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
               <Image src="./images/adminIcons/login.svg" alt='Logga in' width={50} height={50} />
             </button>
           </Tooltip>
@@ -294,7 +294,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <>
           <div className={styles.editPost}>
             <Tooltip content={"Redigera\xa0en\xa0story"} placement="left">
-              <button className={styles.linkButton} onClick={goToEditStory}>
+              <button type="button" className={styles.linkButton} onClick={goToEditStory}>
                 <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={50} height={50} />
               </button>
             </Tooltip>
@@ -302,7 +302,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
           <div className={`${styles.addNewPost}`}>
             <Tooltip content={"Lägg\xa0till\xa0ny\xa0story"} placement="left">
-              <button className={styles.linkButton} onClick={goToNewStory}>
+              <button type="button" className={styles.linkButton} onClick={goToNewStory}>
                 <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till ny story' width={50} height={50} />
               </button>
             </Tooltip>
@@ -315,7 +315,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <>
           <div className={styles.editUser}>
             <Tooltip content={"Redigera\xa0användare"} placement="left">
-              <button className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
+              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
                 <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={50} height={50} />
               </button>
             </Tooltip>
@@ -323,7 +323,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
           <div className={styles.addUser}>
             <Tooltip content={"Lägg\xa0till\xa0ny\xa0användare"} placement="left">
-              <button className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
+              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
                 <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={50} height={50} />
               </button>
             </Tooltip>

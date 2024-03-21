@@ -714,7 +714,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
             {/* Button for closing the sidebar */}
             <div className={styles.sidebarClose}>
-              <button id={styles.hideBtn} onClick={toggleMenu}>
+              <button type="button" id={styles.hideBtn} onClick={toggleMenu}>
                 <Image
                   src="/closeArrow.svg"
                   alt="Closing arrow"
@@ -792,22 +792,22 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
       )}
 
       {currentMap === "Stories" ? (
-        <div style={{display: 'flex', flexWrap: 'wrap', gap: '.25em'}}>
-            {categoryLabel()}
-            {yearLabel()}
-            {contentLabel()}
-            {educationLabel()}
-            {organisationLabel()}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.25em' }}>
+          {categoryLabel()}
+          {yearLabel()}
+          {contentLabel()}
+          {educationLabel()}
+          {organisationLabel()}
         </div>
       ) : currentMap === "Recycle" ? (
-        <div style={{display: 'flex', flexWrap: 'wrap' , gap: '.25em'}}>
-            {projectTypeLabel()}
-            {yearLabel()}
-            {monthLabel()}
-            {lookingForMaterialsLabel()}
-            {availableMaterialsLabel()}
-            {organisationLabel()}
-            {showInactiveLabel()}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.25em' }}>
+          {projectTypeLabel()}
+          {yearLabel()}
+          {monthLabel()}
+          {lookingForMaterialsLabel()}
+          {availableMaterialsLabel()}
+          {organisationLabel()}
+          {showInactiveLabel()}
         </div>
       ) : null}
 
@@ -817,7 +817,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
       {energiportalen ? null : !isOpen && (
         <div className={styles.hiddenSidebar}>
           <div className={styles.sidebarOpen}>
-            <button id={styles.openBtn} onClick={toggleMenu}>
+            <button type="button" id={styles.openBtn} onClick={toggleMenu}>
               <Image
                 src="/openArrow.svg"
                 alt="Open arrow"

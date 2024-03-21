@@ -449,13 +449,13 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
 
             {/* Position selection */}
             <strong>Plats *</strong>
-            <label className="switch" style={{width: "60px"}}>
+            <label className="switch" style={{ width: "60px" }}>
               <input
                 id="switch-1"
                 type="checkbox"
                 onChange={(e) => setLocationToggle(e.target.checked)}
               />
-              <span className="slider round" style={{margin: "unset"}}></span>
+              <span className="slider round" style={{ margin: "unset" }}></span>
               {/* A toggle for switching between the map and the address lookup */}
             </label>
 
@@ -479,7 +479,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             }
 
             {/* Offered and wanted material selection */}
-            <div style={{display: "flex", gap: "3em", flexWrap: "wrap"}}>
+            <div style={{ display: "flex", gap: "3em", flexWrap: "wrap" }}>
               <div>
                 <strong>Erbjuds</strong>
                 {offers()}
@@ -525,7 +525,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             {/* Attachments */}
             <label htmlFor="fileUpload"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" name="file" id="fileUpload" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
-            <button id="removeFileButton" className="danger-secondary" onClick={() => {
+            <button type="button" id="removeFileButton" className="danger-secondary" onClick={() => {
               let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
               let container = new DataTransfer();
               fileInput.files = container.files;
@@ -567,7 +567,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
           </form >
         </main>
       </div>
-      
+
       {/* Footer */}
       <Footer />
 

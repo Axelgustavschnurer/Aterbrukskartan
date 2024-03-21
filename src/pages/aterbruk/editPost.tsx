@@ -542,13 +542,13 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             <strong>Plats</strong>
             { // The map switch is hidden if no project is selected (by checking if mapItem exists)
               !!selectedRecycleObject.mapItem &&
-              <label className="switch" style={{width: "60px"}}>
+              <label className="switch" style={{ width: "60px" }}>
                 <input
-                      id="switch-1"
-                      type="checkbox"
-                      onChange={(e) => setLocationToggle(e.target.checked)}
-                    />
-                <span className="slider round" style={{margin: "unset"}}></span>
+                  id="switch-1"
+                  type="checkbox"
+                  onChange={(e) => setLocationToggle(e.target.checked)}
+                />
+                <span className="slider round" style={{ margin: "unset" }}></span>
               </label>}
             {
               locationToggle === true ?
@@ -571,7 +571,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                 />
             }
 
-            <div style={{display: "flex", gap: "3em", flexWrap: "wrap"}}>
+            <div style={{ display: "flex", gap: "3em", flexWrap: "wrap" }}>
               <div>
                 <strong>Erbjuds</strong>
                 {offers()}
@@ -617,7 +617,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             <label htmlFor="uploadFile"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
             <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
 
-            <button id="removeFileButton" className="danger-secondary" onClick={() => {
+            <button type="button" id="removeFileButton" className="danger-secondary" onClick={() => {
               let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
               let container = new DataTransfer();
               fileInput.files = container.files;
@@ -627,7 +627,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             </button>
             {  // If the project has an attachment, show a button to reset the file input element to the file from the database
               selectedRecycleObject.attachment &&
-              <button id="resetFileButton" className="danger-secondary" onClick={() => {
+              <button type="button" id="resetFileButton" className="danger-secondary" onClick={() => {
                 let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
                 let container = new DataTransfer();
                 let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
@@ -677,12 +677,12 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                 // In practice, the dangerous delete button will only be shown if the user is an admin and the API will reject the dangerous delete request if the user is not an admin
                 selectedRecycleObject.isActive === false ?
                   <div>
-                    <button id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
+                    <button type="button" id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
                     <DangerousModal toggle={modalState} cancel={handleDeleteModalOnclick} delete={handleDelete} />
                   </div>
                   :
                   <div>
-                    <button id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
+                    <button type="button" id="remove" className="danger" onClick={handleDeleteModalOnclick}> Ta bort inlägg</button >
                     <Modal toggle={modalState} action={handleDeleteModalOnclick} handleDelete={handleDelete} />
                   </div>
               }

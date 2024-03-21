@@ -15,6 +15,6 @@ export function logoutFunction() {
 
 export default function LogoutButton() {
   return (
-    <button onClick={logoutFunction}>Logga ut</button>
+    <button type="button" onClick={logoutFunction}>Logga ut</button>
   )
 }
