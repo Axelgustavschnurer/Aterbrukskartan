@@ -12,7 +12,6 @@ import { getSession } from "@/session";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 /** Array of objects containing the values and labels for the month dropdown */
 export const monthOptionArray = [
@@ -691,10 +690,6 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
 
         </main>
       </div>
-
-      {/* Footer */}
-      <Footer />
-
     </>
   )
 }

@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import { Data, getSessionData } from "@/session";
 import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 function handleSubmit(event: any) {
   event.preventDefault()
@@ -57,9 +56,6 @@ export default function Login() {
             <input type="submit" id="save" value="Byt Lösenord" />
         </form>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </>
   )
 }

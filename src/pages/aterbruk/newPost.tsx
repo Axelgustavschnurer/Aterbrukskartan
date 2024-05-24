@@ -10,7 +10,6 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
 import LinkIcon from "@/components/buttons/backButton";
 import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -567,10 +566,6 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
           </form >
         </main>
       </div>
-
-      {/* Footer */}
-      <Footer />
-
     </>
   );
 }
