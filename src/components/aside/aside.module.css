@@ -494,20 +494,4 @@
         }
     }
 }
-
-/* Link for Stories / Återbruk */
-.alternatingLink {
-    display: block;
-    width: fit-content;
-    text-decoration: none; 
-    font-weight: bold; 
-    background-color: rgba(0, 0, 0, .9); 
-    padding: .5em 1em; 
-    color: white; 
-    text-align: center; 
-    border-radius: 9999px;
-  }
-  
-  .alternatingLink:hover {
-    outline: 3px solid var(--accent);
-  }
+ 

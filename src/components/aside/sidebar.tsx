@@ -20,8 +20,6 @@ import {
 import { Badge, Button, Collapse } from "@nextui-org/react";
 import { Data } from "@/session";
 import Link from "next/link";
-import AlternatingLink from "./alternatingLink";
-
 
 // TODO: Label functions exist both here and in index.tsx, fix this
 // TODO: Label functions should probably not work that way :)
@@ -810,8 +808,6 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
           {showInactiveLabel()}
         </div>
       ) : null}
-
-      <AlternatingLink currentMap={currentMap} />
 
       {/* Button for opening the sidebar when it's closed */}
       {energiportalen ? null : !isOpen && (

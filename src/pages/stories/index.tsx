@@ -16,8 +16,7 @@ import { getSession } from '@/session'
 import Link from 'next/link'
 import ExpandButton from '@/components/buttons/expandButton'
 import Aside from '@/components/aside/aside'
-
-
+ 
 /**
  * The minimum and maximum year that can be selected in the year slider in ../components/sidebar.tsx
  * These values are also used at other points to check if the sliders are at their default values
