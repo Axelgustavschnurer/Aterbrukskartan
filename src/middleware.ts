@@ -5,6 +5,11 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const session = await getSession(req, res);
 
+  // Temporary(?) redirect from index to recycle
+  if (req.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/aterbruk", req.nextUrl));
+  }
+
   // Only logged in users are allowed access to the recycle pages.
   if (req.nextUrl.pathname.startsWith("/aterbruk")) {
     // If the user is not logged in, redirect them to the login page.
@@ -19,7 +24,7 @@ export async function middleware(req: NextRequest) {
       }
     }
   }
-  
+
   // Only admins are allowed access to the admin pages.
   if (req.nextUrl.pathname.startsWith("/admin")) {
     // If the user is not logged in, redirect them to the login page.
