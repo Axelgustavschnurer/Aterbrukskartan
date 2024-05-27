@@ -1,7 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import { Data, getSessionData } from "@/session";
-import Header from "@/components/header/header";
 
 function handleSubmit(event: any) {
   event.preventDefault()
@@ -36,9 +34,6 @@ export default function Login() {
         <title>Byt lösenord</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-
-      {/* Header */}
-      <Header />
 
       {/* Form */}
       <main className="layout-main">

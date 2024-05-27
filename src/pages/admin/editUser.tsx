@@ -5,7 +5,6 @@ import { InferGetServerSidePropsType } from "next";
 import { OrgSelect, handleKeyDown } from "./addUser";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import LinkIcon from "@/components/buttons/backButton";
-import Header from "@/components/header/header";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -85,9 +84,6 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
         <title>Uppdatera användare</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-
-      {/* Header */}
-      <Header />
 
       <div className="layout-main">
         {/* Form */}

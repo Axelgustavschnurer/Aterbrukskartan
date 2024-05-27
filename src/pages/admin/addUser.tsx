@@ -4,7 +4,6 @@ import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
 import LinkIcon from "@/components/buttons/backButton";
-import Header from "@/components/header/header";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -109,9 +108,6 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
         <title>Lägg till användare</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-
-      {/* Header */}
-      <Header />
 
       <div className="layout-main">
         <main className="margin-y-100">

@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Header from "@/components/header/header";
 
 export default function Login() {
 
@@ -35,10 +34,6 @@ export default function Login() {
         <title>Logga In</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-
-
-      {/* Header */}
-      <Header />
 
       <div className="layout-main">
 

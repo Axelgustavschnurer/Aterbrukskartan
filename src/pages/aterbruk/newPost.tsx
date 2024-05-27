@@ -9,7 +9,6 @@ import { yearLimitsRecycle } from ".";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { getSession } from "@/session";
 import LinkIcon from "@/components/buttons/backButton";
-import Header from "@/components/header/header";
 
 // TODO: We have used both organisation and organization in the code. We should stick to one of them.
 
@@ -323,7 +322,6 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <Header />
       <div className="layout-main">
         <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">
