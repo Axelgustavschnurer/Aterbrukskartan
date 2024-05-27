@@ -79,39 +79,7 @@ export function createProjectTypeFilter(
       })}
     </>
   );
-}
-
-/**
- * Returns an array of all the different material categories in the database
- * @param mapData Array of objects containing all the data from the database
- */
-function getAllMaterialCategories(mapData: any) {
-  // List of all strings in the availableMaterials and lookingForMaterials fields
-  let unsplitMaterials: string[] = [];
-  mapData.map((pin: any) => {
-    if (pin.availableMaterials) {
-      unsplitMaterials.push(pin.availableMaterials);
-    }
-    if (pin.lookingForMaterials) {
-      unsplitMaterials.push(pin.lookingForMaterials);
-    }
-  });
-
-  // Splits the strings into arrays and flattens them into one array
-  let splitMaterials: string[] = [];
-  unsplitMaterials.map((material: any) => {
-    splitMaterials.push(...material.split(",").map((item: any) => item.trim()));
-  });
-
-  // Removes duplicates and sorts the array
-  let filteredMaterials = splitMaterials
-    .filter(
-      (data: any, index: any) => splitMaterials.indexOf(data) === index && data
-    )
-    .sort();
-
-  return filteredMaterials;
-}
+} 
 
 /**
   * Creates checkboxes for all the different lookingForMaterials categories in the database
@@ -251,57 +219,6 @@ export function createAvailableFilter(
               }}
             />
             <label htmlFor={category + "Erbjuds"} style={{margin: "0",}}>{category}</label>
-          </div>
-        );
-      })}
-    </>
-  );
-}
-
-/**
- * Creates checkboxes for all the project categories defined in the array `categories` in this function
- * @param projectType Array of strings containing the currently active project type filters
- * @param setProjectType Function to set the `projectType` state
- * @param disableReset Object containing booleans for each filter type. If true, the reset button is disabled
- * @param setDisableReset Function to set the `disableReset` state
- */
-export function createMobileProjectTypes(
-  projectType: string[],
-  setProjectType: any,
-  disableReset: any,
-  setDisableReset: any
-) {
-  let categories = projectTypes;
-  return (
-    <>
-      {categories.map((category: any) => {
-        return (
-          <div className={styles.input} key={category}>
-            <input
-              id={category}
-              name={category}
-              type="checkbox"
-              onChange={(e) => {
-                // If the checkbox is now unchecked and the category is in the projectType array, remove it
-                if (projectType.includes(e.target.name) && !e.target.checked) {
-                  setProjectType(
-                    projectType.filter(
-                      (item: any) => item !== e.target.name
-                    )
-                  );
-                  setDisableReset({ ...disableReset, projectType: true });
-                }
-                // If the checkbox is now checked and the category is not in the projectType array, add it
-                else if (
-                  !projectType.includes(e.target.name) &&
-                  e.target.checked
-                ) {
-                  setProjectType([...projectType, e.target.name]);
-                  setDisableReset({ ...disableReset, projectType: false });
-                }
-              }}
-            />
-            <label htmlFor={category} style={{margin: "0",}}>{category}</label>
           </div>
         );
       })}
