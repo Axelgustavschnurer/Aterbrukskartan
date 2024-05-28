@@ -118,7 +118,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
     }
     fetchData();
   }, [currentMap]);
- 
+
   // Closes the sidebar when the user navigates to a new page
   const router = useRouter();
   useEffect(() => {
@@ -310,7 +310,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
         <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "black", color: "bone" }}>Visar inaktiva objekt</Badge>
       )
     }
-  } 
+  }
 
   /**
    * Creates checkboxes for all the different organisations in the database
@@ -333,6 +333,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
                   id={pin}
                   name={pin}
                   type="checkbox"
+                  checked={organisation.includes(pin)}
                   onChange={(e) => {
                     // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
                     if (
@@ -376,18 +377,18 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
     <>
       <div className={styles.sidebar}>
         <div>
-          
+
           <h3>Projekttyper</h3>
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterButtons}>
-            {createProjectTypeFilter(projectType, setProjectType, disableReset,setDisableReset)}
+            {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
           </div>
 
           <h3>År</h3>
           {/* Range slider for year filter */}
           <div className={styles.rSliderContainer}>
             <DualRangeSlider
-              min={yearLimitsRecycle.min }
+              min={yearLimitsRecycle.min}
               max={yearLimitsRecycle.max}
               onChange={({ min, max }: any) => {
                 if (years.includes(yearLimitsRecycle.min) && years.includes(yearLimitsRecycle.max)) {
@@ -437,6 +438,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
                 id="showAttached"
                 name="showAttached"
                 type="checkbox"
+                checked={showAttachment}
                 onChange={(e) => {
                   if (e.target.checked) {
                     setShowAttachment(true);
@@ -477,6 +479,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
                     id="showDisabled"
                     name="showDisabled"
                     type="checkbox"
+                    checked={showInactive}
                     onChange={(e) => {
                       if (e.target.checked) {
                         setShowInactive(true);
