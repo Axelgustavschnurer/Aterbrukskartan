@@ -212,14 +212,13 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
 
   /** Gets all the organisations from the database and returns them as options in a select element */
   const getOrganisation = () => {
-    let mappedData = recycleData.map((pin: any) => pin.mapItem.organisation)
-    // Filters out duplicate organisations and sorts them alphabetically. Also removes organisations that the user doesn't have access to.
-    let filteredData = mappedData.filter((organisation: any, index: any) => mappedData.indexOf(organisation) === index && !!organisation && (user?.isAdmin || user?.recycleOrganisations?.includes(organisation))).sort()
+    const orgs = user?.recycleOrganisations
+    if (!orgs) return null
     return (
       <>
-        {filteredData.map((pin: any) => {
+        {orgs.map((org: any) => {
           return (
-            <option key={pin} value={pin}>{pin}</option>
+            <option key={org} value={org}>{org}</option>
           )
         })}
       </>
@@ -340,7 +339,9 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             >
               <option value="">Välj organisation</option>
               {getOrganisation()}
-              <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+              {user?.isAdmin &&
+                <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+              }
             </select>
 
             {organization === "addOrganisation" && (
