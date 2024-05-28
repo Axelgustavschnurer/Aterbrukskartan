@@ -1,11 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { InferGetServerSidePropsType } from "next";
 import prisma from "@/prismaClient";
 import LinkIcon from "@/components/buttons/backButton";
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 export async function getServerSideProps() {
   const organisations = await prisma.recycleOrganisation.findMany({
@@ -111,9 +109,6 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      {/* Header */}
-      <Header />
-
       <div className="layout-main">
         <main className="margin-y-100">
           <h1 className="display-flex align-items-center gap-50">         
@@ -154,10 +149,6 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
           </form>
         </main>
       </div>
-
-      {/* Footer */}
-      <Footer />
-
     </>
   )
 }

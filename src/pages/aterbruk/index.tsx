@@ -13,11 +13,7 @@ import { Badge } from '@nextui-org/react'
 import { logoutFunction } from '@/components/logout'
 import { getSession } from '@/session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import Link from 'next/link'
-import ExpandButton from '@/components/buttons/expandButton'
-import Footer from '@/components/footer/footer'
 import Aside from '@/components/aside/aside'
-import { relative } from 'path'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -344,12 +340,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             </Tooltip>
           </div>
         </>
-      )}
-
-      <ExpandButton>
-        <Footer />
-      </ExpandButton>
-
+      )} 
     </>
   )
 }

@@ -2,28 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import DualRangeSlider from "../dualSlider/dualSlider";
-import { RecycleFilter, StoryFilter } from "@/types";
-import Image from "next/image";
+import { RecycleFilter } from "@/types";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
-import { yearLimitsStories } from "@/pages/stories";
 import {
-  createMobileProjectTypes,
   createLookingForFilter,
   createAvailableFilter,
   createProjectTypeFilter,
 } from "@/components/aside/recycleSidebar";
-import {
-  createMobileCategories,
-  createEducationalFilter,
-  createMiscFilter,
-  createCategoryFilter,
-} from "@/components/aside/storiesSidebar";
-import { Button, Collapse } from "@nextui-org/react";
 
+import { Button, Collapse } from "@nextui-org/react";
 import styles from '@/components/aside/aside.module.css'
-import setFirstLetterCapital from "@/functions/setFirstLetterCapital";
 import { Data } from "@/session";
-import AlternatingLink from "./alternatingLink";
 
 export default function MobileSidebar({ setFilter, currentMap, energiportalen, user }: { setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
   const [isOpen, setOpen] = useState(true);
@@ -40,37 +29,8 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
   // List of all active filters for the field `projectType`
   const [projectType, setProjectType] = useState([] as string[]);
 
-  // List of all active filters for the field `storyCategory`
-  const [storyCategory, setStoryCategory] = useState([] as string[]);
-
-  // List of all active filters for the field `educationalProgram`
-  const [educationalProgram, setEducationalProgram] = useState([] as string[]);
-
-  // List of all active filters for the field `educationalSpecialisation`
-  const [educationalSpecialisation, setEducationalSpecialisation] = useState(
-    [] as string[]
-  );
-
-  const [isRealStory, setIsRealStory] = useState(false as boolean);
-
-  const [hasSolarData, setHasSolarData] = useState(false as boolean);
-
-  // List of all active filters for the field `Rapport`
-  const [hasReport, setHasReport] = useState(false as boolean);
-
-  // List of all active filters for the field `Videos`
-  const [hasVideo, setHasVideo] = useState(false as boolean);
-
-  // List of all active filters for the field `Case`
-  const [hasCase, setHasCase] = useState(false as boolean);
-
-  // List of all active filters for the field `Open Data`
-  const [hasOpenData, setHasOpenData] = useState(false as boolean);
-
   // List of all active filters for the field `lookingForMaterials`
-  const [lookingForMaterials, setLookingForMaterials] = useState(
-    [] as string[]
-  );
+  const [lookingForMaterials, setLookingForMaterials] = useState([] as string[]);
 
   // List of all active filters for the field `availableMaterials`
   const [availableMaterials, setAvailableMaterials] = useState([] as string[]);
@@ -99,33 +59,18 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
     lookingForMaterials: true,
     availableMaterials: true,
     organisation: true,
-    storyCategory: true,
-    educationalProgram: true,
   } as any);
-
-
 
   // Runs fetchData function on component mount
   useEffect(() => {
     /** Fetches data from the database */
     const fetchData = async () => {
-      if (currentMap === "Stories") {
-        const response = await fetch("/api/stories");
-        const data = await response.json();
-        setMapData(data);
-      } else if (currentMap === "Recycle") {
-        const response = await fetch("/api/recycle");
-        const data = await response.json();
-        setMapData(data);
-      }
+      const response = await fetch("/api/recycle");
+      const data = await response.json();
+      setMapData(data);
     };
     fetchData();
   }, [currentMap]);
-
-  // Toggles the sidebar's visibility when called
-  const toggleMenu = () => {
-    setOpen(!isOpen);
-  };
 
   // Closes the sidebar when the user navigates to a new page
   const router = useRouter();
@@ -139,33 +84,16 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
 
   // Updates filter state when the user interacts with any of the filter components
   useEffect(() => {
-    if (currentMap === "Stories") {
-      setFilter({
-        years: years,
-        organisation: organisation,
-        categories: storyCategory,
-        educationalProgram: educationalProgram,
-        educationalSpecialisation: educationalSpecialisation,
-        video: hasVideo,
-        report: hasReport,
-        cases: hasCase,
-        openData: hasOpenData,
-        energyStory: isRealStory,
-        solarData: hasSolarData,
-        showInactive: showInactive,
-      } as StoryFilter);
-    } else if (currentMap === "Recycle") {
-      setFilter({
-        projectType: projectType,
-        years: years,
-        months: months,
-        lookingForCategories: lookingForMaterials,
-        availableCategories: availableMaterials,
-        organisation: organisation,
-        showInactive: showInactive,
-        attachment: showAttachment,
-      } as RecycleFilter);
-    }
+    setFilter({
+      projectType: projectType,
+      years: years,
+      months: months,
+      lookingForCategories: lookingForMaterials,
+      availableCategories: availableMaterials,
+      organisation: organisation,
+      showInactive: showInactive,
+      attachment: showAttachment,
+    } as RecycleFilter);
   }, [
     projectType,
     years,
@@ -174,89 +102,10 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
     availableMaterials,
     organisation,
     setFilter,
-    storyCategory,
     currentMap,
-    educationalProgram,
-    educationalSpecialisation,
-    hasVideo,
-    hasReport,
-    hasCase,
-    hasOpenData,
-    isRealStory,
-    hasSolarData,
     showInactive,
     showAttachment,
   ]);
-
-  /**
-   * Creates checkboxes for all education specialisations in the database
-   */
-  const createSpecialisationFilter = () => {
-    let mappedData = mapData.map((pin: any) => pin.educationalProgram);
-    // Matches all characters before the first comma, the comma itself, and all immediately following whitespace
-    // Used to separate the specialisation from the combined program name by removing the program name
-    // Example: "Civilingenjör, Industriell ekonomi" -> "Industriell ekonomi"
-    const programRegex = /^[^,]*?,\s*/
-    let specialisations = mappedData.map((program: any) => !!program ? setFirstLetterCapital(program.replace(programRegex, "")) : "");
-    let filteredData = specialisations
-      .filter(
-        (specialisation: any, index: any) =>
-          specialisations.indexOf(specialisation) === index && !!specialisations[index]
-      )
-      .sort();
-    return (
-      <>
-        <Collapse title="Specialisering" divider={false} subtitle="Tryck för att expandera / minimera">
-          {filteredData.map((specialisation: any) => {
-            return (
-              <div key={specialisation}>
-                <input
-                  id={specialisation}
-                  name={specialisation}
-                  type="checkbox"
-                  onChange={(e) => {
-                    // If the checkbox is now unchecked and the specialisation is in the specialisation array, remove it from the array
-                    if (
-                      educationalSpecialisation.includes(e.target.name) &&
-                      !e.target.checked
-                    ) {
-                      setEducationalSpecialisation(
-                        educationalSpecialisation.filter(
-                          (specialisation: any) => specialisation !== e.target.name
-                        )
-                      );
-                      if (educationalSpecialisation.length <= 1) {
-                        setDisableReset({
-                          ...disableReset,
-                          educationalSpecialisation: true,
-                        });
-                      }
-                    }
-                    // If the checkbox is now checked and the specialisation is not in the specialisation array, add it to the array
-                    else if (
-                      !educationalSpecialisation.includes(e.target.name) &&
-                      e.target.checked
-                    ) {
-                      setEducationalSpecialisation([
-                        ...educationalSpecialisation,
-                        e.target.name,
-                      ]);
-                      // Enable the reset button since there is now a filter active
-                      setDisableReset({
-                        ...disableReset,
-                        educationalSpecialisation: false,
-                      });
-                    }
-                  }}
-                />
-                <label htmlFor={specialisation}>{specialisation}</label>
-              </div>
-            );
-          })}
-        </Collapse>
-      </>
-    );
-  };
 
   /**
    * Creates checkboxes for all the different organisations in the database
@@ -274,43 +123,43 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <Collapse title="Organisation" divider={false} subtitle="Tryck för att expandera / minimera">
           {filteredData.map((pin: any) => {
             return (
-                <div key={pin} className={styles.input}>
-                  <input
-                    id={pin}
-                    name={pin}
-                    type="checkbox"
-                    onChange={(e) => {
-                      // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
-                      if (
-                        organisation.includes(e.target.name) &&
-                        !e.target.checked
-                      ) {
-                        setOrganisation(
-                          organisation.filter(
-                            (item: any) => item !== e.target.name
-                          )
-                        );
-                        // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
-                        if (organisation.length <= 1) {
-                          setDisableReset({
-                            ...disableReset,
-                            organisation: true,
-                          });
-                        }
+              <div key={pin} className={styles.input}>
+                <input
+                  id={pin}
+                  name={pin}
+                  type="checkbox"
+                  onChange={(e) => {
+                    // If the checkbox is now unchecked and the organisation is in the organisation array, remove it from the array
+                    if (
+                      organisation.includes(e.target.name) &&
+                      !e.target.checked
+                    ) {
+                      setOrganisation(
+                        organisation.filter(
+                          (item: any) => item !== e.target.name
+                        )
+                      );
+                      // If the array only contains one item or less, disable the reset button. We have to check check if the array has at least one item because the state is updated on the next render
+                      if (organisation.length <= 1) {
+                        setDisableReset({
+                          ...disableReset,
+                          organisation: true,
+                        });
                       }
-                      // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
-                      else if (
-                        !organisation.includes(e.target.name) &&
-                        e.target.checked
-                      ) {
-                        setOrganisation([...organisation, e.target.name]);
-                        // Enable the reset button when a filter is active
-                        setDisableReset({ ...disableReset, organisation: false });
-                      }
-                    }}
-                  />
-                  <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
-                </div>
+                    }
+                    // If the checkbox is now checked and the organisation is not in the organisation array, add it to the array
+                    else if (
+                      !organisation.includes(e.target.name) &&
+                      e.target.checked
+                    ) {
+                      setOrganisation([...organisation, e.target.name]);
+                      // Enable the reset button when a filter is active
+                      setDisableReset({ ...disableReset, organisation: false });
+                    }
+                  }}
+                />
+                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
+              </div>
             );
           })}
         </Collapse>
@@ -320,281 +169,165 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
 
   return (
     <>
-      {energiportalen && !hasSolarData ? setHasSolarData(true) : energiportalen && hasSolarData ? null : (
-        <>
-          <input type="checkbox" id="navi-toggle" className={styles.checkbox} />
-          <label htmlFor="navi-toggle" className={styles.button}>
-            <span className={styles.icon}>&nbsp;</span>
-          </label>
-          <div className={styles.background}>&nbsp;</div>
+      <input type="checkbox" id="navi-toggle" className={styles.checkbox} />
+      <label htmlFor="navi-toggle" className={styles.button}>
+        <span className={styles.icon}>&nbsp;</span>
+      </label>
+      <div className={styles.background}></div>
 
-          <nav className={styles.phoneWrapper}>
-            <div>
-              <div style={{marginTop: "3em"}}>
-                <AlternatingLink currentMap={currentMap} />
-                {currentMap === "Stories" ? (
-                  <h3>Kategorier</h3>
-                ) : currentMap === "Recycle" ? (
-                  <h3>Projekttyper</h3>
-                ) : null}
-              </div>
-              {/* Buttons for choosing project types to filter by */}
-              <div className={styles.filterButtons}>
-                {currentMap === "Stories"
-                  ? createCategoryFilter(
-                    storyCategory,
-                    setStoryCategory,
-                    disableReset,
-                    setDisableReset
-                  )
-                  : currentMap === "Recycle"
-                    ? createProjectTypeFilter(
-                      projectType,
-                      setProjectType,
-                      disableReset,
-                      setDisableReset
-                    )
-                    : null}
-              </div>
-
-              <div>
-                <div>
-                  <h3>År</h3>
-                </div>
-              </div>
-              {/* Range slider for year filter */}
-              <div>
-                <DualRangeSlider
-                  min={
-                    currentMap === "Stories"
-                      ? yearLimitsStories.min
-                      : currentMap === "Recycle"
-                        ? yearLimitsRecycle.min
-                        : null
-                  }
-                  max={
-                    currentMap === "Stories"
-                      ? yearLimitsStories.max
-                      : currentMap === "Recycle"
-                        ? yearLimitsRecycle.max
-                        : null
-                  }
-                  onChange={({ min, max }: any) => {
-                    if (
-                      years.includes(
-                        currentMap === "Stories"
-                          ? yearLimitsStories.min
-                          : currentMap === "Recycle"
-                            ? yearLimitsRecycle.min
-                            : 0
-                      ) &&
-                      years.includes(
-                        currentMap === "Stories"
-                          ? yearLimitsStories.max
-                          : currentMap === "Recycle"
-                            ? yearLimitsRecycle.max
-                            : 0
-                      )
-                    ) {
-                      setYearSliderDefault(true);
-                    } else {
-                      setYearSliderDefault(false);
-                    }
-                    if (
-                      !(years.includes(min) && years.includes(max)) ||
-                      (min === max && !(years[0] === min && years[1] === max))
-                    ) {
-                      setYears([min, max]), setSliderReset(false);
-                    }
-                  }}
-                  reset={sliderReset}
-                />
-              </div>
-
-              {/*This is a range slider for months filter. Recycle map only */}
-              {currentMap === "Recycle" ? (
-                <>
-                  <div>
-                    <div>
-                      <h3>Månad</h3>
-                    </div>
-                  </div>
-                  <div>
-                    <DualRangeSlider
-                      min={1}
-                      max={12}
-                      onChange={({ min, max }: any) => {
-                        if (months.includes(1) && months.includes(12)) {
-                          setMonthSliderDefault(true);
-                        } else {
-                          setMonthSliderDefault(false);
-                        }
-                        if (
-                          !(months.includes(min) && months.includes(max)) ||
-                          (min === max && !(months[0] === min && months[1] === max))
-                        ) {
-                          setMonths([min, max]), setSliderReset(false);
-                        }
-                      }}
-                      reset={sliderReset}
-                    />
-                  </div>
-                </>
-              ) : null}
-
-              {/* Checkboxes for filtering materials and organisations */}
-              <form>
-                {currentMap === "Recycle" ? (
-                  <span>
-                    <h3>Bilaga</h3>
-                    <div className={styles.input}>
-                      <input
-                        id="showAttached"
-                        name="showAttached"
-                        type="checkbox"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setShowAttachment(true);
-                          } else {
-                            setShowAttachment(false);
-                          }
-                        }}
-                      />
-                      <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
-                    </div>
-                    <h3>Erbjuds</h3>{" "}
-                    {createAvailableFilter(
-                      mapData,
-                      availableMaterials,
-                      setAvailableMaterials,
-                      disableReset,
-                      setDisableReset
-                    )}{" "}
-                    <h3>Sökes</h3>{" "}
-                    {createLookingForFilter(
-                      mapData,
-                      lookingForMaterials,
-                      setLookingForMaterials,
-                      disableReset,
-                      setDisableReset
-                    )}
-                  </span>
-                ) : currentMap === "Stories" ? (
-                  <span>
-                    <h3>Projektinnehåll</h3>{" "}
-                    {createMiscFilter(
-                      hasReport,
-                      setHasReport,
-                      hasVideo,
-                      setHasVideo,
-                      hasCase,
-                      setHasCase,
-                      hasOpenData,
-                      setHasOpenData,
-                      isRealStory,
-                      setIsRealStory,
-                      hasSolarData,
-                      setHasSolarData,
-                    )}{" "}
-                    <h3>Utbildningsprogram</h3>{" "}
-                    {createEducationalFilter(
-                      educationalProgram,
-                      setEducationalProgram,
-                      disableReset,
-                      setDisableReset,
-                      mapData.map((story: any) => story.educationalProgram)
-                    )}
-                  </span>
-                ) : null}
-                {createOrganisationFilter()}
-
-                {/* Admin-only button to filter for disabled pins */}
-                {user && user.isAdmin && (
-                  <>
-                    <div className={styles.input}>
-                      <input
-                        id="showDisabled"
-                        name="showDisabled"
-                        type="checkbox"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setShowInactive(true);
-                          } else {
-                            setShowInactive(false);
-                          }
-                        }}
-                      />
-                      <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
-                    </div>
-                  </>
-                )
+      <nav className={styles.phoneWrapper}>
+        <div>
+          {/* Buttons for choosing project types to filter by */}
+          <div className={styles.filterButtons}>
+            {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)  }
+          </div>
+          
+          <h3>År</h3>
+          {/* Range slider for year filter */}
+          <div>
+            <DualRangeSlider
+              min={yearLimitsRecycle.min}
+              max={yearLimitsRecycle.max}
+              onChange={({ min, max }: any) => {
+                if (years.includes(yearLimitsRecycle.min) && years.includes(yearLimitsRecycle.max)
+                ) {
+                  setYearSliderDefault(true);
+                } else {
+                  setYearSliderDefault(false);
                 }
-              </form>
 
-              {/* Button for clearing the current filter. Disabled when no filter is active */}
-              <div>
-                <Button
-                  id={styles.clearBtn}
-                  css={{ width: "100%" }}
-                  disabled={
-                    disableReset.projectType &&
-                    disableReset.lookingForMaterials &&
-                    disableReset.availableMaterials &&
-                    disableReset.organisation &&
-                    disableReset.storyCategory &&
-                    disableReset.educationalProgram &&
-                    disableReset.educationalSpecialisation &&
-                    !isRealStory &&
-                    !hasCase &&
-                    !hasReport &&
-                    !hasOpenData &&
-                    !hasVideo &&
-                    !showInactive &&
-                    !showAttachment &&
-                    yearSliderDefault &&
-                    monthSliderDefault
-                  }
-                  onPress={() => {
-                    setProjectType([]);
-                    setSliderReset(true);
-                    setLookingForMaterials([]);
-                    setAvailableMaterials([]);
-                    setOrganisation([]);
-                    setStoryCategory([]);
-                    setEducationalProgram([]);
-                    setEducationalSpecialisation([]);
-                    setHasVideo(false);
-                    setHasReport(false);
-                    setHasCase(false);
-                    setHasOpenData(false);
-                    setIsRealStory(false);
-                    setShowInactive(false);
-                    setShowAttachment(false);
-                    setDisableReset({
-                      projectType: true,
-                      lookingForMaterials: true,
-                      availableMaterials: true,
-                      organisation: true,
-                      storyCategory: true,
-                      educationalProgram: true,
-                      educationalSpecialisation: true,
-                    });
+                if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
+                  setYears([min, max]), setSliderReset(false);
+                }
+              }}
+              reset={sliderReset}
+            />
+          </div>
+                  
+          <h3>Månad</h3>
+          <div>
+            <DualRangeSlider
+              min={1}
+              max={12}
+              onChange={({ min, max }: any) => {
+                if (months.includes(1) && months.includes(12)) {
+                  setMonthSliderDefault(true);
+                } else {
+                  setMonthSliderDefault(false);
+                }
 
-                    let checkboxes = document.querySelectorAll(
-                      "input[type=checkbox]:not([id=navi-toggle])"
-                    );
-                    checkboxes.forEach((checkbox: any) => {
-                      checkbox.checked = false;
-                    });
+                if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))) {
+                  setMonths([min, max]), setSliderReset(false);
+                }
+              }}
+              reset={sliderReset}
+            />
+          </div>
+
+          {/* Checkboxes for filtering materials and organisations */}
+          <form>
+            <span>
+              <h3>Bilaga</h3>
+              <div className={styles.input}>
+                <input
+                  id="showAttached"
+                  name="showAttached"
+                  type="checkbox"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setShowAttachment(true);
+                    } else {
+                      setShowAttachment(false);
+                    }
                   }}
-                >
-                  Rensa filter
-                </Button>
+                />
+                <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
               </div>
-            </div>
-          </nav>
-        </>
-      )}
+              <h3>Erbjuds</h3>{" "}
+              {createAvailableFilter(
+                mapData,
+                availableMaterials,
+                setAvailableMaterials,
+                disableReset,
+                setDisableReset
+              )}{" "}
+              <h3>Sökes</h3>{" "}
+              {createLookingForFilter(
+                mapData,
+                lookingForMaterials,
+                setLookingForMaterials,
+                disableReset,
+                setDisableReset
+              )}
+            </span>
+          {createOrganisationFilter()}
+
+            {/* Admin-only button to filter for disabled pins */}
+            {user && user.isAdmin && (
+              <>
+                <div className={styles.input}>
+                  <input
+                    id="showDisabled"
+                    name="showDisabled"
+                    type="checkbox"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setShowInactive(true);
+                      } else {
+                        setShowInactive(false);
+                      }
+                    }}
+                  />
+                  <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
+                </div>
+              </>
+            )
+            }
+          </form>
+
+          {/* Button for clearing the current filter. Disabled when no filter is active */}
+          <div>
+            <Button
+              id={styles.clearBtn}
+              css={{ width: "100%" }}
+              disabled={
+                disableReset.projectType &&
+                disableReset.lookingForMaterials &&
+                disableReset.availableMaterials &&
+                disableReset.organisation &&
+                !showInactive &&
+                !showAttachment &&
+                yearSliderDefault &&
+                monthSliderDefault
+              }
+              onPress={() => {
+                setProjectType([]);
+                setSliderReset(true);
+                setLookingForMaterials([]);
+                setAvailableMaterials([]);
+                setOrganisation([]);
+                setShowInactive(false);
+                setShowAttachment(false);
+                setDisableReset({
+                  projectType: true,
+                  lookingForMaterials: true,
+                  availableMaterials: true,
+                  organisation: true,
+                });
+
+                let checkboxes = document.querySelectorAll(
+                  "input[type=checkbox]:not([id=navi-toggle])"
+                );
+                checkboxes.forEach((checkbox: any) => {
+                  checkbox.checked = false;
+                });
+              }}
+            >
+              Rensa filter
+            </Button>
+          </div>
+        </div>
+      </nav>
     </>
   )
 }

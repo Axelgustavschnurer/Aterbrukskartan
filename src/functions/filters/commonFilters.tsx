@@ -1,4 +1,4 @@
-import { DeepRecycle, DeepStory } from "@/types";
+import { DeepRecycle } from "@/types";
 
 /**
  * Filters away objects that do not have a year that is within the range of the year parameter.
@@ -6,8 +6,8 @@ import { DeepRecycle, DeepStory } from "@/types";
  * @param years Array of numbers, where the highest number is the max year and the lowest number is the min year. Can contain a single number, which will be used as both the min and max year.
  * @returns Objects that have a year that is within the range of the year parameter.
  */
-export function filterByYear(data: DeepRecycle[] | DeepStory[], years: number[]): DeepRecycle[] | DeepStory[] {
-  let returnData: DeepRecycle[] | DeepStory[] = [];
+export function filterByYear(data: DeepRecycle[], years: number[]): DeepRecycle[] {
+  let returnData: DeepRecycle[] = [];
 
   for (let i in data) {
     // If the year is not defined, use the current year
@@ -34,8 +34,8 @@ export function filterByYear(data: DeepRecycle[] | DeepStory[], years: number[])
  * @param organisation Array of strings containing the organisations to filter by
  * @returns Objects that belong to *one or more* of the organisations in the organisation parameter
 */
-export function filterByOrganisation(data: DeepRecycle[] | DeepStory[], organisation: string[]): DeepRecycle[] | DeepStory[] {
-  let returnData: DeepRecycle[] | DeepStory[] = [];
+export function filterByOrganisation(data: DeepRecycle[], organisation: string[]): DeepRecycle[] {
+  let returnData: DeepRecycle[] = [];
 
   for (let i in data) {
     if (organisation.includes(data[i].mapItem.organisation!)) {
@@ -52,8 +52,8 @@ export function filterByOrganisation(data: DeepRecycle[] | DeepStory[], organisa
  * @param data Array of `DeepRecycle` or `DeepStory` objects to filter
  * @param showInactive Boolean
  */
-export function filterByActive(data: DeepRecycle[] | DeepStory[], showInactive: boolean): DeepRecycle[] | DeepStory[] {
-  let returnData: DeepRecycle[] | DeepStory[] = [];
+export function filterByActive(data: DeepRecycle[], showInactive: boolean): DeepRecycle[] {
+  let returnData: DeepRecycle[] = [];
 
   for (let i in data) {
     // If showInactive is true, return all inactive objects

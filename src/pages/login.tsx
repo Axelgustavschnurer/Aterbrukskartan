@@ -1,10 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import Modal from '@/components/redirectModal';
-import Header from "@/components/header/header";
 
 export default function Login() {
-  const [modal, setModal] = React.useState(false);
 
   function handleSubmit(event: any) {
     event.preventDefault()
@@ -15,14 +12,14 @@ export default function Login() {
       password: form.password.value,
     })
 
-    // Try to login, redirect to the home page if successful.
+    // Try to login, redirect to the åtebrukspage
     fetch('/api/login', {
       method: 'POST',
       body: formJSON,
       headers: { 'Content-Type': 'application/json' },
     }).then((res) => {
       if (res.ok) {
-        setModal(true);
+        document.location.href = '/aterbruk'; // TODO: Let user press link if this fails
       } else {
         alert('Login failed.')
       }
@@ -37,10 +34,6 @@ export default function Login() {
         <title>Logga In</title>
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
-
-
-      {/* Header */}
-      <Header />
 
       <div className="layout-main">
 
@@ -58,9 +51,7 @@ export default function Login() {
             
           </form>
         </main>
-
-        {/* Redirect modal, after login */}
-        <Modal toggle={modal} />
+ 
       </div>
 
     </>

@@ -1,8 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import { Data, getSessionData } from "@/session";
-import Header from "@/components/header/header";
-import Footer from "@/components/footer/footer";
 
 function handleSubmit(event: any) {
   event.preventDefault()
@@ -38,9 +35,6 @@ export default function Login() {
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      {/* Header */}
-      <Header />
-
       {/* Form */}
       <main className="layout-main">
         <h1>Byt Lösenord</h1>
@@ -57,9 +51,6 @@ export default function Login() {
             <input type="submit" id="save" value="Byt Lösenord" />
         </form>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </>
   )
 }
