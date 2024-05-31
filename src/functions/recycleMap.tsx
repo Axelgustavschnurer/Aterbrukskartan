@@ -62,7 +62,7 @@ export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter
       return (
         <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
           !pin.isActive || !pin.mapItem.isActive ? IconPinGray :
-            pin.projectType === "Rivning" ? IconPinRed :
+            pin.projectType === "Demontering" ? IconPinRed :
               pin.projectType === "Nybyggnation" ? IconPinAzure :
                 pin.projectType === "Ombyggnation" ? IconPinGreen :
                   pin.projectType === "Mellanlagring" ? IconPinOrange :

@@ -80,6 +80,10 @@ export default async function handler(
             }) === index
           }).sort(recycleSorter)
 
+          getData.forEach((item) => {
+            if (item.projectType.toLowerCase() == "rivning") item.projectType = "Demontering";
+          });
+
           res.status(200).json(getData)
         }
         catch (err: any) {
@@ -102,6 +106,8 @@ export default async function handler(
               mapItem: true
             }
           })
+
+          if (getData.projectType.toLowerCase() == "rivning") getData.projectType = "Demontering";
 
           res.status(200).json(getData)
         }

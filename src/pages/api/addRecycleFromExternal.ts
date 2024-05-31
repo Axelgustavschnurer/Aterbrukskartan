@@ -106,7 +106,7 @@ export default async function handler(
         row[7] = "Ombyggnation"
         break;
       case "Rivningslov":
-        row[7] = "Rivning"
+        row[7] = "Demontering"
         break;
       case "Nybyggnadskarta":
         row[7] = "Nybyggnation"

@@ -30,7 +30,7 @@ export const categories = [
 ];
 
 export const projectTypes = [
-  "Rivning",
+  "Demontering",
   "Nybyggnation",
   "Ombyggnation",
   "Mellanlagring",
