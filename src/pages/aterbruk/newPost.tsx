@@ -460,6 +460,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             {
               locationToggle === true ?
                 <>
+                  <p>Klicka på en plats på kartan eller dra i markören för att välja en plats</p>
                   <NewPostMap
                     setLat={setLat}
                     setLon={setLon}

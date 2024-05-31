@@ -550,6 +550,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
             {
               locationToggle === true ?
                 <>
+                  <p>Klicka på en plats på kartan eller dra i markören för att välja en plats</p>
                   <NewPostMap
                     setLat={setLat}
                     setLon={setLon}
