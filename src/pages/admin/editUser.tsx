@@ -87,7 +87,7 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
 
       <div className="layout-main">
         {/* Form */}
-        <main className="margin-y-100">
+        <main className="margin-block-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Uppdatera användare
