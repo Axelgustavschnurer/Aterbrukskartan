@@ -137,55 +137,9 @@
   transition: all 0.3s ease;
 }
 
-/* Positioning for link buttons */
-.logout {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 100px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-  
-.editPost {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 148px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.addNewPost {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 196px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.editUser {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 244px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.addUser {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 292px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
 /* Style for link buttons */
 .linkButton {
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 100%;
   display: grid;
   padding: .5rem;
