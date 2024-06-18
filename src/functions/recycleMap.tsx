@@ -30,19 +30,8 @@ export function recyclePopup(pin: DeepRecycle) {
           <b>{pin.projectType}</b> <br />
           {!pin.mapItem.year ? "Projektet har inget planerat startdatum" : pin.mapItem.year && !pin.month ? "Projektet påbörjas år: " + pin.mapItem.year : "Projektet påbörjas: " + monthArray[pin.month! - 1] + " " + pin.mapItem.year} <br />
           {!pin.endYear ? null : pin.endYear && !pin.endMonth ? "Projektet avslutas år: " + pin.endYear : "Projektet avslutas: " + monthArray[pin.endMonth! - 1] + " " + pin.endYear + " (uppskattat)"} {!!pin.endYear && <br />}
-          <>
-            {/* This abomination checks multiple factors of materials being offered or requested and then displays the results */}
-            {pin.projectType === "Rivning" && pin.availableMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
-              : pin.projectType === "Rivning" && !pin.availableMaterials ? <p><b>Erbjuds</b> <br /> Inget material angivets</p>
-                : pin.projectType === "Nybyggnation" && pin.lookingForMaterials ? <p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p>
-                  : pin.projectType === "Nybyggnation" && !pin.lookingForMaterials ? <p><b>Sökes</b> <br /> Inget material angivets</p>
-                    : pin.projectType === "Ombyggnation" && pin.availableMaterials && pin.lookingForMaterials ? <><p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p> <p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p></>
-                      : pin.projectType === "Ombyggnation" && !pin.availableMaterials && !pin.lookingForMaterials ? <><p><b>Erbjuds</b> <br /> Inget material angivets</p> <p><b>Sökes</b> <br /> Inget material angivets</p></>
-                        : pin.projectType === "Ombyggnation" && pin.availableMaterials && !pin.lookingForMaterials ? <p><b>Erbjuds</b> <br /> {pin.availableMaterials}</p>
-                          : pin.projectType === "Ombyggnation" && !pin.availableMaterials && pin.lookingForMaterials ? <p><b>Sökes</b> <br /> {pin.lookingForMaterials}</p>
-                            : null
-            }
-          </>
+          <p><b>Erbjuds</b> <br /> {pin.availableMaterials || "Inget material angivet"}</p>
+          <p><b>Sökes</b> <br /> {pin.lookingForMaterials || "Inget material angivet"}</p>
           {!pin.description ? null : <p><b>Beskrvining</b> <br /> {pin.description}</p>}
           {!pin.contact ? <p><b>Kontakt</b> <br /> Ingen kontaktinformation tillgänglig</p> : <p><b>Kontakt</b> <br /> {pin.contact}</p>}
           {!pin.externalLinks ? null : <div><b>Länkar</b> <br /> <a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
@@ -73,7 +62,7 @@ export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter
       return (
         <Marker key={pin.id} position={[pin.mapItem.latitude!, pin.mapItem.longitude!]} icon={
           !pin.isActive || !pin.mapItem.isActive ? IconPinGray :
-            pin.projectType === "Rivning" ? IconPinRed :
+            pin.projectType === "Demontering" ? IconPinRed :
               pin.projectType === "Nybyggnation" ? IconPinAzure :
                 pin.projectType === "Ombyggnation" ? IconPinGreen :
                   pin.projectType === "Mellanlagring" ? IconPinOrange :

@@ -278,7 +278,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
       </Aside>
 
-      <div style={{position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem'}}>
+      <div style={{ position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem' }}>
 
         {/* Logout button */}
         {user && (

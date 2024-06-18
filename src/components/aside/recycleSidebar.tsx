@@ -19,21 +19,21 @@ export function createProjectTypeFilter(
   setDisableReset: any
 ) {
   let categories = projectTypes;
-  return (  
+  return (
     <>
       {categories.map((category: any) => {
 
-      const isCategoryActive = projectType.includes(category.replaceAll("-", " "));
-            
-      const buttonStyle = {
-        background: isCategoryActive ? "" : "#808080",
-        transition: "unset",
-      };
+        const isCategoryActive = projectType.includes(category.replaceAll("-", " "));
 
-      if (projectType.length === 0) {
-        // Override styling when the list is completely empty
-        buttonStyle.background = ''; // You can use a different color or style here
-      }
+        const buttonStyle = {
+          background: isCategoryActive ? "" : "#808080",
+          transition: "unset",
+        };
+
+        if (projectType.length === 0) {
+          // Override styling when the list is completely empty
+          buttonStyle.background = ''; // You can use a different color or style here
+        }
 
         return (
           <div className={styles.alignCategoriesRecycle} key={category}>
@@ -42,7 +42,7 @@ export function createProjectTypeFilter(
                 id={styles[category]}
                 className={styles.categoryBtn}
                 style={buttonStyle}
-                css={{ width: "100%", height: "75px", borderRadius: ".5em"}}
+                css={{ width: "100%", height: "75px", borderRadius: ".5em" }}
                 auto
                 icon={<Image
                   src={"/images/categoriesÅterbruk/" + category.toLowerCase() + ".svg"}
@@ -79,7 +79,7 @@ export function createProjectTypeFilter(
       })}
     </>
   );
-} 
+}
 
 /**
   * Creates checkboxes for all the different lookingForMaterials categories in the database
@@ -107,6 +107,7 @@ export function createLookingForFilter(
               id={category + "Sökes"}
               name={category + "Sökes"}
               type="checkbox"
+              checked={lookingForMaterials.includes(category)}
               onChange={(e) => {
                 // If the checkbox is now unchecked and the category is in the lookingForMaterials array, remove it from the array
                 if (
@@ -145,7 +146,7 @@ export function createLookingForFilter(
                 }
               }}
             />
-            <label htmlFor={category + "Sökes"} style={{margin: "0",}}>{category}</label>
+            <label htmlFor={category + "Sökes"} style={{ margin: "0", }}>{category}</label>
           </div>
         );
       })}
@@ -179,6 +180,7 @@ export function createAvailableFilter(
               id={category + "Erbjuds"}
               name={category + "Erbjuds"}
               type="checkbox"
+              checked={availableMaterials.includes(category)}
               onChange={(e) => {
                 // If the checkbox is now unchecked and the category is in the availableMaterials array, remove it from the array
                 if (
@@ -218,7 +220,7 @@ export function createAvailableFilter(
                 }
               }}
             />
-            <label htmlFor={category + "Erbjuds"} style={{margin: "0",}}>{category}</label>
+            <label htmlFor={category + "Erbjuds"} style={{ margin: "0", }}>{category}</label>
           </div>
         );
       })}

@@ -1,11 +1,10 @@
-import { MapContainer,  TileLayer, ZoomControl } from 'react-leaflet'
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MarkerClusterGroup from './markerCluster/index.js'
 import { recyclePins } from '@/functions/recycleMap'
-
 
 /**
  * Function to render the map with all relevant pins
@@ -24,9 +23,9 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
   useEffect(() => {
     // Fetches all relevant data from API
     const fetchData = async () => {
-        const response = await fetch('/api/recycle')
-        const data = await response.json()
-        setMapData(data)
+      const response = await fetch('/api/recycle')
+      const data = await response.json()
+      setMapData(data)
     }
     setIsLoading(true)
     fetchData().then(() => setIsLoading(false))
@@ -53,11 +52,9 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MarkerClusterGroup
-          disableClusteringAtZoom={13}
           showCoverageOnHover={false}
-          spiderfyOnMaxZoom={false}
           maxClusterRadius={((zoom: number) => {
-            if (zoom > 6 && zoom < 13) { return 40 }
+            if (zoom > 6) { return 40 }
             else { return 80 }
           })}>
           {recyclePins(mapData, currentFilter, searchInput)}
