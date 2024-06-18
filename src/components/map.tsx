@@ -48,7 +48,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
       <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "100dvh", width: "100%" }} zoomControl={false}>
         <ZoomControl position="bottomright" />
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="http://osm.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MarkerClusterGroup

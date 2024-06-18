@@ -34,7 +34,7 @@ export function recyclePopup(pin: DeepRecycle) {
           <p><b>Sökes</b> <br /> {pin.lookingForMaterials || "Inget material angivet"}</p>
           {!pin.description ? null : <p><b>Beskrvining</b> <br /> {pin.description}</p>}
           {!pin.contact ? <p><b>Kontakt</b> <br /> Ingen kontaktinformation tillgänglig</p> : <p><b>Kontakt</b> <br /> {pin.contact}</p>}
-          {!pin.externalLinks ? null : <div><b>Länkar</b> <br /> <a href={pin.externalLinks}>{pin.externalLinks}</a></div>}
+          {!pin.externalLinks ? null : <div><b>Länkar</b> <br /> <a href={pin.externalLinks} target="_blank" rel="noreferrer">{pin.externalLinks}</a></div>}
           {!pin.attachment ? null : <div><b>Bilaga</b> <br /> Var försiktig med nedladdade filer,<br />vi håller inte koll på vad de innehåller <br /> <a download={pin.attachmentName} href={attachmentUrl}>{pin.attachmentName}</a></div>}
         </div>
       </div>

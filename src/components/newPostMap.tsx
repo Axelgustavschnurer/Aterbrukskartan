@@ -53,7 +53,7 @@ export default function NewPostMap({ setLat, setLon, lat, lon, defaultLat = 59.8
       <MapContainer center={!lat && !lon ? [defaultLat, defaultLon] : [lat, lon]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "90vh", width: "100%", borderRadius: '.5em', margin: "2em 0" }} zoomControl={false} >
         <ZoomControl position="bottomright" />
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="http://osm.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MovableMarker
