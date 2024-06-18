@@ -137,69 +137,17 @@
   transition: all 0.3s ease;
 }
 
-/* Positioning for link buttons */
-.logout {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 100px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-  
-.editPost {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 148px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.addNewPost {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 196px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.editUser {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 244px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
-.addUser {
-  position: fixed;
-  right: 0.5rem;
-  bottom: 292px;
-  height: auto;
-  width: auto;
-  z-index: 2;
-}
-
 /* Style for link buttons */
 .linkButton {
-  background-color: #f2f2f2;
+  background-color: white;
   border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 38px;
-  width: 38px;
-  border: 2px solid #8a8a8a;
+  display: grid;
+  padding: .5rem;
+  margin-block: .5rem;
+  border: none;
+  box-shadow: 0 0 .5rem -.25rem gray;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.linkButton img {
-  height: 28px;
-  width: 28px;
+  transition: all 0.2s ease;
 }
 
 .linkButton:hover {

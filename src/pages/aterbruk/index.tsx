@@ -272,75 +272,74 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <Image src="/search.svg" alt="Sökikon" width={24} height={24} className={styles.searchIcon} />
+            <Image src="/search.svg" alt="Sökikon" width={32} height={32} className={styles.searchIcon} />
           </div> : null}
 
         {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
       </Aside>
 
-      {/* Logout button */}
-      {user && (
-        <div className={styles.logout}>
-          <Tooltip content={"Logga\xa0ut"} placement="left">
+      <div style={{ position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem' }}>
+
+        {/* Logout button */}
+        {user && (
+          <label className='flex align-items-center justify-content-flex-end gap-100'>
+            Logga ut
             <button type="button" className={styles.linkButton} onClick={logoutFunction}>
-              <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={50} height={50} />
+              <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
             </button>
-          </Tooltip>
-        </div>
-      )}
+          </label>
+        )}
 
-      {/* Login button */}
-      {!user && (
-        <div className={styles.logout}>
-          <Tooltip content={"Logga\xa0in"} placement="left">
+        {/* Login button */}
+        {!user && (
+          <label className='flex align-items-center justify-content-flex-end gap-100'>
+            Logga in
             <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-              <Image src="./images/adminIcons/login.svg" alt='Logga in' width={50} height={50} />
+              <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
             </button>
-          </Tooltip>
-        </div>
-      )}
+          </label>
+        )}
 
-      {/* Buttons leading to other pages where one can add/edit projects to the database */}
-      {(user?.isAdmin || user?.isRecycler) && (
-        <>
-          <div className={styles.editPost}>
-            <Tooltip content={"Redigera\xa0inlägg"} placement="left">
+        {/* Buttons leading to other pages where one can add/edit projects to the database */}
+        {(user?.isAdmin || user?.isRecycler) && (
+          <>
+            <label className='flex align-items-center justify-content-flex-end gap-100'>
+              Redigera inlägg
               <button type="button" className={styles.linkButton} onClick={goToEditPost}>
-                <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={50} height={50} />
+                <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
               </button>
-            </Tooltip>
-          </div>
+            </label>
 
-          <div className={styles.addNewPost}>
-            <Tooltip content={"Lägg\xa0till\xa0nytt\xa0inlägg"} placement="left">
+            <label className='flex align-items-center justify-content-flex-end gap-100'>
+              Lägg till nytt inlägg
               <button type="button" className={styles.linkButton} onClick={goToNewPost}>
-                <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={50} height={50} />
+                <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
               </button>
-            </Tooltip>
-          </div>
-        </>
-      )}
+            </label>
+          </>
+        )}
 
-      {/* Buttons leading to the admin pages */}
-      {user?.isAdmin && (
-        <>
-          <div className={styles.editUser}>
-            <Tooltip content={"Redigera\xa0användare"} placement="left">
+        {/* Buttons leading to the admin pages */}
+        {user?.isAdmin && (
+          <>
+            <label className='flex align-items-center justify-content-flex-end gap-100'>
+              Redigera användare
               <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={50} height={50} />
+                <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
               </button>
-            </Tooltip>
-          </div>
+            </label>
 
-          <div className={styles.addUser}>
-            <Tooltip content={"Lägg\xa0till\xa0ny\xa0användare"} placement="left">
+            <label className='flex align-items-center justify-content-flex-end gap-100'>
+              Lägg till ny användare
               <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={50} height={50} />
+                <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
               </button>
-            </Tooltip>
-          </div>
-        </>
-      )} 
+            </label>
+          </>
+        )}
+
+      </div>
+
     </>
   )
 }

@@ -436,7 +436,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
       </Head>
 
       <div className="layout-main">
-        <main className="margin-y-100">
+        <main className="margin-block-100">
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Redigera ett inlägg

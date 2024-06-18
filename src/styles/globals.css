@@ -29,6 +29,7 @@
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @import url("forms.css");
+@import url("main.css");
 
 body {
 	margin: 0;
@@ -89,70 +90,6 @@ p {
 }
 
 /* Flex layouts */
-.display-flex {
-	display: flex;
-}
-
-.align-items-center {
-	align-items: center;
-}
-
-.justify-content-space-between {
-	justify-content: space-between;
-}
-
-.gap-50 {
-	gap: .5em;
-}
-
-.gap-100 {
-	gap: 1em;
-}
-
-.gap-200 {
-	gap: 2em;
-}
-
-.flex-grow-100 {
-	flex-grow: 1;
-}
-
-.flex-wrap-wrap {
-	flex-wrap: wrap;
-}
-
-.margin-y-50 {
-	margin: .5em 0;
-}
-
-.margin-y-100 {
-	margin: 1em 0;
-}
-
-.margin-y-200 {
-	margin: 2em 0;
-}
-
-.padding-y-50 {
-	padding: .5em 0;
-}
-
-.padding-y-100 {
-	padding: 1em 0;
-}
-
-.padding-y-200 {
-	padding: 2em 0;
-}
-
-.padding-200 {
-	padding: 2em;
-}
-
-.cursor-pointer {
-	cursor: pointer;
-}
-
 .clicky {
 	cursor: pointer;
 	padding: 1em;
@@ -223,6 +160,10 @@ textarea {
 }
 
 /* Marker cluster stuff */
+
+.leaflet-control-zoom {
+	margin: 1rem !important; /* TODO: made important to override other leaflet stuff, probably structure this better at some point :) */
+}
 
 /* To solve Next.js issues source from https://github.com/Leaflet/Leaflet.markercluster/blob/master/dist/MarkerCluster.css */
 .leaflet-cluster-anim .leaflet-marker-icon,

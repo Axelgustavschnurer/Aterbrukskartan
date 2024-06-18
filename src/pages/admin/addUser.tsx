@@ -63,7 +63,7 @@ export function OrgSelect({ orgs, currentOrgs, setCurrentOrgs }: { orgs: string[
   return (
     <div>
       {orgs.map((org) => (
-        <div key={org} className="display-flex align-items-center gap-50 margin-y-50">
+        <div key={org} className="display-flex align-items-center gap-50 margin-block-50">
           <input
             type="checkbox"
             id={org}
@@ -110,7 +110,7 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
       </Head>
 
       <div className="layout-main">
-        <main className="margin-y-100">
+        <main className="margin-block-100">
           <h1 className="display-flex align-items-center gap-50">         
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till användare
