@@ -45,7 +45,7 @@ export default function Map({ currentFilter, searchInput, currentMap }: any) {
           <Image src="/loading.gif" alt="Laddar data" width={100} height={100}></Image>
         </div>
       }
-      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "100dvh", width: "100%" }} zoomControl={false}>
+      <MapContainer center={[59.858227, 17.632252]} zoom={13} maxZoom={16} minZoom={5} maxBounds={bounds} style={{ height: "100%", width: "100%", borderRadius: '.5rem' }} zoomControl={false}>
         <ZoomControl position="bottomright" />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'
