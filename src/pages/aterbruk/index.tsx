@@ -256,33 +256,33 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <main className='flex gap-50 padding-50' style={{backgroundColor: '#f5f5f5', height: '100dvh'}}>
-        <aside style={{width: '100px', backgroundColor: 'white', borderRadius: '.5rem'}}></aside>
+      <main className='flex gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', height: '100dvh' }}>
+        <aside style={{ width: '100px', backgroundColor: 'white', borderRadius: '.5rem' }}></aside>
 
-        <aside className='padding-50' style={{width: '500px', backgroundColor: 'white' , borderRadius: '.5rem', paddingTop: '0' }}>
-            <label className='block padding-block-50'>
-              <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
-                <span>Sök bland projekt</span>
-                <span>?</span>
-              </div>
-              {!isMobile ?
-                  <input
-                    type="search"
-                    className='margin-block-25'
-                    placeholder="Sök efter projekt..."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
+        <aside className='padding-50' style={{ width: '500px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+          <label className='block padding-block-50'>
+            <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
+              <span>Sök bland projekt</span>
+              <span>?</span>
+            </div>
+            {!isMobile ?
+              <input
+                type="search"
+                className='margin-block-25'
+                placeholder="Sök efter projekt..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
               : null}
-            </label>
+          </label>
 
-          <div style={{borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll'}}>
-            {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
+          <div style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
+            {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
           </div>
         </aside>
-        
+
         <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
-      
+
       </main>
 
       {/* 
@@ -291,7 +291,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       */}
 
       {/*<Aside>*/}
-        {/* Searchbar 
+      {/* Searchbar 
         {!isMobile ?
           <div style={{ position: "relative", marginTop: "0" }}>
             <input
@@ -308,7 +308,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
       {/*<div style={{ position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem' }}>*/}
 
-        {/* 
+      {/* 
         {user && (
           <label className='flex align-items-center justify-content-flex-end gap-100'>
             Logga ut
@@ -319,7 +319,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         )}
           Logout button */}
 
-        {/* Login button 
+      {/* Login button 
         {!user && (
           <label className='flex align-items-center justify-content-flex-end gap-100'>
             Logga in
@@ -330,7 +330,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         )}
         */}
 
-        {/* Buttons leading to other pages where one can add/edit projects to the database
+      {/* Buttons leading to other pages where one can add/edit projects to the database
         {(user?.isAdmin || user?.isRecycler) && (
           <>
             <label className='flex align-items-center justify-content-flex-end gap-100'>
@@ -350,7 +350,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         )}
         */}
 
-        {/* Buttons leading to the admin pages 
+      {/* Buttons leading to the admin pages 
         {user?.isAdmin && (
           <>
             <label className='flex align-items-center justify-content-flex-end gap-100'>

@@ -14,7 +14,7 @@ import { Button, Collapse } from "@nextui-org/react";
 import styles from '@/components/aside/aside.module.css'
 import { Data } from "@/session";
 
-export default function MobileSidebar({ setFilter, currentMap, energiportalen, user }: { setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
+export default function MobileSidebar({ setFilter, currentMap, user }: { setFilter: Function, currentMap: string, user: Data['user'] }) {
   const [isOpen, setOpen] = useState(true);
 
   // List of all pins in the database
@@ -158,7 +158,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     }
                   }}
                 />
-                <label htmlFor={pin} style={{margin: "0",}}>{pin}</label>
+                <label htmlFor={pin} style={{ margin: "0", }}>{pin}</label>
               </div>
             );
           })}
@@ -179,9 +179,9 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
         <div>
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterButtons}>
-            {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)  }
+            {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
           </div>
-          
+
           <h3>År</h3>
           {/* Range slider for year filter */}
           <div>
@@ -203,7 +203,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
               reset={sliderReset}
             />
           </div>
-                  
+
           <h3>Månad</h3>
           <div>
             <DualRangeSlider
@@ -241,7 +241,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                     }
                   }}
                 />
-                <label htmlFor="showAttached" style={{margin: "0",}}>Visa bara inlägg med bilaga</label>
+                <label htmlFor="showAttached" style={{ margin: "0", }}>Visa bara inlägg med bilaga</label>
               </div>
               <h3>Erbjuds</h3>{" "}
               {createAvailableFilter(
@@ -260,7 +260,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                 setDisableReset
               )}
             </span>
-          {createOrganisationFilter()}
+            {createOrganisationFilter()}
 
             {/* Admin-only button to filter for disabled pins */}
             {user && user.isAdmin && (
@@ -278,7 +278,7 @@ export default function MobileSidebar({ setFilter, currentMap, energiportalen, u
                       }
                     }}
                   />
-                  <label htmlFor="showDisabled" style={{margin: "0",}}>Visa bara inaktiva inlägg</label>
+                  <label htmlFor="showDisabled" style={{ margin: "0", }}>Visa bara inaktiva inlägg</label>
                 </div>
               </>
             )

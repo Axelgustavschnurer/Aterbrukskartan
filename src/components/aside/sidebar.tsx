@@ -20,11 +20,10 @@ import { Data } from "@/session";
  * Sidebar component
  * @param setFilter Function to set the `filter` state
  * @param currentMap String containing the current map for conditional rendering
- * @param energiportalen Boolean to check if the user is on the energiportalen page
  * @param user Object containing the user's session data
  * @returns JSX.Element
  */
-export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, setFilter, currentMap, energiportalen, user }: { monthArray?: any, maxCategoryAmount: any, currentFilter: any, setFilter: Function, currentMap: string, energiportalen: boolean, user: Data['user'] }) {
+export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, setFilter, currentMap, user }: { monthArray?: any, maxCategoryAmount: any, currentFilter: any, setFilter: Function, currentMap: string, user: Data['user'] }) {
   // Handles the state of the sidebar's visibility
   const [isOpen, setOpen] = useState(true);
 
