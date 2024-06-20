@@ -1,27 +1,20 @@
 # STUNS maps
 
-This project is a rewrite of a previous map project (available in the `StunsStreetMap_Archive` branch) aiming to display stories where STUNS has been involved with students from Uppsala's universities regarding their projects.
-
-This project also contains a secondary hidden map as a demo for a project that aims to facilitate recycling of construction materials by displaying planned projects.
-The idea is that companies enter some project information, like when and where they will do what, and what kinds of materials they will need or have available.
+This project is aims to create a platform where users can share their construction-related projects to further the goal of a circular economy.
+The idea is that they post what materials they need or can provide to others, and then others can see this and contact them to get/buy the materials they need or to give away/sell materials they don't need.
 
 # Dev stuff
 
-**Because of how it is written, this project won't work if certain columns in the database are empty. This includes when the entire database is empty.**
+**Because of how it is written, this project won't work if certain columns in the database are empty. This includes when the entire database is empty. Fixing this would be a nice improvement.**
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-[React](https://reactjs.org/) is used for the frontend and [Prisma](https://www.prisma.io/) is used for the database.
-
-
-To view our plans for possible future improvements, see [this document](https://stuns.sharepoint.com/:w:/s/terbrukskartan/ET3yGNnQiTNPra6jFuFIEygB-gpCZnkSEF_R-C6VWvCt6w?e=htn8uE).
-
----
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app), using the pages router.
+Next is based on [React](https://reactjs.org/), and [Prisma](https://www.prisma.io/) is our ORM of choice, so some knowledge of these is recommended.
 
 ## Getting Started
 
 All commands are to be run in your terminal of choice, in the root directory of the project.
 
-First, download and install [Node.js](https://nodejs.org/en/download/) and clone the repository here on Azure (preferably to [VS Code](https://code.visualstudio.com/download), but you'll need [git](https://git-scm.com/downloads) regardless of what you use).
+First, download and install [Node.js](https://nodejs.org/en/download/) and clone this repository using [git](https://git-scm.com/downloads). We recommend using [Visual Studio Code](https://code.visualstudio.com/) as your code editor/IDE, but any editor will do.
 
 Thereafter, install dependencies by running:
 
@@ -34,29 +27,12 @@ Then, create a `.env` file in the root directory containing the following:
 ```
 DATABASE_URL = "sqlserver://<url>:<port>;database=<database>;user=<user>;pwd=<password>;<optional arguments>"
 
-SHADOW_DATABASE_URL="sqlserver://localhost:1433;database=shadow;trustServerCertificate=true;integratedSecurity=true"
-
 IRON_SESSION_PASSWORD = "<password>"
 ```
 
-The current database url is already set up in a .env file among the secure files on azure, so if you change database you need to update the file there as well.
-The shadow database url is only used when changing the database schema, and is not necessary for running the project and can thus just be set to localhost.
-The iron session password can be set to anything *at least 32 characters long*, but should be kept secret. It is used to encrypt session cookies. The current password is already set up in the .env file among the secure files on azure, so if you wish to change it you need to update the file there as well, and not forget to still include the database url in the new file.
-
-**To summarize, don't touch the secure file called .env on azure unless you know what you're doing. You *need* to include both a valid database url and an iron session password if you do change it.**
-Since you can't read or edit the secure file on azure, make sure to be careful if you update it, as the previous version will be overwritten and lost.
-
-If you don't know the database url, try asking a project admin.
-If they don't know or can't be reached, you could try contacting leon.loov@outlook.com.
-If you still can't get the database url, you could theoretically get the deployment pipeline to print it out, but that's extremely bad practice and absolutely not recommended.
-- Do note that the database url is a secret and should not be shared with anyone.
-  - Making the pipeline print it out is a very bad idea because it will be visible to others in the logs.
-- If you still want to do it, you should google how to print environment variables in Azure Pipelines. It's not hard, but it's not something I'm going to write here.
-
-The shadow database url doesn't _need_ to be on localhost, however it shouldn't match the actual database url.
-
-- The shadow database is used as an intermediary step when changing the database schema, and data should not be stored there.
-- To create a local database, you can use [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms) (SSMS).
+- Any string at least 32 characters long can be used as the iron session password. See the [iron-session GitHub page](https://github.com/vvo/iron-session) for more information.
+- For development, you can create a local database using [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)(SSMS), with a database connection string like `sqlserver://localhost:1433;database=aterbruk;trustServerCertificate=true;integratedSecurity=true` (with `integratedSecurity=true` you can omit the user and password fields, and it will use your Windows credentials to log in).
+  - Note that you must pre-populate the database with some data for the project to work. This can be done in the interface from `npx prisma generate`.
 
 Run prisma generate to generate the prisma client:
 
@@ -64,35 +40,38 @@ Run prisma generate to generate the prisma client:
 npx prisma generate
 ```
 
-Run the development server:
+Run in development mode:
 
 ```bash
 npm run dev
 ```
 
+Or, if you want to build and typecheck the project before running it:
+
+```bash
+npm run build
+npm run start
+```
+
 Open [http://localhost:3000](http://localhost:3000) (by default) to see the site. *Note that it won't work if the database is empty, see the note at the top of this file.*
 
-To view the database, run the following command:
+To view the contents of your connected database, run the following command:
 
 ```bash
 npx prisma studio
 ```
 
-Then open [http://localhost:5555](http://localhost:5555) to see the data.
-
----
+Then open [http://localhost:5555](http://localhost:5555) if it doesn't open automatically.
 
 ## Changing the database schema
 
-MAKE SURE TO DOWNLOAD A BACKUP OF THE PRODUCTION DATABASE BEFORE MAKING ANY CHANGES TO IT. Either go [here](https://maps.stuns.se/download) while logged in as an admin and download Stories data, mapItem data, and Recycle data, or get a proper backup somehow. Be careful when restoring/creating a new database from your choice of backup as well, as it might give new IDs to existing data and thus break links between tables. (The recommended tool for data import, the SQL Server Import and Export Wizard, might mess up the IDs by default, and we don't seem to have the permissions necessary to get proper backups from the database or copy it using the Copy Database Wizard.)
-
-In order to change the database schema, make sure you have a shadow database url set up in your `.env` file.
+For now, this instance of the project shares its database with the [STUNS Stories map](https://github.com/STUNS-Uppsala/Stories) (a private repository deploying to [this site](https://maps.stuns.se)). This means that THIS PROJECT MAY NOT CHANGE THE UPSTREAM DATABASE SCHEMA and will be affected by any changes made to the Stories map database schema. We should aim to set up a separate database for this project in the future.
 
 ### Changing the development database schema
-**NEVER run `prisma migrate dev` against the production database.**  
+**Never run `prisma migrate dev` against a production database.**  
 Edit the file at `prisma/schema.prisma` to change the database schema.
 
-Then, run the following command to make sure the database is valid:
+Then, run the following command to make sure your current database is valid:
 
 ```bash
 npx prisma validate
@@ -109,51 +88,30 @@ and follow the instructions.
 ### Changing the production database schema
 **NEVER run `prisma migrate dev` against the production database.**  
 Once you're done testing with the development database, you should apply the changes to the production database.
-This is done automatically by a pipeline once you merge your changes to the master branch, if you have created a migration.
-
----
-
-## Important links
-
-If running on localhost, replace `maps.stuns.se` with `localhost:3000` in the links below.
-
-- [https://maps.stuns.se/stories](https://maps.stuns.se) - Stories map.
-- [https://maps.stuns.se/?energiportalen=true](https://maps.stuns.se/?energiportalen=true) - Customized version of the Stories map, to be viewed from within the iframes of Energiportalen.
-- [https://maps.stuns.se/aterbruk](https://maps.stuns.se/aterbruk) - Återbrukskartan.
-- [https://maps.stuns.se/download](https://maps.stuns.se/download) - Page where you can download data from the database, both in current format and the old format used at dataportalen.
-- [https://maps.stuns.se/admin/addUser](https://maps.stuns.se/admin/addUser) - Page where you can add new users to the database.
-- [https://maps.stuns.se/admin/editUser](https://maps.stuns.se/admin/editUser) - Page where you can edit existing users in the database.
-- [https://maps.stuns.se/login](https://maps.stuns.se/login) - Login page. You're automatically redirected here if you try to access any limited pages (like the admin pages or återbrukskartan) without being logged in.
-- [https://maps.stuns.se/changePassword](https://maps.stuns.se/changePassword) - Page where you can change your password. You need to know your current password to change it, we don't have the ability to reset passwords (except by manually changing the hashed password in the database to the hash of the new password, which is not recommended as it's very bad practice and you might mess up which user you're changing the password for).
+This should be done automatically by a GitHub action when you push your changes to the main branch in the future. For now, you are not allowed to update the production database schema since it is shared with the [Stories map](https://maps.stuns.se).
 
 ### Uploading data to the database
 
-If you want to upload recycle data to the database, you should run the project locally and use the button that shows up on the download page when logged in as an admin.  
+There is scuffed functionality to upload recycle data to the database, to use it you should run the project locally and use the button that shows up on the download page when logged in as an admin.  
 Link to default localhost location: [http://localhost:3000/download](http://localhost:3000/download)  
 There is a folder called externalData in the root directory of the project wherein you can find some example files from the first upload.  
 The file called `ByggaBo.geojson` is used to convert from "Fastighetsbeteckning" to coordinates, and should not be changed unless you know what you're doing and are feeling up to the task of changing the code that uses it.  
 The file called `skolfastigheter.csv` contains an example of data that can be uploaded to the database. Any file you wish to upload should be in the same format (converted from the xlsx file provided by the municipality to a csv file with utf-8 encoding). You can change the file name, but make sure to change the name in the code as well. The file name is currently set to `skolfastigheter.csv` in `src\pages\api\addRecycleFromExternal.ts` on line 64 (in the declaration of the variable `csvFile`). If you feel up for it, feel free to update the code to accept any file name or drag and drop functionality in the browser or whatever else to make it easier to upload data.
 
-### Good to know
-
-The project previously used query-embedded keys to restrict access to certain pages, but it is now replaced with a more secure system using iron-session. If you find a link like `https://maps.stuns.se/?stunsStoriesAdmin=hVg1JHJV787gFGftrd` it is from an old version of the project and the query part of the link can be removed. The link will still work with it there, but it is unnecessary now. The only query parameter that is still used is `energiportalen=true` which is used to customize the map to be viewed within the iframes of Energiportalen.
+## Good to know
 
 We store a few different values in the iron-session cookie, which are as follows:
 - id - the id of the user in the database.
 - email - the email of the user.
 - isLoggedIn - boolean, doesn't really do anything; any user with a valid session is currently assigned this role, but checks that only need the user to be logged in check for if the user has a valid session, not that they have this specific role.
-- isAdmin - boolean, if true the user can access all pages, can add and edit users, can upload certain data to the database when running the project locally, can add and edit Stories and Recycle data and enter any organisation as owner of those projects.
-- isStoryteller - boolean, if true the user can add and edit Stories, and enter any organisation as owner of those projects.
+- isAdmin - boolean, if true the user can access all pages, can add and edit users, can upload certain data to the database when running the project locally, can add and edit Recycle data and enter any organisation as owner of their projects.
+- isStoryteller - boolean, is a remnant from the Stories map and doesn't do anything in this project. Should be removed once we set up our own database.
 - isRecycler - boolean, if true the user can add and edit Recycle data related to the organisation/-s listed in their recycleOrganisations field and can enter those organisations as owner of those projects.
 - recycleOrganisations - a list of organisations that the user is allowed to enter as owner of Recycle projects. This doesn't restrict access to any pages, but it restricts which organisations the user can enter as owner of Recycle projects. If the user is not an admin, they can only enter organisations that are in this list. If the user is an admin, they can enter any organisation as owner of Recycle projects, regardless of what is in this list.
-
----
 
 ## API Routes
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
----
 
 ## Learn More
 
