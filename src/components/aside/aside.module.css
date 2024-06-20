@@ -135,39 +135,6 @@
 }
 
 
-/* Scrollbar */
-
-.sidebar > div {
-    padding: .5em;
-    height: 100%;
-    overflow: auto;
-    scrollbar-color: var(--light) #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-.sidebar > div::-webkit-scrollbar {
-    width: 1em;
-}
-
-.sidebar > div::-webkit-scrollbar-track {
-    background: #ffffff;
-    background-clip: padding-box;
-}
-
-.sidebar > div::-webkit-scrollbar-thumb {
-    background-color: var(--light);
-    border-radius: .5em;
-    border: 3px solid #ffffff;
-    background-clip: padding-box;
-}
-
-.sidebar > div::-webkit-scrollbar-thumb {
-    background-color: var(--light);
-    border-radius: .5em;
-    border: 3px solid #ffffff;
-    background-clip: padding-box;
-}
-
 /* Filter components */
 
 .filterButtons {

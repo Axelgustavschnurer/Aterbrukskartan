@@ -143,21 +143,6 @@ textarea {
 	resize: vertical;
 }
 
-/* width */
-::-webkit-scrollbar {
-	width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-	background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: #8a8a8a;
-}
-
 /* Marker cluster stuff */
 
 .leaflet-control-zoom {

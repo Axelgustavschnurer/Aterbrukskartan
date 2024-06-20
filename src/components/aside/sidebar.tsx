@@ -374,127 +374,123 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
   return (
     <>
-      <div className={styles.sidebar}>
-        <div>
 
-          <h3>Projekttyper</h3>
-          {/* Buttons for choosing project types to filter by */}
-          <div className={styles.filterButtons}>
-            {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
-          </div>
+      <h3>Projekttyper</h3>
+      {/* Buttons for choosing project types to filter by */}
+      <div className={styles.filterButtons}>
+        {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
+      </div>
 
-          <h3>År</h3>
-          {/* Range slider for year filter */}
-          <div className={styles.rSliderContainer}>
-            <DualRangeSlider
-              min={yearLimitsRecycle.min}
-              max={yearLimitsRecycle.max}
-              onChange={({ min, max }: any) => {
-                if (years.includes(yearLimitsRecycle.min) && years.includes(yearLimitsRecycle.max)) {
-                  setYearSliderDefault(true);
-                } else {
-                  setYearSliderDefault(false);
-                }
+      <h3>År</h3>
+      {/* Range slider for year filter */}
+      <div className={styles.rSliderContainer}>
+        <DualRangeSlider
+          min={yearLimitsRecycle.min}
+          max={yearLimitsRecycle.max}
+          onChange={({ min, max }: any) => {
+            if (years.includes(yearLimitsRecycle.min) && years.includes(yearLimitsRecycle.max)) {
+              setYearSliderDefault(true);
+            } else {
+              setYearSliderDefault(false);
+            }
 
-                if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
-                  setYears([min, max]), setSliderReset(false);
-                }
-              }}
-              reset={sliderReset}
-            />
-          </div>
+            if (!(years.includes(min) && years.includes(max)) || (min === max && !(years[0] === min && years[1] === max))) {
+              setYears([min, max]), setSliderReset(false);
+            }
+          }}
+          reset={sliderReset}
+        />
+      </div>
 
-          {/*This is a range slider for months filter. Recycle map only */}
-          <div className={styles.sidebarHeader}>
-            <div className={styles.sidebarTitle}>
-              <h3>Månad</h3>
-            </div>
-          </div>
-          <div className={styles.rSliderContainer}>
-            <DualRangeSlider
-              min={1}
-              max={12}
-              onChange={({ min, max }: any) => {
-                if (months.includes(1) && months.includes(12)) {
-                  setMonthSliderDefault(true);
-                } else {
-                  setMonthSliderDefault(false);
-                }
-                if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))
-                ) {
-                  setMonths([min, max]), setSliderReset(false);
-                }
-              }}
-              reset={sliderReset}
-            />
-          </div>
+      {/*This is a range slider for months filter. Recycle map only */}
+      <div className={styles.sidebarHeader}>
+        <div className={styles.sidebarTitle}>
+          <h3>Månad</h3>
+        </div>
+      </div>
+      <div className={styles.rSliderContainer}>
+        <DualRangeSlider
+          min={1}
+          max={12}
+          onChange={({ min, max }: any) => {
+            if (months.includes(1) && months.includes(12)) {
+              setMonthSliderDefault(true);
+            } else {
+              setMonthSliderDefault(false);
+            }
+            if (!(months.includes(min) && months.includes(max)) || (min === max && !(months[0] === min && months[1] === max))
+            ) {
+              setMonths([min, max]), setSliderReset(false);
+            }
+          }}
+          reset={sliderReset}
+        />
+      </div>
 
-          <form className={styles.form}>
-            {/* A button for only showing pins with attachments. Currently recycle map only */}
-            <h3>Bilagor</h3>
+      <form className={styles.form}>
+        {/* A button for only showing pins with attachments. Currently recycle map only */}
+        <h3>Bilagor</h3>
+        <div className={styles.input}>
+          <input
+            id="showAttached"
+            name="showAttached"
+            type="checkbox"
+            checked={showAttachment}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setShowAttachment(true);
+              } else {
+                setShowAttachment(false);
+              }
+            }}
+          />
+          <label htmlFor="showAttached" style={{ margin: "0", }}>Visa bara inlägg med bilaga</label>
+        </div>
+
+        {/* Checkboxes for filtering materials and organisations */}
+        <span>
+          <h3>Erbjuds</h3>{" "}
+          {createAvailableFilter(
+            mapData,
+            availableMaterials,
+            setAvailableMaterials,
+            disableReset,
+            setDisableReset
+          )}{" "}
+          <h3>Sökes</h3>{" "}
+          {createLookingForFilter(
+            mapData,
+            lookingForMaterials,
+            setLookingForMaterials,
+            disableReset,
+            setDisableReset
+          )}
+        </span>
+        {createOrganisationFilter()}
+
+        {/* Admin-only button to filter for disabled pins */}
+        {user && user.isAdmin && (
+          <>
             <div className={styles.input}>
               <input
-                id="showAttached"
-                name="showAttached"
+                id="showDisabled"
+                name="showDisabled"
                 type="checkbox"
-                checked={showAttachment}
+                checked={showInactive}
                 onChange={(e) => {
                   if (e.target.checked) {
-                    setShowAttachment(true);
+                    setShowInactive(true);
                   } else {
-                    setShowAttachment(false);
+                    setShowInactive(false);
                   }
                 }}
               />
-              <label htmlFor="showAttached" style={{ margin: "0", }}>Visa bara inlägg med bilaga</label>
+              <label htmlFor="showDisabled" style={{ margin: "0", }}>Visa bara inaktiva inlägg</label>
             </div>
-
-            {/* Checkboxes for filtering materials and organisations */}
-            <span>
-              <h3>Erbjuds</h3>{" "}
-              {createAvailableFilter(
-                mapData,
-                availableMaterials,
-                setAvailableMaterials,
-                disableReset,
-                setDisableReset
-              )}{" "}
-              <h3>Sökes</h3>{" "}
-              {createLookingForFilter(
-                mapData,
-                lookingForMaterials,
-                setLookingForMaterials,
-                disableReset,
-                setDisableReset
-              )}
-            </span>
-            {createOrganisationFilter()}
-
-            {/* Admin-only button to filter for disabled pins */}
-            {user && user.isAdmin && (
-              <>
-                <div className={styles.input}>
-                  <input
-                    id="showDisabled"
-                    name="showDisabled"
-                    type="checkbox"
-                    checked={showInactive}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setShowInactive(true);
-                      } else {
-                        setShowInactive(false);
-                      }
-                    }}
-                  />
-                  <label htmlFor="showDisabled" style={{ margin: "0", }}>Visa bara inaktiva inlägg</label>
-                </div>
-              </>
-            )
-            }
-          </form>
-        </div>
-      </div>
+          </>
+        )
+        }
+      </form>
 
       {/* Button for clearing the current filter. Disabled when no filter is active */}
       <div className={styles.clearFilter}>
