@@ -259,8 +259,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       <main className='flex gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', height: '100dvh' }}>
         <aside style={{ width: '100px', backgroundColor: 'white', borderRadius: '.5rem' }}></aside>
 
-        <aside className='padding-50' style={{ width: '500px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
-          <label className='block padding-block-50'>
+        <aside className='padding--block-50' style={{ width: '500px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+          <label className='block padding-50'>
             <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
               <span>Sök bland projekt</span>
               <span>?</span>
@@ -276,8 +276,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               : null}
           </label>
 
-          <div style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
-            {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
+          <div className='padding-right-50'>
+            <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
+              {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
+            </div>
           </div>
         </aside>
 
