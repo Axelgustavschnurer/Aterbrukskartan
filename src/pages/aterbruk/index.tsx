@@ -62,15 +62,21 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
   const maxCategoryAmount = React.useMemo(() => 2, [])
 
   // Dynamically imports the map component
+  // TODO: This will look a little laggy as the map component will render a loading spinner when fetching data aswell
+  // TODO: See if you can maybe pass in the isLoading state as a prop here maybe?
   const Map = React.useMemo(() => dynamic(
     () => import('../../components/map'),
     {
-      loading: () => <Badge>A map is loading</Badge>,
+      loading: () =>
+        <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', position: 'absolute', top: '0', left: '0', backgroundColor: 'rgba(255, 255, 255, .75)', borderRadius: '.5rem', zIndex: 99 }}>
+          <Image src="/loading.svg" alt="Laddar data" width={128} height={128}></Image>
+        </div>,
       ssr: false
     }
   ), [/* list variables which should trigger a re-render here */])
 
   /** Function for navigating to the new post page */
+  // QUESTION: Why do we not use normal links here?
   const goToNewPost = () => {
     router.push("/aterbruk/newPost" + window.location.search)
     // useRouteHandler("/aterbruk/newPost")
@@ -256,10 +262,70 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <main className='flex gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', height: '100dvh' }}>
-        <aside style={{ width: '100px', backgroundColor: 'white', borderRadius: '.5rem' }}></aside>
+      <main className='grid gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', gridTemplateRows: 'calc(100dvh - 1rem)', gridTemplateColumns: 'auto auto 1fr' }}>
+        <aside className='padding-50' style={{ backgroundColor: 'white', borderRadius: '.5rem' }}>
 
-        <aside className='padding--block-50' style={{ width: '500px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+          {/* Login button  */}
+          {!user && (
+            <label className='flex align-items-center justify-content-flex-end gap-100'>
+              <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
+                <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
+              </button>
+              Logga in
+            </label>
+          )}
+
+          {/* Buttons leading to other pages where one can add/edit projects to the database */}
+          {(user?.isAdmin || user?.isRecycler) && (
+            <>
+              <label className='flex align-items-center gap-100'>
+                <button type="button" className={styles.linkButton} onClick={goToEditPost}>
+                  <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
+                </button>
+                Redigera inlägg
+              </label>
+
+              <label className='flex align-items-center gap-100'>
+                <button type="button" className={styles.linkButton} onClick={goToNewPost}>
+                  <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
+                </button>
+                Lägg till nytt inlägg
+              </label>
+            </>
+          )}
+
+          {/* Buttons leading to the admin pages */}
+          {user?.isAdmin && (
+            <>
+              <label className='flex align-items-center gap-100'>
+                <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
+                  <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
+                </button>
+                Redigera användare
+              </label>
+
+              <label className='flex align-items-center gap-100'>
+                <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
+                  <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
+                </button>
+                Lägg till ny användare
+              </label>
+            </>
+          )}
+
+          {/* Logout button */}
+          {user && (
+            <label className='flex align-items-center gap-100'>
+              <button type="button" className={styles.linkButton} onClick={logoutFunction}>
+                <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
+              </button>
+              Logga ut
+            </label>
+          )}
+
+        </aside>
+
+        <aside className='padding--block-50' style={{ width: '400px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
           <label className='block padding-50'>
             <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
               <span>Sök bland projekt</span>
@@ -276,104 +342,18 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               : null}
           </label>
 
-          <div className='padding-right-50 padding-block-50' style={{height: 'calc(100% - 78px)'}}>
+          <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 78px)' }}>
             <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
               {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
             </div>
           </div>
         </aside>
 
-        <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+        <div style={{ position: 'relative' }}>
+          <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+        </div>
 
       </main>
-
-      {/* 
-      <div className={styles.totalPProjects}>
-      </div>
-      */}
-
-      {/*<Aside>*/}
-      {/* Searchbar 
-        {!isMobile ?
-          <div style={{ position: "relative", marginTop: "0" }}>
-            <input
-              type="search"
-              className={styles.searchTerm}
-              placeholder="Sök efter projekt..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <Image src="/search.svg" alt="Sökikon" width={32} height={32} className={styles.searchIcon} />
-          </div> : null}
-        */}
-      {/*</Aside>*/}
-
-      {/*<div style={{ position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem' }}>*/}
-
-      {/* 
-        {user && (
-          <label className='flex align-items-center justify-content-flex-end gap-100'>
-            Logga ut
-            <button type="button" className={styles.linkButton} onClick={logoutFunction}>
-              <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
-            </button>
-          </label>
-        )}
-          Logout button */}
-
-      {/* Login button 
-        {!user && (
-          <label className='flex align-items-center justify-content-flex-end gap-100'>
-            Logga in
-            <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-              <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
-            </button>
-          </label>
-        )}
-        */}
-
-      {/* Buttons leading to other pages where one can add/edit projects to the database
-        {(user?.isAdmin || user?.isRecycler) && (
-          <>
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Redigera inlägg
-              <button type="button" className={styles.linkButton} onClick={goToEditPost}>
-                <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
-              </button>
-            </label>
-
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Lägg till nytt inlägg
-              <button type="button" className={styles.linkButton} onClick={goToNewPost}>
-                <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
-              </button>
-            </label>
-          </>
-        )}
-        */}
-
-      {/* Buttons leading to the admin pages 
-        {user?.isAdmin && (
-          <>
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Redigera användare
-              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
-              </button>
-            </label>
-
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Lägg till ny användare
-              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
-              </button>
-            </label>
-          </>
-        )}
-      */}
-
-      {/*</div>*/}
-
     </>
   )
 }
