@@ -276,7 +276,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               : null}
           </label>
 
-          <div className='padding-right-50'>
+          <div className='padding-right-50 padding-block-50' style={{height: 'calc(100% - 78px)'}}>
             <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
               {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
             </div>

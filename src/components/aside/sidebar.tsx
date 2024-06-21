@@ -375,6 +375,84 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
   return (
     <>
 
+      {/* Button for clearing the current filter. Disabled when no filter is active */}
+      <div className="flex gap-100 justify-content-space-between align-items-center">
+        <h3>Aktiva filter</h3>
+        <button
+          style={{
+            backgroundColor: 'transparent',
+            borderRadius: '9999px',
+
+          }}
+          disabled={
+            disableReset.projectType &&
+            disableReset.lookingForMaterials &&
+            disableReset.availableMaterials &&
+            disableReset.organisation &&
+            disableReset.storyCategory &&
+            disableReset.educationalProgram &&
+            disableReset.educationalSpecialisation &&
+            !isRealStory &&
+            !hasCase &&
+            !hasReport &&
+            !hasOpenData &&
+            !hasVideo &&
+            !hasSolarData &&
+            !showInactive &&
+            !showAttachment &&
+            yearSliderDefault &&
+            monthSliderDefault
+          }
+          onClick={() => {
+            setProjectType([]);
+            setSliderReset(true);
+            setLookingForMaterials([]);
+            setAvailableMaterials([]);
+            setOrganisation([]);
+            setStoryCategory([]);
+            setEducationalProgram([]);
+            setEducationalSpecialisation([]);
+            setHasVideo(false);
+            setHasReport(false);
+            setHasCase(false);
+            setHasOpenData(false);
+            setIsRealStory(false);
+            setHasSolarData(false);
+            setShowInactive(false);
+            setShowAttachment(false);
+            setDisableReset({
+              projectType: true,
+              lookingForMaterials: true,
+              availableMaterials: true,
+              organisation: true,
+              storyCategory: true,
+              educationalProgram: true,
+              educationalSpecialisation: true,
+            });
+
+            let checkboxes = document.querySelectorAll(
+              "input[type=checkbox]"
+            );
+            checkboxes.forEach((checkbox: any) => {
+              checkbox.checked = false;
+            });
+          }}
+        >
+          Rensa filter
+        </button>
+      </div>
+
+      <div className="flex gap-50" style={{flexDirection: 'column'}}>
+        {projectTypeLabel()}
+        {yearLabel()}
+        {monthLabel()}
+        {lookingForMaterialsLabel()}
+        {availableMaterialsLabel()}
+        {organisationLabel()}
+        {showInactiveLabel()}
+      </div>
+
+
       <h3>Projekttyper</h3>
       {/* Buttons for choosing project types to filter by */}
       <div className={styles.filterButtons}>
@@ -491,79 +569,6 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
         )
         }
       </form>
-
-      {/* Button for clearing the current filter. Disabled when no filter is active */}
-      <div className={styles.clearFilter}>
-        <Button
-          id={styles.clearBtn}
-          disabled={
-            disableReset.projectType &&
-            disableReset.lookingForMaterials &&
-            disableReset.availableMaterials &&
-            disableReset.organisation &&
-            disableReset.storyCategory &&
-            disableReset.educationalProgram &&
-            disableReset.educationalSpecialisation &&
-            !isRealStory &&
-            !hasCase &&
-            !hasReport &&
-            !hasOpenData &&
-            !hasVideo &&
-            !hasSolarData &&
-            !showInactive &&
-            !showAttachment &&
-            yearSliderDefault &&
-            monthSliderDefault
-          }
-          onPress={() => {
-            setProjectType([]);
-            setSliderReset(true);
-            setLookingForMaterials([]);
-            setAvailableMaterials([]);
-            setOrganisation([]);
-            setStoryCategory([]);
-            setEducationalProgram([]);
-            setEducationalSpecialisation([]);
-            setHasVideo(false);
-            setHasReport(false);
-            setHasCase(false);
-            setHasOpenData(false);
-            setIsRealStory(false);
-            setHasSolarData(false);
-            setShowInactive(false);
-            setShowAttachment(false);
-            setDisableReset({
-              projectType: true,
-              lookingForMaterials: true,
-              availableMaterials: true,
-              organisation: true,
-              storyCategory: true,
-              educationalProgram: true,
-              educationalSpecialisation: true,
-            });
-
-            let checkboxes = document.querySelectorAll(
-              "input[type=checkbox]"
-            );
-            checkboxes.forEach((checkbox: any) => {
-              checkbox.checked = false;
-            });
-          }}
-        >
-          Rensa filter
-        </Button>
-      </div>
-
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.25em' }}>
-        {projectTypeLabel()}
-        {yearLabel()}
-        {monthLabel()}
-        {lookingForMaterialsLabel()}
-        {availableMaterialsLabel()}
-        {organisationLabel()}
-        {showInactiveLabel()}
-      </div>
-
     </>
   );
 }

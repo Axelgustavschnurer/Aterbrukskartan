@@ -200,16 +200,6 @@
     background-color: var(--accent);
 }
 
-/* Button to clear filters */
-
-.clearFilter {
-    margin-top: 0;
-    padding: .5em;
-    border-radius: 0 0 .5em .5em;
-    background-color: white;
-    border: 3px solid black;
-    z-index: 10;
-}
 
 /* Close and open sidebar */
 .sidebarClose {
@@ -239,19 +229,6 @@
     animation: moveHideButton 0.2s;
 }
 
-/* IDs */
-
-#clearBtn {
-    background-color: var(--accent);
-    border: none;
-    color: black;
-    border-radius: .5em;
-    padding: .5em;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    width: 100%;
-}
 
 /* Hide/Show sidebar button */
 #hideBtn {
