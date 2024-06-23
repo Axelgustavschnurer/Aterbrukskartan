@@ -99,31 +99,35 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </Head>
 
       <main className='grid gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', gridTemplateRows: 'calc(100dvh - 1rem)', gridTemplateColumns: 'auto auto 1fr' }}>
-        <aside className='padding-50 flex justify-content-space-between' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column' }}>
+        <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
 
           <section>
-            <Image src='/back.svg' alt='Stäng menu' width={32} height={32} />
+            <div className='padding-50' style={{position: 'relative', width: 'fit-content'}}>
+              <input type="checkbox" id='toggle-nav' style={{position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0'}} />
+              <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{display: 'grid'}} />
+            </div>
+            
             {/* Login button  */}
             {!user && (
-              <Link href="/login" className='flex align-items-center gap-100 padding-50'>
+              <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
                 Logga in
-                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
+                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
               </Link>
             )}
           </section>
 
-          <section>
+          <section className='flex-grow-100'>
             {/* Buttons leading to other pages where one can add/edit projects to the database */}
             {(user?.isAdmin || user?.isRecycler) && (
               <>
-                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50'>
-                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
                   Redigera inlägg
                 </Link>
 
-                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50'>
-                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
-                  Lägg till nytt inlägg
+                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
+                  Skapa nytt inlägg
                 </Link>
               </>
             )}
@@ -131,13 +135,13 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             {/* Buttons leading to the admin pages */}
             {user?.isAdmin && (
               <>
-                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50'>
-                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
-                  Lägg till ny användare
+                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
+                  Skapa ny användare
                 </Link>
 
-                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50'>
-                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
+                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
                   Redigera användare
                 </Link>
               </>
@@ -147,8 +151,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <section>
             {/* Logout button */}
             {user && (
-              <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50'>
-                <Image src="/images/adminIcons/logout.svg" alt='Redigera användare' width={32} height={32} />
+              <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                <Image src="/images/adminIcons/logout.svg" alt='Redigera användare' width={24} height={24} />
                 Logga ut
               </Link>
             )}

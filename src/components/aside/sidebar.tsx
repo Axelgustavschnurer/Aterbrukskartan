@@ -453,7 +453,6 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
         {showInactiveLabel()}
       </div>
 
-
       <h3>Projekttyper</h3>
       {/* Buttons for choosing project types to filter by */}
       <div className={styles.filterButtons}>

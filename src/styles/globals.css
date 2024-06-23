@@ -303,3 +303,22 @@ textarea {
   .slider.round:before {
 	border-radius: 50%;
   }
+
+/* More temp stuff */
+
+.navbar-link {
+	white-space: nowrap;
+	transition: background-color .1s ease;
+	border-radius: .25rem;
+	text-decoration: none;
+	color: black;
+	font-weight: 500;
+}
+
+.navbar-link:hover {
+	background-color: #e0e6eb;
+}
+
+aside:has(#toggle-nav:checked) {
+	width: calc(24px + 2rem);
+}
