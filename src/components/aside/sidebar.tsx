@@ -435,7 +435,9 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
               "input[type=checkbox]"
             );
             checkboxes.forEach((checkbox: any) => {
-              checkbox.checked = false;
+              if (checkbox.id !== 'toggle-nav') {
+                checkbox.checked = false;
+              }
             });
           }}
         >
