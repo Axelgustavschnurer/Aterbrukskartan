@@ -2,18 +2,12 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/aside/sidebar'
 import MobileSidebar from '@/components/aside/mobileNavbar'
-import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { RecycleFilter } from '@/types'
 import Image from 'next/image'
-import styles from '@/styles/index.module.css'
-import { Tooltip } from '@nextui-org/react'
-import { Badge } from '@nextui-org/react'
-import { logoutFunction } from '@/components/logout'
 import { getSession } from '@/session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import Aside from '@/components/aside/aside'
 import Link from 'next/link'
 
 // Get user data from session
@@ -49,7 +43,6 @@ export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug
 
 /** The main page for the recycle section of the website. */
 export default function HomePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter()
 
   const [isMobile, setIsMobile] = useState(false as boolean)
 
@@ -76,18 +69,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  /**
-   * Returns a Badge component from nextui with the currently active filters regarding showing inactive projects, if any
-   * 
-   * If the showInactive filter is true, the label will be displayed
-   */
-  const showInactiveLabel = () => {
-    if (currentFilter.showInactive) {
-      return (
-        <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "black", color: "bone" }}>Visar inaktiva objekt</Badge>
-      )
-    }
-  }
 
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
@@ -124,7 +105,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             <Image src='/back.svg' alt='Stäng menu' width={32} height={32} />
             {/* Login button  */}
             {!user && (
-              <Link href="/login" className='flex align-items-center gap-100'>
+              <Link href="/login" className='flex align-items-center gap-100 padding-50'>
                 Logga in
                 <Image src="/images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
               </Link>
@@ -135,12 +116,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             {/* Buttons leading to other pages where one can add/edit projects to the database */}
             {(user?.isAdmin || user?.isRecycler) && (
               <>
-                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100'>
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50'>
                   <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
                   Redigera inlägg
                 </Link>
 
-                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100'>
+                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50'>
                   <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
                   Lägg till nytt inlägg
                 </Link>
@@ -150,12 +131,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             {/* Buttons leading to the admin pages */}
             {user?.isAdmin && (
               <>
-                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100'>
+                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50'>
                   <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
                   Lägg till ny användare
                 </Link>
 
-                <Link href='/admin/addUser' className='flex align-items-center gap-100'>
+                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50'>
                   <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
                   Redigera användare
                 </Link>
@@ -166,7 +147,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <section>
             {/* Logout button */}
             {user && (
-              <Link href='/admin/addUser' className='flex align-items-center gap-100'>
+              <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50'>
                 <Image src="/images/adminIcons/logout.svg" alt='Redigera användare' width={32} height={32} />
                 Logga ut
               </Link>
