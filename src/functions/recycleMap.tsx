@@ -54,7 +54,7 @@ export function recyclePins(mapData: DeepRecycle[], currentFilter: RecycleFilter
     currentFilter = { ...currentFilter, searchInput: searchInput }
   }
   let filteredData = runActiveFilters(mapData, currentFilter)
-
+  
   return filteredData.map((pin: DeepRecycle, i) => {
     if (!pin.mapItem.latitude || !pin.mapItem.longitude) {
       return null

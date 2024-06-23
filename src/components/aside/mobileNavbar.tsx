@@ -111,6 +111,7 @@ export default function MobileSidebar({ setFilter, currentMap, user }: { setFilt
    * Creates checkboxes for all the different organisations in the database
    */
   const createOrganisationFilter = () => {
+
     let mappedData = mapData.map((pin: any) => pin.mapItem.organisation);
     let filteredData = mappedData
       .filter(

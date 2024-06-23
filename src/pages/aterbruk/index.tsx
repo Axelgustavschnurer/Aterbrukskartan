@@ -263,65 +263,72 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </Head>
 
       <main className='grid gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', gridTemplateRows: 'calc(100dvh - 1rem)', gridTemplateColumns: 'auto auto 1fr' }}>
-        <aside className='padding-50' style={{ backgroundColor: 'white', borderRadius: '.5rem' }}>
+        <aside className='padding-50 flex justify-content-space-between' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column' }}>
 
-          {/* Login button  */}
-          {!user && (
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-                <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
-              </button>
-              Logga in
-            </label>
-          )}
-
-          {/* Buttons leading to other pages where one can add/edit projects to the database */}
-          {(user?.isAdmin || user?.isRecycler) && (
-            <>
-              <label className='flex align-items-center gap-100'>
-                <button type="button" className={styles.linkButton} onClick={goToEditPost}>
-                  <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
+          <section>
+            <Image src='/back.svg' alt='Stäng menu' width={32} height={32} />
+            {/* Login button  */}
+            {!user && (
+              <label className='flex align-items-center justify-content-flex-end gap-100'>
+                <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
+                  <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
                 </button>
-                Redigera inlägg
+                Logga in
               </label>
+            )}
+          </section>
 
+          <section>
+            {/* Buttons leading to other pages where one can add/edit projects to the database */}
+            {(user?.isAdmin || user?.isRecycler) && (
+              <>
+                <label className='flex align-items-center gap-100'>
+                  <button type="button" className={styles.linkButton} onClick={goToEditPost}>
+                    <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
+                  </button>
+                  Redigera inlägg
+                </label>
+
+                <label className='flex align-items-center gap-100'>
+                  <button type="button" className={styles.linkButton} onClick={goToNewPost}>
+                    <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
+                  </button>
+                  Lägg till nytt inlägg
+                </label>
+              </>
+            )}
+
+            {/* Buttons leading to the admin pages */}
+            {user?.isAdmin && (
+              <>
+                <label className='flex align-items-center gap-100'>
+                  <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
+                    <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
+                  </button>
+                  Redigera användare
+                </label>
+
+                <label className='flex align-items-center gap-100'>
+                  <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
+                    <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
+                  </button>
+                  Lägg till ny användare
+                </label>
+              </>
+            )}
+          </section>
+
+          <section>
+            {/* Logout button */}
+            {user && (
               <label className='flex align-items-center gap-100'>
-                <button type="button" className={styles.linkButton} onClick={goToNewPost}>
-                  <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
+                <button type="button" className={styles.linkButton} onClick={logoutFunction}>
+                  <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
                 </button>
-                Lägg till nytt inlägg
+                Logga ut
               </label>
-            </>
-          )}
-
-          {/* Buttons leading to the admin pages */}
-          {user?.isAdmin && (
-            <>
-              <label className='flex align-items-center gap-100'>
-                <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                  <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
-                </button>
-                Redigera användare
-              </label>
-
-              <label className='flex align-items-center gap-100'>
-                <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                  <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
-                </button>
-                Lägg till ny användare
-              </label>
-            </>
-          )}
-
-          {/* Logout button */}
-          {user && (
-            <label className='flex align-items-center gap-100'>
-              <button type="button" className={styles.linkButton} onClick={logoutFunction}>
-                <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
-              </button>
-              Logga ut
-            </label>
-          )}
+            )}
+          </section>
 
         </aside>
 
