@@ -2,6 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/aside/sidebar'
 import MobileSidebar from '@/components/aside/mobileNavbar'
+import { logoutFunction } from '@/components/logout'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { RecycleFilter } from '@/types'
@@ -151,13 +152,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <section>
             {/* Logout button */}
             {user && (
-              <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                <Image src="/images/adminIcons/logout.svg" alt='Redigera användare' width={24} height={24} />
+              <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent'}}>
+                <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
                 Logga ut
-              </Link>
+              </button>
             )}
           </section>
-
         </aside>
 
         <aside className='padding--block-50' style={{ width: '400px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
