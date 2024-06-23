@@ -14,6 +14,7 @@ import { logoutFunction } from '@/components/logout'
 import { getSession } from '@/session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import Aside from '@/components/aside/aside'
+import Link from 'next/link'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -74,19 +75,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       ssr: false
     }
   ), [/* list variables which should trigger a re-render here */])
-
-  /** Function for navigating to the new post page */
-  // QUESTION: Why do we not use normal links here?
-  const goToNewPost = () => {
-    router.push("/aterbruk/newPost" + window.location.search)
-    // useRouteHandler("/aterbruk/newPost")
-  }
-
-  /** Function for navigating to the edit post page */
-  const goToEditPost = () => {
-    router.push("/aterbruk/editPost" + window.location.search)
-    // useRouteHandler("/aterbruk/editPost")
-  }
 
   /**
    * Returns a Badge component from nextui with the currently active project type filters, if any
@@ -269,12 +257,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             <Image src='/back.svg' alt='Stäng menu' width={32} height={32} />
             {/* Login button  */}
             {!user && (
-              <label className='flex align-items-center justify-content-flex-end gap-100'>
-                <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-                  <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
-                </button>
+              <Link href="/login" className='flex align-items-center gap-100'>
                 Logga in
-              </label>
+                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
+              </Link>
             )}
           </section>
 
@@ -282,38 +268,30 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             {/* Buttons leading to other pages where one can add/edit projects to the database */}
             {(user?.isAdmin || user?.isRecycler) && (
               <>
-                <label className='flex align-items-center gap-100'>
-                  <button type="button" className={styles.linkButton} onClick={goToEditPost}>
-                    <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
-                  </button>
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100'>
+                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
                   Redigera inlägg
-                </label>
+                </Link>
 
-                <label className='flex align-items-center gap-100'>
-                  <button type="button" className={styles.linkButton} onClick={goToNewPost}>
-                    <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
-                  </button>
+                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100'>
+                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
                   Lägg till nytt inlägg
-                </label>
+                </Link>
               </>
             )}
 
             {/* Buttons leading to the admin pages */}
             {user?.isAdmin && (
               <>
-                <label className='flex align-items-center gap-100'>
-                  <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                    <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
-                  </button>
-                  Redigera användare
-                </label>
-
-                <label className='flex align-items-center gap-100'>
-                  <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                    <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
-                  </button>
+                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100'>
+                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
                   Lägg till ny användare
-                </label>
+                </Link>
+
+                <Link href='/admin/addUser' className='flex align-items-center gap-100'>
+                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
+                  Redigera användare
+                </Link>
               </>
             )}
           </section>
@@ -321,12 +299,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           <section>
             {/* Logout button */}
             {user && (
-              <label className='flex align-items-center gap-100'>
-                <button type="button" className={styles.linkButton} onClick={logoutFunction}>
-                  <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
-                </button>
+              <Link href='/admin/addUser' className='flex align-items-center gap-100'>
+                <Image src="/images/adminIcons/logout.svg" alt='Redigera användare' width={32} height={32} />
                 Logga ut
-              </label>
+              </Link>
             )}
           </section>
 
