@@ -2,18 +2,14 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/aside/sidebar'
 import MobileSidebar from '@/components/aside/mobileNavbar'
-import { useRouter } from 'next/router'
+import { logoutFunction } from '@/components/logout'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { RecycleFilter } from '@/types'
 import Image from 'next/image'
-import styles from '@/styles/index.module.css'
-import { Tooltip } from '@nextui-org/react'
-import { Badge } from '@nextui-org/react'
-import { logoutFunction } from '@/components/logout'
 import { getSession } from '@/session'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import Aside from '@/components/aside/aside'
+import Link from 'next/link'
 
 // Get user data from session
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
@@ -48,7 +44,6 @@ export const monthArray = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug
 
 /** The main page for the recycle section of the website. */
 export default function HomePage({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter()
 
   const [isMobile, setIsMobile] = useState(false as boolean)
 
@@ -62,171 +57,19 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
   const maxCategoryAmount = React.useMemo(() => 2, [])
 
   // Dynamically imports the map component
+  // TODO: This will look a little laggy as the map component will render a loading spinner when fetching data aswell
+  // TODO: See if you can maybe pass in the isLoading state as a prop here maybe?
   const Map = React.useMemo(() => dynamic(
     () => import('../../components/map'),
     {
-      loading: () => <Badge>A map is loading</Badge>,
+      loading: () =>
+        <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', position: 'absolute', top: '0', left: '0', backgroundColor: 'rgba(255, 255, 255, .75)', borderRadius: '.5rem', zIndex: 99 }}>
+          <Image src="/loading.svg" alt="Laddar data" width={128} height={128}></Image>
+        </div>,
       ssr: false
     }
   ), [/* list variables which should trigger a re-render here */])
 
-  /** Function for navigating to the new post page */
-  const goToNewPost = () => {
-    router.push("/aterbruk/newPost" + window.location.search)
-    // useRouteHandler("/aterbruk/newPost")
-  }
-
-  /** Function for navigating to the edit post page */
-  const goToEditPost = () => {
-    router.push("/aterbruk/editPost" + window.location.search)
-    // useRouteHandler("/aterbruk/editPost")
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active project type filters, if any
-   * 
-   * If the amount of selected categories is greater than maxCategoryAmount, the label will be compacted
-   * to only display the amount of selected projecttypes
-   */
-  const projectTypeLabel = () => {
-    if (currentFilter.projectType?.length) {
-      if (currentFilter.projectType.length > maxCategoryAmount) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.length} projekttyper</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "navy", color: "bone" }}>{currentFilter.projectType.join(", ")}</Badge>
-        )
-      }
-    }
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active year filters, if any
-   * 
-   * If the year slider is at its default value, the label will not be displayed
-   * If the year slider is at a value where the min and max values are the same, the label will be compacted to only display the single year
-   */
-  const yearLabel = () => {
-    if (currentFilter.years?.length) {
-      if (Math.min(...currentFilter.years) === yearLimitsRecycle.min && Math.max(...currentFilter.years) === yearLimitsRecycle.max) {
-        return null;
-      }
-      else if (currentFilter.years[0] === currentFilter.years[1] && currentFilter.years[0] !== undefined) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {currentFilter.years[0]}</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "#fd9800", color: "bone" }}>År: {Math.min(...currentFilter.years)} - {Math.max(...currentFilter.years)}</Badge>
-        )
-      }
-    }
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active month filters, if any
-   * 
-   * If the month slider is at its default value, the label will not be displayed
-   * If the month slider is at a value where the min and max values are the same, the label will be compacted to only display the single month
-   */
-  const monthLabel = () => {
-    if (currentFilter.months?.length) {
-      if (Math.min(...currentFilter.months) === 1 && Math.max(...currentFilter.months) === 12) {
-        return null;
-      }
-      else if (currentFilter.months[0] === currentFilter.months[1] && currentFilter.months[0] !== undefined) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månad: {monthArray[currentFilter.months[0] - 1]}</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "violet", color: "bone" }}>Månader: {monthArray[Math.min(...currentFilter.months) - 1]} - {monthArray[Math.max(...currentFilter.months) - 1]}</Badge>
-        )
-      }
-    }
-  }
-
-
-  /**
-   * Returns a Badge component from nextui with the currently active filters regarding materials that are being searched for by the projects on the map, if any
-   * 
-   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
-   * to only display the amount of selected material categories
-   */
-  const lookingForMaterialsLabel = () => {
-    if (currentFilter.lookingForCategories?.length) {
-      if (currentFilter.lookingForCategories.length > maxCategoryAmount) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.length} kategorier</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "green", color: "bone" }}>Sökes: {currentFilter.lookingForCategories.join(", ")}</Badge>
-        )
-      }
-    }
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active filters regarding available materials, if any
-   * 
-   * If the amount of selected material categories is greater than maxCategoryAmount, the label will be compacted
-   * to only display the amount of selected material categories
-   */
-  const availableMaterialsLabel = () => {
-    if (currentFilter.availableCategories?.length) {
-      if (currentFilter.availableCategories.length > maxCategoryAmount) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.length} kategorier</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "crimson", color: "bone" }}>Erbjuds: {currentFilter.availableCategories.join(", ")}</Badge>
-        )
-      }
-    }
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active filters regarding organisations, if any
-   * 
-   * If the amount of selected organisations is greater than maxCategoryAmount, the label will be compacted
-   * to only display the amount of selected organisations
-   */
-  const organisationLabel = () => {
-    if (currentFilter.organisation?.length) {
-      if (currentFilter.organisation.length > maxCategoryAmount) {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>{currentFilter.organisation.length} Organisationer</Badge>
-        )
-      }
-      else {
-        return (
-          <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "teal", color: "bone" }}>Organisationer: {currentFilter.organisation.join(", ")}</Badge>
-        )
-      }
-    }
-  }
-
-  /**
-   * Returns a Badge component from nextui with the currently active filters regarding showing inactive projects, if any
-   * 
-   * If the showInactive filter is true, the label will be displayed
-   */
-  const showInactiveLabel = () => {
-    if (currentFilter.showInactive) {
-      return (
-        <Badge disableOutline enableShadow size="lg" className={styles.filterText} style={{ backgroundColor: "black", color: "bone" }}>Visar inaktiva objekt</Badge>
-      )
-    }
-  }
 
   /** Checks if the user is on a mobile device and sets the state accordingly */
   const checkMobile = (setIsMobile: any) => {
@@ -256,90 +99,96 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+      <main className='grid gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', gridTemplateRows: 'calc(100dvh - 1rem)', gridTemplateColumns: 'auto auto 1fr' }}>
+        <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
 
-      <div className={styles.totalPProjects}>
-      </div>
+          <section>
+            <div className='padding-50' style={{position: 'relative', width: 'fit-content'}}>
+              <input type="checkbox" id='toggle-nav' style={{position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0'}} />
+              <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{display: 'grid'}} />
+            </div>
+            
+            {/* Login button  */}
+            {!user && (
+              <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
+                Logga in
+                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
+              </Link>
+            )}
+          </section>
 
-      <Aside>
-        {/* Searchbar */}
-        {!isMobile ?
-          <div style={{ position: "relative", marginTop: "0" }}>
-            <input
-              type="search"
-              className={styles.searchTerm}
-              placeholder="Sök efter projekt..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <Image src="/search.svg" alt="Sökikon" width={32} height={32} className={styles.searchIcon} />
-          </div> : null}
+          <section className='flex-grow-100'>
+            {/* Buttons leading to other pages where one can add/edit projects to the database */}
+            {(user?.isAdmin || user?.isRecycler) && (
+              <>
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
+                  Redigera inlägg
+                </Link>
 
-        {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" energiportalen={false} user={user} />}
-      </Aside>
+                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
+                  Skapa nytt inlägg
+                </Link>
+              </>
+            )}
 
-      <div style={{ position: 'absolute', bottom: 'calc(64px + 2rem)', right: '0', padding: '1rem' }}>
+            {/* Buttons leading to the admin pages */}
+            {user?.isAdmin && (
+              <>
+                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
+                  Skapa ny användare
+                </Link>
 
-        {/* Logout button */}
-        {user && (
-          <label className='flex align-items-center justify-content-flex-end gap-100'>
-            Logga ut
-            <button type="button" className={styles.linkButton} onClick={logoutFunction}>
-              <Image src="./images/adminIcons/logout.svg" alt='Logga ut' width={32} height={32} />
-            </button>
+                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
+                  Redigera användare
+                </Link>
+              </>
+            )}
+          </section>
+
+          <section>
+            {/* Logout button */}
+            {user && (
+              <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent'}}>
+                <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
+                Logga ut
+              </button>
+            )}
+          </section>
+        </aside>
+
+        <aside className='padding--block-50' style={{ width: '400px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+          <label className='block padding-50'>
+            <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
+              <span>Sök bland projekt</span>
+              <span>?</span>
+            </div>
+            {!isMobile ?
+              <input
+                type="search"
+                className='margin-block-25'
+                placeholder="Sök efter projekt..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              : null}
           </label>
-        )}
 
-        {/* Login button */}
-        {!user && (
-          <label className='flex align-items-center justify-content-flex-end gap-100'>
-            Logga in
-            <button type="button" className={styles.linkButton} onClick={() => router.push('/login' + window.location.search)}>
-              <Image src="./images/adminIcons/login.svg" alt='Logga in' width={32} height={32} />
-            </button>
-          </label>
-        )}
+          <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 78px)' }}>
+            <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
+              {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
+            </div>
+          </div>
+        </aside>
 
-        {/* Buttons leading to other pages where one can add/edit projects to the database */}
-        {(user?.isAdmin || user?.isRecycler) && (
-          <>
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Redigera inlägg
-              <button type="button" className={styles.linkButton} onClick={goToEditPost}>
-                <Image src="./images/adminIcons/edit.svg" alt='Redigera projekt' width={32} height={32} />
-              </button>
-            </label>
+        <div style={{ position: 'relative' }}>
+          <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
+        </div>
 
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Lägg till nytt inlägg
-              <button type="button" className={styles.linkButton} onClick={goToNewPost}>
-                <Image src="./images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={32} height={32} />
-              </button>
-            </label>
-          </>
-        )}
-
-        {/* Buttons leading to the admin pages */}
-        {user?.isAdmin && (
-          <>
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Redigera användare
-              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/editUser' + window.location.search)}>
-                <Image src="./images/adminIcons/editUser.svg" alt='Redigera användare' width={32} height={32} />
-              </button>
-            </label>
-
-            <label className='flex align-items-center justify-content-flex-end gap-100'>
-              Lägg till ny användare
-              <button type="button" className={styles.linkButton} onClick={() => router.push('admin/addUser' + window.location.search)}>
-                <Image src="./images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={32} height={32} />
-              </button>
-            </label>
-          </>
-        )}
-
-      </div>
-
+      </main>
     </>
   )
 }
