@@ -85,7 +85,7 @@ jobs:
       - name: Add artifact to release
         run: |
           github-release upload \
-            --tag continuous \
+            --tag live \
             --replace \
             --name ${{ env.ZIP_NAME }} \
             --file ${{ env.ZIP_NAME }}/${{ env.ZIP_NAME }}
