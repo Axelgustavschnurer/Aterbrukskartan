@@ -108,12 +108,13 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <main
-        className='grid gap-50 padding-50'
-        style={{
-          backgroundColor: '#f5f5f5',
-          gridTemplateRows: 'calc(100dvh - 1rem)',
-          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr'
+      <main 
+        className='grid gap-50' 
+        style={{ 
+          backgroundColor: '#f5f5f5', 
+          gridTemplateRows: 'calc(100dvh - 1rem)', 
+          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr',
+          padding: isMobile ? '0' : '.5rem' 
         }}>
 
         {!isMobile ?
