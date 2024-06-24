@@ -3,7 +3,7 @@ name: Upload Production Code (AGPL)
 on:
   push:
     branches:
-      - master
+      - main
 
 concurrency:
   group: upload-prod-code-${{ github.ref}}
