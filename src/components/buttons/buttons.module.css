@@ -19,13 +19,3 @@
     background-color: unset;
     border: unset;
 }
-
-@media only screen and (orientation: portrait) {
-    #hideBtn {
-        visibility: hidden;
-    }
-
-    #openBtn {
-        visibility: hidden;
-    }
-}

@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 import DualRangeSlider from "../dualSlider/dualSlider";
 import { RecycleFilter } from "@/types";
 import { yearLimitsRecycle } from "@/pages/aterbruk";
@@ -13,6 +15,7 @@ import {
 import { Button, Collapse } from "@nextui-org/react";
 import styles from '@/components/aside/aside.module.css'
 import { Data } from "@/session";
+import { logoutFunction } from "../logout";
 
 export default function MobileSidebar({ setFilter, currentMap, user }: { setFilter: Function, currentMap: string, user: Data['user'] }) {
   const [isOpen, setOpen] = useState(true);
@@ -177,7 +180,60 @@ export default function MobileSidebar({ setFilter, currentMap, user }: { setFilt
       <div className={styles.background}></div>
 
       <nav className={styles.phoneWrapper}>
-        <div>
+        <section className="padding-block-200">
+          <section>
+            {!user && (
+              <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
+                Logga in
+                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
+              </Link>
+            )}
+          </section>
+
+          <section className='flex-grow-100 padding-block-100'>
+            {/* Buttons leading to other pages where one can add/edit projects to the database */}
+            {(user?.isAdmin || user?.isRecycler) && (
+              <>
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
+                  Redigera inlägg
+                </Link>
+
+                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
+                  Skapa nytt inlägg
+                </Link>
+              </>
+            )}
+
+            {/* Buttons leading to the admin pages */}
+            {user?.isAdmin && (
+              <>
+                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
+                  Skapa ny användare
+                </Link>
+
+                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
+                  Redigera användare
+                </Link>
+              </>
+            )}
+          </section>
+
+          <section>
+            {/* Logout button */}
+            {user && (
+              <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{ width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent' }}>
+                <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
+                Logga ut
+              </button>
+            )}
+          </section>
+        </section>
+
+        <div className="padding-block-100">
           {/* Buttons for choosing project types to filter by */}
           <div className={styles.filterButtons}>
             {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
@@ -328,7 +384,7 @@ export default function MobileSidebar({ setFilter, currentMap, user }: { setFilt
             </Button>
           </div>
         </div>
-      </nav>
+      </nav >
     </>
   )
 }

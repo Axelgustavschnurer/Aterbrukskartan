@@ -47,6 +47,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
   const [isMobile, setIsMobile] = useState(false as boolean)
 
+  const [isNavClosed, setIsNavClosed] = useState(false)
+
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as RecycleFilter)
 
@@ -86,6 +88,13 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     checkMobile(setIsMobile);
   }, [])
 
+  // Check session storage for the nav state
+  useEffect(() => {
+    if (sessionStorage?.getItem('navClosed') == 'true') {
+      setIsNavClosed(true)
+    }
+  }, [])
+
   // Adds an event listener to check if the window is resized to a size where the interface should change
   useEffect(() => {
     window.addEventListener("resize", () => checkMobile(setIsMobile));
@@ -99,90 +108,122 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <main className='grid gap-50 padding-50' style={{ backgroundColor: '#f5f5f5', gridTemplateRows: 'calc(100dvh - 1rem)', gridTemplateColumns: 'auto auto 1fr' }}>
-        <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
+      <main 
+        className='grid gap-50' 
+        style={{ 
+          backgroundColor: '#f5f5f5', 
+          gridTemplateRows: 'calc(100dvh - 1rem)', 
+          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr',
+          padding: isMobile ? '0' : '.5rem' 
+        }}>
 
-          <section>
-            <div className='padding-50' style={{position: 'relative', width: 'fit-content'}}>
-              <input type="checkbox" id='toggle-nav' style={{position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0'}} />
-              <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{display: 'grid'}} />
-            </div>
-            
-            {/* Login button  */}
-            {!user && (
-              <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
-                Logga in
-                <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
-              </Link>
-            )}
-          </section>
+        {!isMobile ?
+          <>
+            <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
 
-          <section className='flex-grow-100'>
-            {/* Buttons leading to other pages where one can add/edit projects to the database */}
-            {(user?.isAdmin || user?.isRecycler) && (
-              <>
-                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
-                  Redigera inlägg
-                </Link>
+              <section>
+                <div className='padding-50' style={{ position: 'relative', width: 'fit-content' }}>
+                  <input type="checkbox" id='toggle-nav' style={{ position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0' }} checked={isNavClosed}
+                    onClick={() => {
+                      // If the nav is currently open, remove the item from session storage, otherwise add it
+                      if (isNavClosed) {
+                        sessionStorage?.removeItem('navClosed')
+                      } else {
+                        sessionStorage?.setItem('navClosed', 'true')
+                      };
+                      setIsNavClosed(!isNavClosed);
+                    }}
+                  />
+                  <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{ display: 'grid' }} />
+                </div>
 
-                <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                  <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
-                  Skapa nytt inlägg
-                </Link>
-              </>
-            )}
+                {/* Login button  */}
+                {!user && (
+                  <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
+                    Logga in
+                    <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
+                  </Link>
+                )}
+              </section>
 
-            {/* Buttons leading to the admin pages */}
-            {user?.isAdmin && (
-              <>
-                <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                  <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
-                  Skapa ny användare
-                </Link>
+              <section className='flex-grow-100 padding-block-100'>
+                {/* Buttons leading to other pages where one can add/edit projects to the database */}
+                {(user?.isAdmin || user?.isRecycler) && (
+                  <>
+                    <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                      <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
+                      Redigera inlägg
+                    </Link>
 
-                <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                  <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
-                  Redigera användare
-                </Link>
-              </>
-            )}
-          </section>
+                    <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                      <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
+                      Skapa nytt inlägg
+                    </Link>
+                  </>
+                )}
 
-          <section>
-            {/* Logout button */}
-            {user && (
-              <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent'}}>
-                <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
-                Logga ut
-              </button>
-            )}
-          </section>
-        </aside>
+                {/* Buttons leading to the admin pages */}
+                {user?.isAdmin && (
+                  <>
+                    <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                      <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
+                      Skapa ny användare
+                    </Link>
 
-        <aside className='padding--block-50' style={{ width: '400px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
-          <label className='block padding-50'>
-            <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
-              <span>Sök bland projekt</span>
-              <span>?</span>
-            </div>
-            {!isMobile ?
-              <input
-                type="search"
-                className='margin-block-25'
-                placeholder="Sök efter projekt..."
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
-              : null}
-          </label>
+                    <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                      <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
+                      Redigera användare
+                    </Link>
+                  </>
+                )}
+              </section>
 
-          <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 78px)' }}>
-            <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
-              {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
-            </div>
-          </div>
-        </aside>
+              <section>
+                {/* Logout button */}
+                {user && (
+                  <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{ width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent' }}>
+                    <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
+                    Logga ut
+                  </button>
+                )}
+              </section>
+            </aside>
+
+            <aside className='padding--block-50' style={{ backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+              <label className='block padding-50'>
+                <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center padding-block-50'>
+                  <h1 style={{ fontSize: '1.25rem', margin: '0' }}>Sök bland projekt</h1>
+                  <Image src='/question.svg' alt='hjälp' width={24} height={24} style={{ cursor: 'help' }} />
+                </div>
+                <input
+                  type="search"
+                  className='margin-block-25 padding-50'
+                  placeholder="Ex. projekttyp, startår, material etc..."
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+              </label>
+
+              <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 100px)' }}>
+                <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
+                  <Sidebar
+                    monthArray={monthArray}
+                    maxCategoryAmount={maxCategoryAmount}
+                    currentFilter={currentFilter}
+                    setFilter={setFilter}
+                    currentMap="Recycle"
+                    user={user}
+                  />
+                </div>
+              </div>
+            </aside>
+          </>
+        : <MobileSidebar
+            setFilter={setFilter}
+            currentMap="Recycle"
+            user={user}
+          />
+        }
 
         <div style={{ position: 'relative' }}>
           <Map currentFilter={currentFilter} searchInput={searchInput} currentMap="Recycle" />
