@@ -71,12 +71,12 @@ jobs:
             github-release release \
               --tag live \
               --name "Live Build" \
-              --description "$DESCRIPTION" \
+              --description "$DESCRIPTION"
           else
             github-release edit \
               --tag live \
               --name "Live Build" \
-              --description "$DESCRIPTION" \
+              --description "$DESCRIPTION"
           fi
       - name: Download artifact
         uses: actions/download-artifact@v4
