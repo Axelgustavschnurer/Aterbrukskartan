@@ -23,17 +23,16 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Install dependencies
+      - name: Install production dependencies
         run: npm ci --omit=dev
-      - name: Upload production dependencies
+      - name: Zip node_modules, excluding react-leaflet
+        run: zip -r ${{ env.OUTPUT }} node_modules -x 'node_modules/@react-leaflet/*' 'node_modules/react-leaflet/*'
+      - name: Upload production dependency zip
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.OUTPUT }}
           # react-leaflet is licensed under Hippocratic-2.1, which is not compatible with AGPL-3.0 and therefore must be excluded since we're technically relicensing the included dependencies under AGPL-3.0.
-          path: |
-            node_modules
-            !node_modules/@react-leaflet
-            !node_modules/react-leaflet
+          path: ${{ env.OUTPUT }}
           compression-level: 9
           retention-days: 5
 
