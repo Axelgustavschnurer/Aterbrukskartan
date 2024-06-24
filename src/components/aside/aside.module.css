@@ -129,7 +129,7 @@
     border-radius: .25rem;
     box-shadow: 0 0 3px var(--light);
     margin: 1rem 0;
-    padding: .5em 2em .5em 1em;
+    padding: .5rem;
 }
 
 .input input {
@@ -166,82 +166,6 @@
     background-color: var(--accent);
 }
 
-
-/* Close and open sidebar */
-.sidebarClose {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: calc(50% - 150px); /* TODO: Fix this magic number */
-    left: calc(400px - 1em);
-    animation: moveOpenButton 0.2s;
-}
-
-.hiddenSidebar {
-    width: 0%;
-    height: 0%;
-    position: fixed;
-    top: 100px;
-    left: 10px;
-}
-
-.sidebarOpen {
-    z-index: 4;
-    top: calc(50% - 150px); /* TODO: Fix this magic number */
-    position: fixed;
-    height: 3%;
-    left: 0;
-    animation: moveHideButton 0.2s;
-}
-
-
-/* Hide/Show sidebar button */
-#hideBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f1f1f1;
-    opacity: 90%;
-    border: 2px solid #8a8a8a;
-    border-radius: 10px;
-    height: 48px;
-    width: 24px;
-    padding: 5px;
-    cursor: pointer;
-    z-index: 4;
-    border-left: none;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
-    outline: none;
-    transition: .3s .1s;
-    -webkit-user-select: none;
-    user-select: none;
-
-}
-
-#openBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f1f1f1;
-    opacity: 90%;
-    border: 2px solid #8a8a8a;
-    border-radius: 10px;
-    height: 48px;
-    width: 24px;
-    padding: 5px;
-    cursor: pointer;
-    z-index: 4;
-    border-left: none;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
-    outline: none;
-    transition: .3s .1s;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
 /* Filter buttons for stories */
 
 .categoryBtn {
@@ -263,64 +187,6 @@
 }
 
 /* different color for each category */
-
-#Bygg-och-anläggning {
-    background-color: #BF40BF;
-}
-
-#Grön-energi {
-    background-color: #008080;
-}
-
-#Hållbarhet {
-    background-color: #FF00FF;
-}
-
-#Social-hållbarhet {
-    background-color: #7F00FF;
-}
-
-#Mobilitet {
-    background-color: #6495ED;
-}
-
-#Elnät {
-    background-color: #2AAA8A;
-}
-
-#Hälsa-och-bioteknik {
-    background-color: #FF0000;
-}
-
-#Hälsa-och-bioteknik img {
-    padding-top: 3px;
-    width: 35px;
-    height: 35px;
-}
-
-#Miljöteknik {
-    background-color: #9ACD32;
-}
-
-#Energilagring {
-    background-color: #FFC000;
-}
-
-#Agrara-näringar {
-    background-color: #228B22;
-}
-
-#Livsmedel {
-    background-color: #FF7518;
-}
-
-#Vatten-och-avlopp {
-    background-color: #0047AB;
-}
-
-#Övrigt {
-    background-color: #808080;
-}
 
 #Demontering {
     background-color: #FF0000;
@@ -347,48 +213,3 @@
 #Mellanlagring {
     background-color: #fd9800;
 }
-
-/* Keyframes and mediaqueries */
-
-@keyframes moveHideButton {
-    0% {
-        left: 20%;
-    }
-
-    100% {
-        left: 0;
-    }
-}
-
-@keyframes moveOpenButton {
-    0% {
-        left: 0;
-    }
-
-    100% {
-        left: 20%;
-    }
-}
-
-@media screen and (min-width: 2000px) {
-    @keyframes moveHideButton {
-        0% {
-            left: 12%;
-        }
-
-        100% {
-            left: 0;
-        }
-    }
-
-    @keyframes moveOpenButton {
-        0% {
-            left: 0;
-        }
-
-        100% {
-            left: 12%;
-        }
-    }
-}
- 
