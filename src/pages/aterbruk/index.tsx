@@ -117,7 +117,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
             )}
           </section>
 
-          <section className='flex-grow-100'>
+          <section className='flex-grow-100 padding-block-100'>
             {/* Buttons leading to other pages where one can add/edit projects to the database */}
             {(user?.isAdmin || user?.isRecycler) && (
               <>
@@ -160,24 +160,24 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
           </section>
         </aside>
 
-        <aside className='padding--block-50' style={{ width: '400px', backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
+        <aside className='padding--block-50' style={{ backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
           <label className='block padding-50'>
-            <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center'>
-              <span>Sök bland projekt</span>
-              <span>?</span>
+            <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center padding-block-50'>
+              <h1 style={{fontSize: '1.25rem', margin: '0'}}>Sök bland projekt</h1>
+              <Image src='/question.svg' alt='hjälp' width={24} height={24} style={{cursor: 'help'}} />
             </div>
             {!isMobile ?
               <input
                 type="search"
-                className='margin-block-25'
-                placeholder="Sök efter projekt..."
+                className='margin-block-25 padding-50'
+                placeholder="Ex. projekttyp, startår, material etc..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               : null}
           </label>
 
-          <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 78px)' }}>
+          <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 100px)' }}>
             <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
               {!isMobile ? <Sidebar monthArray={monthArray} maxCategoryAmount={maxCategoryAmount} currentFilter={currentFilter} setFilter={setFilter} currentMap="Recycle" user={user} /> : <MobileSidebar setFilter={setFilter} currentMap="Recycle" user={user} />}
             </div>

@@ -378,13 +378,13 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
       {/* Button for clearing the current filter. Disabled when no filter is active */}
       <div className="flex gap-100 justify-content-space-between align-items-center">
-        <h3>Aktiva filter</h3>
+        <h2 style={{marginTop: '0'}}>Aktiva filter</h2>
         <button
           style={{
             backgroundColor: 'transparent',
             borderRadius: '9999px',
-
           }}
+          className="padding-50"
           disabled={
             disableReset.projectType &&
             disableReset.lookingForMaterials &&
@@ -455,13 +455,13 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
         {showInactiveLabel()}
       </div>
 
-      <h3>Projekttyper</h3>
+      <h2>Projekttyper</h2>
       {/* Buttons for choosing project types to filter by */}
       <div className={styles.filterButtons}>
         {createProjectTypeFilter(projectType, setProjectType, disableReset, setDisableReset)}
       </div>
 
-      <h3>År</h3>
+      <h2>År</h2>
       {/* Range slider for year filter */}
       <div className={styles.rSliderContainer}>
         <DualRangeSlider
@@ -485,7 +485,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
       {/*This is a range slider for months filter. Recycle map only */}
       <div className={styles.sidebarHeader}>
         <div className={styles.sidebarTitle}>
-          <h3>Månad</h3>
+          <h2>Månad</h2>
         </div>
       </div>
       <div className={styles.rSliderContainer}>
@@ -509,7 +509,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
       <form className={styles.form}>
         {/* A button for only showing pins with attachments. Currently recycle map only */}
-        <h3>Bilagor</h3>
+        <h2>Bilagor</h2>
         <div className={styles.input}>
           <input
             id="showAttached"
@@ -529,7 +529,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
 
         {/* Checkboxes for filtering materials and organisations */}
         <span>
-          <h3>Erbjuds</h3>{" "}
+          <h2>Erbjuds</h2>{" "}
           {createAvailableFilter(
             mapData,
             availableMaterials,
@@ -537,7 +537,7 @@ export default function Sidebar({ monthArray, maxCategoryAmount, currentFilter, 
             disableReset,
             setDisableReset
           )}{" "}
-          <h3>Sökes</h3>{" "}
+          <h2>Sökes</h2>{" "}
           {createLookingForFilter(
             mapData,
             lookingForMaterials,
