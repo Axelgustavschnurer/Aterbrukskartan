@@ -47,6 +47,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
   const [isMobile, setIsMobile] = useState(false as boolean)
 
+  const [isNavClosed, setIsNavClosed] = useState(false)
+
   // Contains the currently active filters
   const [currentFilter, setFilter] = useState({} as RecycleFilter)
 
@@ -86,6 +88,13 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     checkMobile(setIsMobile);
   }, [])
 
+  // Check session storage for the nav state
+  useEffect(() => {
+    if (sessionStorage?.getItem('navClosed') == 'true') {
+      setIsNavClosed(true)
+    }
+  }, [])
+
   // Adds an event listener to check if the window is resized to a size where the interface should change
   useEffect(() => {
     window.addEventListener("resize", () => checkMobile(setIsMobile));
@@ -99,12 +108,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <main 
-        className='grid gap-50 padding-50' 
-        style={{ 
-          backgroundColor: '#f5f5f5', 
-          gridTemplateRows: 'calc(100dvh - 1rem)', 
-          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr' 
+      <main
+        className='grid gap-50 padding-50'
+        style={{
+          backgroundColor: '#f5f5f5',
+          gridTemplateRows: 'calc(100dvh - 1rem)',
+          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr'
         }}>
 
         {!isMobile ?
@@ -113,7 +122,17 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
               <section>
                 <div className='padding-50' style={{ position: 'relative', width: 'fit-content' }}>
-                  <input type="checkbox" id='toggle-nav' style={{ position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0' }} />
+                  <input type="checkbox" id='toggle-nav' style={{ position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0' }} checked={isNavClosed}
+                    onClick={() => {
+                      // If the nav is currently open, remove the item from session storage, otherwise add it
+                      if (isNavClosed) {
+                        sessionStorage?.removeItem('navClosed')
+                      } else {
+                        sessionStorage?.setItem('navClosed', 'true')
+                      };
+                      setIsNavClosed(!isNavClosed);
+                    }}
+                  />
                   <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{ display: 'grid' }} />
                 </div>
 
