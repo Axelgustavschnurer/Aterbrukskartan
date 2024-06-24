@@ -1,5 +1,7 @@
 name: Upload Production Code (AGPL)
 
+
+
 on:
   push:
     branches:
@@ -37,6 +39,8 @@ jobs:
 
   update-live-release:
     name: Update Live Release
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     needs: upload-zip
     env:
