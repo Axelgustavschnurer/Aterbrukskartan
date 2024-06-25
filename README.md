@@ -40,6 +40,12 @@ Run prisma generate to generate the prisma client:
 npx prisma generate
 ```
 
+You can run the following command to create the tables in the database (only needed when setting up a new database for the first time; for updating it, see [Changing the database schema](#changing-the-database-schema) below):
+
+```bash
+npx prisma migrate deploy
+```
+
 Run in development mode:
 
 ```bash
