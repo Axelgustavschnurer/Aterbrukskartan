@@ -165,12 +165,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                 {/* Buttons leading to the admin pages */}
                 {user?.isAdmin && (
                   <>
-                    <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                    <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
                       <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
                       Skapa ny användare
                     </Link>
 
-                    <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                    <Link href='/admin/editUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
                       <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
                       Redigera användare
                     </Link>
