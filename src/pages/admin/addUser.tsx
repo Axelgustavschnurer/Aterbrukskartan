@@ -109,7 +109,7 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
         <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
       </Head>
 
-      <div className="layout-main">
+      <div className="container-text" style={{marginInline: 'auto'}}>
         <main className="margin-block-100">
           <h1 className="display-flex align-items-center gap-50">         
             <LinkIcon src="/back.svg" alt="back" />
