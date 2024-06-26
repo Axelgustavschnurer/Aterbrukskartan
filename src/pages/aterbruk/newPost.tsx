@@ -205,7 +205,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
   const NewPostMap = React.useMemo(() => dynamic(
     () => import('../../components/newPostMap'),
     {
-      loading: () => <p>A map is loading</p>,
+      loading: () => <p>A map is loading</p>, // TODO: Fix proper loading animation
       ssr: false
     }
   ), [])
@@ -460,44 +460,47 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             </fieldset>
 
             {/* Position selection */}
-            <strong>Plats *</strong>
-            <label className="switch" style={{ width: "60px" }}>
-              <input
-                id="switch-1"
-                type="checkbox"
-                onChange={(e) => setLocationToggle(e.target.checked)}
-              />
-              <span className="slider round" style={{ margin: "unset" }}></span>
-              {/* A toggle for switching between the map and the address lookup */}
-            </label>
+            <fieldset>
+              <legend className="display-flex align-items-center gap-50">
+                Plats *
+                <label className="switch" style={{ width: "60px" }}>
+                  <input
+                    id="switch-1"
+                    type="checkbox"
+                    onChange={(e) => setLocationToggle(e.target.checked)}
+                  />
+                  <span className="slider round" style={{ margin: "unset" }}></span>
+                  {/* A toggle for switching between the map and the address lookup */}
+                </label>
+              </legend>
 
-            {
-              locationToggle === true ?
-                <>
-                  <p>Klicka på en plats på kartan eller dra i markören för att välja en plats</p>
-                  <NewPostMap
+              {
+                locationToggle === true ?
+                  <>
+                    <NewPostMap
+                      setLat={setLat}
+                      setLon={setLon}
+                      lat={lat}
+                      lon={lon}
+                    />
+                  </>
+                  :
+                  <LeafletAddressLookup
                     setLat={setLat}
                     setLon={setLon}
                     lat={lat}
                     lon={lon}
                   />
-                </>
-                :
-                <LeafletAddressLookup
-                  setLat={setLat}
-                  setLon={setLon}
-                  lat={lat}
-                  lon={lon}
-                />
-            }
+              }
+            </fieldset>
 
             {/* Offered and wanted material selection */}
-            <div className="flex gap-300 flex-wrap-wrap margin-block-100">
-              <fieldset>
+            <div className="flex gap-50 flex-wrap-wrap margin-block-100">
+              <fieldset className="flex-grow-100">
                 <legend>Erbjuds</legend>
                 {offers()}
               </fieldset>
-              <fieldset>
+              <fieldset className="flex-grow-100">
                 <legend>Sökes</legend>
                 {searchingFors()}
               </fieldset>
@@ -563,7 +566,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             </button>
 
             {/* Publicity setting */}
-            <fieldset>
+            <fieldset className="margin-block-75">
               <legend>Ska det här projektet visas för alla på Återbrukskartan?</legend>
               <label className="display-flex align-items-center gap-50">
                 <input

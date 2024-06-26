@@ -114,17 +114,6 @@ p {
 	}
 }
 
-/* Flex layouts */
-.clicky {
-	cursor: pointer;
-	padding: 1em;
-	border-radius: 3px;
-}
-
-.clicky:hover {
-	background-color: var(--light);
-}
-
 .danger {
 	background-color: var(--danger);
 	color: white;

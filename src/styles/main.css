@@ -81,6 +81,7 @@ input[type=week]):focus {
   display: block;
   border: 2px solid #e0e6eb;
   border-radius: .5rem;
+  padding: .5rem;
 }
 
 /* Select */
