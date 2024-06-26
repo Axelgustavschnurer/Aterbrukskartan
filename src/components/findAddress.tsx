@@ -66,8 +66,8 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
       </div>
 
       {/* Coordinates */}
-      <p>Koordinater</p>
-      <div className='display-flex gap-50'>
+      <fieldset className='display-flex gap-50 margin-top-75' style={{padding: '.25rem 0 0 0', border: '0'}}>
+        <legend>Koordinater</legend>
         <label className='flex-grow-100'>
           Latitud
           <input type="text" name="lat" id="lat" placeholder='Latitud' value={lat} onChange={(e) => setLat(Number(e.target.value))} />
@@ -76,7 +76,7 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
           Longitud
           <input type="text" name="lon" id="lon" placeholder='Longitud' value={lon} onChange={(e) => setLon(Number(e.target.value))} />
         </label>
-      </div>
+      </fieldset>
       
     </>
   );
