@@ -32,7 +32,7 @@ IRON_SESSION_PASSWORD = "<password>"
 
 - Any string at least 32 characters long can be used as the iron session password. See the [iron-session GitHub page](https://github.com/vvo/iron-session) for more information.
 - For development, you can create a local database using [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)(SSMS), with a database connection string like `sqlserver://localhost:1433;database=aterbruk;trustServerCertificate=true;integratedSecurity=true` (with `integratedSecurity=true` you can omit the user and password fields, and it will use your Windows credentials to log in).
-  - Note that you must pre-populate the database with some data for the project to work. This can be done in the interface from `npx prisma generate`.
+  - Note that you must pre-populate the database with some data for the project to work. This can be done in the interface from `npx prisma studio` after setting up the database following the instructions below.
 
 Run prisma generate to generate the prisma client:
 
