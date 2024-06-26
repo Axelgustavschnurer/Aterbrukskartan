@@ -551,19 +551,24 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             </label>
 
             {/* Attachments */}
-            <label className="block margin-block-75">
-              Dra och släpp, eller bläddra bland filer
-              <input type="file" name="file" id="fileUpload" className="margin-block-75" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
-            </label>
-            
-            <button type="button" id="removeFileButton" onClick={() => {
-              let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
-              let container = new DataTransfer();
-              fileInput.files = container.files;
-              setFileObject(null)
-            }}>
-              Ta bort fil
-            </button>
+            {/* TODO: Fil borde tas bort automatiskt om den är för stor */}
+            <fieldset className="margin-block-75" style={{padding: '0', border: '0'}}>
+              <label>
+                Dra och släpp, eller bläddra bland filer
+                <input type="file" name="file" id="fileUpload" className="margin-top-25" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+              </label>
+              <small>Alla filformat accepteras, inklusive bilder och dokument. Maximal filstorlek är 2 MB. Du kan också ladda upp zip-filer för att underlätta nedladdning av flera filer samtidigt.</small>
+              
+
+              <button className="block margin-block-75" type="button" id="removeFileButton" onClick={() => {
+                let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                let container = new DataTransfer();
+                fileInput.files = container.files;
+                setFileObject(null)
+              }}>
+                Ta bort fil
+              </button>
+            </fieldset>
 
             {/* Publicity setting */}
             <fieldset className="margin-block-75">
