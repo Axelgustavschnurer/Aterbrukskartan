@@ -8,7 +8,7 @@
 :where(button) {
   background-color: #e0e6eb;
   border: 0;
-  border-radius: 3px;
+  border-radius: .25rem;
   padding: 0.5rem;
   transition: box-shadow 0.2s ease;
 }
@@ -41,7 +41,7 @@ input[type=week]) {
   width: 100%;
   padding: 0.5rem;
   border: none;
-  border-radius: 3px;
+  border-radius: .25rem;
 }
 :where(input[type=text],
 input[type=email],
@@ -60,6 +60,45 @@ input[type=week]):focus {
   background-color: transparent;
 }
 
+/* Textarea */
+:where(textarea) {
+  background-color: #e0e6eb;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: .25rem;
+}
+
+:where(textarea):focus {
+  outline: 2px solid #0075FF;
+  box-shadow: 0 0 0.5rem -3px #0075FF;
+  background-color: transparent;
+}
+
+/* Fieldset */
+:where(fieldset) {
+  display: block;
+  border: 2px solid #e0e6eb;
+  border-radius: .5rem;
+}
+
+/* Select */
+:where(select) {
+  background-color: #e0e6eb;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: .25rem;
+}
+
+:where(select):focus {
+  outline: 2px solid #0075FF;
+  box-shadow: 0 0 0.5rem -3px #0075FF;
+  background-color: transparent;
+}
+
 /* Button inputs (button, reset, submit, image) */
 :where(input[type=button],
 input[type=reset],
@@ -70,7 +109,7 @@ input[type=image]) {
   width: 100%;
   padding: 0.5rem;
   border: none;
-  border-radius: 3px;
+  border-radius: .25rem;
   transition: box-shadow 0.1s ease;
 }
 :where(input[type=button],
@@ -92,7 +131,7 @@ input[type=image]):hover {
   display: block;
   width: 100%;
   padding: 1em;
-  border-radius: 3px;
+  border-radius: .25rem;
   border: 2px dashed #e0e6eb;
   outline: none;
 }
@@ -101,7 +140,7 @@ input[type=file]::file-selector-button { /* TODO: :where() for pseudo elements n
   background-color: #e0e6eb;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 3px;
+  border-radius: .25rem;
   margin: 0 0.5rem;
   cursor: pointer;
 }

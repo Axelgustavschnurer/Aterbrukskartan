@@ -507,7 +507,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             <label className="block margin-block-75">
               Beskrivning *
               <textarea
-                className="block margin-block-25"
+                className="margin-block-25"
                 style={{ resize: 'vertical', width: '100%' }}
                 id="description"
                 name="description"
@@ -523,7 +523,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             <label className="block margin-block-75">
               Kontakt *
               <textarea
-                className="block margin-block-25"
+                className="margin-block-25"
                 style={{ resize: 'vertical', width: '100%' }}
                 id="contact"
                 name="contact"
@@ -537,7 +537,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
             <label className="block margin-block-75">
               Länkar
               <textarea
-                className="block margin-block-25"
+                className="margin-block-25"
                 style={{ resize: 'vertical', width: '100%' }}
                 id="externalLinks"
                 name="externalLinks"
