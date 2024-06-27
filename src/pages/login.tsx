@@ -48,10 +48,15 @@ export default function Login() {
             <label htmlFor="password">Lösenord</label>
             <input type="password" placeholder="lösenord" name="password" id="password" required={true} autoComplete="current-password" />
             <input type="submit" id="save" value="Logga In" className="cta" />
-            
+
           </form>
+
+          <p>
+            Vi kräver en inloggning för att komma åt datan vi visar på sidan,
+            men källkoden för Återbrukskartan finns tillgänglig för allmänheten under licensen AGPL v3 på <a href="https://github.com/STUNS-Uppsala/Aterbrukskartan" target="_blank" rel="noreferrer">GitHub</a>.
+          </p>
         </main>
- 
+
       </div>
 
     </>
