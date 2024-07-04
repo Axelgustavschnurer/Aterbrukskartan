@@ -625,9 +625,10 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
               />
             </label>
 
-            <label>
+            <label className="block margin-block-75">
               Länkar
               <textarea
+                className="margin-block-25"
                 id="externalLinks"
                 name="externalLinks"
                 value={externalLinks ?? ''}
