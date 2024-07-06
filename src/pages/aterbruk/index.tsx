@@ -105,16 +105,16 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     <>
       <Head>
         <title>Återbrukskartan</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
-      <main 
-        className='grid gap-50' 
-        style={{ 
-          backgroundColor: '#f5f5f5', 
-          gridTemplateRows: 'calc(100dvh - 1rem)', 
+      <main
+        className='grid gap-50'
+        style={{
+          backgroundColor: '#f5f5f5',
+          gridTemplateRows: 'calc(100dvh - 1rem)',
           gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr',
-          padding: isMobile ? '0' : '.5rem' 
+          padding: isMobile ? '0' : '.5rem'
         }}>
 
         {!isMobile ?
@@ -124,7 +124,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               <section>
                 <div className='padding-50' style={{ position: 'relative', width: 'fit-content' }}>
                   <input type="checkbox" id='toggle-nav' style={{ position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0' }} checked={isNavClosed}
-                    onClick={() => {
+                    onChange={() => {
                       // If the nav is currently open, remove the item from session storage, otherwise add it
                       if (isNavClosed) {
                         sessionStorage?.removeItem('navClosed')
@@ -150,14 +150,14 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                 {/* Buttons leading to other pages where one can add/edit projects to the database */}
                 {(user?.isAdmin || user?.isRecycler) && (
                   <>
-                    <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                      <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
-                      Redigera inlägg
-                    </Link>
-
                     <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
                       <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
                       Skapa nytt inlägg
+                    </Link>
+
+                    <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                      <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
+                      Redigera inlägg
                     </Link>
                   </>
                 )}
@@ -165,12 +165,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                 {/* Buttons leading to the admin pages */}
                 {user?.isAdmin && (
                   <>
-                    <Link href='/aterbruk/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                    <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
                       <Image src="/images/adminIcons/addUser.svg" alt='Lägg till ny användare' width={24} height={24} />
                       Skapa ny användare
                     </Link>
 
-                    <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                    <Link href='/admin/editUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
                       <Image src="/images/adminIcons/editUser.svg" alt='Redigera användare' width={24} height={24} />
                       Redigera användare
                     </Link>
@@ -179,6 +179,11 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               </section>
 
               <section>
+                <Link href='https://github.com/STUNS-Uppsala/Aterbrukskartan' target='_blank' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/github-mark.svg" alt='GitHub logo' width={24} height={24} />
+                  Se koden på GitHub
+                </Link>
+
                 {/* Logout button */}
                 {user && (
                   <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{ width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent' }}>

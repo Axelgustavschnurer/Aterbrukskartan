@@ -194,14 +194,14 @@ export default function MobileSidebar({ setFilter, currentMap, user }: { setFilt
             {/* Buttons leading to other pages where one can add/edit projects to the database */}
             {(user?.isAdmin || user?.isRecycler) && (
               <>
-                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
-                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
-                  Redigera inlägg
-                </Link>
-
                 <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
                   <Image src="/images/adminIcons/addToMap.svg" alt='Lägg till nytt projekt' width={24} height={24} />
                   Skapa nytt inlägg
+                </Link>
+
+                <Link href='/aterbruk/editPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
+                  <Image src="/images/adminIcons/edit.svg" alt='Redigera projekt' width={24} height={24} />
+                  Redigera inlägg
                 </Link>
               </>
             )}
@@ -223,6 +223,11 @@ export default function MobileSidebar({ setFilter, currentMap, user }: { setFilt
           </section>
 
           <section>
+            <Link href='https://github.com/STUNS-Uppsala/Aterbrukskartan' target='_blank' className='flex align-items-center gap-100 padding-50 navbar-link'>
+              <Image src="/github-mark.svg" alt='GitHub logo' width={24} height={24} />
+              Se koden på GitHub
+            </Link>
+
             {/* Logout button */}
             {user && (
               <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{ width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent' }}>

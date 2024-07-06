@@ -36,46 +36,49 @@ function LeafletAddressLookup({ setLat, setLon, lat, lon }: any) {
   };
 
   return (
-    <div className='card margin-block-200'>
-      <strong>Skriv adress</strong>
-
+    <>
       <div id="search">
-        <div id="searchDir" className='display-flex gap-50'>
-          <input type="text" name="addr" value={location} id="addr" onChange={(e) => setLocation(e.target.value)} />
-          <button id="addressBtn" type="button" className='cta' onClick={handleSearch}> Sök </button>
-        </div>
+        <label className='block margin-top-75'>
+          Adress
+          <div id="searchDir" className='display-flex gap-50 margin-top-25'>
+            <input type="text" name="addr" value={location} id="addr" onChange={(e) => setLocation(e.target.value)} /> {/* TODO: turn this into a select instead */}
+            <button id="addressBtn" type="button" onClick={handleSearch}> Sök </button>
+          </div>
+        </label>
 
         {/*Result of the search */}
         {results.length > 0 ? (
-          results.map((result: any) => (
-            <p 
-              style={{margin: 0}}
-              key={result.place_id}
-              className="address clicky"
-              title="Show Location and Coordinates"
-              onClick={() => handleAddressClick(result.lat, result.lon)}
-            >
-              {`• ${result.display_name}`}
-            </p>
-          ))
+          <ul>
+            {results.map((result: any) => ( // TODO: Use radio button for this?
+              <li
+                className='margin-block-25'
+                key={result.place_id}
+                title="Show Location and Coordinates"
+                onClick={() => handleAddressClick(result.lat, result.lon)}
+              >
+                {result.display_name}
+              </li>
+            ))}
+          </ul>
         ) : (
-          <p>Tyvärr, adressen hittades inte</p>
+          <small>Tyvärr, adressen hittades inte</small>
         )}
       </div>
 
       {/* Coordinates */}
-      <strong style={{margin: "2em 0 0 0"}}>Koordinater</strong>
-      <div className='display-flex gap-50'>
-        <div className='flex-grow-100'>
-          <label htmlFor="lat">Latitud</label>
+      <fieldset className='display-flex gap-50 margin-top-75' style={{padding: '.25rem 0 0 0', border: '0'}}>
+        <legend>Koordinater</legend>
+        <label className='flex-grow-100'>
+          Latitud
           <input type="text" name="lat" id="lat" placeholder='Latitud' value={lat} onChange={(e) => setLat(Number(e.target.value))} />
-        </div>
-        <div className='flex-grow-100'>
-          <label htmlFor="lon">Longitud</label>
+        </label>
+        <label className='flex-grow-100'>
+          Longitud
           <input type="text" name="lon" id="lon" placeholder='Longitud' value={lon} onChange={(e) => setLon(Number(e.target.value))} />
-        </div>
-      </div>
-    </div >
+        </label>
+      </fieldset>
+      
+    </>
   );
 };
 

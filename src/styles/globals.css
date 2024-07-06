@@ -26,9 +26,7 @@
 	box-sizing: inherit;
 }
 
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-@import url("forms.css");
 @import url("main.css");
 
 body {
@@ -114,17 +112,6 @@ p {
 	form .grid-auto-rows {
 		gap: 0;
 	}
-}
-
-/* Flex layouts */
-.clicky {
-	cursor: pointer;
-	padding: 1em;
-	border-radius: 3px;
-}
-
-.clicky:hover {
-	background-color: var(--light);
 }
 
 .danger {

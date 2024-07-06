@@ -432,57 +432,67 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     <>
       <Head>
         <title>Redigera inlägg</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
-      <div className="layout-main">
+      <div className="container-text" style={{marginInline: 'auto'}}>
         <main className="margin-block-100">
+
           <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Redigera ett inlägg
           </h1>
-          <form method="put" onSubmit={handleSubmit}>
-            <label htmlFor="project">Välj projekt</label>
-            <select
-              id="project"
-              name="project"
-              value={project ?? ''}
-              onChange={(e) => setProject(e.target.value)}
-            >
-              <option value="">Välj projekt</option>
-              {getProject()}
-            </select>
 
-            <label htmlFor="organisation">Organisation</label>
-            <select
-              id="organisation"
-              name="organisation"
-              value={organisation ?? ''}
-              onChange={(e) => setOrganisation(e.target.value)}
-            >
-              {organisationOptions()}
-              <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
-            </select>
+          <form method="put" onSubmit={handleSubmit}> 
+            <label className="block margin-block-75">
+              Välj projekt
+              <select
+                className="margin-block-25"
+                id="project"
+                name="project"
+                value={project ?? ''}
+                onChange={(e) => setProject(e.target.value)}
+              >
+                <option value="">Välj projekt</option>
+                {getProject()}
+              </select>
+            </label>
+
+            <label className="block margin-block-75">
+              Organisation 
+              <select
+                className="margin-block-25"
+                id="organisation"
+                name="organisation"
+                value={organisation ?? ''}
+                onChange={(e) => setOrganisation(e.target.value)}
+              >
+                {organisationOptions()}
+                <option key="addOrganisation" value="addOrganisation">Lägg till en organisation</option>
+              </select>
+            </label>
 
             {organisation === "addOrganisation" && (
-              <div>
-                <label htmlFor="newOrganisation">Ny organisation</label>
-                <input
-                  type="text"
-                  key="newOrganisation"
-                  id="newOrganisation"
-                  name="newOrganisation"
-                  value={newOrganisation}
-                  onChange={(e) => setNewOrganisation(e.target.value)}
-                />
-              </div>
-            )
-            }
+              <>
+                <label>
+                  Ny organisation
+                  <input
+                    type="text"
+                    key="newOrganisation"
+                    id="newOrganisation"
+                    name="newOrganisation"
+                    value={newOrganisation}
+                    onChange={(e) => setNewOrganisation(e.target.value)}
+                  />
+               </label> 
+              </>
+            )}
 
-            <section className="grid-auto-rows">
-              <div>
-                <label htmlFor="startYear">Startår</label>
+            <section className="grid-auto-rows"> 
+              <label className="block margin-block-75">
+                Startår
                 <input
+                  className="margin-block-25"
                   type="number"
                   id="startYear"
                   name="startYear"
@@ -490,26 +500,12 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                   min={yearLimitsRecycle.min}
                   onChange={(e) => setStartYear(e.target.value)}
                 />
-              </div>
+              </label>
 
-              {/* End year selection */}
-              <div>
-                <label htmlFor="endYear">Slutår</label>
-                <input
-                  type="number"
-                  id="endYear"
-                  name="endYear"
-                  value={endYear ?? ''}
-                  min={yearLimitsRecycle.min}
-                  onChange={(e) => setEndYear(e.target.value)}
-                />
-              </div>
-            </section>
-
-            <section className="grid-auto-rows">
-              <div>
-                <label htmlFor="startMonth">Startmånad</label>
+              <label className="block margin-block-75">
+                Startmånad
                 <select
+                  className="margin-block-25"
                   id="startMonth"
                   name="startMonth"
                   value={monthOptionArray.find((option) => option.value === startMonth)?.value}
@@ -517,153 +513,191 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
                 >
                   {monthOptions()}
                 </select>
-              </div>
+              </label>
+            </section>
 
-              {/* End month selection */}
-              <div>
-                <label htmlFor="endMonth">Slutmånad</label>
+            <section className="grid-auto-rows"> 
+              {/* End year selection */}
+              <label className="block margin-block-75">
+                Slutår
+                <input
+                  className="margin-block-25"
+                  type="number"
+                  id="endYear"
+                  name="endYear"
+                  value={endYear ?? ''}
+                  min={yearLimitsRecycle.min}
+                  onChange={(e) => setEndYear(e.target.value)}
+                />
+              </label>
+              
+              {/* End month selection */}             
+              <label className="block margin-block-75">
+                Slutmånad
                 <select
+                  className="margin-block-25"
                   id="endMonth"
                   name="endMonth"
                   value={monthOptionArray.find((option) => option.value === endMonth)?.value}
                   onChange={(e) => setEndMonth(e.target.value)}
                 >
                   {monthOptions()}
-                </select>
-              </div>
+                </select> 
+              </label>
             </section>
 
-            <strong>Typ av projekt</strong>
-            {projectTypeSelector()}
+            <fieldset className="margin-block-75">
+              <legend>Typ av projekt</legend>
+              {projectTypeSelector()}
+            </fieldset>
 
-            <strong>Plats</strong>
-            { // The map switch is hidden if no project is selected (by checking if mapItem exists)
-              !!selectedRecycleObject.mapItem &&
-              <label className="switch" style={{ width: "60px" }}>
-                <input
-                  id="switch-1"
-                  type="checkbox"
-                  onChange={(e) => setLocationToggle(e.target.checked)}
-                />
-                <span className="slider round" style={{ margin: "unset" }}></span>
-              </label>}
-            {
-              locationToggle === true ?
-                <>
-                  <p>Klicka på en plats på kartan eller dra i markören för att välja en plats</p>
-                  <NewPostMap
+            <fieldset className="margin-block-75">  
+              <legend className="display-flex align-items-center gap-50">
+                Plats
+                { // The map switch is hidden if no project is selected (by checking if mapItem exists)
+                !!selectedRecycleObject.mapItem &&
+                <label className="switch" style={{ width: "60px" }}>
+                  <input
+                    id="switch-1"
+                    type="checkbox"
+                    onChange={(e) => setLocationToggle(e.target.checked)}
+                  />
+                  <span className="slider round" style={{ margin: "unset" }}></span>
+                </label>
+              }
+              </legend> 
+              {
+                locationToggle === true ?
+                  <>
+                    <NewPostMap
+                      setLat={setLat}
+                      setLon={setLon}
+                      lat={lat ?? ''}
+                      lon={lon ?? ''}
+                      defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
+                      defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
+                    />
+                  </>
+                  :
+                  <LeafletAddressLookup
                     setLat={setLat}
                     setLon={setLon}
                     lat={lat ?? ''}
                     lon={lon ?? ''}
-                    defaultLat={selectedRecycleObject.mapItem?.latitude || 59.8586}
-                    defaultLon={selectedRecycleObject.mapItem?.longitude || 17.6389}
                   />
-                </>
-                :
-                <LeafletAddressLookup
-                  setLat={setLat}
-                  setLon={setLon}
-                  lat={lat ?? ''}
-                  lon={lon ?? ''}
-                />
-            }
+              }
+            </fieldset>
 
-            <div style={{ display: "flex", gap: "3em", flexWrap: "wrap" }}>
-              <div>
-                <strong>Erbjuds</strong>
+            <div className="flex gap-50 flex-wrap-wrap margin-block-100"> 
+              <fieldset className="flex-grow-100">
+                <legend>Erbjuds</legend>
                 {offers()}
-              </div>
-              <div>
-                <strong>Sökes</strong>
+              </fieldset>
+              <fieldset className="flex-grow-100">
+                <legend>Sökes</legend>
                 {searchingFors()}
-              </div>
+              </fieldset>
             </div>
 
-            <label htmlFor="description">Beskrivning</label>
-            <textarea
-              id="description"
-              name="description"
-              maxLength={3000}
-              placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
-              value={description ?? ''}
-              onChange={(e) => {
-                setDescription(e.target.value)
-              }}
-            />
+            <label className="block margin-block-75">
+              Beskrivning
+              <textarea
+                className="margin-block-25"
+                id="description"
+                name="description"
+                maxLength={3000}
+                placeholder="Hur mycket (Ex. mått och vikt) och kort om skicket på produkten."
+                value={description ?? ''}
+                onChange={(e) => {
+                  setDescription(e.target.value)
+                }}
+              />
+            </label>
 
-            <label htmlFor="contact">Kontakt</label>
-            <textarea
-              id="contact"
-              name="contact"
-              value={contact ?? ''}
-              onChange={(e) => setContact(e.target.value)}
-            />
+            <label className="block margin-block-75">
+              Kontakt
+              <textarea
+                className="margin-block-25"
+                id="contact"
+                name="contact"
+                value={contact ?? ''}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </label>
 
-            <label htmlFor="externalLinks">Länkar</label>
-            <textarea
-              id="externalLinks"
-              name="externalLinks"
-              value={externalLinks ?? ''}
-              onChange={(e) => setExternalLinks(e.target.value)}
-            />
-            <div>{message ? <p>{message}</p> : null}</div>
+            <label className="block margin-block-75">
+              Länkar
+              <textarea
+                className="margin-block-25"
+                id="externalLinks"
+                name="externalLinks"
+                value={externalLinks ?? ''}
+                onChange={(e) => setExternalLinks(e.target.value)}
+              />
+              <div>{message ? <p>{message}</p> : null}</div>
+            </label>
           </form >
 
           <div className="form">
             {/* Attachments */}
-            <label htmlFor="uploadFile"><strong>Dra och släpp, eller bläddra bland filer</strong></label>
-            <input type="file" id="uploadFile" name="file" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+            <fieldset className="margin-block-75" style={{padding: '0', border: '0'}}>
+              <label>
+                Dra och släpp, eller bläddra bland filer
+                <input type="file" id="uploadFile" name="file" className="margin-top-25" onChange={(e) => e.target.files ? setFileObject(e.target.files[0]) : setFileObject(null)} />
+              </label>
+              <small>Alla filformat accepteras, inklusive bilder och dokument. Maximal filstorlek är 1 MB. Du kan också ladda upp zip-filer för att underlätta nedladdning av flera filer samtidigt.</small>
 
-            <button type="button" id="removeFileButton" className="danger-secondary" onClick={() => {
-              let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
-              let container = new DataTransfer();
-              fileInput.files = container.files;
-              setFileObject(null)
-            }}>
-              Ta bort fil
-            </button>
-            {  // If the project has an attachment, show a button to reset the file input element to the file from the database
-              selectedRecycleObject.attachment &&
-              <button type="button" id="resetFileButton" className="danger-secondary" onClick={() => {
+              <button className="block margin-block-75" type="button" id="removeFileButton" onClick={() => {
                 let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
                 let container = new DataTransfer();
-                let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
-                container.items.add(file);
                 fileInput.files = container.files;
-                setFileObject(file)
+                setFileObject(null)
               }}>
-                Återställ ursprunglig fil
+                Ta bort fil
               </button>
-            }
+              {  // If the project has an attachment, show a button to reset the file input element to the file from the database
+                selectedRecycleObject.attachment &&
+                <button type="button" id="resetFileButton" className="danger-secondary" onClick={() => {
+                  let fileInput = document.querySelector("input[type=file]") as HTMLInputElement;
+                  let container = new DataTransfer();
+                  let file = new File([selectedRecycleObject.attachment!], selectedRecycleObject.attachmentName || "Unknown")
+                  container.items.add(file);
+                  fileInput.files = container.files;
+                  setFileObject(file)
+                }}>
+                  Återställ ursprunglig fil
+                </button>
+              }
+            </fieldset>
 
             {/* Publicity setting */}
+            <fieldset className="margin-block-75">
+              <legend>Ska det här projektet visas för alla på Återbrukskartan?</legend>
+              <div className="display-flex align-items-center gap-50">
+                <input
+                  type="radio"
+                  id="isPublicTrue"
+                  name="isPublic"
+                  value="true"
+                  checked={isPublic ?? false}
+                  onChange={(e) => setIsPublic(true)}
+                />
+                <label htmlFor="isPublicTrue">Ja</label>
+              </div>
+              <div className="display-flex align-items-center gap-50">
+                <input
+                  type="radio"
+                  id="isPublicFalse"
+                  name="isPublic"
+                  value="false"
+                  checked={!isPublic ?? false}
+                  onChange={(e) => setIsPublic(false)}
+                />
+                <label htmlFor="isPublicFalse">Nej</label>
+              </div>
+            </fieldset>
 
-            <strong>Ska det här projektet visas för alla på Återbrukskartan?</strong>
-            <div className="display-flex align-items-center gap-50">
-              <input
-                type="radio"
-                id="isPublicTrue"
-                name="isPublic"
-                value="true"
-                checked={isPublic ?? false}
-                onChange={(e) => setIsPublic(true)}
-              />
-              <label htmlFor="isPublicTrue">Ja</label>
-            </div>
-            <div className="display-flex align-items-center gap-50">
-              <input
-                type="radio"
-                id="isPublicFalse"
-                name="isPublic"
-                value="false"
-                checked={!isPublic ?? false}
-                onChange={(e) => setIsPublic(false)}
-              />
-              <label htmlFor="isPublicFalse">Nej</label>
-            </div>
-
-            <div className="display-flex gap-50 flex-wrap-wrap">
+            <div className="display-flex gap-50 flex-wrap-wrap margin-block-75">
               { // If the project is active, show a save button, else show a restore button
                 selectedRecycleObject.isActive === true ?
                   <button id="save" type="submit" onClick={handleSubmit}> Spara </button >
