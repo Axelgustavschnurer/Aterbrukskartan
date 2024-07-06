@@ -109,12 +109,10 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
       </Head>
 
       <main
-        className='grid gap-50'
+        className='grid gap-50 flex-grow-100'
         style={{
-          backgroundColor: '#f5f5f5',
           gridTemplateRows: 'calc(100dvh - 1rem)',
           gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr',
-          padding: isMobile ? '0' : '.5rem'
         }}>
 
         {!isMobile ?
@@ -140,8 +138,8 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                 {/* Login button  */}
                 {!user && (
                   <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
-                    Logga in
                     <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
+                    Logga in
                   </Link>
                 )}
               </section>
