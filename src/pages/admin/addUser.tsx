@@ -106,45 +106,58 @@ export default function Signup({ organisations }: InferGetServerSidePropsType<ty
     <>
       <Head>
         <title>Lägg till användare</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
-      <div className="container-text" style={{marginInline: 'auto'}}>
+      <div className="container-text" style={{ marginInline: 'auto' }}>
         <main className="margin-block-100">
-          <h1 className="display-flex align-items-center gap-50">         
+          <h1 className="display-flex align-items-center gap-50">
             <LinkIcon src="/back.svg" alt="back" />
             Lägg till användare
           </h1>
+
           <form onSubmit={handleSubmit}>
             {/* This hidden submit button prevents submitting by pressing enter, this avoids accidental submission when adding new organisations */}
             <input type="submit" disabled={true} style={{ display: 'none' }} aria-hidden={true} />
 
-            <h2>Användarinfo</h2>
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email" id="email" required={true} autoComplete="off" />
+            <fieldset className="margin-block-100">
+              <legend>Användarinfo</legend>
 
-            <label htmlFor="password">Lösenord</label>
-            <input type="password" name="password" id="password" required={true} autoComplete="new-password" />
+              <label className="block margin-block-75">
+                Email
+                <input className="margin-block-25" type="text" name="email" id="email" required={true} autoComplete="off" />
+              </label>
 
-            <div className="display-flex align-items-center gap-50">
-              <input type="checkbox" name="isRecycler" id="isRecycler" />
-              <label htmlFor="isRecycler">Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </label>
-            </div>
+              <label className="block margin-block-75">
+                Lösenord
+                <input className="margin-block-25" type="password" name="password" id="password" required={true} autoComplete="new-password" />
+              </label>
+              
+              <label className="display-flex align-items-center gap-50">
+                <input type="checkbox" name="isRecycler" id="isRecycler" />
+                Ska användaren kunna skapa och redigera inlägg på Återbrukskartan?
+              </label>
 
-            <div className="display-flex align-items-center gap-50">
-              <input type="checkbox" name="isStoryteller" id="isStoryteller" />
-              <label htmlFor="isStoryteller">Ska användaren kunna skapa och redigera Stories?</label>
-            </div>
+              <label className="display-flex align-items-center gap-50">
+                <input type="checkbox" name="isStoryteller" id="isStoryteller" />
+                Ska användaren kunna skapa och redigera Stories?
+              </label>
 
-            <div className="display-flex align-items-center gap-50">
-              <input type="checkbox" name="isAdmin" id="isAdmin" />
-              <label htmlFor="isAdmin"> Ska användaren ha admin-privilegier? </label>
-            </div>
+              <label className="display-flex align-items-center gap-50">
+                <input type="checkbox" name="isAdmin" id="isAdmin" />
+                Ska användaren ha admin-privilegier?
+              </label>
+            </fieldset>
 
-            <h2>Organisatiorisk tillhörighet</h2>
-            <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
-            <label htmlFor="organisation"> Ny organisation (Tryck enter om du vill lägga till mer än en organisation) </label>
-            <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
+            <fieldset className="margin-block-100">
+              <legend>Organisatiorisk tillhörighet</legend>
+              <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
+              <label className="block margin-block-75"> 
+                Ny organisation (Tryck enter om du vill lägga till mer än en organisation)
+                <input className="margin-block-25" type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
+              </label>
+            </fieldset>
+
             <input type="submit" id="save" value="Skapa Användare" />
           </form>
         </main>

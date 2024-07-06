@@ -82,10 +82,10 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
     <>
       <Head>
         <title>Uppdatera användare</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
-      <div className="container-text" style={{marginInline: 'auto'}}>
+      <div className="container-text" style={{ marginInline: 'auto' }}>
         {/* Form */}
         <main className="margin-block-100">
           <h1 className="display-flex align-items-center gap-50">
@@ -93,69 +93,66 @@ export default function UpdateUser({ organisations, users }: InferGetServerSideP
             Uppdatera användare
           </h1>
           <form onSubmit={handleSubmit}>
-            <select
-              name="email"
-              id="email"
-              value={user?.email ?? ""}
-              onChange={(event) => {
-                const selectedUser = users.find((user) => user.email === event.target.value)
-                if (selectedUser) {
-                  setUser(selectedUser)
-                  setCurrentOrgs(selectedUser.recycleOrganisations.map((org) => org.name))
-                }
-              }}
-            >
-              <option value="" disabled hidden>Välj användare</option>
-              {users?.map((user) => (
-                <option value={user.email} key={user.email}>{user.email}</option>
-              ))}
-            </select>
+            <fieldset className="margin-block-100">
+              <legend>Användarinfo</legend>
+              <label className="block margin-block-75">
+                Användare
+                <select
+                  className="margin-block-25"
+                  name="email"
+                  id="email"
+                  value={user?.email ?? ""}
+                  onChange={(event) => {
+                    const selectedUser = users.find((user) => user.email === event.target.value)
+                    if (selectedUser) {
+                      setUser(selectedUser)
+                      setCurrentOrgs(selectedUser.recycleOrganisations.map((org) => org.name))
+                    }
+                  }}
+                >
+                  <option value="" disabled hidden>Välj användare</option>
+                  {users?.map((user) => (
+                    <option value={user.email} key={user.email}>{user.email}</option>
+                  ))}
+                </select>
+              </label>
+              
+              <label className="display-flex align-items-center gap-50">
+                <input
+                  type="checkbox"
+                  name="isRecycler"
+                  id="isRecycler"
+                  checked={user?.isRecycler ?? false}
+                  onChange={(event) => {
+                    setUser({ ...user, isRecycler: event.target.checked })
+                  }}
+                />
+                Ska användaren kunna skapa och redigera inlägg på Återbrukskartan?
+              </label>
 
-            <div className="display-flex align-items-center gap-50">
-              <input
-                type="checkbox"
-                name="isRecycler"
-                id="isRecycler"
-                style={{ width: "20px", height: "20px" }}
-                checked={user?.isRecycler ?? false}
-                onChange={(event) => {
-                  setUser({ ...user, isRecycler: event.target.checked })
-                }}
-              />
-              <label htmlFor="isRecycler">Ska användaren kunna skapa och redigera inlägg på Återbrukskartan? </label>
-            </div>
+              <label className="display-flex align-items-center gap-50">
+                <input
+                  type="checkbox"
+                  name="isAdmin"
+                  id="isAdmin"
+                  checked={user?.isAdmin ?? false}
+                  onChange={(event) => {
+                    setUser({ ...user, isAdmin: event.target.checked })
+                  }}
+                />
+                Ska användaren ha admin-privilegier?
+              </label>
+            </fieldset>
+          
+            <fieldset className="margin-block-100">
+              <legend>Organisation</legend>
+              <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
 
-            <div className="display-flex align-items-center gap-50">
-              <input
-                type="checkbox"
-                name="isStoryteller"
-                id="isStoryteller"
-                checked={user?.isStoryteller ?? false}
-                onChange={(event) => {
-                  setUser({ ...user, isStoryteller: event.target.checked })
-                }}
-              />
-              <label htmlFor="isStoryteller">Ska användaren kunna skapa och redigera Stories? </label>
-            </div>
-
-            <div className="display-flex align-items-center gap-50">
-              <input
-                type="checkbox"
-                name="isAdmin"
-                id="isAdmin"
-                style={{ width: "20px", height: "20px" }}
-                checked={user?.isAdmin ?? false}
-                onChange={(event) => {
-                  setUser({ ...user, isAdmin: event.target.checked })
-                }}
-              />
-              <label htmlFor="isAdmin">Ska användaren ha admin-privilegier?</label>
-            </div>
-
-            <h2>Organisation</h2>
-            <OrgSelect orgs={orgs} currentOrgs={currentOrgs} setCurrentOrgs={setCurrentOrgs} />
-            <label htmlFor="organisation"> Ny organisation (Tryck enter om du vill lägga till mer än en organisation) </label>
-            <input type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
+              <label className="block margin-block-75">
+                Ny organisation (Tryck enter om du vill lägga till mer än en organisation)
+                <input className="margin-block-25" type="text" name="newOrganisation" id="newOrganisation" autoComplete="organization" onKeyDown={(event) => handleKeyDown(event, orgs, setOrgs, currentOrgs, setCurrentOrgs)} />
+              </label>
+            </fieldset>
 
             <input type="submit" id='save' value="Uppdatera" />
 

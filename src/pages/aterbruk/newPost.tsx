@@ -318,7 +318,7 @@ export default function AddNewPost({ user }: InferGetServerSidePropsType<typeof 
     <>
       <Head>
         <title>Lägg till inlägg</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
       <div className="container-text" style={{ marginInline: 'auto' }}>

@@ -32,7 +32,7 @@ export default function Login() {
     <>
       <Head>
         <title>Logga In</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
       <div className="layout-main">

@@ -105,7 +105,7 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
     <>
       <Head>
         <title>Återbrukskartan</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
       <main

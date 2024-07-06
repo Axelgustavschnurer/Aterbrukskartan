@@ -32,7 +32,7 @@ export default function Login() {
     <>
       <Head>
         <title>Byt lösenord</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
       {/* Form */}

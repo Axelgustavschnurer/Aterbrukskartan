@@ -76,6 +76,11 @@ input[type=week]):focus {
   background-color: transparent;
 }
 
+/* Legend */
+:where(legend) {
+  font-weight: 500;
+}
+
 /* Fieldset */
 :where(fieldset) {
   display: block;

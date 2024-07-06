@@ -432,7 +432,7 @@ export default function EditPost({ user }: InferGetServerSidePropsType<typeof ge
     <>
       <Head>
         <title>Redigera inlägg</title>
-        <link rel="icon" type="image/x-icon" href="/stunsicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/favicon.svg" />
       </Head>
 
       <div className="container-text" style={{marginInline: 'auto'}}>
