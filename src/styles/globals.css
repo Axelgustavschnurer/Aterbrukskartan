@@ -337,3 +337,16 @@ textarea {
 aside:has(#toggle-nav:checked) {
 	width: calc(24px + 2rem);
 }
+
+#filter-menu-toggle {
+	width: 24px;
+	height: 24px;
+}
+
+#filter-menu {
+	transition: transform .3s ease;
+}
+
+#filter-menu:has(#filter-menu-toggle:checked) {
+	transform: translate(calc(-100% + 24px), 0);
+}

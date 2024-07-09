@@ -110,15 +110,12 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
 
       <main
         className='grid gap-50 flex-grow-100'
-        style={{
-          gridTemplateRows: 'calc(100dvh - 1rem)',
-          gridTemplateColumns: isMobile ? 'auto' : 'auto auto 1fr',
-        }}>
-
+        style={{position: 'relative', overflow: 'hidden'}} 
+      >
+    
         {!isMobile ?
           <>
-            <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
-
+            {/* <aside className='padding-50 flex' style={{ backgroundColor: 'white', borderRadius: '.5rem', flexDirection: 'column', overflow: 'hidden' }}>
               <section>
                 <div className='padding-50' style={{ position: 'relative', width: 'fit-content' }}>
                   <input type="checkbox" id='toggle-nav' style={{ position: 'absolute', left: '0', top: '0', height: '100%', width: '100%', zIndex: '2', opacity: '0' }} checked={isNavClosed}
@@ -135,7 +132,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                   <Image src='/hamburger.svg' alt='Växla navigering' width={24} height={24} style={{ display: 'grid' }} />
                 </div>
 
-                {/* Login button  */}
                 {!user && (
                   <Link href="/login" className='flex align-items-center gap-100 padding-50 navbar-link'>
                     <Image src="/images/adminIcons/login.svg" alt='Logga in' width={24} height={24} />
@@ -145,7 +141,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
               </section>
 
               <section className='flex-grow-100 padding-block-100'>
-                {/* Buttons leading to other pages where one can add/edit projects to the database */}
                 {(user?.isAdmin || user?.isRecycler) && (
                   <>
                     <Link href='/aterbruk/newPost' className='flex align-items-center gap-100 padding-50 navbar-link'>
@@ -160,7 +155,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                   </>
                 )}
 
-                {/* Buttons leading to the admin pages */}
                 {user?.isAdmin && (
                   <>
                     <Link href='/admin/addUser' className='flex align-items-center gap-100 padding-50 navbar-link'>
@@ -182,7 +176,6 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                   Se koden på GitHub
                 </Link>
 
-                {/* Logout button */}
                 {user && (
                   <button type="button" onClick={logoutFunction} className='flex align-items-center padding-50 gap-100' style={{ width: '100%', fontSize: '1rem', fontWeight: '500', backgroundColor: 'transparent' }}>
                     <Image src="/images/adminIcons/logout.svg" alt='Logga ut' width={24} height={24} />
@@ -190,36 +183,53 @@ export default function HomePage({ user }: InferGetServerSidePropsType<typeof ge
                   </button>
                 )}
               </section>
-            </aside>
+            </aside> */}
 
-            <aside className='padding--block-50' style={{ backgroundColor: 'white', borderRadius: '.5rem', paddingTop: '0' }}>
-              <label className='block padding-50'>
-                <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center padding-block-50'>
-                  <h1 style={{ fontSize: '1.25rem', margin: '0' }}>Sök bland projekt</h1>
-                  <Image src='/question.svg' alt='hjälp' width={24} height={24} style={{ cursor: 'help' }} />
-                </div>
-                <input
-                  type="search"
-                  className='margin-block-25 padding-50'
-                  placeholder="Ex. projekttyp, startår, material etc..."
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                />
-              </label>
-
-              <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 100px)' }}>
-                <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
-                  <Sidebar
-                    monthArray={monthArray}
-                    maxCategoryAmount={maxCategoryAmount}
-                    currentFilter={currentFilter}
-                    setFilter={setFilter}
-                    currentMap="Recycle"
-                    user={user}
+            <div className='flex align-items-center' id='filter-menu' style={{                  
+              position: 'absolute',
+              left: '0',
+              top: '0',
+              borderRadius: '.5rem 0 0 .5rem', 
+              paddingTop: '0',
+              zIndex: '99',
+              height: '100%'
+            }}>
+              <aside className='padding-block-50' 
+                style={{ 
+                  backgroundColor: 'white', 
+                  height: '100%',
+                }}>
+                <label className='block padding-50'>
+                  <div className='flex gap-100 flex-wrap-wrap justify-content-space-between align-items-center padding-block-50'>
+                    <h1 style={{ fontSize: '1.25rem', margin: '0' }}>Sök bland projekt</h1>
+                    <Image src='/question.svg' alt='hjälp' width={24} height={24} style={{ cursor: 'help' }} />
+                  </div>
+                  <input
+                    type="search"
+                    className='margin-block-25 padding-50'
+                    placeholder="Ex. projekttyp, startår, material etc..."
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
                   />
+                </label>
+
+                <div className='padding-right-50 padding-block-50' style={{ height: 'calc(100% - 100px)' }}>
+                  <div className='padding-inline-50' style={{ borderRadius: '.5rem', maxHeight: '100%', overflowY: 'scroll' }}>
+                    <Sidebar
+                      monthArray={monthArray}
+                      maxCategoryAmount={maxCategoryAmount}
+                      currentFilter={currentFilter}
+                      setFilter={setFilter}
+                      currentMap="Recycle"
+                      user={user}
+                    />
+                  </div>
                 </div>
+              </aside>
+              <div>
+                <input type='checkbox' id='filter-menu-toggle' />
               </div>
-            </aside>
+            </div>
           </>
         : <MobileSidebar
             setFilter={setFilter}
